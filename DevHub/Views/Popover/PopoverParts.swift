@@ -75,6 +75,7 @@ struct NotSetUpRow: View {
                     Text(message).font(.system(size: 12)).foregroundStyle(.secondary)
                 }
                 Button("Open Settings") {
+                    AppActivation.dismissMenuBarPopover()
                     settings.selectedTab = bucket.settingsTab
                     openSettings()
                     AppActivation.bringToFront()
@@ -132,6 +133,7 @@ struct PopoverFooter: View {
                 Spacer()
 
                 Button("Open window") {
+                    AppActivation.dismissMenuBarPopover()
                     openWindow(id: MainWindow.id)
                     AppActivation.bringToFront()
                 }
@@ -141,6 +143,7 @@ struct PopoverFooter: View {
 
                 Menu {
                     Button("Settings…") {
+                        AppActivation.dismissMenuBarPopover()
                         openSettings()
                         AppActivation.bringToFront()
                     }

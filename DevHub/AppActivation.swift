@@ -22,4 +22,10 @@ enum AppActivation {
     static func bringToFront() {
         NSApp.activate()
     }
+
+    /// Closes the menu bar popover. Call it before a button in the popover opens a window, so the popover does not stay over it.
+    static func dismissMenuBarPopover() {
+        let popover = NSApp.keyWindow as? NSPanel ?? NSApp.windows.first { $0 is NSPanel && $0.isVisible }
+        popover?.close()
+    }
 }

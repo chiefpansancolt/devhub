@@ -127,7 +127,6 @@ private struct HistoryRow: View {
 
     var body: some View {
         let isSelected = ui.page == .history
-        let today = state.history.entries.filter { Calendar.current.isDateInToday($0.timestamp) }.count
         Button {
             ui.showHistory()
         } label: {
@@ -138,7 +137,6 @@ private struct HistoryRow: View {
                     .accessibilityHidden(true)
                 Text("History").font(.system(size: 13, weight: isSelected ? .semibold : .regular))
                 Spacer()
-                Text("\(today)").font(.system(size: 12)).monospacedDigit().foregroundStyle(.secondary)
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 6)

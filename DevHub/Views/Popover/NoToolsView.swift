@@ -17,6 +17,7 @@ struct NoToolsView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
             Button("Open Settings") {
+                AppActivation.dismissMenuBarPopover()
                 settings.selectedTab = .general
                 openSettings()
                 AppActivation.bringToFront()
