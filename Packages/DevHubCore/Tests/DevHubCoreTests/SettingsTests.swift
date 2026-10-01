@@ -457,3 +457,145 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         #expect(state.history.retention == .thirtyDays)
     }
 }
+
+@MainActor
+@Suite struct TurnedOffToolsTests {
+    @Test func everyToolIsOnByDefault() {
+        #expect(SettingsValues().disabledBuckets.isEmpty)
+    }
+
+    @Test func theChoiceIsSavedAndReadBack() {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = SettingsStore(defaults: defaults)
+
+        store.values.disabledBuckets = [.ruby, .node]
+
+        #expect(SettingsStore(defaults: defaults).values.disabledBuckets == [.ruby, .node])
+    }
+
+    @Test func aFileWithoutTheFieldLoadsWithEveryToolOn() {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set(Data(#"{"checkInterval":"daily"}"#.utf8), forKey: "settings.v1")
+
+        #expect(SettingsStore(defaults: defaults).values.disabledBuckets.isEmpty)
+    }
+
+    @Test func turningAToolOnOrOffTriggersANewScan() {
+        let base = SettingsValues()
+        var off = base
+        off.disabledBuckets = [.ruby]
+
+        #expect(base.scanningFields != off.scanningFields)
+    }
+
+    @Test func aToolThatIsOffHasNoInstallationAndNoSetupProblem() throws {
+        let home = try TemporaryHome()
+        defer { home.remove() }
+        try home.makeExecutable("node/v22.0.0/bin/npm")
+        var settings = SettingsValues()
+        settings.nodeFolder = home.url.appending(path: "node").path
+        settings.brewPath = "/nonexistent/bin/brew"
+        settings.rubyFolder = "/nonexistent/ruby"
+        settings.disabledBuckets = [.node, .homebrew]
+
+        let toolchain = Toolchain.detect(settings: settings)
+
+        #expect(toolchain.node.isEmpty)
+        #expect(toolchain.homebrew == nil)
+        #expect(toolchain.setupProblems[.node] == nil)
+        #expect(toolchain.setupProblems[.homebrew] == nil)
+        #expect(toolchain.setupProblems[.ruby] != nil)
+        #expect(toolchain.scanners(runner: CommandRunner()).isEmpty)
+    }
+
+    @Test func settingsCanStillSeeAToolThatIsOff() throws {
+        let home = try TemporaryHome()
+        defer { home.remove() }
+        try home.makeExecutable("node/v22.0.0/bin/npm")
+        var settings = SettingsValues()
+        settings.nodeFolder = home.url.appending(path: "node").path
+        settings.disabledBuckets = [.node]
+
+        let toolchain = Toolchain.detect(settings: settings, includingDisabledTools: true)
+
+        #expect(toolchain.node.map(\.version) == ["22.0.0"])
+    }
+
+    @Test func theStateListsOnlyTheToolsThatAreOn() async {
+        let machine = FakeMachine(packages: [outdatedPackage("git")])
+        let state = AppState(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: machine.runner)
+        #expect(state.enabledBuckets == [.homebrew, .node, .ruby])
+
+        var settings = SettingsValues()
+        settings.brewPath = "/nonexistent/bin/brew"
+        settings.nodeFolder = "/nonexistent/node"
+        settings.rubyFolder = "/nonexistent/ruby"
+        settings.disabledBuckets = [.ruby]
+        state.apply(settings)
+
+        #expect(state.enabledBuckets == [.homebrew, .node])
+        #expect(state.disabledBuckets == [.ruby])
+        #expect(state.setupProblems[.ruby] == nil)
+        #expect(state.setupProblems[.node] != nil)
+    }
+
+    @Test func turningATurnedOffToolBackOnShowsItAgain() async {
+        let machine = FakeMachine(packages: [])
+        let state = AppState(scanners: [:], runner: machine.runner)
+        var settings = SettingsValues()
+        settings.brewPath = "/nonexistent/bin/brew"
+        settings.nodeFolder = "/nonexistent/node"
+        settings.rubyFolder = "/nonexistent/ruby"
+        settings.disabledBuckets = [.homebrew]
+        state.apply(settings)
+        #expect(state.setupProblems[.homebrew] == nil)
+
+        settings.disabledBuckets = []
+        state.apply(settings)
+
+        #expect(state.setupProblems[.homebrew] != nil)
+        #expect(state.enabledBuckets.contains(.homebrew))
+    }
+
+    @Test func theCheckDoesNotScanAToolThatIsOff() async {
+        let machine = FakeMachine(packages: [outdatedPackage("git")])
+        let state = AppState(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: machine.runner)
+        await state.refresh()
+        #expect(state.totalOutdated == 1)
+
+        var settings = SettingsValues()
+        settings.brewPath = "/nonexistent/bin/brew"
+        settings.nodeFolder = "/nonexistent/node"
+        settings.rubyFolder = "/nonexistent/ruby"
+        settings.disabledBuckets = [.homebrew]
+        state.apply(settings)
+
+        #expect(state.totalOutdated == 0)
+        #expect(state.readyBuckets.isEmpty)
+    }
+
+    @Test func withEveryToolOffThePopoverSaysSo() {
+        let machine = FakeMachine(packages: [])
+        let state = AppState(scanners: [:], runner: machine.runner)
+        var settings = SettingsValues()
+        settings.disabledBuckets = [.homebrew, .node, .ruby]
+
+        state.apply(settings)
+
+        #expect(state.enabledBuckets.isEmpty)
+        #expect(state.popoverMode == .noTools)
+    }
+
+    @Test func aCheckWithNothingToScanLeavesNoHistoryEntry() async {
+        let machine = FakeMachine(packages: [])
+        let state = AppState(scanners: [:], runner: machine.runner)
+
+        await state.refresh()
+
+        #expect(state.history.entries.isEmpty)
+    }
+}

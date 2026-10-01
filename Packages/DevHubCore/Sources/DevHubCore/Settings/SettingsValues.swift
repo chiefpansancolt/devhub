@@ -31,6 +31,10 @@ public enum MenuBarIconStyle: String, Codable, Sendable, CaseIterable {
 
 /// Everything the person can set. Stored as one JSON value, so a new field with a default never breaks an old file.
 public struct SettingsValues: Codable, Equatable, Sendable {
+    // Tools
+    /// The tools the person turned off, for example because they do not use Ruby. A tool that is off is not scanned and not shown.
+    public var disabledBuckets: Set<Bucket> = []
+
     // General
     public var checkInterval = CheckInterval.everyFourHours
     public var checkOnLaunch = true
@@ -75,6 +79,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         func value<Value: Decodable>(_ key: CodingKeys, _ fallback: Value) -> Value {
             (try? container.decodeIfPresent(Value.self, forKey: key)) ?? fallback
         }
+        disabledBuckets = value(.disabledBuckets, disabledBuckets)
         checkInterval = value(.checkInterval, checkInterval)
         checkOnLaunch = value(.checkOnLaunch, checkOnLaunch)
         checkOnWake = value(.checkOnWake, checkOnWake)
@@ -99,6 +104,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     }
 
     private enum CodingKeys: String, CodingKey {
+        case disabledBuckets
         case checkInterval, checkOnLaunch, checkOnWake, confirmUninstall, confirmUpdateAll, showOutputLog
         case theme, menuBarIconStyle
         case brewPath, brewRefreshIndex, brewIncludeCasks, brewIncludeSelfUpdatingCasks, brewCleanupAfterUpdate
@@ -109,6 +115,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
 
     /// The fields that change what a scan finds. When one changes, DevHub scans again.
     struct ScanningFields: Equatable {
+        let disabledBuckets: Set<Bucket>
         let brewPath: String?
         let includeCasks: Bool
         let includeSelfUpdatingCasks: Bool
@@ -121,6 +128,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
 
     var scanningFields: ScanningFields {
         ScanningFields(
+            disabledBuckets: disabledBuckets,
             brewPath: brewPath,
             includeCasks: brewIncludeCasks,
             includeSelfUpdatingCasks: brewIncludeSelfUpdatingCasks,

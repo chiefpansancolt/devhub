@@ -13,6 +13,8 @@ extension Bucket {
 }
 
 public enum PopoverMode: Sendable, Equatable {
+    /// Every tool is turned off in Settings.
+    case noTools
     /// The first scan has not finished.
     case checking
     case upToDate
@@ -53,6 +55,8 @@ public final class AppState {
     public private(set) var log: [LogLine] = []
     /// Buckets that cannot be scanned, with the reason.
     public private(set) var setupProblems: [Bucket: String]
+    /// The tools the person turned off. They are not scanned and not shown.
+    public private(set) var disabledBuckets: Set<Bucket> = []
     /// Every check, update and uninstall, newest first. Also written to the history file.
     public let history: HistoryStore
 
@@ -106,6 +110,7 @@ public final class AppState {
             checkInterval: settings.checkInterval.duration
         )
         self.settings = settings
+        disabledBuckets = settings.disabledBuckets
     }
 
     // MARK: Settings
@@ -126,6 +131,7 @@ public final class AppState {
         actions = PackageActionRunner(scanners: scanners, runner: runner)
         knownVersions = [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)]
         setupProblems = toolchain.setupProblems
+        disabledBuckets = newSettings.disabledBuckets
         results = results.filter { scanners[$0.key] != nil }
 
         if scheduleTask != nil, previous?.checkInterval != newSettings.checkInterval {
@@ -141,6 +147,11 @@ public final class AppState {
     }
 
     // MARK: Reading the state
+
+    /// The buckets that are turned on, in sidebar order. One that is on but not set up is still listed, with its reason.
+    public var enabledBuckets: [Bucket] {
+        Bucket.allCases.filter { !disabledBuckets.contains($0) }
+    }
 
     /// The buckets that can be scanned, in sidebar order.
     public var readyBuckets: [Bucket] {
@@ -214,6 +225,7 @@ public final class AppState {
     }
 
     public var popoverMode: PopoverMode {
+        if enabledBuckets.isEmpty { return .noTools }
         if let session {
             return session.isRunning ? .updating : .summary
         }
@@ -258,7 +270,7 @@ public final class AppState {
 
         lastChecked = now()
         nextCheck = checkInterval.map { now().addingTimeInterval($0.seconds) }
-        if reason == .check {
+        if reason == .check, !scanners.isEmpty {
             history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
         }
         if scanAgainWhenDone {

@@ -27,12 +27,21 @@ public struct Toolchain: Sendable {
     public var ruby: [RubyInstallation]
     /// Why a path the person chose does not work. It replaces the usual message for that bucket.
     private var chosenPathProblems: [Bucket: String]
+    /// The tools the person turned off. They have no installation and no setup problem.
+    public private(set) var disabled: Set<Bucket>
 
-    public init(homebrew: HomebrewInstallation?, node: [NodeInstallation], ruby: [RubyInstallation], chosenPathProblems: [Bucket: String] = [:]) {
+    public init(
+        homebrew: HomebrewInstallation?,
+        node: [NodeInstallation],
+        ruby: [RubyInstallation],
+        chosenPathProblems: [Bucket: String] = [:],
+        disabled: Set<Bucket> = []
+    ) {
         self.homebrew = homebrew
         self.node = node
         self.ruby = ruby
         self.chosenPathProblems = chosenPathProblems
+        self.disabled = disabled
     }
 
     public static func detect() -> Toolchain {
@@ -41,7 +50,9 @@ public struct Toolchain: Sendable {
 
     /// Looks where the settings say. A path the person chose replaces the usual search for that bucket.
     /// Versions that the person turned off are left out, unless `applyingExclusions` is `false`.
-    public static func detect(settings: SettingsValues, applyingExclusions: Bool = true) -> Toolchain {
+    /// Tools that the person turned off are left out, unless `includingDisabledTools` is `true`. The Settings screen
+    /// uses that to say whether a tool is on this Mac even when it is turned off.
+    public static func detect(settings: SettingsValues, applyingExclusions: Bool = true, includingDisabledTools: Bool = false) -> Toolchain {
         var problems: [Bucket: String] = [:]
 
         var homebrew = HomebrewLocator.locate()
@@ -72,7 +83,18 @@ public struct Toolchain: Sendable {
             if ruby.isEmpty { problems[.ruby] = "Every Ruby version is turned off in Settings." }
         }
 
-        return Toolchain(homebrew: homebrew, node: node, ruby: ruby, chosenPathProblems: problems)
+        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, chosenPathProblems: problems)
+        if !includingDisabledTools {
+            toolchain.turnOff(settings.disabledBuckets)
+        }
+        return toolchain
+    }
+
+    private mutating func turnOff(_ buckets: Set<Bucket>) {
+        disabled = buckets
+        if buckets.contains(.homebrew) { homebrew = nil }
+        if buckets.contains(.node) { node = [] }
+        if buckets.contains(.ruby) { ruby = [] }
     }
 
     public func scanners(runner: CommandRunning, options: ScannerOptions = ScannerOptions()) -> [Bucket: any PackageScanner] {
@@ -89,7 +111,7 @@ public struct Toolchain: Sendable {
         return scanners
     }
 
-    /// Why a bucket cannot be scanned. A bucket that is not listed here is ready.
+    /// Why a bucket cannot be scanned. A bucket that is not listed here is ready, or turned off.
     public var setupProblems: [Bucket: String] {
         var problems: [Bucket: String] = [:]
         if homebrew == nil {
@@ -101,6 +123,7 @@ public struct Toolchain: Sendable {
         if ruby.isEmpty {
             problems[.ruby] = chosenPathProblems[.ruby] ?? "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf."
         }
+        for bucket in disabled { problems[bucket] = nil }
         return problems
     }
 }
