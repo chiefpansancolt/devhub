@@ -5,10 +5,16 @@ let package = Package(
     name: "DevHubCore",
     platforms: [.macOS(.v15)],
     products: [
-        .library(name: "DevHubCore", targets: ["DevHubCore"])
+        .library(name: "DevHubCore", targets: ["DevHubCore"]),
+        .executable(name: "devhub-scan", targets: ["devhub-scan"])
     ],
     targets: [
         .target(name: "DevHubCore"),
-        .testTarget(name: "DevHubCoreTests", dependencies: ["DevHubCore"])
+        .executableTarget(name: "devhub-scan", dependencies: ["DevHubCore"]),
+        .testTarget(
+            name: "DevHubCoreTests",
+            dependencies: ["DevHubCore"],
+            resources: [.copy("Fixtures")]
+        )
     ]
 )

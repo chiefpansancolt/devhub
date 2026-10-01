@@ -1,0 +1,962 @@
+{
+  "formulae": [
+    {
+      "name": "adns",
+      "installed_versions": [
+        "1.6.1"
+      ],
+      "current_version": "1.7.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "aom",
+      "installed_versions": [
+        "3.13.1"
+      ],
+      "current_version": "3.15.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "autoconf",
+      "installed_versions": [
+        "2.72"
+      ],
+      "current_version": "2.73",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "automake",
+      "installed_versions": [
+        "1.17"
+      ],
+      "current_version": "1.19",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "bat",
+      "installed_versions": [
+        "0.25.0_1"
+      ],
+      "current_version": "0.26.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "bdw-gc",
+      "installed_versions": [
+        "8.2.8"
+      ],
+      "current_version": "8.2.12",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "ca-certificates",
+      "installed_versions": [
+        "2025-09-09"
+      ],
+      "current_version": "2026-09-25",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "cairo",
+      "installed_versions": [
+        "1.18.4"
+      ],
+      "current_version": "1.18.6",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "certifi",
+      "installed_versions": [
+        "2025.4.26"
+      ],
+      "current_version": "2026.7.22",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "cffi",
+      "installed_versions": [
+        "1.17.1_1"
+      ],
+      "current_version": "2.1.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "cloc",
+      "installed_versions": [
+        "2.08"
+      ],
+      "current_version": "2.10",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "cmake",
+      "installed_versions": [
+        "3.31.0"
+      ],
+      "current_version": "4.4.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "colordiff",
+      "installed_versions": [
+        "1.0.21"
+      ],
+      "current_version": "1.0.22",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "coreutils",
+      "installed_versions": [
+        "9.5"
+      ],
+      "current_version": "9.12",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "cypher-shell",
+      "installed_versions": [
+        "2025.05.0"
+      ],
+      "current_version": "2026.09.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "fd",
+      "installed_versions": [
+        "10.2.0"
+      ],
+      "current_version": "10.5.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "fontconfig",
+      "installed_versions": [
+        "2.17.1"
+      ],
+      "current_version": "2.18.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "freetype",
+      "installed_versions": [
+        "2.13.3",
+        "2.14.2"
+      ],
+      "current_version": "2.14.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "fribidi",
+      "installed_versions": [
+        "1.0.16"
+      ],
+      "current_version": "1.0.17",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "fzy",
+      "installed_versions": [
+        "1.0"
+      ],
+      "current_version": "1.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "gdbm",
+      "installed_versions": [
+        "1.24"
+      ],
+      "current_version": "1.26",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "gdk-pixbuf",
+      "installed_versions": [
+        "2.44.5"
+      ],
+      "current_version": "2.44.8",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "gh",
+      "installed_versions": [
+        "2.101.0"
+      ],
+      "current_version": "2.102.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "giflib",
+      "installed_versions": [
+        "5.2.2"
+      ],
+      "current_version": "6.1.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "git",
+      "installed_versions": [
+        "2.47.0"
+      ],
+      "current_version": "2.56.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "glib",
+      "installed_versions": [
+        "2.84.3",
+        "2.86.4"
+      ],
+      "current_version": "2.90.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "gnutls",
+      "installed_versions": [
+        "3.8.9"
+      ],
+      "current_version": "3.8.13_2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "graphite2",
+      "installed_versions": [
+        "1.3.14"
+      ],
+      "current_version": "1.3.15",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "guile",
+      "installed_versions": [
+        "3.0.10"
+      ],
+      "current_version": "3.0.11",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "harfbuzz",
+      "installed_versions": [
+        "11.2.1",
+        "13.1.0"
+      ],
+      "current_version": "14.5.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "highlight",
+      "installed_versions": [
+        "4.14"
+      ],
+      "current_version": "4.21",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "highway",
+      "installed_versions": [
+        "1.3.0"
+      ],
+      "current_version": "1.4.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "icu4c@76",
+      "installed_versions": [
+        "76.1_1"
+      ],
+      "current_version": "76.1_2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "icu4c@77",
+      "installed_versions": [
+        "77.1"
+      ],
+      "current_version": "77.1_1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "icu4c@78",
+      "installed_versions": [
+        "78.2"
+      ],
+      "current_version": "78.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "imagemagick",
+      "installed_versions": [
+        "7.1.2-16"
+      ],
+      "current_version": "7.1.2-32",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "imath",
+      "installed_versions": [
+        "3.2.2"
+      ],
+      "current_version": "3.2.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "jansson",
+      "installed_versions": [
+        "2.14"
+      ],
+      "current_version": "2.15.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "jemalloc",
+      "installed_versions": [
+        "5.3.0"
+      ],
+      "current_version": "5.4.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "jpeg",
+      "installed_versions": [
+        "9f"
+      ],
+      "current_version": "10",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "jpeg-turbo",
+      "installed_versions": [
+        "3.0.4",
+        "3.1.1",
+        "3.1.3"
+      ],
+      "current_version": "3.2.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "jpeg-xl",
+      "installed_versions": [
+        "0.11.2"
+      ],
+      "current_version": "0.12.0_1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libassuan",
+      "installed_versions": [
+        "3.0.1"
+      ],
+      "current_version": "3.0.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libde265",
+      "installed_versions": [
+        "1.0.16"
+      ],
+      "current_version": "1.1.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libdeflate",
+      "installed_versions": [
+        "1.25"
+      ],
+      "current_version": "1.26",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libevent",
+      "installed_versions": [
+        "2.1.12_1"
+      ],
+      "current_version": "2.1.13",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libffi",
+      "installed_versions": [
+        "3.4.6"
+      ],
+      "current_version": "3.8.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libgcrypt",
+      "installed_versions": [
+        "1.10.3"
+      ],
+      "current_version": "1.12.4",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libgit2",
+      "installed_versions": [
+        "1.9.1"
+      ],
+      "current_version": "1.9.7",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libgpg-error",
+      "installed_versions": [
+        "1.51"
+      ],
+      "current_version": "1.61",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libheif",
+      "installed_versions": [
+        "1.21.2"
+      ],
+      "current_version": "1.23.5",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libksba",
+      "installed_versions": [
+        "1.6.7"
+      ],
+      "current_version": "1.8.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libnghttp2",
+      "installed_versions": [
+        "1.64.0",
+        "1.65.0"
+      ],
+      "current_version": "1.70.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libpng",
+      "installed_versions": [
+        "1.6.44",
+        "1.6.49",
+        "1.6.55"
+      ],
+      "current_version": "1.6.59",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "librsvg",
+      "installed_versions": [
+        "2.62.0"
+      ],
+      "current_version": "2.63.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libsodium",
+      "installed_versions": [
+        "1.0.20"
+      ],
+      "current_version": "1.0.22",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libssh2",
+      "installed_versions": [
+        "1.11.1"
+      ],
+      "current_version": "1.11.1_6",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libtasn1",
+      "installed_versions": [
+        "4.20.0"
+      ],
+      "current_version": "4.21.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libtiff",
+      "installed_versions": [
+        "4.7.1_1"
+      ],
+      "current_version": "4.7.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libtool",
+      "installed_versions": [
+        "2.5.4"
+      ],
+      "current_version": "2.6.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libusb",
+      "installed_versions": [
+        "1.0.27"
+      ],
+      "current_version": "1.0.30",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libuv",
+      "installed_versions": [
+        "1.49.2"
+      ],
+      "current_version": "1.53.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libvmaf",
+      "installed_versions": [
+        "3.0.0"
+      ],
+      "current_version": "3.2.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "libzip",
+      "installed_versions": [
+        "1.11.1"
+      ],
+      "current_version": "1.11.4_1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "little-cms2",
+      "installed_versions": [
+        "2.18"
+      ],
+      "current_version": "2.19.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "lua",
+      "installed_versions": [
+        "5.4.7"
+      ],
+      "current_version": "5.5.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "luajit",
+      "installed_versions": [
+        "2.1.1727870382"
+      ],
+      "current_version": "2.1.1788856981",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "lxc",
+      "installed_versions": [
+        "6.4"
+      ],
+      "current_version": "6.9",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "msgpack",
+      "installed_versions": [
+        "6.1.0"
+      ],
+      "current_version": "7.0.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "mupdf-tools",
+      "installed_versions": [
+        "1.24.10"
+      ],
+      "current_version": "1.28.5",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "ncurses",
+      "installed_versions": [
+        "6.5"
+      ],
+      "current_version": "6.6",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "neo4j",
+      "installed_versions": [
+        "2025.05.0"
+      ],
+      "current_version": "2026.09.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "nettle",
+      "installed_versions": [
+        "3.10",
+        "3.10.1"
+      ],
+      "current_version": "4.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "nvm",
+      "installed_versions": [
+        "0.40.4"
+      ],
+      "current_version": "0.40.8",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "openexr",
+      "installed_versions": [
+        "3.4.6"
+      ],
+      "current_version": "3.5.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "openjdk@21",
+      "installed_versions": [
+        "21.0.7"
+      ],
+      "current_version": "21.0.12.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "openjpeg",
+      "installed_versions": [
+        "2.5.2"
+      ],
+      "current_version": "2.5.4_1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "openjph",
+      "installed_versions": [
+        "0.26.3"
+      ],
+      "current_version": "0.32.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "openssl@3",
+      "installed_versions": [
+        "3.6.0"
+      ],
+      "current_version": "3.6.5",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "p11-kit",
+      "installed_versions": [
+        "0.25.5"
+      ],
+      "current_version": "0.26.5",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "pango",
+      "installed_versions": [
+        "1.57.0_2"
+      ],
+      "current_version": "1.58.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "pcre2",
+      "installed_versions": [
+        "10.47_1"
+      ],
+      "current_version": "10.49",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "pinentry",
+      "installed_versions": [
+        "1.3.1_1"
+      ],
+      "current_version": "1.3.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "pycparser",
+      "installed_versions": [
+        "2.22_1"
+      ],
+      "current_version": "3.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "pygit2",
+      "installed_versions": [
+        "1.18.0"
+      ],
+      "current_version": "1.20.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "python@3.13",
+      "installed_versions": [
+        "3.13.0_1",
+        "3.13.5"
+      ],
+      "current_version": "3.13.16",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "readline",
+      "installed_versions": [
+        "8.2.13"
+      ],
+      "current_version": "8.3.6",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "redis",
+      "installed_versions": [
+        "7.2.6"
+      ],
+      "current_version": "8.10.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "shared-mime-info",
+      "installed_versions": [
+        "2.4_1"
+      ],
+      "current_version": "2.5.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "six",
+      "installed_versions": [
+        "1.16.0_5"
+      ],
+      "current_version": "1.17.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "snap",
+      "installed_versions": [
+        "2.69"
+      ],
+      "current_version": "2.77.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "snapcraft",
+      "installed_versions": [
+        "8.9.2_1"
+      ],
+      "current_version": "9.1.3_1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "sqlite",
+      "installed_versions": [
+        "3.47.0",
+        "3.50.1"
+      ],
+      "current_version": "3.53.4",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "squashfs",
+      "installed_versions": [
+        "4.7"
+      ],
+      "current_version": "4.7.5",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "tmux",
+      "installed_versions": [
+        "3.5a"
+      ],
+      "current_version": "3.7c",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "unbound",
+      "installed_versions": [
+        "1.23.0"
+      ],
+      "current_version": "1.26.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "unibilium",
+      "installed_versions": [
+        "2.1.2"
+      ],
+      "current_version": "2.1.4",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "universal-ctags",
+      "installed_versions": [
+        "p6.1.20241110.0"
+      ],
+      "current_version": "6.2.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "utf8proc",
+      "installed_versions": [
+        "2.9.0"
+      ],
+      "current_version": "2.12.0",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "wget",
+      "installed_versions": [
+        "1.25.0"
+      ],
+      "current_version": "1.25.0_2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "x265",
+      "installed_versions": [
+        "4.1"
+      ],
+      "current_version": "4.3",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "xdelta",
+      "installed_versions": [
+        "3.1.0"
+      ],
+      "current_version": "3.2.1",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "xz",
+      "installed_versions": [
+        "5.8.1",
+        "5.8.2"
+      ],
+      "current_version": "5.8.4",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "zlib",
+      "installed_versions": [
+        "1.3.1"
+      ],
+      "current_version": "1.3.2",
+      "pinned": false,
+      "pinned_version": null
+    },
+    {
+      "name": "zsh-completions",
+      "installed_versions": [
+        "0.35.0"
+      ],
+      "current_version": "0.36.0",
+      "pinned": false,
+      "pinned_version": null
+    }
+  ],
+  "casks": []
+}

@@ -1,0 +1,49 @@
+{
+  "name": "lib",
+  "dependencies": {
+    "@salesforce/cli": {
+      "version": "2.151.7",
+      "overridden": false
+    },
+    "corepack": {
+      "version": "0.36.0",
+      "overridden": false
+    },
+    "eslint": {
+      "version": "10.11.0",
+      "overridden": false
+    },
+    "npm-check-updates": {
+      "version": "23.1.0",
+      "overridden": false
+    },
+    "npm": {
+      "version": "11.19.0",
+      "overridden": false
+    },
+    "prettier": {
+      "version": "3.9.9",
+      "overridden": false
+    },
+    "protobufjs": {
+      "version": "8.8.0",
+      "overridden": false
+    },
+    "tailwindcss": {
+      "version": "4.3.3",
+      "overridden": false
+    },
+    "vercel": {
+      "version": "59.26.0",
+      "overridden": false
+    },
+    "webpack": {
+      "version": "5.111.1",
+      "overridden": false
+    },
+    "yarn": {
+      "version": "1.22.22",
+      "overridden": false
+    }
+  }
+}

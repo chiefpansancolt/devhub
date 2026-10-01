@@ -1,0 +1,854 @@
+{
+  "formulae": [
+    {
+      "name": "ca-certificates",
+      "full_name": "ca-certificates",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "Mozilla CA certificate store",
+      "license": "MPL-2.0",
+      "homepage": "https://curl.se/docs/caextract.html",
+      "versions": {
+        "stable": "2026-09-25",
+        "head": null,
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://curl.se/ca/cacert-2026-09-25.pem",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "a41b5d356aea97a529fe27e0f7316d2f9d946d75927476cf9cf1b90637d00505"
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "all": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/ca-certificates/blobs/sha256:81804ad8a70a7a8d2a0a964d106765ff88716b310decaeffb4b4895a3252186a",
+              "sha256": "81804ad8a70a7a8d2a0a964d106765ff88716b310decaeffb4b4895a3252186a"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [],
+      "dependencies": [],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [],
+      "uses_from_macos_bounds": [],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": null,
+      "installed": [
+        {
+          "version": "2025-09-09",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1761851402,
+          "runtime_dependencies": [],
+          "installed_on_request": true
+        }
+      ],
+      "linked_keg": "2025-09-09",
+      "pinned": false,
+      "outdated": true,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [
+        {
+          "command": {
+            "base": "libexec",
+            "path": "post-install"
+          },
+          "type": "run",
+          "args": [
+            "{{pkgshare}}/cacert.pem",
+            "{{pkgetc}}/cert.pem"
+          ]
+        }
+      ],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/c/ca-certificates.rb",
+      "ruby_source_checksum": {
+        "sha256": "e7807634f02d41cfad036cdebb546daacd45e118fcb463acc6c6e4f6e07dcf3f"
+      }
+    },
+    {
+      "name": "gettext",
+      "full_name": "gettext",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "GNU internationalization (i18n) and localization (l10n) library",
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later",
+      "homepage": "https://www.gnu.org/software/gettext/",
+      "versions": {
+        "stable": "1.0",
+        "head": null,
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://ftpmirror.gnu.org/gettext/gettext-1.0.tar.gz",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a"
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 2,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_golden_gate": {
+              "cellar": "/opt/homebrew/Cellar",
+              "url": "https://ghcr.io/v2/homebrew/core/gettext/blobs/sha256:4db034aa2ae4b1f18d86906707ece14c895198090ad028d2fb1ae4fbeb3ca6fd",
+              "sha256": "4db034aa2ae4b1f18d86906707ece14c895198090ad028d2fb1ae4fbeb3ca6fd"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [],
+      "dependencies": [
+        "json-c",
+        "libunistring"
+      ],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [
+        "curl",
+        "libxml2",
+        "ncurses"
+      ],
+      "uses_from_macos_bounds": [
+        {},
+        {},
+        {}
+      ],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": null,
+      "installed": [
+        {
+          "version": "1.0",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1773271417,
+          "runtime_dependencies": [
+            {
+              "full_name": "libunistring",
+              "version": "1.4.2",
+              "revision": 0,
+              "bottle_rebuild": 0,
+              "pkg_version": "1.4.2",
+              "declared_directly": true
+            }
+          ],
+          "installed_on_request": true
+        }
+      ],
+      "linked_keg": "1.0",
+      "pinned": false,
+      "outdated": false,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/g/gettext.rb",
+      "ruby_source_checksum": {
+        "sha256": "9c90f7cf5a45c828e2a66d9339b25b781302cf49316e939d029e6079e1b9d916"
+      }
+    },
+    {
+      "name": "git",
+      "full_name": "git",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "Distributed revision control system",
+      "license": "GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause AND MIT",
+      "homepage": "https://git-scm.com",
+      "versions": {
+        "stable": "2.56.0",
+        "head": "HEAD",
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.56.0.tar.xz",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "26c56c296b38c0695b26fa95f475f1d01704d2d38e73465ca30b0b2f5dc789d3"
+        },
+        "head": {
+          "url": "https://github.com/git/git.git",
+          "branch": "master",
+          "using": null
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_golden_gate": {
+              "cellar": "/opt/homebrew/Cellar",
+              "url": "https://ghcr.io/v2/homebrew/core/git/blobs/sha256:32638a7c7c26f1d3d595a7543247baa234abbb819f8887aac5c2b858da91d0a9",
+              "sha256": "32638a7c7c26f1d3d595a7543247baa234abbb819f8887aac5c2b858da91d0a9"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [
+        "gettext",
+        "pkgconf"
+      ],
+      "dependencies": [
+        "pcre2",
+        "gettext"
+      ],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [
+        "curl",
+        "expat"
+      ],
+      "uses_from_macos_bounds": [
+        {},
+        {}
+      ],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": "The Tcl/Tk GUIs (e.g. gitk, git-gui) are now in the `git-gui` formula.\nSubversion interoperability (git-svn) is now in the `git-svn` formula.\n",
+      "installed": [
+        {
+          "version": "2.47.0",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1731469034,
+          "runtime_dependencies": [
+            {
+              "full_name": "libunistring",
+              "version": "1.3",
+              "revision": 0,
+              "pkg_version": "1.3",
+              "declared_directly": false
+            },
+            {
+              "full_name": "gettext",
+              "version": "0.22.5",
+              "revision": 0,
+              "pkg_version": "0.22.5",
+              "declared_directly": true
+            },
+            {
+              "full_name": "pcre2",
+              "version": "10.44",
+              "revision": 0,
+              "pkg_version": "10.44",
+              "declared_directly": true
+            }
+          ],
+          "installed_on_request": true
+        }
+      ],
+      "linked_keg": "2.47.0",
+      "pinned": false,
+      "outdated": true,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/g/git.rb",
+      "ruby_source_checksum": {
+        "sha256": "19810d48c27ffda1a56258a455d7135fc2d9af0ea620b861c2437fd47f5b828b"
+      }
+    },
+    {
+      "name": "libunistring",
+      "full_name": "libunistring",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "C string library for manipulating Unicode strings",
+      "license": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+      "homepage": "https://www.gnu.org/software/libunistring/",
+      "versions": {
+        "stable": "1.4.2",
+        "head": null,
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://ftpmirror.gnu.org/libunistring/libunistring-1.4.2.tar.gz",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8"
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 1,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_golden_gate": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/libunistring/blobs/sha256:57307eb89a02e09aa4de70e09391994dfc9520d9f101ec7e64f9af21dcea2420",
+              "sha256": "57307eb89a02e09aa4de70e09391994dfc9520d9f101ec7e64f9af21dcea2420"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [],
+      "dependencies": [],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [],
+      "uses_from_macos_bounds": [],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": null,
+      "installed": [
+        {
+          "version": "1.4.2",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1773271417,
+          "runtime_dependencies": [],
+          "installed_on_request": true
+        }
+      ],
+      "linked_keg": "1.4.2",
+      "pinned": false,
+      "outdated": false,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/lib/libunistring.rb",
+      "ruby_source_checksum": {
+        "sha256": "8acac13619748b5c040c866f78955ea15fe51f555d60d494f52beae6ee24ce34"
+      }
+    },
+    {
+      "name": "oniguruma",
+      "full_name": "oniguruma",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "Regular expressions library",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/kkos/oniguruma/",
+      "versions": {
+        "stable": "6.9.10",
+        "head": "HEAD",
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://github.com/kkos/oniguruma/releases/download/v6.9.10/onig-6.9.10.tar.gz",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "2a5cfc5ae259e4e97f86b68dfffc152cdaffe94e2060b770cb827238d769fc05"
+        },
+        "head": {
+          "url": "https://github.com/kkos/oniguruma.git",
+          "branch": "master",
+          "using": null
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_golden_gate": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/oniguruma/blobs/sha256:faabe05d9d5379c42d47deba427021e4f40b551b3b95b74675d42e00a8321c23",
+              "sha256": "faabe05d9d5379c42d47deba427021e4f40b551b3b95b74675d42e00a8321c23"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [
+        "autoconf",
+        "automake",
+        "libtool"
+      ],
+      "dependencies": [],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [],
+      "uses_from_macos_bounds": [],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": null,
+      "installed": [
+        {
+          "version": "6.9.10",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1749955646,
+          "runtime_dependencies": [],
+          "installed_on_request": false
+        }
+      ],
+      "linked_keg": "6.9.10",
+      "pinned": false,
+      "outdated": false,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/o/oniguruma.rb",
+      "ruby_source_checksum": {
+        "sha256": "2656eda555be128035d8dcf82bb04d094f96b06b7f5dd1b65f967bc76aa0b1c3"
+      }
+    },
+    {
+      "name": "pcre2",
+      "full_name": "pcre2",
+      "tap": "homebrew/core",
+      "oldnames": [],
+      "aliases": [],
+      "versioned_formulae": [],
+      "desc": "Perl compatible regular expressions library with a new API",
+      "license": "BSD-3-Clause",
+      "homepage": "https://www.pcre.org/",
+      "versions": {
+        "stable": "10.49",
+        "head": "HEAD",
+        "bottle": true
+      },
+      "urls": {
+        "stable": {
+          "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2",
+          "tag": null,
+          "revision": null,
+          "using": null,
+          "checksum": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384"
+        },
+        "head": {
+          "url": "https://github.com/PCRE2Project/pcre2.git",
+          "branch": "main",
+          "using": null
+        }
+      },
+      "patches": [],
+      "revision": 0,
+      "version_scheme": 0,
+      "compatibility_version": null,
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "bottle": {
+        "stable": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_golden_gate": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/pcre2/blobs/sha256:5cac44323243138490ca74a2499fd347fa836df6b5fffa789944be12110e91ff",
+              "sha256": "5cac44323243138490ca74a2499fd347fa836df6b5fffa789944be12110e91ff"
+            }
+          }
+        }
+      },
+      "pour_bottle_only_if": null,
+      "keg_only": false,
+      "keg_only_reason": null,
+      "options": [],
+      "build_dependencies": [],
+      "dependencies": [],
+      "test_dependencies": [],
+      "recommended_dependencies": [],
+      "optional_dependencies": [],
+      "uses_from_macos": [
+        "bzip2"
+      ],
+      "uses_from_macos_bounds": [
+        {}
+      ],
+      "requirements": [],
+      "conflicts_with": [],
+      "conflicts_with_reasons": [],
+      "link_overwrite": [],
+      "caveats": null,
+      "installed": [
+        {
+          "version": "10.47_1",
+          "used_options": [],
+          "built_as_bottle": true,
+          "poured_from_bottle": true,
+          "time": 1773271425,
+          "runtime_dependencies": [],
+          "installed_on_request": true
+        }
+      ],
+      "linked_keg": "10.47_1",
+      "pinned": false,
+      "outdated": true,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "post_install_steps": [],
+      "post_install_defined": false,
+      "service": null,
+      "tap_git_head": "433eb8a8d09d686819326f5f03f9ed98eaf18287",
+      "ruby_source_path": "Formula/p/pcre2.rb",
+      "ruby_source_checksum": {
+        "sha256": "2dcb74b4bc19dc81ace51feac7bb626b679c7b730eca1d3492d73fe822134fb8"
+      },
+      "head_dependencies": {
+        "build_dependencies": [
+          "autoconf",
+          "automake",
+          "libtool"
+        ],
+        "dependencies": [],
+        "test_dependencies": [],
+        "recommended_dependencies": [],
+        "optional_dependencies": [],
+        "uses_from_macos": [
+          "bzip2"
+        ],
+        "uses_from_macos_bounds": [
+          {}
+        ]
+      }
+    }
+  ],
+  "casks": [
+    {
+      "token": "claude-code",
+      "full_token": "claude-code",
+      "old_tokens": [],
+      "tap": "homebrew/cask",
+      "name": [
+        "Claude Code"
+      ],
+      "desc": "Terminal-based AI coding assistant",
+      "homepage": "https://claude.com/product/claude-code",
+      "url": "https://downloads.claude.ai/claude-code-releases/2.1.285/darwin-arm64/claude",
+      "url_specs": {},
+      "version": "2.1.285",
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "installed": "2.1.285",
+      "installed_time": 1790874908,
+      "bundle_version": null,
+      "bundle_short_version": null,
+      "pinned": false,
+      "pinned_version": null,
+      "outdated": false,
+      "sha256": "51f09bd1e021d9fa8a1864c179799bd37cb39962a937935c5cf6823398e86db4",
+      "artifacts": [
+        {
+          "binary": [
+            "claude"
+          ],
+          "target": "/opt/homebrew/bin/claude"
+        },
+        {
+          "zap": [
+            {
+              "trash": [
+                "~/.cache/claude",
+                "~/.claude.json*",
+                "~/.config/claude",
+                "~/.local/bin/claude",
+                "~/.local/share/claude",
+                "~/.local/state/claude",
+                "~/Library/Caches/claude-cli-nodejs"
+              ],
+              "rmdir": "~/.claude"
+            }
+          ]
+        }
+      ],
+      "caveats": null,
+      "caveats_rosetta": null,
+      "depends_on": {},
+      "conflicts_with": {
+        "cask": [
+          "claude-code@latest"
+        ]
+      },
+      "container": null,
+      "rename": [],
+      "auto_updates": null,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "tap_git_head": "95627ed7a0d2ac200d9a03fcdb267d3e55549153",
+      "languages": [],
+      "ruby_source_path": "Casks/c/claude-code.rb",
+      "ruby_source_checksum": {
+        "sha256": "afd076e38f356a677ed9abfafca8305299f91454b36b30e50e635a4eb546dd12"
+      }
+    },
+    {
+      "token": "font-fira-code",
+      "full_token": "font-fira-code",
+      "old_tokens": [],
+      "tap": "homebrew/cask",
+      "name": [
+        "Fira Code"
+      ],
+      "desc": null,
+      "homepage": "https://github.com/tonsky/FiraCode",
+      "url": "https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip",
+      "url_specs": {},
+      "version": "6.2",
+      "autobump": true,
+      "no_autobump_message": null,
+      "skip_livecheck": false,
+      "installed": "6.2",
+      "installed_time": 1731487216,
+      "bundle_version": null,
+      "bundle_short_version": null,
+      "pinned": false,
+      "pinned_version": null,
+      "outdated": false,
+      "sha256": "0949915ba8eb24d89fd93d10a7ff623f42830d7c5ffc3ecbf960e4ecad3e3e79",
+      "artifacts": [
+        {
+          "font": [
+            "ttf/FiraCode-Bold.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-Bold.ttf"
+        },
+        {
+          "font": [
+            "ttf/FiraCode-Light.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-Light.ttf"
+        },
+        {
+          "font": [
+            "ttf/FiraCode-Medium.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-Medium.ttf"
+        },
+        {
+          "font": [
+            "ttf/FiraCode-Regular.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-Regular.ttf"
+        },
+        {
+          "font": [
+            "ttf/FiraCode-Retina.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-Retina.ttf"
+        },
+        {
+          "font": [
+            "ttf/FiraCode-SemiBold.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-SemiBold.ttf"
+        },
+        {
+          "font": [
+            "variable_ttf/FiraCode-VF.ttf"
+          ],
+          "target": "/Users/example/Library/Fonts/FiraCode-VF.ttf"
+        }
+      ],
+      "caveats": null,
+      "caveats_rosetta": null,
+      "depends_on": {},
+      "conflicts_with": null,
+      "container": null,
+      "rename": [],
+      "auto_updates": null,
+      "deprecated": false,
+      "deprecation_date": null,
+      "deprecation_reason": null,
+      "deprecation_replacement_formula": null,
+      "deprecation_replacement_cask": null,
+      "deprecate_args": null,
+      "disabled": false,
+      "disable_date": null,
+      "disable_reason": null,
+      "disable_replacement_formula": null,
+      "disable_replacement_cask": null,
+      "disable_args": null,
+      "tap_git_head": "95627ed7a0d2ac200d9a03fcdb267d3e55549153",
+      "languages": [],
+      "ruby_source_path": "Casks/font/font-f/font-fira-code.rb",
+      "ruby_source_checksum": {
+        "sha256": "b63701ef6669d3bb02f5aa6832bd48e4a8a0902a616f0eaf26c83cfccf609140"
+      }
+    }
+  ]
+}

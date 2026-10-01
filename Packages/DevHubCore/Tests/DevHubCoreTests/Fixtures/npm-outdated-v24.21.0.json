@@ -1,0 +1,23 @@
+{
+  "@salesforce/cli": {
+    "current": "2.151.7",
+    "wanted": "2.152.14",
+    "latest": "2.152.14",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v24.21.0/lib/node_modules/@salesforce/cli"
+  },
+  "npm": {
+    "current": "11.19.0",
+    "wanted": "12.2.0",
+    "latest": "12.2.0",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v24.21.0/lib/node_modules/npm"
+  },
+  "vercel": {
+    "current": "59.26.0",
+    "wanted": "62.1.0",
+    "latest": "62.1.0",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v24.21.0/lib/node_modules/vercel"
+  }
+}

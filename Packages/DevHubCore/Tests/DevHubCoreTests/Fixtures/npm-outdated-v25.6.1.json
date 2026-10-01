@@ -1,0 +1,100 @@
+{
+  "@salesforce/cli": {
+    "current": "2.122.6",
+    "wanted": "2.152.14",
+    "latest": "2.152.14",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/@salesforce/cli"
+  },
+  "corepack": {
+    "current": "0.34.6",
+    "wanted": "0.34.7",
+    "latest": "0.34.7",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/corepack"
+  },
+  "create-next-app": {
+    "current": "16.1.6",
+    "wanted": "16.3.8",
+    "latest": "16.3.8",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/create-next-app"
+  },
+  "electron": {
+    "current": "40.4.1",
+    "wanted": "44.5.1",
+    "latest": "44.5.1",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/electron"
+  },
+  "eslint": {
+    "current": "10.0.0",
+    "wanted": "10.11.0",
+    "latest": "10.11.0",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/eslint"
+  },
+  "npm": {
+    "current": "11.9.0",
+    "wanted": "11.21.0",
+    "latest": "11.21.0",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/npm"
+  },
+  "npm-check-updates": {
+    "current": "19.3.2",
+    "wanted": "22.2.9",
+    "latest": "22.2.9",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/npm-check-updates"
+  },
+  "pnpm": {
+    "current": "10.29.3",
+    "wanted": "12.8.1",
+    "latest": "12.8.1",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/pnpm"
+  },
+  "prettier": {
+    "current": "3.8.1",
+    "wanted": "3.9.9",
+    "latest": "3.9.9",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/prettier"
+  },
+  "prisma": {
+    "current": "7.4.0",
+    "wanted": "8.0.0-rc.19",
+    "latest": "8.0.0-rc.19",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/prisma"
+  },
+  "tailwindcss": {
+    "current": "4.1.18",
+    "wanted": "4.3.3",
+    "latest": "4.3.3",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/tailwindcss"
+  },
+  "typescript": {
+    "current": "5.9.3",
+    "wanted": "7.0.2",
+    "latest": "7.0.2",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/typescript"
+  },
+  "vercel": {
+    "current": "50.17.1",
+    "wanted": "62.1.0",
+    "latest": "62.1.0",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/vercel"
+  },
+  "webpack": {
+    "current": "5.105.2",
+    "wanted": "5.111.1",
+    "latest": "5.111.1",
+    "dependent": "global",
+    "location": "/Users/example/.nvm/versions/node/v25.6.1/lib/node_modules/webpack"
+  }
+}

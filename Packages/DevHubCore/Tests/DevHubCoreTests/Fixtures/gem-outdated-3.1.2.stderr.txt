@@ -1,0 +1,12 @@
+WARN: Unresolved or ambiguous specs during Gem::Specification.reset:
+      tsort (>= 0)
+      Available/installed versions of this gem:
+      - 0.2.0
+      - 0.1.0
+      stringio (>= 0)
+      Available/installed versions of this gem:
+      - 3.2.0
+      - 3.1.7
+      - 3.0.1
+WARN: Clearing out unresolved specs. Try 'gem cleanup <gem>'
+Please report a bug if this causes problems.
