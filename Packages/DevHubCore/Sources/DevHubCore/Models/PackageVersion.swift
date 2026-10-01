@@ -19,6 +19,11 @@ public struct PackageVersion: Comparable, Sendable, CustomStringConvertible {
 
     public var description: String { text }
 
+    /// The first number of the version, for example 2 for `2.47.0`. `nil` when the version does not start with a number.
+    public var major: Int? {
+        if case let .number(value)? = parts.first { value } else { nil }
+    }
+
     public static func == (lhs: PackageVersion, rhs: PackageVersion) -> Bool {
         !(lhs < rhs) && !(rhs < lhs)
     }

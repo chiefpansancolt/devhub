@@ -43,6 +43,11 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var confirmUpdateAll = true
     public var showOutputLog = true
 
+    // Notifications
+    public var notifyAboutUpdates = true
+    public var notificationFrequency = NotificationFrequency.dailySummary
+    public var notificationSound = false
+
     // Appearance
     public var theme = AppTheme.system
     public var menuBarIconStyle = MenuBarIconStyle.iconAndCount
@@ -86,6 +91,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         confirmUninstall = value(.confirmUninstall, confirmUninstall)
         confirmUpdateAll = value(.confirmUpdateAll, confirmUpdateAll)
         showOutputLog = value(.showOutputLog, showOutputLog)
+        notifyAboutUpdates = value(.notifyAboutUpdates, notifyAboutUpdates)
+        notificationFrequency = value(.notificationFrequency, notificationFrequency)
+        notificationSound = value(.notificationSound, notificationSound)
         theme = value(.theme, theme)
         menuBarIconStyle = value(.menuBarIconStyle, menuBarIconStyle)
         brewPath = value(.brewPath, brewPath)
@@ -106,6 +114,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case disabledBuckets
         case checkInterval, checkOnLaunch, checkOnWake, confirmUninstall, confirmUpdateAll, showOutputLog
+        case notifyAboutUpdates, notificationFrequency, notificationSound
         case theme, menuBarIconStyle
         case brewPath, brewRefreshIndex, brewIncludeCasks, brewIncludeSelfUpdatingCasks, brewCleanupAfterUpdate
         case nodeFolder, excludedNodeVersions, nodeIncludeNpm

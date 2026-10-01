@@ -71,6 +71,9 @@ public final class AppState {
     private var checkInterval: Duration?
     private var settings: SettingsValues?
     private var scanAgainWhenDone = false
+    private var notifier: (any NotificationSending)?
+    private var notificationLedger: NotificationLedger?
+    private var notificationOptions = NotificationOptions()
     private let now: @Sendable () -> Date
     private var updateTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
@@ -82,6 +85,9 @@ public final class AppState {
         versions: [Bucket: [String]] = [:],
         runner: CommandRunning,
         history: HistoryStore = HistoryStore(),
+        notifier: (any NotificationSending)? = nil,
+        notificationLedger: NotificationLedger? = nil,
+        notificationOptions: NotificationOptions = NotificationOptions(),
         checkInterval: Duration? = .seconds(4 * 60 * 60),
         now: @escaping @Sendable () -> Date = { Date() }
     ) {
@@ -89,6 +95,9 @@ public final class AppState {
         self.setupProblems = setupProblems
         self.knownVersions = versions
         self.history = history
+        self.notifier = notifier
+        self.notificationLedger = notificationLedger
+        self.notificationOptions = notificationOptions
         self.actions = PackageActionRunner(scanners: scanners, runner: runner)
         self.runner = runner
         self.checkInterval = checkInterval
@@ -96,7 +105,12 @@ public final class AppState {
     }
 
     /// Builds the state the way the settings say, with a history file in the usual place.
-    public convenience init(settings: SettingsValues, runner: CommandRunning = CommandRunner()) {
+    public convenience init(
+        settings: SettingsValues,
+        runner: CommandRunning = CommandRunner(),
+        notifier: (any NotificationSending)? = nil,
+        notificationLedger: NotificationLedger? = nil
+    ) {
         let toolchain = Toolchain.detect(settings: settings)
         let history = HistoryStore(log: HistoryLog())
         history.includesOutput = settings.historyIncludesOutput
@@ -107,6 +121,9 @@ public final class AppState {
             versions: [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)],
             runner: runner,
             history: history,
+            notifier: notifier,
+            notificationLedger: notificationLedger,
+            notificationOptions: NotificationOptions(settings),
             checkInterval: settings.checkInterval.duration
         )
         self.settings = settings
@@ -123,6 +140,7 @@ public final class AppState {
 
         history.includesOutput = newSettings.historyIncludesOutput
         history.retention = newSettings.historyRetention
+        notificationOptions = NotificationOptions(newSettings)
         checkInterval = newSettings.checkInterval.duration
         nextCheck = checkInterval.map { (lastChecked ?? now()).addingTimeInterval($0.seconds) }
 
@@ -273,9 +291,30 @@ public final class AppState {
         if reason == .check, !scanners.isEmpty {
             history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
         }
+        if reason == .check, trigger == .automatic {
+            await announceNewUpdates()
+        }
         if scanAgainWhenDone {
             scanAgainWhenDone = false
             startRefresh()
+        }
+    }
+
+    /// Shows a notification for updates that were not announced before, as the notification settings say.
+    private func announceNewUpdates() async {
+        guard notificationOptions.isOn, let notifier, let notificationLedger else { return }
+        let outdated = allOutdated
+        let plan = NotificationPlanner.plan(
+            outdated: outdated,
+            seenKeys: notificationLedger.seenKeys,
+            isFirstCheck: !notificationLedger.isSeeded,
+            frequency: notificationOptions.frequency,
+            lastSummary: notificationLedger.lastSummary,
+            now: now()
+        )
+        notificationLedger.record(plan, stillOutdated: Set(outdated.compactMap(NotificationPlanner.key)))
+        if let notification = plan.notification {
+            await notifier.send(notification, playSound: notificationOptions.playsSound)
         }
     }
 

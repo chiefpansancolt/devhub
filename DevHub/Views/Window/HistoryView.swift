@@ -13,6 +13,7 @@ private enum HistoryColumns {
 struct HistoryView: View {
     @Environment(AppState.self) private var state
     let ui: WindowUIState
+    @FocusState private var searchIsFocused: Bool
 
     private var history: HistoryStore { state.history }
 
@@ -37,6 +38,7 @@ struct HistoryView: View {
             Divider()
             footer
         }
+        .onChange(of: ui.searchFocusRequest) { searchIsFocused = true }
         .confirmationDialog(
             "Clear the history?",
             isPresented: Binding(get: { ui.isConfirmingClearHistory }, set: { ui.isConfirmingClearHistory = $0 }),
@@ -146,6 +148,7 @@ struct HistoryView: View {
             TextField("Search history", text: Binding(get: { ui.historySearch }, set: { ui.historySearch = $0 }))
                 .textFieldStyle(.plain)
                 .font(.system(size: 12))
+                .focused($searchIsFocused)
                 .accessibilityLabel("Search history")
         }
         .padding(.horizontal, 10)

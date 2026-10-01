@@ -20,6 +20,10 @@ final class FakeMachine: @unchecked Sendable {
         lock.withLock { packages.filter { $0.bucket == bucket } }
     }
 
+    func add(_ package: InstalledPackage) {
+        lock.withLock { packages.append(package) }
+    }
+
     func recordScan(_ reason: ScanReason) {
         lock.withLock { reasons.append(reason) }
     }

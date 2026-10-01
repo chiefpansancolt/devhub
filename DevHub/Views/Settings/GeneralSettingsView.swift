@@ -1,3 +1,4 @@
+import AppKit
 import DevHubCore
 import SwiftUI
 
@@ -6,6 +7,8 @@ struct GeneralSettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @State private var opensAtLogin = LoginItem.isEnabled
     @State private var loginError: String?
+    @State private var notificationAccess = NotificationAuthorization.notAsked
+    private let notifier = SystemNotifier()
 
     var body: some View {
         @Bindable var settings = settings
@@ -57,6 +60,35 @@ struct GeneralSettingsView: View {
                 }
             }
 
+            Section("Notifications") {
+                Toggle("Notify me about new updates", isOn: notificationsAreOn)
+                    .clickable()
+                Picker("Notify", selection: $settings.values.notificationFrequency) {
+                    Text("For every update").tag(NotificationFrequency.everyUpdate)
+                    Text("Once a day, as a summary").tag(NotificationFrequency.dailySummary)
+                    Text("Only for major versions").tag(NotificationFrequency.majorVersionsOnly)
+                }
+                .clickable()
+                .disabled(!settings.values.notifyAboutUpdates)
+                Toggle("Play a sound", isOn: $settings.values.notificationSound)
+                    .clickable()
+                    .disabled(!settings.values.notifyAboutUpdates)
+                if notificationAccess == .denied {
+                    HStack {
+                        Label("Notifications are turned off for DevHub in System Settings.", systemImage: "exclamationmark.circle")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.red)
+                        Spacer()
+                        Button("Open System Settings") { openNotificationSettings() }
+                            .clickable()
+                    }
+                }
+                LabeledContent("Try it") {
+                    Button("Send a test notification") { sendTestNotification() }
+                        .clickable()
+                }
+            }
+
             Section("Startup") {
                 Toggle("Open DevHub at login", isOn: Binding(get: { opensAtLogin }, set: setLoginItem))
                 .clickable()
@@ -78,6 +110,36 @@ struct GeneralSettingsView: View {
             }
         }
         .formStyle(.grouped)
+        .task { notificationAccess = await notifier.authorization() }
+    }
+
+    // The first time it is turned on, macOS asks for permission.
+    private var notificationsAreOn: Binding<Bool> {
+        Binding(
+            get: { settings.values.notifyAboutUpdates },
+            set: { isOn in
+                settings.values.notifyAboutUpdates = isOn
+                guard isOn else { return }
+                Task {
+                    _ = await notifier.requestAuthorization()
+                    notificationAccess = await notifier.authorization()
+                }
+            }
+        )
+    }
+
+    private func sendTestNotification() {
+        let test = UpdateNotification(title: String(localized: "DevHub test notification"), body: String(localized: "If you can read this, notifications work."))
+        Task {
+            await notifier.send(test, playSound: settings.values.notificationSound)
+            notificationAccess = await notifier.authorization()
+        }
+    }
+
+    private func openNotificationSettings() {
+        if let url = URL(string: "x-apple.systempreferences:com.apple.Notifications-Settings.extension") {
+            NSWorkspace.shared.open(url)
+        }
     }
 
     private func isOn(_ bucket: Bucket) -> Binding<Bool> {

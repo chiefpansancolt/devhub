@@ -4,6 +4,10 @@ import DevHubCore
 /// The parts of the settings that act on the app itself instead of on a screen.
 @MainActor
 final class AppEffects {
+    /// Set by a view that can open the main window. A clicked notification calls it.
+    static var openMainWindow: (@MainActor () -> Void)?
+
+    let notificationDelegate = NotificationDelegate()
     private var wakeObserver: NSObjectProtocol?
 
     static func apply(theme: AppTheme) {

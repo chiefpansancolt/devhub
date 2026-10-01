@@ -22,6 +22,12 @@ final class WindowUIState {
     var isConfirmingUninstall = false
     var isConfirmingUpdateAll = false
 
+    /// The details that were open before a menu command hid them, so the same command can show them again.
+    var lastInspectedID: String?
+    var lastInspectedHistoryID: UUID?
+    /// Counts the requests to focus the search field. The page watches it.
+    var searchFocusRequest = 0
+
     var historyFilter = HistoryActionFilter.all
     var historyRange = HistoryRange.lastSevenDays
     var historyBucket: Bucket?
@@ -62,6 +68,38 @@ final class WindowUIState {
     func askToUninstall(_ package: InstalledPackage) {
         inspectedID = package.id
         isConfirmingUninstall = true
+    }
+
+    var hasOpenDetails: Bool {
+        page == .packages ? inspectedID != nil : inspectedHistoryID != nil
+    }
+
+    var canShowDetails: Bool {
+        page == .packages ? lastInspectedID != nil : lastInspectedHistoryID != nil
+    }
+
+    func hideDetails() {
+        if page == .packages {
+            lastInspectedID = inspectedID
+            closeInspector()
+        } else {
+            lastInspectedHistoryID = inspectedHistoryID
+            inspectedHistoryID = nil
+        }
+    }
+
+    func showDetails() {
+        if page == .packages {
+            inspectedID = lastInspectedID
+        } else {
+            inspectedHistoryID = lastInspectedHistoryID
+        }
+    }
+
+    /// Moves to the full list, where the search field is, and asks the page to focus it.
+    func requestSearch() {
+        if page == .packages { mode = .allInstalled }
+        searchFocusRequest += 1
     }
 
     func closeInspector() {

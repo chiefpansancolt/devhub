@@ -6,7 +6,7 @@ struct WindowView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.openSettings) private var openSettings
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var ui = WindowUIState()
+    let ui: WindowUIState
 
     var body: some View {
         HStack(spacing: 0) {

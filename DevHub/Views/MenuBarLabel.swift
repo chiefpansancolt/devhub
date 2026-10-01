@@ -2,6 +2,7 @@ import DevHubCore
 import SwiftUI
 
 struct MenuBarLabel: View {
+    @Environment(\.openWindow) private var openWindow
     let icon: MenuBarIconState
     let style: MenuBarIconStyle
 
@@ -12,6 +13,12 @@ struct MenuBarLabel: View {
             }
             if let text, style != .iconOnly {
                 Text(text).monospacedDigit()
+            }
+        }
+        .onAppear {
+            AppEffects.openMainWindow = {
+                openWindow(id: MainWindow.id)
+                AppActivation.bringToFront()
             }
         }
     }

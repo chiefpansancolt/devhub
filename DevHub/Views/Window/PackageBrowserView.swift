@@ -13,6 +13,7 @@ struct PackageBrowserView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.openSettings) private var openSettings
     let ui: WindowUIState
+    @FocusState private var searchIsFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,6 +24,13 @@ struct PackageBrowserView: View {
             content
             if settings.values.showOutputLog {
                 OutputLogView()
+            }
+        }
+        .onChange(of: ui.searchFocusRequest) {
+            // The field exists only in the full list, which the menu command switches to first.
+            Task {
+                try? await Task.sleep(for: .milliseconds(60))
+                searchIsFocused = true
             }
         }
         .confirmationDialog(
@@ -131,6 +139,7 @@ struct PackageBrowserView: View {
                     TextField("Filter installed", text: Binding(get: { ui.search }, set: { ui.search = $0 }))
                         .textFieldStyle(.plain)
                         .font(.system(size: 12))
+                        .focused($searchIsFocused)
                         .accessibilityLabel("Filter installed packages")
                 }
                 .padding(.horizontal, 10)

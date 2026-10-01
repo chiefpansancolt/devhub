@@ -1,15 +1,18 @@
 import DevHubCore
 import SwiftUI
+import UserNotifications
 
 @main
 struct DevHubApp: App {
     @State private var settings: SettingsStore
     @State private var appState: AppState
+    @State private var windowUI = WindowUIState()
     private let effects = AppEffects()
 
     init() {
         let settings = SettingsStore()
-        let state = AppState(settings: settings.values)
+        let state = AppState(settings: settings.values, notifier: SystemNotifier(), notificationLedger: NotificationLedger())
+        UNUserNotificationCenter.current().delegate = effects.notificationDelegate
 
         AppEffects.apply(theme: settings.values.theme)
         settings.onChange = { [weak state] old, new in
@@ -38,11 +41,14 @@ struct DevHubApp: App {
         .menuBarExtraStyle(.window)
 
         Window("DevHub", id: MainWindow.id) {
-            WindowView()
+            WindowView(ui: windowUI)
                 .environment(appState)
                 .environment(settings)
         }
         .defaultSize(width: 1180, height: 760)
+        .commands {
+            DevHubCommands(state: appState, settings: settings, ui: windowUI)
+        }
 
         Settings {
             SettingsView()
