@@ -19,6 +19,25 @@ struct AppearanceSettingsView: View {
                 .padding(.vertical, 6)
             }
 
+            Section("Language") {
+                Picker("Language", selection: $settings.values.language) {
+                    Text("Same as system").tag(String?.none)
+                    Text(verbatim: "English").tag(String?.some("en"))
+                    Text(verbatim: "Deutsch").tag(String?.some("de"))
+                }
+                .clickable()
+                if settings.values.language != AppEffects.launchLanguage {
+                    HStack {
+                        Text("Restart DevHub to change the language.")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Button("Restart DevHub") { AppEffects.restart() }
+                            .clickable()
+                    }
+                }
+            }
+
             Section("Menu bar icon") {
                 Picker("Icon style", selection: $settings.values.menuBarIconStyle) {
                     Text("Icon").tag(MenuBarIconStyle.iconOnly)

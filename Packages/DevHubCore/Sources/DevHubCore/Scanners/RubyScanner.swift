@@ -29,7 +29,7 @@ public struct RubyScanner: PackageScanner {
                     } catch let failure as ScanFailure {
                         return (installation, .failure(failure))
                     } catch {
-                        return (installation, .failure(.unreadableOutput(command: "gem", reason: "The scan was cancelled")))
+                        return (installation, .failure(.unreadableOutput(command: "gem", reason: String(localized: "The scan was cancelled", bundle: .module))))
                     }
                 }
             }

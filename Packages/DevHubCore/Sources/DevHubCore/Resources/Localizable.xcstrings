@@ -1,0 +1,438 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ exited with code %d%@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wurde mit Code %d beendet%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ exited with code %2$d%3$@"
+          }
+        }
+      }
+    },
+    "%@ was cancelled": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wurde abgebrochen"
+          }
+        }
+      }
+    },
+    "%lld major updates": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Hauptversions-Update"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Hauptversions-Updates"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld major update"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld major updates"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld new updates": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neues Update"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neue Updates"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld new update"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld new updates"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld updates available": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Update verfügbar"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Updates verfügbar"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld update available"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld updates available"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld updates found": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Update gefunden"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Updates gefunden"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld update found"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld updates found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld versions found": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Version gefunden"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Versionen gefunden"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld version found"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versions found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Cancelled": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abgebrochen"
+          }
+        }
+      }
+    },
+    "Could not read the output of %@: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ausgabe von %@ konnte nicht gelesen werden: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Could not read the output of %1$@: %2$@"
+          }
+        }
+      }
+    },
+    "DevHub has no way to uninstall this package.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub kann dieses Paket nicht deinstallieren."
+          }
+        }
+      }
+    },
+    "DevHub has no way to update this package.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub kann dieses Paket nicht aktualisieren."
+          }
+        }
+      }
+    },
+    "Every Node version is turned off in Settings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Node-Versionen sind in den Einstellungen ausgeschaltet."
+          }
+        }
+      }
+    },
+    "Every Ruby version is turned off in Settings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Ruby-Versionen sind in den Einstellungen ausgeschaltet."
+          }
+        }
+      }
+    },
+    "Homebrew was not found in /opt/homebrew or /usr/local.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew wurde weder in /opt/homebrew noch in /usr/local gefunden."
+          }
+        }
+      }
+    },
+    "No %@ versions were found in this folder.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In diesem Ordner wurden keine %@-Versionen gefunden."
+          }
+        }
+      }
+    },
+    "No Node version manager found. DevHub looked for nvm, fnm, Volta and asdf.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Node-Versionsverwaltung gefunden. DevHub hat nach nvm, fnm, Volta und asdf gesucht."
+          }
+        }
+      }
+    },
+    "No Node versions were found in %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In %@ wurden keine Node-Versionen gefunden."
+          }
+        }
+      }
+    },
+    "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Ruby-Versionsverwaltung gefunden. DevHub hat nach RVM, rbenv, chruby und asdf gesucht."
+          }
+        }
+      }
+    },
+    "No Ruby versions were found in %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In %@ wurden keine Ruby-Versionen gefunden."
+          }
+        }
+      }
+    },
+    "Nothing was found at this path.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An diesem Pfad wurde nichts gefunden."
+          }
+        }
+      }
+    },
+    "The command exited with code %d.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Befehl wurde mit Code %d beendet."
+          }
+        }
+      }
+    },
+    "The scan was cancelled": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Prüfung wurde abgebrochen"
+          }
+        }
+      }
+    },
+    "There is no brew program at %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter %@ gibt es kein brew-Programm."
+          }
+        }
+      }
+    },
+    "This file is not a program.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Datei ist kein Programm."
+          }
+        }
+      }
+    },
+    "This folder does not exist.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Ordner existiert nicht."
+          }
+        }
+      }
+    },
+    "This program did not run as brew.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Programm lief nicht als brew."
+          }
+        }
+      }
+    },
+    "and %lld more": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "und %lld weitere"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

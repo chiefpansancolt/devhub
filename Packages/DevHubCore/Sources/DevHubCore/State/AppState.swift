@@ -350,7 +350,7 @@ public final class AppState {
             issue.group.map { "\(bucket.displayName) \($0): \(issue.message)" } ?? "\(bucket.displayName): \(issue.message)"
         } }
         let found = totalOutdated
-        let summary = String(localized: "\(found) updates found")
+        let summary = String(localized: "\(found) updates found", bundle: .module)
         return HistoryEntry(
             timestamp: startedAt,
             action: .check,

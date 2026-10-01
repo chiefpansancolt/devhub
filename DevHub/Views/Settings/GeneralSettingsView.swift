@@ -36,7 +36,7 @@ struct GeneralSettingsView: View {
                 Text("Turn off a tool you do not use. DevHub stops checking it and hides it from the menu bar, the window sidebar and these Settings.")
             }
 
-            Section("Checking") {
+            Section("Update checks") {
                 Picker("Check for updates", selection: $settings.values.checkInterval) {
                     Text("Every hour").tag(CheckInterval.hourly)
                     Text("Every 4 hours").tag(CheckInterval.everyFourHours)

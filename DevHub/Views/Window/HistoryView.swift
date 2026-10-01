@@ -7,13 +7,14 @@ private enum HistoryColumns {
     static let action: CGFloat = 112
     static let bucket: CGFloat = 100
     static let change: CGFloat = 130
-    static let result: CGFloat = 84
+    static let result: CGFloat = 96
 }
 
 struct HistoryView: View {
     @Environment(AppState.self) private var state
     let ui: WindowUIState
     @FocusState private var searchIsFocused: Bool
+    @FocusState private var listIsFocused: Bool
 
     private var history: HistoryStore { state.history }
 
@@ -60,7 +61,7 @@ struct HistoryView: View {
         HStack(spacing: 10) {
             VStack(alignment: .leading, spacing: 1) {
                 Text("History").font(.system(size: 17, weight: .semibold))
-                Text("^[\(history.totalCount) entry](inflect: true)")
+                Text("\(history.totalCount) entries")
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
             }
@@ -171,21 +172,44 @@ struct HistoryView: View {
         } else if entries.isEmpty {
             EmptyMessage(symbol: "magnifyingglass", title: Text("No entries match these filters"), detail: nil)
         } else {
-            ScrollView {
-                LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
-                    Section {
-                        ForEach(HistoryListing.days(entries), id: \.day) { day in
-                            DayHeader(day: day.day)
-                            ForEach(day.entries) { entry in
-                                HistoryRow(entry: entry, ui: ui, showsBucket: showsBucketColumn)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
+                        Section {
+                            ForEach(HistoryListing.days(entries), id: \.day) { day in
+                                DayHeader(day: day.day)
+                                ForEach(day.entries) { entry in
+                                    HistoryRow(entry: entry, ui: ui, showsBucket: showsBucketColumn)
+                                }
                             }
+                        } header: {
+                            columnHeader
                         }
-                    } header: {
-                        columnHeader
                     }
                 }
+                .focusable()
+                .focused($listIsFocused)
+                .focusEffectDisabled()
+                .onKeyPress(.downArrow) { moveSelection(by: 1, in: entries, proxy) }
+                .onKeyPress(.upArrow) { moveSelection(by: -1, in: entries, proxy) }
+                .onKeyPress(.escape) {
+                    guard ui.inspectedHistoryID != nil else { return .ignored }
+                    ui.inspectedHistoryID = nil
+                    return .handled
+                }
+                .onChange(of: ui.inspectedHistoryID) { listIsFocused = true }
             }
         }
+    }
+
+    private func moveSelection(by step: Int, in entries: [HistoryEntry], _ proxy: ScrollViewProxy) -> KeyPress.Result {
+        guard !entries.isEmpty else { return .ignored }
+        let current = entries.firstIndex { $0.id == ui.inspectedHistoryID }
+        let start = current ?? (step > 0 ? -1 : entries.count)
+        let next = min(max(start + step, 0), entries.count - 1)
+        ui.inspectedHistoryID = entries[next].id
+        proxy.scrollTo(entries[next].id)
+        return .handled
     }
 
     private var showsBucketColumn: Bool { ui.inspectedHistoryID == nil }

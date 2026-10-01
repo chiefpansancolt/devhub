@@ -29,7 +29,7 @@ struct UpdatesView: View {
     }
 
     private var header: some View {
-        PopoverHeader(title: Text("^[\(state.totalOutdated) update](inflect: true) available")) {
+        PopoverHeader(title: Text("\(state.totalOutdated) updates available")) {
             if isConfirmingUpdateAll {
                 Text("Updates run one package at a time in each bucket.")
             } else {
@@ -105,10 +105,9 @@ struct BucketSection: View {
                             Text("Up to date").font(.system(size: 12)).foregroundStyle(.secondary)
                         } else {
                             CountPill(count: outdated.count)
-                            Image(systemName: "chevron.right")
+                            Image(systemName: isExpanded ? "chevron.down" : "chevron.forward")
                                 .font(.system(size: 11, weight: .semibold))
                                 .foregroundStyle(.secondary)
-                                .rotationEffect(.degrees(isExpanded ? 90 : 0))
                         }
                     }
                     .padding(.horizontal, 16)

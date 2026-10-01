@@ -83,7 +83,7 @@ private struct InspectorContent: View {
         .padding(16)
     }
 
-    private var kindLabel: String {
+    private var kindLabel: LocalizedStringKey {
         switch package.kind {
         case .formula: "Formula"
         case .cask: "Cask"

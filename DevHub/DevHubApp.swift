@@ -14,10 +14,13 @@ struct DevHubApp: App {
         let state = AppState(settings: settings.values, notifier: SystemNotifier(), notificationLedger: NotificationLedger())
         UNUserNotificationCenter.current().delegate = effects.notificationDelegate
 
+        AppEffects.launchLanguage = settings.values.language
+        AppEffects.apply(language: settings.values.language)
         AppEffects.apply(theme: settings.values.theme)
         settings.onChange = { [weak state] old, new in
             state?.apply(new)
             if old.theme != new.theme { AppEffects.apply(theme: new.theme) }
+            if old.language != new.language { AppEffects.apply(language: new.language) }
         }
         effects.watchForWake { [weak state] in
             if settings.values.checkOnWake { state?.checkAfterWake() }

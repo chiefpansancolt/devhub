@@ -599,3 +599,32 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         #expect(state.history.entries.isEmpty)
     }
 }
+
+@MainActor
+@Suite struct LanguageSettingTests {
+    @Test func followsTheMacByDefault() {
+        #expect(SettingsValues().language == nil)
+    }
+
+    @Test func theChoiceIsSavedAndReadBack() {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = SettingsStore(defaults: defaults)
+
+        store.values.language = "de"
+        #expect(SettingsStore(defaults: defaults).values.language == "de")
+
+        store.values.language = nil
+        #expect(SettingsStore(defaults: defaults).values.language == nil)
+    }
+
+    @Test func aFileWithoutTheFieldFollowsTheMac() {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set(Data(#"{"theme":"dark"}"#.utf8), forKey: "settings.v1")
+
+        #expect(SettingsStore(defaults: defaults).values.language == nil)
+    }
+}

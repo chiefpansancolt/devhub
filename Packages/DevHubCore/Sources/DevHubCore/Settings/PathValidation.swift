@@ -15,17 +15,17 @@ public enum PathValidation {
     /// Runs `brew --version` to be sure the file is Homebrew.
     public static func homebrew(path: String, runner: CommandRunning) async -> PathCheck {
         guard FileManager.default.fileExists(atPath: path) else {
-            return .problem("Nothing was found at this path.")
+            return .problem(String(localized: "Nothing was found at this path.", bundle: .module))
         }
         guard FileManager.default.isExecutableFile(atPath: path) else {
-            return .problem("This file is not a program.")
+            return .problem(String(localized: "This file is not a program.", bundle: .module))
         }
         let command = ToolCommand(executable: URL(filePath: path), arguments: ["--version"], environment: ToolEnvironment.make())
         guard let result = try? await runner.run(command), result.succeeded else {
-            return .problem("This program did not run as brew.")
+            return .problem(String(localized: "This program did not run as brew.", bundle: .module))
         }
         let first = result.standardOutput.split(whereSeparator: \.isNewline).first.map(String.init) ?? ""
-        return first.hasPrefix("Homebrew") ? .found(first) : .problem("This program did not run as brew.")
+        return first.hasPrefix("Homebrew") ? .found(first) : .problem(String(localized: "This program did not run as brew.", bundle: .module))
     }
 
     public static func nodeFolder(path: String) -> PathCheck {
@@ -39,11 +39,11 @@ public enum PathValidation {
     private static func folder(path: String, count: Int, noun: String) -> PathCheck {
         var isFolder: ObjCBool = false
         guard FileManager.default.fileExists(atPath: path, isDirectory: &isFolder), isFolder.boolValue else {
-            return .problem("This folder does not exist.")
+            return .problem(String(localized: "This folder does not exist.", bundle: .module))
         }
         guard count > 0 else {
-            return .problem("No \(noun) versions were found in this folder.")
+            return .problem(String(localized: "No \(noun) versions were found in this folder.", bundle: .module))
         }
-        return .found(count == 1 ? "1 version found" : "\(count) versions found")
+        return .found(String(localized: "\(count) versions found", bundle: .module))
     }
 }

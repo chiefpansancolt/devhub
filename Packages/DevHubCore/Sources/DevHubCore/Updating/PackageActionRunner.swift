@@ -168,7 +168,7 @@ public struct PackageActionRunner: Sendable {
 
         let command = action == .update ? scanner?.updateCommand(for: package) : scanner?.uninstallCommand(for: package)
         guard let command else {
-            let status = UpdateStatus.failed("DevHub has no way to \(action.rawValue) this package.")
+            let status = UpdateStatus.failed(action == .update ? String(localized: "DevHub has no way to update this package.", bundle: .module) : String(localized: "DevHub has no way to uninstall this package.", bundle: .module))
             await onEvent(.status(packageID: package.id, status))
             return ActionOutcome(package: package, action: action, command: nil, result: nil, status: status)
         }
@@ -199,7 +199,7 @@ public struct PackageActionRunner: Sendable {
     private static func reason(for result: CommandResult) -> String {
         let firstLine = result.standardError.split(whereSeparator: \.isNewline).first
             ?? result.standardOutput.split(whereSeparator: \.isNewline).last
-        return firstLine.map(String.init) ?? "The command exited with code \(result.exitCode)."
+        return firstLine.map(String.init) ?? String(localized: "The command exited with code \(result.exitCode).", bundle: .module)
     }
 }
 

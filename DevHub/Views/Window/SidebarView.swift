@@ -103,10 +103,9 @@ private struct BucketRow: View {
                     Text("Not set up").font(.system(size: 11)).foregroundStyle(.secondary)
                 } else {
                     Text("\(state.outdated(in: bucket).count)").font(.system(size: 12)).monospacedDigit().foregroundStyle(.secondary)
-                    Image(systemName: "chevron.right")
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.forward")
                         .font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(.secondary)
-                        .rotationEffect(.degrees(isExpanded ? 90 : 0))
                 }
             }
             .padding(.horizontal, 8)
@@ -146,6 +145,7 @@ private struct HistoryRow: View {
         .buttonStyle(.plain)
         .clickable()
         .handCursorOnHover()
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 
@@ -180,6 +180,7 @@ private struct ChildRow: View {
         .buttonStyle(.plain)
         .clickable()
         .handCursorOnHover()
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
     private var title: LocalizedStringKey {

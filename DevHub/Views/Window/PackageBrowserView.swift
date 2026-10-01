@@ -14,6 +14,7 @@ struct PackageBrowserView: View {
     @Environment(\.openSettings) private var openSettings
     let ui: WindowUIState
     @FocusState private var searchIsFocused: Bool
+    @FocusState private var listIsFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -56,11 +57,12 @@ struct PackageBrowserView: View {
     }
 
     private var title: Text {
-        guard let group = ui.scope.group else { return Text(ui.scope.bucket.displayName) }
+        let bucketName = Text(verbatim: ui.scope.bucket.displayName)
+        guard let group = ui.scope.group else { return bucketName }
         if ui.scope.bucket == .homebrew {
-            return Text("\(ui.scope.bucket.displayName) · \(group == PackageKind.cask.rawValue ? "Casks" : "Formulae")")
+            return bucketName + Text(verbatim: " · ") + (group == PackageKind.cask.rawValue ? Text("Casks") : Text("Formulae"))
         }
-        return Text("\(ui.scope.bucket.displayName) · \(group)")
+        return bucketName + Text(verbatim: " · \(group)")
     }
 
     // MARK: Header
@@ -114,8 +116,8 @@ struct PackageBrowserView: View {
     }
 
     private var counts: some View {
-        Text("\(scopePackages.count) installed · ^[\(outdatedInScope.count) update](inflect: true) available")
-            .lineLimit(1)
+        (Text("\(scopePackages.count) installed") + Text(verbatim: " · ") + Text("\(outdatedInScope.count) updates available"))
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     // MARK: Mode bar
@@ -189,20 +191,45 @@ struct PackageBrowserView: View {
     }
 
     private var list: some View {
-        ScrollView {
-            LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
-                ForEach(state.issues(in: ui.scope.bucket)) { issue in
-                    IssueBanner(issue: issue)
-                }
-                Section {
-                    ForEach(rows) { package in
-                        PackageRowView(package: package, ui: ui)
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
+                    ForEach(state.issues(in: ui.scope.bucket)) { issue in
+                        IssueBanner(issue: issue)
                     }
-                } header: {
-                    ColumnHeader(bucket: ui.scope.bucket, rows: rows, ui: ui)
+                    Section {
+                        ForEach(rows) { package in
+                            PackageRowView(package: package, ui: ui)
+                        }
+                    } header: {
+                        ColumnHeader(bucket: ui.scope.bucket, rows: rows, ui: ui)
+                    }
                 }
             }
+            .focusable()
+            .focused($listIsFocused)
+            .focusEffectDisabled()
+            .onKeyPress(.downArrow) { moveSelection(by: 1, proxy) }
+            .onKeyPress(.upArrow) { moveSelection(by: -1, proxy) }
+            .onKeyPress(.escape) {
+                guard ui.inspectedID != nil else { return .ignored }
+                ui.closeInspector()
+                return .handled
+            }
+            // Choosing a row focuses the list, so the arrow keys work right after.
+            .onChange(of: ui.inspectedID) { listIsFocused = true }
         }
+    }
+
+    private func moveSelection(by step: Int, _ proxy: ScrollViewProxy) -> KeyPress.Result {
+        guard !rows.isEmpty else { return .ignored }
+        let current = rows.firstIndex { $0.id == ui.inspectedID }
+        let start = current ?? (step > 0 ? -1 : rows.count)
+        let next = min(max(start + step, 0), rows.count - 1)
+        ui.isConfirmingUninstall = false
+        ui.inspectedID = rows[next].id
+        proxy.scrollTo(rows[next].id)
+        return .handled
     }
 }
 

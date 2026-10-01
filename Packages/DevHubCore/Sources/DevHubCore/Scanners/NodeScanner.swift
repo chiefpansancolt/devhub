@@ -29,7 +29,7 @@ public struct NodeScanner: PackageScanner {
                     } catch let failure as ScanFailure {
                         return (installation, .failure(failure))
                     } catch {
-                        return (installation, .failure(.unreadableOutput(command: "npm", reason: "The scan was cancelled")))
+                        return (installation, .failure(.unreadableOutput(command: "npm", reason: String(localized: "The scan was cancelled", bundle: .module))))
                     }
                 }
             }

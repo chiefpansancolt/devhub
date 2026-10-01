@@ -94,9 +94,9 @@ enum ScanFailure: Error, Equatable {
         switch self {
         case let .commandFailed(command, exitCode, detail):
             let suffix = detail.isEmpty ? "" : ": \(detail)"
-            return "\(command) exited with code \(exitCode)\(suffix)"
+            return String(localized: "\(command) exited with code \(exitCode)\(suffix)", bundle: .module)
         case let .unreadableOutput(command, reason):
-            return "Could not read the output of \(command): \(reason)"
+            return String(localized: "Could not read the output of \(command): \(reason)", bundle: .module)
         }
     }
 }

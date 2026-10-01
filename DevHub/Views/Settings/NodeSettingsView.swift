@@ -33,7 +33,7 @@ struct NodeSettingsView: View {
                             HStack {
                                 Text("v\(installation.version)")
                                 Spacer()
-                                Text("^[\(state.packages(in: PackageScope(bucket: .node, group: installation.version)).count) global package](inflect: true)")
+                                Text("\(state.packages(in: PackageScope(bucket: .node, group: installation.version)).count) global packages")
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -42,7 +42,7 @@ struct NodeSettingsView: View {
                 }
             }
 
-            Section("Updating") {
+            Section("Update options") {
                 Toggle("Include npm itself", isOn: $settings.values.nodeIncludeNpm)
                 .clickable()
             }
@@ -69,6 +69,6 @@ struct NodeSettingsView: View {
     private func check(_ found: [NodeInstallation]) -> PathCheck {
         if let path = settings.values.nodeFolder { return PathValidation.nodeFolder(path: path) }
         if found.isEmpty { return .problem(String(localized: "No Node version manager found. Choose the folder that holds your Node versions.")) }
-        return .found(found.count == 1 ? String(localized: "1 version found") : String(localized: "\(found.count) versions found"))
+        return .found(String(localized: "\(found.count) versions found"))
     }
 }

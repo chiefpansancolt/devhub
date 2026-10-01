@@ -61,26 +61,26 @@ public struct Toolchain: Sendable {
                 homebrew = HomebrewInstallation(executable: URL(filePath: path))
             } else {
                 homebrew = nil
-                problems[.homebrew] = "There is no brew program at \(path)."
+                problems[.homebrew] = String(localized: "There is no brew program at \(path).", bundle: .module)
             }
         }
 
         var node = NodeVersionDiscovery(versionsFolder: settings.nodeFolder.map { URL(filePath: $0) }).installations()
         if let path = settings.nodeFolder, node.isEmpty {
-            problems[.node] = "No Node versions were found in \(path)."
+            problems[.node] = String(localized: "No Node versions were found in \(path).", bundle: .module)
         }
         if applyingExclusions, !node.isEmpty {
             node.removeAll { settings.excludedNodeVersions.contains($0.version) }
-            if node.isEmpty { problems[.node] = "Every Node version is turned off in Settings." }
+            if node.isEmpty { problems[.node] = String(localized: "Every Node version is turned off in Settings.", bundle: .module) }
         }
 
         var ruby = RubyVersionDiscovery(versionsFolder: settings.rubyFolder.map { URL(filePath: $0) }).installations()
         if let path = settings.rubyFolder, ruby.isEmpty {
-            problems[.ruby] = "No Ruby versions were found in \(path)."
+            problems[.ruby] = String(localized: "No Ruby versions were found in \(path).", bundle: .module)
         }
         if applyingExclusions, !ruby.isEmpty {
             ruby.removeAll { settings.excludedRubyVersions.contains($0.version) }
-            if ruby.isEmpty { problems[.ruby] = "Every Ruby version is turned off in Settings." }
+            if ruby.isEmpty { problems[.ruby] = String(localized: "Every Ruby version is turned off in Settings.", bundle: .module) }
         }
 
         var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, chosenPathProblems: problems)
@@ -115,13 +115,13 @@ public struct Toolchain: Sendable {
     public var setupProblems: [Bucket: String] {
         var problems: [Bucket: String] = [:]
         if homebrew == nil {
-            problems[.homebrew] = chosenPathProblems[.homebrew] ?? "Homebrew was not found in /opt/homebrew or /usr/local."
+            problems[.homebrew] = chosenPathProblems[.homebrew] ?? String(localized: "Homebrew was not found in /opt/homebrew or /usr/local.", bundle: .module)
         }
         if node.isEmpty {
-            problems[.node] = chosenPathProblems[.node] ?? "No Node version manager found. DevHub looked for nvm, fnm, Volta and asdf."
+            problems[.node] = chosenPathProblems[.node] ?? String(localized: "No Node version manager found. DevHub looked for nvm, fnm, Volta and asdf.", bundle: .module)
         }
         if ruby.isEmpty {
-            problems[.ruby] = chosenPathProblems[.ruby] ?? "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf."
+            problems[.ruby] = chosenPathProblems[.ruby] ?? String(localized: "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf.", bundle: .module)
         }
         for bucket in disabled { problems[bucket] = nil }
         return problems

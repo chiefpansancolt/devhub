@@ -14,9 +14,8 @@ struct OutputLogView: View {
                 withAnimation(.easeInOut(duration: 0.15)) { isExpanded.toggle() }
             } label: {
                 HStack(spacing: 6) {
-                    Image(systemName: "chevron.right")
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.forward")
                         .font(.system(size: 9, weight: .bold))
-                        .rotationEffect(.degrees(isExpanded ? 90 : 0))
                     Text("Output")
                         .font(.system(size: 11, weight: .semibold))
                         .textCase(.uppercase)

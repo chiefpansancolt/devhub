@@ -117,7 +117,7 @@ extension HistoryEntry {
         let message: String?
         switch outcome.status {
         case let .failed(reason): message = reason
-        case .skipped: message = "Cancelled"
+        case .skipped: message = String(localized: "Cancelled", bundle: .module)
         case .waiting, .updating, .done: message = nil
         }
 

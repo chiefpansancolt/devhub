@@ -30,7 +30,7 @@ struct PackageRowView: View {
                         .font(.system(size: 13, weight: .semibold))
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(kind).foregroundStyle(.secondary).frame(width: Columns.kind, alignment: .leading)
+                    kind.foregroundStyle(.secondary).frame(width: Columns.kind, alignment: .leading)
                     Text(package.installedVersion).foregroundStyle(.secondary).lineLimit(1).frame(width: Columns.version, alignment: .leading)
                     Text(package.availableUpdate ?? package.installedVersion)
                         .foregroundStyle(package.isOutdated ? .primary : .secondary)
@@ -44,6 +44,7 @@ struct PackageRowView: View {
             .buttonStyle(.plain)
             .clickable()
             .accessibilityLabel("Show details for \(package.name)")
+            .accessibilityValue(package.availableUpdate.map { "Installed \(package.installedVersion), update to \($0)" } ?? "Installed \(package.installedVersion), up to date")
             .accessibilityAddTraits(isInspected ? .isSelected : [])
 
             HStack(spacing: 8) {
@@ -71,10 +72,10 @@ struct PackageRowView: View {
         .overlay(alignment: .bottom) { Divider() }
     }
 
-    private var kind: String {
+    private var kind: Text {
         switch package.bucket {
-        case .homebrew: package.kind == .cask ? "Cask" : "Formula"
-        case .node, .ruby: package.group ?? ""
+        case .homebrew: package.kind == .cask ? Text("Cask") : Text("Formula")
+        case .node, .ruby: Text(verbatim: package.group ?? "")
         }
     }
 

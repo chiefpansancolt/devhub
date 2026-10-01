@@ -33,7 +33,7 @@ struct RubySettingsView: View {
                             HStack {
                                 Text(installation.version)
                                 Spacer()
-                                Text("^[\(state.packages(in: PackageScope(bucket: .ruby, group: installation.version)).count) gem](inflect: true)")
+                                Text("\(state.packages(in: PackageScope(bucket: .ruby, group: installation.version)).count) gems")
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -42,7 +42,7 @@ struct RubySettingsView: View {
                 }
             }
 
-            Section("Updating") {
+            Section("Update options") {
                 Toggle("Install gem documentation", isOn: $settings.values.gemInstallDocumentation)
                 .clickable()
                 Text("Slower, and uses more disk space.").font(.system(size: 12)).foregroundStyle(.secondary)
@@ -70,6 +70,6 @@ struct RubySettingsView: View {
     private func check(_ found: [RubyInstallation]) -> PathCheck {
         if let path = settings.values.rubyFolder { return PathValidation.rubyFolder(path: path) }
         if found.isEmpty { return .problem(String(localized: "No Ruby version manager found. Choose the folder that holds your Ruby versions.")) }
-        return .found(found.count == 1 ? String(localized: "1 version found") : String(localized: "\(found.count) versions found"))
+        return .found(String(localized: "\(found.count) versions found"))
     }
 }

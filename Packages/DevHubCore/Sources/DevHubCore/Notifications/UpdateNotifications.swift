@@ -116,17 +116,14 @@ public enum NotificationPlanner {
     private static func announcement(for packages: [InstalledPackage], headline: Headline) -> UpdateNotification {
         let count = packages.count
         let title: String
-        switch (headline, count) {
-        case (.new, 1): title = "1 new update"
-        case (.new, _): title = "\(count) new updates"
-        case (.total, 1): title = "1 update available"
-        case (.total, _): title = "\(count) updates available"
-        case (.major, 1): title = "1 major update"
-        case (.major, _): title = "\(count) major updates"
+        switch headline {
+        case .new: title = String(localized: "\(count) new updates", bundle: .module)
+        case .total: title = String(localized: "\(count) updates available", bundle: .module)
+        case .major: title = String(localized: "\(count) major updates", bundle: .module)
         }
 
         let names = packages.prefix(3).map(\.name).joined(separator: ", ")
-        let more = count > 3 ? " and \(count - 3) more" : ""
+        let more = count > 3 ? " " + String(localized: "and \(count - 3) more", bundle: .module) : ""
         return UpdateNotification(title: title, body: names + more)
     }
 }

@@ -32,7 +32,7 @@ struct HomebrewSettingsView: View {
                 }
             }
 
-            Section("Checking") {
+            Section("Update checks") {
                 Toggle("Run brew update before each check", isOn: $settings.values.brewRefreshIndex)
                 .clickable()
                 Toggle("Include casks", isOn: $settings.values.brewIncludeCasks)
@@ -42,7 +42,7 @@ struct HomebrewSettingsView: View {
                     .disabled(!settings.values.brewIncludeCasks)
             }
 
-            Section("Updating") {
+            Section("Update options") {
                 Toggle("Remove old versions after updating", isOn: $settings.values.brewCleanupAfterUpdate)
                 .clickable()
             }

@@ -2,6 +2,7 @@ name: DevHub
 
 options:
   bundleIdPrefix: dev.chiefpansancolt
+  developmentLanguage: en
   createIntermediateGroups: true
   deploymentTarget:
     macOS: "15.0"
@@ -15,6 +16,8 @@ settings:
     CODE_SIGN_IDENTITY: "-"
     ARCHS: "arm64 x86_64"
     ONLY_ACTIVE_ARCH: NO
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
 
 packages:
   DevHubCore:

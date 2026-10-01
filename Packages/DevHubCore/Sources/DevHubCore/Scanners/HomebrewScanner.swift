@@ -44,7 +44,7 @@ public struct HomebrewScanner: PackageScanner {
             } catch let failure as ScanFailure {
                 issues.append(ScanIssue(group: nil, message: failure.message))
             } catch {
-                issues.append(ScanIssue(group: nil, message: "\(update.displayText) was cancelled"))
+                issues.append(ScanIssue(group: nil, message: String(localized: "\(update.displayText) was cancelled", bundle: .module)))
             }
         }
 
@@ -55,7 +55,7 @@ public struct HomebrewScanner: PackageScanner {
         } catch let failure as ScanFailure {
             return ScanResult(packages: [], issues: issues + [ScanIssue(group: nil, message: failure.message)])
         } catch {
-            return ScanResult(packages: [], issues: issues + [ScanIssue(group: nil, message: "The scan was cancelled")])
+            return ScanResult(packages: [], issues: issues + [ScanIssue(group: nil, message: String(localized: "The scan was cancelled", bundle: .module))])
         }
     }
 

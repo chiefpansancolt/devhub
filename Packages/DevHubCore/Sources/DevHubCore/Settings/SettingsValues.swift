@@ -49,6 +49,8 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var notificationSound = false
 
     // Appearance
+    /// A language code such as `de`. `nil` follows the language of the Mac.
+    public var language: String?
     public var theme = AppTheme.system
     public var menuBarIconStyle = MenuBarIconStyle.iconAndCount
 
@@ -94,6 +96,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         notifyAboutUpdates = value(.notifyAboutUpdates, notifyAboutUpdates)
         notificationFrequency = value(.notificationFrequency, notificationFrequency)
         notificationSound = value(.notificationSound, notificationSound)
+        language = value(.language, language)
         theme = value(.theme, theme)
         menuBarIconStyle = value(.menuBarIconStyle, menuBarIconStyle)
         brewPath = value(.brewPath, brewPath)
@@ -115,7 +118,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case disabledBuckets
         case checkInterval, checkOnLaunch, checkOnWake, confirmUninstall, confirmUpdateAll, showOutputLog
         case notifyAboutUpdates, notificationFrequency, notificationSound
-        case theme, menuBarIconStyle
+        case language, theme, menuBarIconStyle
         case brewPath, brewRefreshIndex, brewIncludeCasks, brewIncludeSelfUpdatingCasks, brewCleanupAfterUpdate
         case nodeFolder, excludedNodeVersions, nodeIncludeNpm
         case rubyFolder, excludedRubyVersions, gemInstallDocumentation
