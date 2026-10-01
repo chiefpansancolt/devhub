@@ -9,7 +9,7 @@ public struct RubyScanner: PackageScanner {
         support = ScanSupport(runner: runner)
     }
 
-    public func scan() async -> ScanResult {
+    public func scan(_ reason: ScanReason) async -> ScanResult {
         await withTaskGroup(of: (RubyInstallation, Result<[InstalledPackage], ScanFailure>).self) { group in
             for installation in installations {
                 group.addTask {

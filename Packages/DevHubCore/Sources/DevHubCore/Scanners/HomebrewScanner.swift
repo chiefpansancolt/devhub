@@ -23,10 +23,10 @@ public struct HomebrewScanner: PackageScanner {
         support = ScanSupport(runner: runner)
     }
 
-    public func scan() async -> ScanResult {
+    public func scan(_ reason: ScanReason) async -> ScanResult {
         var issues: [ScanIssue] = []
 
-        if options.refreshIndexFirst {
+        if options.refreshIndexFirst, reason == .check {
             let update = command(["update"])
             do {
                 try support.requireExit(try await support.run(update), in: update)

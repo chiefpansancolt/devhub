@@ -1,17 +1,30 @@
 import Foundation
 
+public enum ScanReason: Sendable {
+    /// A routine check. Homebrew refreshes its package index first when that option is on.
+    case check
+    /// A scan right after an update. The index is already current, so Homebrew skips the refresh.
+    case afterUpdate
+}
+
 public protocol PackageScanner: Sendable {
     var bucket: Bucket { get }
 
     /// Lists every installed package with its available update. A failure in one part is reported as an issue,
     /// so the packages that could be read are still returned.
-    func scan() async -> ScanResult
+    func scan(_ reason: ScanReason) async -> ScanResult
 
     /// The command that updates one package. `nil` when the package does not belong to this scanner.
     func updateCommand(for package: InstalledPackage) -> ToolCommand?
 
     /// The command that removes one package. `nil` when the package does not belong to this scanner.
     func uninstallCommand(for package: InstalledPackage) -> ToolCommand?
+}
+
+extension PackageScanner {
+    public func scan() async -> ScanResult {
+        await scan(.check)
+    }
 }
 
 struct ScanSupport {
