@@ -29,6 +29,16 @@ struct SidebarView: View {
                 .padding(.horizontal, 10)
             }
 
+            Text("Activity")
+                .font(.system(size: 11, weight: .semibold))
+                .textCase(.uppercase)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 18)
+                .padding(.top, 6)
+                .padding(.bottom, 6)
+            HistoryRow(ui: ui)
+                .padding(.horizontal, 10)
+
             Text("Bucket numbers show available updates. Sub-rows show updates of installed.")
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
@@ -52,7 +62,7 @@ private struct BucketRow: View {
         let problem = state.setupProblems[bucket]
         let isExpanded = ui.expandedBuckets.contains(bucket)
         // A bucket that is not set up has no rows to pick, so its header selects it to show the reason.
-        let isSelected = problem != nil && ui.scope.bucket == bucket
+        let isSelected = problem != nil && ui.page == .packages && ui.scope.bucket == bucket
         Button {
             if problem != nil {
                 ui.select(PackageScope(bucket: bucket))
@@ -85,13 +95,42 @@ private struct BucketRow: View {
     }
 }
 
+private struct HistoryRow: View {
+    @Environment(AppState.self) private var state
+    let ui: WindowUIState
+
+    var body: some View {
+        let isSelected = ui.page == .history
+        let today = state.history.entries.filter { Calendar.current.isDateInToday($0.timestamp) }.count
+        Button {
+            ui.showHistory()
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "clock.arrow.circlepath")
+                    .font(.system(size: 13, weight: .medium))
+                    .frame(width: 18)
+                    .accessibilityHidden(true)
+                Text("History").font(.system(size: 13, weight: isSelected ? .semibold : .regular))
+                Spacer()
+                Text("\(today)").font(.system(size: 12)).monospacedDigit().foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(isSelected ? Color.accentColor.opacity(0.18) : .clear, in: RoundedRectangle(cornerRadius: 7))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .clickable()
+    }
+}
+
 private struct ChildRow: View {
     @Environment(AppState.self) private var state
     let scope: PackageScope
     let ui: WindowUIState
 
     var body: some View {
-        let isSelected = ui.scope == scope
+        let isSelected = ui.page == .packages && ui.scope == scope
         Button {
             ui.select(scope)
         } label: {

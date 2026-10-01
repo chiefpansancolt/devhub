@@ -122,7 +122,7 @@ import Testing
 
         #expect(state.package(withID: packages[0].id) == nil)
         #expect(state.uninstallProgress == nil)
-        #expect(state.lastOutcomes.map(\.action) == [.uninstall])
+        #expect(state.history.entries.first?.action == .uninstall)
         #expect(machine.scanReasons.contains(.afterUpdate))
     }
 

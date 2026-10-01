@@ -77,6 +77,39 @@ public struct ActionOutcome: Sendable, Equatable {
     public let command: ToolCommand?
     public let result: CommandResult?
     public let status: UpdateStatus
+    /// When the command started. `nil` when it never started.
+    public let startedAt: Date?
+    /// The lines the command printed, in the order they arrived.
+    public let output: [LogEntry]
+
+    init(
+        package: InstalledPackage,
+        action: PackageAction,
+        command: ToolCommand?,
+        result: CommandResult?,
+        status: UpdateStatus,
+        startedAt: Date? = nil,
+        output: [LogEntry] = []
+    ) {
+        self.package = package
+        self.action = action
+        self.command = command
+        self.result = result
+        self.status = status
+        self.startedAt = startedAt
+        self.output = output
+    }
+}
+
+private final class OutputCollector: @unchecked Sendable {
+    private let lock = NSLock()
+    private var lines: [LogEntry] = []
+
+    func add(_ entry: LogEntry) {
+        lock.withLock { lines.append(entry) }
+    }
+
+    var all: [LogEntry] { lock.withLock { lines } }
 }
 
 public struct PackageActionRunner: Sendable {
@@ -142,20 +175,24 @@ public struct PackageActionRunner: Sendable {
 
         await onEvent(.status(packageID: package.id, .updating))
         await onEvent(.log(LogEntry(kind: .command, text: "$ \(command.displayText)")))
+        let startedAt = Date()
+        let collected = OutputCollector()
         do {
             let result = try await runner.run(command) { line in
-                await onEvent(.log(LogEntry(kind: line.source == .standardError ? .error : .output, text: line.text)))
+                let entry = LogEntry(kind: line.source == .standardError ? .error : .output, text: line.text)
+                collected.add(entry)
+                await onEvent(.log(entry))
             }
             let status: UpdateStatus = result.succeeded ? .done : .failed(Self.reason(for: result))
             await onEvent(.status(packageID: package.id, status))
-            return ActionOutcome(package: package, action: action, command: command, result: result, status: status)
+            return ActionOutcome(package: package, action: action, command: command, result: result, status: status, startedAt: startedAt, output: collected.all)
         } catch is CancellationError {
             await onEvent(.status(packageID: package.id, .skipped))
-            return ActionOutcome(package: package, action: action, command: command, result: nil, status: .skipped)
+            return ActionOutcome(package: package, action: action, command: command, result: nil, status: .skipped, startedAt: startedAt, output: collected.all)
         } catch {
             let status = UpdateStatus.failed(error.localizedDescription)
             await onEvent(.status(packageID: package.id, status))
-            return ActionOutcome(package: package, action: action, command: command, result: nil, status: status)
+            return ActionOutcome(package: package, action: action, command: command, result: nil, status: status, startedAt: startedAt, output: collected.all)
         }
     }
 

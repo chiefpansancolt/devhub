@@ -1,6 +1,17 @@
 import Foundation
 import Observation
 
+extension Bucket {
+    /// The command a routine check runs for this bucket. Used in the history.
+    var checkCommandText: String {
+        switch self {
+        case .homebrew: "brew outdated --json=v2"
+        case .node: "npm outdated -g --json"
+        case .ruby: "gem outdated"
+        }
+    }
+}
+
 public enum PopoverMode: Sendable, Equatable {
     /// The first scan has not finished.
     case checking
@@ -37,13 +48,13 @@ public final class AppState {
     public private(set) var lastChecked: Date?
     public private(set) var nextCheck: Date?
     public private(set) var session: UpdateSession?
-    /// What the last action did, in order. Kept for the history log.
-    public private(set) var lastOutcomes: [ActionOutcome] = []
     public private(set) var uninstallProgress: UninstallProgress?
     /// The commands that ran and what they printed, oldest first.
     public private(set) var log: [LogLine] = []
     /// Buckets that cannot be scanned, with the reason.
     public let setupProblems: [Bucket: String]
+    /// Every check, update and uninstall, newest first. Also written to the history file.
+    public let history: HistoryStore
 
     private static let logLimit = 2000
 
@@ -62,12 +73,14 @@ public final class AppState {
         setupProblems: [Bucket: String] = [:],
         versions: [Bucket: [String]] = [:],
         runner: CommandRunning,
+        history: HistoryStore = HistoryStore(),
         checkInterval: Duration = .seconds(4 * 60 * 60),
         now: @escaping @Sendable () -> Date = { Date() }
     ) {
         self.scanners = scanners
         self.setupProblems = setupProblems
         self.knownVersions = versions
+        self.history = history
         self.actions = PackageActionRunner(scanners: scanners, runner: runner)
         self.checkInterval = checkInterval
         self.now = now
@@ -78,7 +91,8 @@ public final class AppState {
             scanners: toolchain.scanners(runner: runner),
             setupProblems: toolchain.setupProblems,
             versions: [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)],
-            runner: runner
+            runner: runner,
+            history: HistoryStore(log: HistoryLog())
         )
     }
 
@@ -179,10 +193,15 @@ public final class AppState {
     // MARK: Checking
 
     /// Scans every ready bucket. Each bucket's result appears as soon as that bucket is done.
-    public func refresh(_ reason: ScanReason = .check) async {
+    /// A routine check is added to the history. A scan right after an update is not, because the update has its own entry.
+    public func refresh(_ reason: ScanReason = .check, trigger: HistoryTrigger = .manual) async {
         guard !isChecking, !isBusy else { return }
         isChecking = true
         defer { isChecking = false }
+
+        let started = now()
+        let clock = ContinuousClock()
+        let begin = clock.now
 
         await withTaskGroup(of: (Bucket, ScanResult).self) { group in
             for (bucket, scanner) in scanners {
@@ -195,10 +214,13 @@ public final class AppState {
 
         lastChecked = now()
         nextCheck = now().addingTimeInterval(checkInterval.seconds)
+        if reason == .check {
+            history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
+        }
     }
 
-    public func startRefresh(_ reason: ScanReason = .check) {
-        refreshTask = Task { await refresh(reason) }
+    public func startRefresh(_ reason: ScanReason = .check, trigger: HistoryTrigger = .manual) {
+        refreshTask = Task { await refresh(reason, trigger: trigger) }
     }
 
     /// Checks now, then again after every interval, until `stopScheduledChecks()` is called.
@@ -208,10 +230,31 @@ public final class AppState {
         scheduleTask = Task { [weak self] in
             while !Task.isCancelled {
                 guard let self else { return }
-                await self.refresh()
+                await self.refresh(.check, trigger: .automatic)
                 try? await Task.sleep(for: interval)
             }
         }
+    }
+
+    private func checkEntry(startedAt: Date, trigger: HistoryTrigger, duration: Duration) -> HistoryEntry {
+        let issues = readyBuckets.flatMap { bucket in (results[bucket]?.issues ?? []).map { issue in
+            issue.group.map { "\(bucket.displayName) \($0): \(issue.message)" } ?? "\(bucket.displayName): \(issue.message)"
+        } }
+        let found = totalOutdated
+        let summary = String(localized: "\(found) updates found")
+        return HistoryEntry(
+            timestamp: startedAt,
+            action: .check,
+            bucket: nil,
+            package: nil,
+            trigger: trigger,
+            command: readyBuckets.map(\.checkCommandText).joined(separator: " · "),
+            exitCode: issues.isEmpty ? 0 : 1,
+            durationMs: duration.milliseconds,
+            ok: issues.isEmpty,
+            message: issues.isEmpty ? summary : issues[0],
+            output: history.includesOutput ? (issues.isEmpty ? [summary] : issues) : nil
+        )
     }
 
     public func stopScheduledChecks() {
@@ -222,18 +265,19 @@ public final class AppState {
     // MARK: Updating
 
     public func updateAll() async {
-        await update(allOutdated)
+        await update(allOutdated, trigger: .updateAll)
     }
 
     /// Updates the given packages, then scans again. Cancelling the task, or calling `cancelUpdate()`, stops after the running package.
-    public func update(_ packages: [InstalledPackage]) async {
+    public func update(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) async {
         guard !packages.isEmpty, !isBusy else { return }
         session = UpdateSession(items: packages.map { UpdateItem(package: $0) }, isRunning: true)
 
-        lastOutcomes = await actions.update(packages) { [weak self] event in
+        let outcomes = await actions.update(packages) { [weak self] event in
             await self?.handle(event)
         }
         session?.isRunning = false
+        record(outcomes, trigger: trigger)
 
         // A cancelled task cannot run the scan, so the scan starts in a task of its own.
         if Task.isCancelled {
@@ -246,12 +290,12 @@ public final class AppState {
         }
     }
 
-    public func startUpdate(_ packages: [InstalledPackage]) {
-        updateTask = Task { await update(packages) }
+    public func startUpdate(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) {
+        updateTask = Task { await update(packages, trigger: trigger) }
     }
 
     public func startUpdateAll() {
-        startUpdate(allOutdated)
+        startUpdate(allOutdated, trigger: .updateAll)
     }
 
     public func cancelUpdate() {
@@ -280,7 +324,7 @@ public final class AppState {
         let outcome = await actions.uninstall(package) { [weak self] event in
             await self?.handle(event)
         }
-        lastOutcomes = [outcome]
+        record([outcome], trigger: .manual)
 
         if case .failed = outcome.status {
             uninstallProgress?.status = outcome.status
@@ -297,6 +341,14 @@ public final class AppState {
     public func dismissUninstallFailure() {
         guard case .failed = uninstallProgress?.status else { return }
         uninstallProgress = nil
+    }
+
+    private func record(_ outcomes: [ActionOutcome], trigger: HistoryTrigger) {
+        for outcome in outcomes {
+            if let entry = HistoryEntry(outcome: outcome, trigger: trigger, includesOutput: history.includesOutput) {
+                history.record(entry)
+            }
+        }
     }
 
     // MARK: Events from running commands

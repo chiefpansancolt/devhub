@@ -7,6 +7,7 @@ struct DevHubApp: App {
 
     init() {
         let state = AppState(toolchain: .detect())
+        Task { await state.history.startUp() }
         state.startScheduledChecks()
         _appState = State(initialValue: state)
     }

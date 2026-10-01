@@ -284,7 +284,7 @@ private actor StatusLog {
         #expect(state.totalOutdated == 0)
         #expect(state.session == nil)
         #expect(state.popoverMode == .upToDate)
-        #expect(state.lastOutcomes.map(\.status) == [.done, .done, .done])
+        #expect(state.history.entries.filter { $0.action == .update }.count == 3)
         #expect(machine.scanReasons.filter { $0 == .afterUpdate }.count == 2)
     }
 

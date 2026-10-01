@@ -11,13 +11,21 @@ struct WindowView: View {
             SidebarView(ui: ui)
                 .frame(width: 220)
             Divider()
-            PackageBrowserView(ui: ui)
+            switch ui.page {
+            case .packages: PackageBrowserView(ui: ui)
+            case .history: HistoryView(ui: ui)
+            }
             if inspectorIsOpen {
                 Divider()
-                InspectorView(ui: ui)
-                    .frame(width: 320)
-                    .background(Color(nsColor: .controlBackgroundColor))
-                    .transition(.move(edge: .trailing))
+                Group {
+                    switch ui.page {
+                    case .packages: InspectorView(ui: ui)
+                    case .history: HistoryInspectorView(ui: ui)
+                    }
+                }
+                .frame(width: 320)
+                .background(Color(nsColor: .controlBackgroundColor))
+                .transition(.move(edge: .trailing))
             }
         }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.22), value: inspectorIsOpen)
@@ -30,6 +38,9 @@ struct WindowView: View {
     }
 
     private var inspectorIsOpen: Bool {
-        ui.inspectedID.flatMap { state.package(withID: $0) } != nil
+        switch ui.page {
+        case .packages: ui.inspectedID.flatMap { state.package(withID: $0) } != nil
+        case .history: ui.inspectedHistoryID.flatMap { id in state.history.entries.first { $0.id == id } } != nil
+        }
     }
 }
