@@ -18,6 +18,17 @@ public enum MenuBarIconState: Sendable, Equatable {
     case failed(count: Int)
 }
 
+public struct LogLine: Identifiable, Sendable, Equatable {
+    public let id: Int
+    public let entry: LogEntry
+}
+
+public struct UninstallProgress: Sendable, Equatable {
+    public let packageID: String
+    /// `.updating` while the command runs, `.failed` with the reason when it ended badly.
+    public var status: UpdateStatus
+}
+
 @MainActor
 @Observable
 public final class AppState {
@@ -26,13 +37,20 @@ public final class AppState {
     public private(set) var lastChecked: Date?
     public private(set) var nextCheck: Date?
     public private(set) var session: UpdateSession?
-    /// What the last update did, in order. Kept for the history log.
-    public private(set) var lastOutcomes: [UpdateOutcome] = []
+    /// What the last action did, in order. Kept for the history log.
+    public private(set) var lastOutcomes: [ActionOutcome] = []
+    public private(set) var uninstallProgress: UninstallProgress?
+    /// The commands that ran and what they printed, oldest first.
+    public private(set) var log: [LogLine] = []
     /// Buckets that cannot be scanned, with the reason.
     public let setupProblems: [Bucket: String]
 
+    private static let logLimit = 2000
+
     private let scanners: [Bucket: any PackageScanner]
-    private let updater: PackageUpdater
+    private let knownVersions: [Bucket: [String]]
+    private let actions: PackageActionRunner
+    private var nextLogID = 0
     private let checkInterval: Duration
     private let now: @Sendable () -> Date
     private var updateTask: Task<Void, Never>?
@@ -42,19 +60,26 @@ public final class AppState {
     public init(
         scanners: [Bucket: any PackageScanner],
         setupProblems: [Bucket: String] = [:],
+        versions: [Bucket: [String]] = [:],
         runner: CommandRunning,
         checkInterval: Duration = .seconds(4 * 60 * 60),
         now: @escaping @Sendable () -> Date = { Date() }
     ) {
         self.scanners = scanners
         self.setupProblems = setupProblems
-        self.updater = PackageUpdater(scanners: scanners, runner: runner)
+        self.knownVersions = versions
+        self.actions = PackageActionRunner(scanners: scanners, runner: runner)
         self.checkInterval = checkInterval
         self.now = now
     }
 
     public convenience init(toolchain: Toolchain, runner: CommandRunning = CommandRunner()) {
-        self.init(scanners: toolchain.scanners(runner: runner), setupProblems: toolchain.setupProblems, runner: runner)
+        self.init(
+            scanners: toolchain.scanners(runner: runner),
+            setupProblems: toolchain.setupProblems,
+            versions: [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)],
+            runner: runner
+        )
     }
 
     // MARK: Reading the state
@@ -66,6 +91,33 @@ public final class AppState {
 
     public func outdated(in bucket: Bucket) -> [InstalledPackage] {
         (results[bucket]?.packages ?? []).filter(\.isOutdated)
+    }
+
+    public func packages(in scope: PackageScope) -> [InstalledPackage] {
+        (results[scope.bucket]?.packages ?? []).filter(scope.contains)
+    }
+
+    public func outdated(in scope: PackageScope) -> [InstalledPackage] {
+        packages(in: scope).filter(\.isOutdated)
+    }
+
+    /// The sidebar rows under a bucket. Every installed Node or Ruby version is listed, even one with no packages.
+    public func groupScopes(of bucket: Bucket) -> [PackageScope] {
+        let seen = Set((results[bucket]?.packages ?? []).compactMap(\.group))
+        let versions = (knownVersions[bucket] ?? []) + seen.subtracting(knownVersions[bucket] ?? []).sorted { PackageVersion($0) > PackageVersion($1) }
+        return PackageScope.groups(of: bucket, versions: versions)
+    }
+
+    public func package(withID id: String) -> InstalledPackage? {
+        results.values.lazy.flatMap(\.packages).first { $0.id == id }
+    }
+
+    public func updateCommandText(for package: InstalledPackage) -> String? {
+        scanners[package.bucket]?.updateCommand(for: package)?.displayText
+    }
+
+    public func uninstallCommandText(for package: InstalledPackage) -> String? {
+        scanners[package.bucket]?.uninstallCommand(for: package)?.displayText
     }
 
     /// The outdated packages of a bucket, split by Node or Ruby version. Homebrew has a single group with no name.
@@ -92,6 +144,11 @@ public final class AppState {
     public var totalOutdated: Int { allOutdated.count }
 
     public var hasChecked: Bool { lastChecked != nil }
+
+    /// An update or an uninstall is running. Only one runs at a time because Homebrew locks its files.
+    public var isBusy: Bool {
+        session?.isRunning == true || uninstallProgress?.status == .updating
+    }
 
     /// A bucket whose scan produced no packages and at least one issue.
     private var failedScanCount: Int {
@@ -123,7 +180,7 @@ public final class AppState {
 
     /// Scans every ready bucket. Each bucket's result appears as soon as that bucket is done.
     public func refresh(_ reason: ScanReason = .check) async {
-        guard !isChecking, session?.isRunning != true else { return }
+        guard !isChecking, !isBusy else { return }
         isChecking = true
         defer { isChecking = false }
 
@@ -170,11 +227,11 @@ public final class AppState {
 
     /// Updates the given packages, then scans again. Cancelling the task, or calling `cancelUpdate()`, stops after the running package.
     public func update(_ packages: [InstalledPackage]) async {
-        guard !packages.isEmpty, session?.isRunning != true else { return }
+        guard !packages.isEmpty, !isBusy else { return }
         session = UpdateSession(items: packages.map { UpdateItem(package: $0) }, isRunning: true)
 
-        lastOutcomes = await updater.update(packages) { [weak self] id, status in
-            await self?.setStatus(of: id, to: status)
+        lastOutcomes = await actions.update(packages) { [weak self] event in
+            await self?.handle(event)
         }
         session?.isRunning = false
 
@@ -213,9 +270,47 @@ public final class AppState {
         session = nil
     }
 
-    private func setStatus(of id: String, to status: UpdateStatus) {
-        guard let index = session?.items.firstIndex(where: { $0.id == id }) else { return }
-        session?.items[index].status = status
+    // MARK: Uninstalling
+
+    /// Removes one package, then scans again. A failure stays in `uninstallProgress` until it is dismissed.
+    public func uninstall(_ package: InstalledPackage) async {
+        guard !isBusy else { return }
+        uninstallProgress = UninstallProgress(packageID: package.id, status: .updating)
+
+        let outcome = await actions.uninstall(package) { [weak self] event in
+            await self?.handle(event)
+        }
+        lastOutcomes = [outcome]
+
+        if case .failed = outcome.status {
+            uninstallProgress?.status = outcome.status
+            return
+        }
+        uninstallProgress = nil
+        await refresh(.afterUpdate)
+    }
+
+    public func startUninstall(_ package: InstalledPackage) {
+        Task { await uninstall(package) }
+    }
+
+    public func dismissUninstallFailure() {
+        guard case .failed = uninstallProgress?.status else { return }
+        uninstallProgress = nil
+    }
+
+    // MARK: Events from running commands
+
+    private func handle(_ event: ActionEvent) {
+        switch event {
+        case let .status(id, status):
+            guard let index = session?.items.firstIndex(where: { $0.id == id }) else { return }
+            session?.items[index].status = status
+        case let .log(entry):
+            log.append(LogLine(id: nextLogID, entry: entry))
+            nextLogID += 1
+            if log.count > Self.logLimit { log.removeFirst(log.count - Self.logLimit) }
+        }
     }
 }
 

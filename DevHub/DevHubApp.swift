@@ -21,7 +21,7 @@ struct DevHubApp: App {
         .menuBarExtraStyle(.window)
 
         Window("DevHub", id: MainWindow.id) {
-            MainWindowView()
+            WindowView()
                 .environment(appState)
         }
         .defaultSize(width: 1180, height: 760)

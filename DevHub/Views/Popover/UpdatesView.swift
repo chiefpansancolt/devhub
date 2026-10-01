@@ -14,7 +14,7 @@ struct UpdatesView: View {
         VStack(spacing: 0) {
             header
             Divider()
-            ScrollView {
+            FittingScrollView(maxHeight: Self.maxListHeight) {
                 VStack(spacing: 0) {
                     ForEach(Bucket.allCases, id: \.self) { bucket in
                         BucketSection(bucket: bucket, isExpanded: binding(for: bucket))
@@ -22,19 +22,19 @@ struct UpdatesView: View {
                     }
                 }
             }
-            .frame(height: min(listHeight, Self.maxListHeight))
         }
         .onAppear(perform: expandSmallBuckets)
         .onChange(of: state.lastChecked) { expandSmallBuckets() }
     }
 
     private var header: some View {
-        PopoverHeader(
-            title: Text("^[\(state.totalOutdated) update](inflect: true) available"),
-            subtitle: isConfirmingUpdateAll
-                ? Text("Updates run one package at a time in each bucket.")
-                : Text(checkedSubtitle)
-        ) {
+        PopoverHeader(title: Text("^[\(state.totalOutdated) update](inflect: true) available")) {
+            if isConfirmingUpdateAll {
+                Text("Updates run one package at a time in each bucket.")
+            } else {
+                CheckedAgoText(date: state.lastChecked)
+            }
+        } trailing: {
             if isConfirmingUpdateAll {
                 HStack(spacing: 6) {
                     Button("Cancel") { isConfirmingUpdateAll = false }
@@ -56,11 +56,6 @@ struct UpdatesView: View {
         }
     }
 
-    private var checkedSubtitle: AttributedString {
-        guard let date = state.lastChecked else { return AttributedString() }
-        return AttributedString(localized: "Checked \(date.formatted(.relative(presentation: .numeric, unitsStyle: .wide)))")
-    }
-
     private func binding(for bucket: Bucket) -> Binding<Bool> {
         Binding(
             get: { expanded.contains(bucket) },
@@ -78,21 +73,6 @@ struct UpdatesView: View {
             let count = state.outdated(in: $0).count
             return count > 0 && count <= Self.smallBucketLimit
         })
-    }
-
-    private var listHeight: CGFloat {
-        Bucket.allCases.reduce(0) { total, bucket in
-            var height: CGFloat = 48
-            if state.setupProblems[bucket] != nil { height += 24 }
-            if expanded.contains(bucket) {
-                for group in state.outdatedGroups(in: bucket) {
-                    if group.group != nil { height += 22 }
-                    height += CGFloat(group.packages.count) * 46
-                }
-                height += CGFloat(state.issues(in: bucket).count) * 28
-            }
-            return total + height
-        }
     }
 }
 

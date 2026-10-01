@@ -7,14 +7,18 @@ struct SummaryView: View {
     var body: some View {
         if let session = state.session {
             VStack(spacing: 0) {
-                PopoverHeader(title: title(for: session), subtitle: subtitle(for: session)) {
+                PopoverHeader(title: title(for: session)) {
+                    if session.failedCount > 0, session.skippedCount > 0 {
+                        Text("\(session.skippedCount) skipped")
+                    }
+                } trailing: {
                     Button("Done") { state.dismissSession() }
                         .buttonStyle(.bordered)
                         .controlSize(.regular)
                         .clickable()
                 }
                 Divider()
-                ScrollView {
+                FittingScrollView(maxHeight: 260) {
                     VStack(spacing: 0) {
                         ForEach(session.failedItems) { item in
                             FailedRow(item: item)
@@ -22,7 +26,6 @@ struct SummaryView: View {
                         }
                     }
                 }
-                .frame(height: min(CGFloat(session.failedItems.count) * 72, 260))
                 if session.failedCount > 0 {
                     Divider()
                     HStack {
@@ -45,11 +48,6 @@ struct SummaryView: View {
         } else {
             Text("\(session.doneCount) updated, \(session.skippedCount) skipped")
         }
-    }
-
-    private func subtitle(for session: UpdateSession) -> Text? {
-        guard session.failedCount > 0, session.skippedCount > 0 else { return nil }
-        return Text("\(session.skippedCount) skipped")
     }
 }
 

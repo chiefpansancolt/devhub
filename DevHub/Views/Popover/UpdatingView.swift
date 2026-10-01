@@ -8,21 +8,24 @@ struct UpdatingView: View {
         if let session = state.session {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Updating \(min(session.finishedCount + 1, session.items.count)) of \(session.items.count)")
-                        .font(.system(size: 15, weight: .semibold))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Updating packages").font(.system(size: 15, weight: .semibold))
+                        Text("\(session.finishedCount) of \(session.items.count) done")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.secondary)
+                    }
                     ProgressView(value: Double(session.finishedCount), total: Double(session.items.count))
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
                 Divider()
-                ScrollView {
+                FittingScrollView(maxHeight: 260) {
                     VStack(spacing: 0) {
                         ForEach(session.items) { item in
                             UpdateStatusRow(item: item)
                         }
                     }
                 }
-                .frame(height: min(CGFloat(session.items.count) * 36, 260))
             }
         }
     }

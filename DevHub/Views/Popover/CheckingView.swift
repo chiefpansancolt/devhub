@@ -6,10 +6,9 @@ struct CheckingView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            PopoverHeader(
-                title: Text("Checking for updates"),
-                subtitle: Text(state.readyBuckets.map(\.displayName).formatted(.list(type: .and, width: .narrow)))
-            ) {
+            PopoverHeader(title: Text("Checking for updates")) {
+                Text(state.readyBuckets.map(\.displayName).formatted(.list(type: .and, width: .narrow)))
+            } trailing: {
                 ProgressView().controlSize(.small)
             }
             Divider()

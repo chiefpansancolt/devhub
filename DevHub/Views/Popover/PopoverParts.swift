@@ -1,16 +1,16 @@
 import DevHubCore
 import SwiftUI
 
-struct PopoverHeader<Trailing: View>: View {
+struct PopoverHeader<Subtitle: View, Trailing: View>: View {
     let title: Text
-    let subtitle: Text?
+    @ViewBuilder let subtitle: Subtitle
     @ViewBuilder let trailing: Trailing
 
     var body: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 title.font(.system(size: 15, weight: .semibold))
-                subtitle?.font(.system(size: 12)).foregroundStyle(.secondary)
+                subtitle.font(.system(size: 12)).foregroundStyle(.secondary)
             }
             Spacer(minLength: 8)
             trailing

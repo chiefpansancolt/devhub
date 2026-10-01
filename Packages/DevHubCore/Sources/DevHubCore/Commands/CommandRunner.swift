@@ -8,6 +8,11 @@ public enum OutputSource: Sendable {
 public struct OutputLine: Sendable, Equatable {
     public let source: OutputSource
     public let text: String
+
+    public init(source: OutputSource, text: String) {
+        self.source = source
+        self.text = text
+    }
 }
 
 public enum CommandEvent: Sendable, Equatable {

@@ -34,12 +34,26 @@ final class FakeMachine: @unchecked Sendable {
         }
     }
 
+    func runUninstall(of name: String) -> CommandResult {
+        lock.withLock {
+            if failing.contains(name) {
+                return CommandResult(exitCode: 1, standardOutput: "", standardError: "Error: Refusing to uninstall \(name)")
+            }
+            packages.removeAll { $0.name == name }
+            return CommandResult(exitCode: 0, standardOutput: "removed \(name)", standardError: "")
+        }
+    }
+
     var runner: FakeRunner {
         FakeRunner { [self] command in
-            guard command.arguments.first == "update", let name = command.arguments.last else {
+            guard let verb = command.arguments.first, let name = command.arguments.last else {
                 return failed(exitCode: 1, standardError: "unexpected command")
             }
-            return runUpdate(of: name)
+            switch verb {
+            case "update": return runUpdate(of: name)
+            case "uninstall": return runUninstall(of: name)
+            default: return failed(exitCode: 1, standardError: "unexpected command")
+            }
         }
     }
 }
@@ -58,7 +72,10 @@ struct FakeScanner: PackageScanner {
         return ToolCommand(executable: URL(filePath: "/usr/bin/true"), arguments: ["update", package.name], environment: [:])
     }
 
-    func uninstallCommand(for package: InstalledPackage) -> ToolCommand? { nil }
+    func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard package.bucket == bucket else { return nil }
+        return ToolCommand(executable: URL(filePath: "/usr/bin/true"), arguments: ["uninstall", package.name], environment: [:])
+    }
 }
 
 func outdatedPackage(_ name: String, bucket: Bucket = .homebrew, group: String? = nil) -> InstalledPackage {
@@ -73,7 +90,14 @@ struct HangingRunner: CommandRunning {
     }
 
     func stream(_ command: ToolCommand) -> AsyncThrowingStream<CommandEvent, Error> {
-        AsyncThrowingStream { $0.finish() }
+        AsyncThrowingStream { continuation in
+            let wait = Task {
+                try? await Task.sleep(for: .seconds(60))
+                continuation.yield(.finished(exitCode: 0, duration: .zero))
+                continuation.finish()
+            }
+            continuation.onTermination = { _ in wait.cancel() }
+        }
     }
 }
 
@@ -85,9 +109,9 @@ private actor StatusLog {
     }
 }
 
-@Suite struct PackageUpdaterTests {
-    private func updater(_ machine: FakeMachine, buckets: [Bucket] = [.homebrew, .node]) -> PackageUpdater {
-        PackageUpdater(
+@Suite struct PackageActionRunnerTests {
+    private func updater(_ machine: FakeMachine, buckets: [Bucket] = [.homebrew, .node]) -> PackageActionRunner {
+        PackageActionRunner(
             scanners: Dictionary(uniqueKeysWithValues: buckets.map { ($0, FakeScanner(bucket: $0, machine: machine) as any PackageScanner) }),
             runner: machine.runner
         )
@@ -98,7 +122,7 @@ private actor StatusLog {
         let machine = FakeMachine(packages: packages)
         let log = StatusLog()
 
-        let outcomes = await updater(machine).update(packages) { await log.add($0, $1) }
+        let outcomes = await updater(machine).update(packages) { event in if case let .status(id, status) = event { await log.add(id, status) } }
 
         #expect(outcomes.map(\.status) == [.done, .done])
         #expect(outcomes.map(\.package.name) == ["git", "wget"])
@@ -113,7 +137,7 @@ private actor StatusLog {
         let packages = [outdatedPackage("typescript", bucket: .node, group: "22.0.0"), outdatedPackage("pnpm", bucket: .node, group: "22.0.0")]
         let machine = FakeMachine(packages: packages, failing: ["typescript"])
 
-        let outcomes = await updater(machine).update(packages) { _, _ in }
+        let outcomes = await updater(machine).update(packages) { _ in }
 
         #expect(outcomes[0].status == .failed("npm error code EACCES"))
         #expect(outcomes[1].status == .done)
@@ -124,7 +148,7 @@ private actor StatusLog {
         let packages = [outdatedPackage("git"), outdatedPackage("pnpm", bucket: .node, group: "22.0.0"), outdatedPackage("wget")]
         let machine = FakeMachine(packages: packages)
 
-        let outcomes = await updater(machine).update(packages) { _, _ in }
+        let outcomes = await updater(machine).update(packages) { _ in }
 
         #expect(outcomes.map(\.package.name) == ["git", "pnpm", "wget"])
     }
@@ -133,7 +157,7 @@ private actor StatusLog {
         let package = outdatedPackage("rake", bucket: .ruby, group: "3.3.12")
         let machine = FakeMachine(packages: [package])
 
-        let outcomes = await updater(machine, buckets: [.homebrew]).update([package]) { _, _ in }
+        let outcomes = await updater(machine, buckets: [.homebrew]).update([package]) { _ in }
 
         #expect(outcomes[0].status == .failed("DevHub has no way to update this package."))
         #expect(outcomes[0].command == nil)
@@ -142,9 +166,9 @@ private actor StatusLog {
     @Test func cancellingMarksTheRemainingPackagesSkipped() async {
         let packages = [outdatedPackage("git"), outdatedPackage("wget"), outdatedPackage("fzf")]
         let machine = FakeMachine(packages: packages)
-        let hanging = PackageUpdater(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: HangingRunner())
+        let hanging = PackageActionRunner(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: HangingRunner())
 
-        let task = Task { await hanging.update(packages) { _, _ in } }
+        let task = Task { await hanging.update(packages) { _ in } }
         try? await Task.sleep(for: .milliseconds(150))
         task.cancel()
         let outcomes = await task.value

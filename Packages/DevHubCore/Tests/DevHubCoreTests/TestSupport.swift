@@ -39,6 +39,9 @@ final class FakeRunner: CommandRunning, @unchecked Sendable {
             for line in result.standardOutput.split(separator: "\n") {
                 continuation.yield(.output(OutputLine(source: .standardOutput, text: String(line))))
             }
+            for line in result.standardError.split(separator: "\n") {
+                continuation.yield(.output(OutputLine(source: .standardError, text: String(line))))
+            }
             continuation.yield(.finished(exitCode: result.exitCode, duration: result.duration))
             continuation.finish()
         }
