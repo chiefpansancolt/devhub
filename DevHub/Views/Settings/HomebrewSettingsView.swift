@@ -11,7 +11,7 @@ struct HomebrewSettingsView: View {
         let effectivePath = settings.values.brewPath ?? installation?.executable.path
 
         Form {
-            Section("Location") {
+            Section {
                 PathRow(
                     title: "brew program",
                     chosenPath: $settings.values.brewPath,
@@ -23,6 +23,12 @@ struct HomebrewSettingsView: View {
                     LabeledContent("Prefix") { Text(installation.prefix.path).font(.system(size: 12, design: .monospaced)).textSelection(.enabled) }
                     LabeledContent("Cellar") { Text(installation.prefix.appending(path: "Cellar").path).font(.system(size: 12, design: .monospaced)).textSelection(.enabled) }
                     LabeledContent("Caskroom") { Text(installation.prefix.appending(path: "Caskroom").path).font(.system(size: 12, design: .monospaced)).textSelection(.enabled) }
+                }
+            } header: {
+                Label {
+                    Text("Location")
+                } icon: {
+                    BucketBadge(bucket: .homebrew, size: 14)
                 }
             }
 

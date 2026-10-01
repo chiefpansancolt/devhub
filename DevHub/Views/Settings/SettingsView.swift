@@ -13,15 +13,21 @@ struct SettingsView: View {
             AppearanceSettingsView()
                 .tabItem { Label("Appearance", systemImage: "circle.lefthalf.filled") }
                 .tag(SettingsTab.appearance)
-            HomebrewSettingsView()
-                .tabItem { Label("Homebrew", systemImage: "mug") }
-                .tag(SettingsTab.homebrew)
-            NodeSettingsView()
-                .tabItem { Label("Node", systemImage: "hexagon") }
-                .tag(SettingsTab.node)
-            RubySettingsView()
-                .tabItem { Label("Ruby", systemImage: "diamond") }
-                .tag(SettingsTab.ruby)
+            if isOn(.homebrew) {
+                HomebrewSettingsView()
+                    .tabItem { Label { Text("Homebrew") } icon: { Image("TabHomebrew") } }
+                    .tag(SettingsTab.homebrew)
+            }
+            if isOn(.node) {
+                NodeSettingsView()
+                    .tabItem { Label { Text("Node") } icon: { Image("TabNode") } }
+                    .tag(SettingsTab.node)
+            }
+            if isOn(.ruby) {
+                RubySettingsView()
+                    .tabItem { Label { Text("Ruby") } icon: { Image("TabRuby") } }
+                    .tag(SettingsTab.ruby)
+            }
             HistorySettingsView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
                 .tag(SettingsTab.history)
@@ -29,5 +35,14 @@ struct SettingsView: View {
         .frame(width: 600, height: 560)
         .onAppear { AppActivation.windowOpened() }
         .onDisappear { AppActivation.windowClosed() }
+        .onChange(of: settings.values.disabledBuckets) {
+            if let bucket = settings.selectedTab.bucket, !isOn(bucket) {
+                settings.selectedTab = .general
+            }
+        }
+    }
+
+    private func isOn(_ bucket: Bucket) -> Bool {
+        !settings.values.disabledBuckets.contains(bucket)
     }
 }

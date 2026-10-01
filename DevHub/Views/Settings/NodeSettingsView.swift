@@ -10,7 +10,7 @@ struct NodeSettingsView: View {
         let found = Toolchain.detect(settings: settings.values, applyingExclusions: false).node
 
         Form {
-            Section("Location") {
+            Section {
                 PathRow(
                     title: "Version manager folder",
                     chosenPath: $settings.values.nodeFolder,
@@ -18,6 +18,12 @@ struct NodeSettingsView: View {
                     check: check(found),
                     kind: .folder
                 )
+            } header: {
+                Label {
+                    Text("Location")
+                } icon: {
+                    BucketBadge(bucket: .node, size: 14)
+                }
             }
 
             if !found.isEmpty {

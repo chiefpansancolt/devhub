@@ -45,3 +45,15 @@ struct CountPill: View {
             .background(Color.accentColor.opacity(0.12), in: Capsule())
     }
 }
+
+extension SettingsTab {
+    /// The bucket this tab belongs to. `nil` for General, Appearance and History.
+    var bucket: Bucket? {
+        switch self {
+        case .homebrew: .homebrew
+        case .node: .node
+        case .ruby: .ruby
+        case .general, .appearance, .history: nil
+        }
+    }
+}

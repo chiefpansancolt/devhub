@@ -10,7 +10,7 @@ struct RubySettingsView: View {
         let found = Toolchain.detect(settings: settings.values, applyingExclusions: false).ruby
 
         Form {
-            Section("Location") {
+            Section {
                 PathRow(
                     title: "Version manager folder",
                     chosenPath: $settings.values.rubyFolder,
@@ -18,6 +18,12 @@ struct RubySettingsView: View {
                     check: check(found),
                     kind: .folder
                 )
+            } header: {
+                Label {
+                    Text("Location")
+                } icon: {
+                    BucketBadge(bucket: .ruby, size: 14)
+                }
             }
 
             if !found.isEmpty {

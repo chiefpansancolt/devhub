@@ -7,6 +7,7 @@ struct PopoverView: View {
     var body: some View {
         VStack(spacing: 0) {
             switch state.popoverMode {
+            case .noTools: NoToolsView()
             case .checking: CheckingView()
             case .upToDate: UpToDateView()
             case .updates: UpdatesView()

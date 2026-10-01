@@ -131,7 +131,7 @@ struct HistoryView: View {
     private var bucketPicker: some View {
         Picker("Bucket", selection: Binding(get: { ui.historyBucket }, set: { ui.historyBucket = $0 })) {
             Text("All buckets").tag(Bucket?.none)
-            ForEach(Bucket.allCases, id: \.self) { bucket in
+            ForEach(state.enabledBuckets, id: \.self) { bucket in
                 Text(bucket.displayName).tag(Bucket?.some(bucket))
             }
         }

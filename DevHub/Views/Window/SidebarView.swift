@@ -18,7 +18,15 @@ struct SidebarView: View {
 
             ScrollView {
                 VStack(spacing: 2) {
-                    ForEach(Bucket.allCases, id: \.self) { bucket in
+                    if state.enabledBuckets.isEmpty {
+                        Text("All tools are turned off. Turn them on in Settings.")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 6)
+                    }
+                    ForEach(state.enabledBuckets, id: \.self) { bucket in
                         BucketRow(bucket: bucket, ui: ui)
                         if ui.expandedBuckets.contains(bucket), state.setupProblems[bucket] == nil {
                             ForEach(childScopes(of: bucket), id: \.self) { scope in
@@ -58,6 +66,7 @@ struct SidebarView: View {
             .buttonStyle(.plain)
             .foregroundStyle(Color.accentColor)
             .clickable()
+            .handCursorOnHover()
             .padding(.horizontal, 18)
             .padding(.vertical, 10)
         }
@@ -107,6 +116,7 @@ private struct BucketRow: View {
         }
         .buttonStyle(.plain)
         .clickable()
+        .handCursorOnHover()
         .accessibilityValue(problem != nil ? Text("") : (isExpanded ? Text("Expanded") : Text("Collapsed")))
     }
 }
@@ -137,6 +147,7 @@ private struct HistoryRow: View {
         }
         .buttonStyle(.plain)
         .clickable()
+        .handCursorOnHover()
     }
 }
 
@@ -170,6 +181,7 @@ private struct ChildRow: View {
         }
         .buttonStyle(.plain)
         .clickable()
+        .handCursorOnHover()
     }
 
     private var title: LocalizedStringKey {

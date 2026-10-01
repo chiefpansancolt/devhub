@@ -1,0 +1,9 @@
+{
+  "images": [
+    { "idiom": "universal", "scale": "1x", "filename": "TabHomebrew.png" },
+    { "idiom": "universal", "scale": "2x", "filename": "TabHomebrew@2x.png" },
+    { "idiom": "universal", "scale": "3x", "filename": "TabHomebrew@3x.png" }
+  ],
+  "info": { "author": "xcode", "version": 1 },
+  "properties": { "template-rendering-intent": "original" }
+}

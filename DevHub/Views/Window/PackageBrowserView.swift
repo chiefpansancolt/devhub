@@ -59,6 +59,7 @@ struct PackageBrowserView: View {
 
     private var header: some View {
         HStack(spacing: 10) {
+            BucketBadge(bucket: ui.scope.bucket, size: 32)
             VStack(alignment: .leading, spacing: 1) {
                 title.font(.system(size: 17, weight: .semibold))
                 subtitle.font(.system(size: 12)).foregroundStyle(.secondary)

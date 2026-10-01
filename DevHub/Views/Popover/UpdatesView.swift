@@ -17,9 +17,9 @@ struct UpdatesView: View {
             Divider()
             FittingScrollView(maxHeight: Self.maxListHeight) {
                 VStack(spacing: 0) {
-                    ForEach(Bucket.allCases, id: \.self) { bucket in
+                    ForEach(state.enabledBuckets, id: \.self) { bucket in
                         BucketSection(bucket: bucket, isExpanded: binding(for: bucket))
-                        if bucket != Bucket.allCases.last { Divider().padding(.leading, 54) }
+                        if bucket != state.enabledBuckets.last { Divider().padding(.leading, 54) }
                     }
                 }
             }
@@ -76,7 +76,7 @@ struct UpdatesView: View {
     private func expandSmallBuckets() {
         guard !hasChosenDefaultExpansion else { return }
         hasChosenDefaultExpansion = true
-        expanded = Set(Bucket.allCases.filter {
+        expanded = Set(state.enabledBuckets.filter {
             let count = state.outdated(in: $0).count
             return count > 0 && count <= Self.smallBucketLimit
         })
