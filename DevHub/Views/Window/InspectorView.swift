@@ -156,8 +156,8 @@ private struct InspectorContent: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
-                    .disabled(state.isBusy)
                     .clickable()
+                    .disabled(state.isBusy)
                 }
                 Button {
                     if settings.values.confirmUninstall {
@@ -170,8 +170,8 @@ private struct InspectorContent: View {
                 }
                 .controlSize(.large)
                 .foregroundStyle(.red)
-                .disabled(state.isBusy)
                 .clickable()
+                .disabled(state.isBusy)
             }
         }
     }

@@ -69,13 +69,13 @@ struct PackageBrowserView: View {
             } label: {
                 if state.isChecking { ProgressView().controlSize(.small) } else { Image(systemName: "arrow.clockwise") }
             }
-            .disabled(state.isChecking || state.isBusy)
             .clickable()
+            .disabled(state.isChecking || state.isBusy)
             .accessibilityLabel("Check again")
 
             Button("Update selected (\(checkedPackages.count))") { state.startUpdate(checkedPackages) }
-                .disabled(checkedPackages.isEmpty || state.isBusy)
                 .clickable()
+                .disabled(checkedPackages.isEmpty || state.isBusy)
             Button("Update all") {
                 if settings.values.confirmUpdateAll {
                     ui.isConfirmingUpdateAll = true
@@ -84,8 +84,8 @@ struct PackageBrowserView: View {
                 }
             }
                 .buttonStyle(.borderedProminent)
-                .disabled(outdatedInScope.isEmpty || state.isBusy)
                 .clickable()
+                .disabled(outdatedInScope.isEmpty || state.isBusy)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 14)
@@ -136,6 +136,7 @@ struct PackageBrowserView: View {
                 .padding(.vertical, 5)
                 .frame(width: 200)
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 7))
+                .clickable()
             }
         }
         .padding(.horizontal, 20)
@@ -211,8 +212,8 @@ private struct ColumnHeader: View {
             ))
             .toggleStyle(.checkbox)
             .labelsHidden()
-            .disabled(outdated.isEmpty)
             .clickable()
+            .disabled(outdated.isEmpty)
             .frame(width: Columns.checkbox)
 
             Text("Name").frame(maxWidth: .infinity, alignment: .leading)

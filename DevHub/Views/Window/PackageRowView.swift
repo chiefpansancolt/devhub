@@ -18,8 +18,8 @@ struct PackageRowView: View {
             ))
             .toggleStyle(.checkbox)
             .labelsHidden()
-            .disabled(!package.isOutdated)
             .clickable()
+            .disabled(!package.isOutdated)
             .frame(width: Columns.checkbox)
 
             Button {
@@ -60,8 +60,8 @@ struct PackageRowView: View {
                 }
                 .buttonStyle(.borderless)
                 .foregroundStyle(.secondary)
-                .disabled(state.isBusy)
                 .clickable()
+                .disabled(state.isBusy)
                 .accessibilityLabel("Uninstall \(package.name)")
             }
             .frame(width: Columns.actions)
@@ -91,8 +91,8 @@ struct PackageRowView: View {
             Button("Update") { state.startUpdate([package]) }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
-                .disabled(state.isBusy)
                 .clickable()
+                .disabled(state.isBusy)
                 .accessibilityLabel("Update \(package.name)")
         } else {
             Label("Current", systemImage: "checkmark.circle")

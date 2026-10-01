@@ -31,12 +31,14 @@ struct RubySettingsView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                        .clickable()
                     }
                 }
             }
 
             Section("Updating") {
                 Toggle("Install gem documentation", isOn: $settings.values.gemInstallDocumentation)
+                .clickable()
                 Text("Slower, and uses more disk space.").font(.system(size: 12)).foregroundStyle(.secondary)
             }
         }

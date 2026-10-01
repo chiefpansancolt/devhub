@@ -116,8 +116,8 @@ struct BucketSection: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .disabled(outdated.isEmpty)
                 .clickable()
+                .disabled(outdated.isEmpty)
                 .accessibilityValue(isExpanded ? Text("Expanded") : Text("Collapsed"))
 
                 if isExpanded {

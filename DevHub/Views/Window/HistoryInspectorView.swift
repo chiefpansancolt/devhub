@@ -163,8 +163,8 @@ private struct HistoryInspectorContent: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
-                .disabled(state.isBusy)
                 .clickable()
+                .disabled(state.isBusy)
             }
             if let output = entry.output, !output.isEmpty {
                 Button {

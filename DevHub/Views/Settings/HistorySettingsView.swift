@@ -24,8 +24,8 @@ struct HistorySettingsView: View {
                     Button("Show in Finder") { HistoryFileActions.showInFinder(history) }
                         .clickable()
                     Button("Export…") { HistoryFileActions.export(history) }
-                        .disabled(history.totalCount == 0)
                         .clickable()
+                        .disabled(history.totalCount == 0)
                 }
             }
 
@@ -36,10 +36,12 @@ struct HistorySettingsView: View {
                     Text("1 year").tag(HistoryRetention.oneYear)
                     Text("Forever").tag(HistoryRetention.forever)
                 }
+                .clickable()
                 Picker("Detail level", selection: $settings.values.historyIncludesOutput) {
                     Text("Actions only").tag(false)
                     Text("Actions and command output").tag(true)
                 }
+                .clickable()
                 Text("Command output makes the file larger but helps when something fails.")
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
@@ -49,8 +51,8 @@ struct HistorySettingsView: View {
                 LabeledContent("Entries") { Text(history.totalCount.formatted()) }
                 LabeledContent("File size") { Text(history.fileSize.formatted(.byteCount(style: .file))) }
                 Button("Clear history…", role: .destructive) { isConfirmingClear = true }
-                    .disabled(history.totalCount == 0)
                     .clickable()
+                    .disabled(history.totalCount == 0)
             }
         }
         .formStyle(.grouped)

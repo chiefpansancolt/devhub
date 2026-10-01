@@ -66,12 +66,12 @@ struct HistoryView: View {
             Button("Show log in Finder") { HistoryFileActions.showInFinder(history) }
                 .clickable()
             Button("Export…") { HistoryFileActions.export(history) }
-                .disabled(history.totalCount == 0)
                 .clickable()
+                .disabled(history.totalCount == 0)
             Button("Clear…") { ui.isConfirmingClearHistory = true }
                 .foregroundStyle(.red)
-                .disabled(history.totalCount == 0)
                 .clickable()
+                .disabled(history.totalCount == 0)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 14)
@@ -151,6 +151,7 @@ struct HistoryView: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
         .background(.quaternary, in: RoundedRectangle(cornerRadius: 7))
+        .clickable()
     }
 
     // MARK: List

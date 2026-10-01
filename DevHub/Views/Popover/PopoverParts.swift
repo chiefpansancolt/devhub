@@ -115,8 +115,8 @@ struct PopoverFooter: View {
                     }
                 }
                 .buttonStyle(.borderless)
-                .disabled(state.isChecking)
                 .clickable()
+                .disabled(state.isChecking)
                 .accessibilityLabel("Check again")
 
                 Group {

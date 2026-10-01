@@ -25,6 +25,7 @@ struct AppearanceSettingsView: View {
                     Text("Icon and count").tag(MenuBarIconStyle.iconAndCount)
                     Text("Count").tag(MenuBarIconStyle.countOnly)
                 }
+                .clickable()
                 .pickerStyle(.segmented)
             }
         }

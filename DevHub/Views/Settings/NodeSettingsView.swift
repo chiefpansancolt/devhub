@@ -31,12 +31,14 @@ struct NodeSettingsView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                        .clickable()
                     }
                 }
             }
 
             Section("Updating") {
                 Toggle("Include npm itself", isOn: $settings.values.nodeIncludeNpm)
+                .clickable()
             }
         }
         .formStyle(.grouped)
