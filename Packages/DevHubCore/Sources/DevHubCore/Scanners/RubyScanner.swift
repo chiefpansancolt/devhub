@@ -1,11 +1,22 @@
+public struct RubyOptions: Sendable, Equatable {
+    /// Installs the documentation of a gem when it updates the gem. This is slow and uses disk space.
+    public var installDocumentation: Bool
+
+    public init(installDocumentation: Bool = false) {
+        self.installDocumentation = installDocumentation
+    }
+}
+
 public struct RubyScanner: PackageScanner {
     public let bucket = Bucket.ruby
 
     private let installations: [RubyInstallation]
+    private let options: RubyOptions
     private let support: ScanSupport
 
-    public init(installations: [RubyInstallation], runner: CommandRunning) {
+    public init(installations: [RubyInstallation], runner: CommandRunning, options: RubyOptions = RubyOptions()) {
         self.installations = installations
+        self.options = options
         support = ScanSupport(runner: runner)
     }
 
@@ -36,7 +47,7 @@ public struct RubyScanner: PackageScanner {
     }
 
     public func updateCommand(for package: InstalledPackage) -> ToolCommand? {
-        command(for: package, arguments: ["update", package.name])
+        command(for: package, arguments: ["update", package.name] + (options.installDocumentation ? [] : ["--no-document"]))
     }
 
     /// Removes every installed version of the gem.

@@ -14,6 +14,7 @@ struct InspectorView: View {
 
 private struct InspectorContent: View {
     @Environment(AppState.self) private var state
+    @Environment(SettingsStore.self) private var settings
     let package: InstalledPackage
     let ui: WindowUIState
     @State private var diskSize: DiskSizeState = .unknown
@@ -159,9 +160,13 @@ private struct InspectorContent: View {
                     .clickable()
                 }
                 Button {
-                    ui.isConfirmingUninstall = true
+                    if settings.values.confirmUninstall {
+                        ui.isConfirmingUninstall = true
+                    } else {
+                        state.startUninstall(package)
+                    }
                 } label: {
-                    Text("Uninstall…").frame(maxWidth: .infinity)
+                    Text(settings.values.confirmUninstall ? "Uninstall…" : "Uninstall").frame(maxWidth: .infinity)
                 }
                 .controlSize(.large)
                 .foregroundStyle(.red)

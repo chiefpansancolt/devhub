@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-public enum HistoryRetention: Sendable, CaseIterable {
+public enum HistoryRetention: String, Codable, Sendable, CaseIterable {
     case thirtyDays
     case ninetyDays
     case oneYear

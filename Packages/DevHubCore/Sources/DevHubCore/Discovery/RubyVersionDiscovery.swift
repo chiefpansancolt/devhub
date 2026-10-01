@@ -5,6 +5,8 @@ public enum RubyVersionManager: String, Sendable, CaseIterable {
     case rbenv
     case chruby
     case asdf
+    /// A folder the person chose that DevHub does not recognise as one of the above.
+    case custom
 }
 
 public struct RubyInstallation: Sendable, Equatable, Identifiable {
@@ -36,14 +38,17 @@ public struct RubyInstallation: Sendable, Equatable, Identifiable {
 
 public struct RubyVersionDiscovery: Sendable {
     private let home: URL
+    private let versionsFolder: URL?
 
-    public init(home: URL = FileManager.default.homeDirectoryForCurrentUser) {
+    /// With a `versionsFolder`, only that folder is searched. It holds one folder per Ruby version.
+    public init(home: URL = FileManager.default.homeDirectoryForCurrentUser, versionsFolder: URL? = nil) {
         self.home = home
+        self.versionsFolder = versionsFolder
     }
 
     /// Every Ruby version whose `gem` can run, newest first. The macOS system Ruby is left out because its gems need `sudo`.
     public func installations() -> [RubyInstallation] {
-        let found = rvm() + rbenv() + chruby() + asdf()
+        let found = versionsFolder.map(chosenFolderInstallations) ?? (rvm() + rbenv() + chruby() + asdf())
         return found
             .filter { FileManager.default.isExecutableFile(atPath: $0.gem.path) }
             .sorted { PackageVersion($0.version) > PackageVersion($1.version) }
@@ -90,5 +95,25 @@ public struct RubyVersionDiscovery: Sendable {
             .filter { $0.hasPrefix(prefix) }
             .map { String($0.dropFirst(prefix.count)) }
             .filter { $0.first?.isNumber == true }
+    }
+
+    private func chosenFolderInstallations(in folder: URL) -> [RubyInstallation] {
+        let entries = (try? FileManager.default.contentsOfDirectory(atPath: folder.path)) ?? []
+        return entries.compactMap { entry -> RubyInstallation? in
+            let version = entry.hasPrefix("ruby-") ? String(entry.dropFirst("ruby-".count)) : entry
+            guard version.first?.isNumber == true else { return nil }
+            let root = folder.appending(path: entry)
+
+            // RVM and chruby keep gems outside the Ruby folder, so the folder name tells where to look.
+            if folder.path.hasSuffix("/.rvm/rubies") {
+                let gems = folder.deletingLastPathComponent().appending(path: "gems/ruby-\(version)")
+                return RubyInstallation(version: version, manager: .rvm, root: root, gemFolders: [gems, URL(filePath: gems.path + "@global")])
+            }
+            if folder.path.hasSuffix("/.rubies") {
+                return RubyInstallation(version: version, manager: .chruby, root: root, gemFolders: [home.appending(path: ".gem/ruby/\(version)")])
+            }
+            let manager: RubyVersionManager = folder.path.contains("/.rbenv/") ? .rbenv : (folder.path.contains("/.asdf/") ? .asdf : .custom)
+            return RubyInstallation(version: version, manager: manager, root: root)
+        }
     }
 }

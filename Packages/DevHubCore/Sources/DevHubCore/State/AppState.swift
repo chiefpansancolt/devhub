@@ -52,17 +52,21 @@ public final class AppState {
     /// The commands that ran and what they printed, oldest first.
     public private(set) var log: [LogLine] = []
     /// Buckets that cannot be scanned, with the reason.
-    public let setupProblems: [Bucket: String]
+    public private(set) var setupProblems: [Bucket: String]
     /// Every check, update and uninstall, newest first. Also written to the history file.
     public let history: HistoryStore
 
     private static let logLimit = 2000
 
-    private let scanners: [Bucket: any PackageScanner]
-    private let knownVersions: [Bucket: [String]]
-    private let actions: PackageActionRunner
+    private var scanners: [Bucket: any PackageScanner]
+    private var knownVersions: [Bucket: [String]]
+    private var actions: PackageActionRunner
+    private let runner: CommandRunning
     private var nextLogID = 0
-    private let checkInterval: Duration
+    /// How long to wait between checks. `nil` means DevHub only checks when asked.
+    private var checkInterval: Duration?
+    private var settings: SettingsValues?
+    private var scanAgainWhenDone = false
     private let now: @Sendable () -> Date
     private var updateTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
@@ -74,7 +78,7 @@ public final class AppState {
         versions: [Bucket: [String]] = [:],
         runner: CommandRunning,
         history: HistoryStore = HistoryStore(),
-        checkInterval: Duration = .seconds(4 * 60 * 60),
+        checkInterval: Duration? = .seconds(4 * 60 * 60),
         now: @escaping @Sendable () -> Date = { Date() }
     ) {
         self.scanners = scanners
@@ -82,18 +86,58 @@ public final class AppState {
         self.knownVersions = versions
         self.history = history
         self.actions = PackageActionRunner(scanners: scanners, runner: runner)
+        self.runner = runner
         self.checkInterval = checkInterval
         self.now = now
     }
 
-    public convenience init(toolchain: Toolchain, runner: CommandRunning = CommandRunner()) {
+    /// Builds the state the way the settings say, with a history file in the usual place.
+    public convenience init(settings: SettingsValues, runner: CommandRunning = CommandRunner()) {
+        let toolchain = Toolchain.detect(settings: settings)
+        let history = HistoryStore(log: HistoryLog())
+        history.includesOutput = settings.historyIncludesOutput
+        history.retention = settings.historyRetention
         self.init(
-            scanners: toolchain.scanners(runner: runner),
+            scanners: toolchain.scanners(runner: runner, options: ScannerOptions(settings)),
             setupProblems: toolchain.setupProblems,
             versions: [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)],
             runner: runner,
-            history: HistoryStore(log: HistoryLog())
+            history: history,
+            checkInterval: settings.checkInterval.duration
         )
+        self.settings = settings
+    }
+
+    // MARK: Settings
+
+    /// Takes new settings. The scanners are built again, the history options and the check schedule follow, and
+    /// DevHub scans again when a change affects what a scan finds.
+    public func apply(_ newSettings: SettingsValues) {
+        let previous = settings
+        settings = newSettings
+
+        history.includesOutput = newSettings.historyIncludesOutput
+        history.retention = newSettings.historyRetention
+        checkInterval = newSettings.checkInterval.duration
+        nextCheck = checkInterval.map { (lastChecked ?? now()).addingTimeInterval($0.seconds) }
+
+        let toolchain = Toolchain.detect(settings: newSettings)
+        scanners = toolchain.scanners(runner: runner, options: ScannerOptions(newSettings))
+        actions = PackageActionRunner(scanners: scanners, runner: runner)
+        knownVersions = [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)]
+        setupProblems = toolchain.setupProblems
+        results = results.filter { scanners[$0.key] != nil }
+
+        if scheduleTask != nil, previous?.checkInterval != newSettings.checkInterval {
+            startScheduledChecks(checkNow: false)
+        }
+        if let previous, previous.scanningFields != newSettings.scanningFields {
+            if isChecking {
+                scanAgainWhenDone = true
+            } else {
+                startRefresh()
+            }
+        }
     }
 
     // MARK: Reading the state
@@ -213,9 +257,13 @@ public final class AppState {
         }
 
         lastChecked = now()
-        nextCheck = now().addingTimeInterval(checkInterval.seconds)
+        nextCheck = checkInterval.map { now().addingTimeInterval($0.seconds) }
         if reason == .check {
             history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
+        }
+        if scanAgainWhenDone {
+            scanAgainWhenDone = false
+            startRefresh()
         }
     }
 
@@ -223,17 +271,27 @@ public final class AppState {
         refreshTask = Task { await refresh(reason, trigger: trigger) }
     }
 
-    /// Checks now, then again after every interval, until `stopScheduledChecks()` is called.
-    public func startScheduledChecks() {
+    /// Checks now (unless `checkNow` is `false`), then again after every interval, until `stopScheduledChecks()` is called.
+    /// With no interval, it only makes the first check.
+    public func startScheduledChecks(checkNow: Bool = true) {
         scheduleTask?.cancel()
-        let interval = checkInterval
         scheduleTask = Task { [weak self] in
+            var isFirstRound = true
             while !Task.isCancelled {
                 guard let self else { return }
-                await self.refresh(.check, trigger: .automatic)
+                if checkNow || !isFirstRound {
+                    await self.refresh(.check, trigger: .automatic)
+                }
+                isFirstRound = false
+                guard let interval = self.checkInterval else { return }
                 try? await Task.sleep(for: interval)
             }
         }
+    }
+
+    /// A check after the Mac wakes from sleep.
+    public func checkAfterWake() {
+        startRefresh(.check, trigger: .automatic)
     }
 
     private func checkEntry(startedAt: Date, trigger: HistoryTrigger, duration: Duration) -> HistoryEntry {

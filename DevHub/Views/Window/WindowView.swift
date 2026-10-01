@@ -30,8 +30,8 @@ struct WindowView: View {
         }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.22), value: inspectorIsOpen)
         .frame(minWidth: 960, minHeight: 560)
-        .onAppear { AppActivation.becomeRegularApp() }
-        .onDisappear { AppActivation.becomeMenuBarApp() }
+        .onAppear { AppActivation.windowOpened() }
+        .onDisappear { AppActivation.windowClosed() }
         .onChange(of: state.lastChecked) {
             ui.checkedIDs = ui.checkedIDs.filter { state.package(withID: $0)?.isOutdated == true }
         }

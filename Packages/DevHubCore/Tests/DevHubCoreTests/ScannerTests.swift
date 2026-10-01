@@ -261,7 +261,7 @@ import Testing
         let scanner = RubyScanner(installations: [rvm, older], runner: gem())
         let package = InstalledPackage(bucket: .ruby, kind: .gem, name: "rails", group: "3.1.2", installedVersion: "7.1.3")
 
-        #expect(scanner.updateCommand(for: package)?.arguments == ["update", "rails"])
+        #expect(scanner.updateCommand(for: package)?.arguments == ["update", "rails", "--no-document"])
         #expect(scanner.updateCommand(for: package)?.executable.path == "/home/.rvm/rubies/ruby-3.1.2/bin/gem")
         #expect(scanner.uninstallCommand(for: package)?.arguments == ["uninstall", "rails", "--all", "--executables"])
         #expect(scanner.updateCommand(for: InstalledPackage(bucket: .node, kind: .npmGlobal, name: "x", group: "3.1.2", installedVersion: "1")) == nil)

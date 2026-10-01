@@ -3,10 +3,21 @@ public struct HomebrewOptions: Sendable, Equatable {
     public var refreshIndexFirst: Bool
     /// Includes casks that update themselves, such as browsers.
     public var includeSelfUpdatingCasks: Bool
+    /// Lists casks at all. When off, only formulae are listed.
+    public var includeCasks: Bool
+    /// Lets Homebrew remove the old version of a package after it updates it.
+    public var cleanupAfterUpdate: Bool
 
-    public init(refreshIndexFirst: Bool = true, includeSelfUpdatingCasks: Bool = false) {
+    public init(
+        refreshIndexFirst: Bool = true,
+        includeSelfUpdatingCasks: Bool = false,
+        includeCasks: Bool = true,
+        cleanupAfterUpdate: Bool = true
+    ) {
         self.refreshIndexFirst = refreshIndexFirst
         self.includeSelfUpdatingCasks = includeSelfUpdatingCasks
+        self.includeCasks = includeCasks
+        self.cleanupAfterUpdate = cleanupAfterUpdate
     }
 }
 
@@ -38,7 +49,7 @@ public struct HomebrewScanner: PackageScanner {
         }
 
         do {
-            let installed = try await readInstalled()
+            let installed = try await readInstalled().filter { options.includeCasks || $0.kind != .cask }
             let outdated = try await readOutdated()
             return ScanResult(packages: BrewParser.merge(installed: installed, outdated: outdated), issues: issues)
         } catch let failure as ScanFailure {
@@ -79,7 +90,10 @@ public struct HomebrewScanner: PackageScanner {
     private func command(_ arguments: [String]) -> ToolCommand {
         let searchPath = [installation.prefix.appending(path: "bin"), installation.prefix.appending(path: "sbin")]
         // The scan refreshes the index itself when the option is on. Other commands must not start a hidden update.
-        let extra = ["HOMEBREW_NO_ENV_HINTS": "1", "HOMEBREW_NO_AUTO_UPDATE": "1"]
+        var extra = ["HOMEBREW_NO_ENV_HINTS": "1", "HOMEBREW_NO_AUTO_UPDATE": "1"]
+        if !options.cleanupAfterUpdate {
+            extra["HOMEBREW_NO_INSTALL_CLEANUP"] = "1"
+        }
         return ToolCommand(
             executable: installation.executable,
             arguments: arguments,

@@ -5,6 +5,8 @@ public enum NodeVersionManager: String, Sendable, CaseIterable {
     case fnm
     case volta
     case asdf
+    /// A folder the person chose that DevHub does not recognise as one of the above.
+    case custom
 }
 
 public struct NodeInstallation: Sendable, Equatable, Identifiable {
@@ -44,14 +46,20 @@ public struct NodeVersionDiscovery: Sendable {
     ]
 
     private let home: URL
+    private let versionsFolder: URL?
 
-    public init(home: URL = FileManager.default.homeDirectoryForCurrentUser) {
+    /// With a `versionsFolder`, only that folder is searched. It holds one folder per Node version.
+    public init(home: URL = FileManager.default.homeDirectoryForCurrentUser, versionsFolder: URL? = nil) {
         self.home = home
+        self.versionsFolder = versionsFolder
     }
 
     /// Every Node version whose `npm` can run, newest first.
     public func installations() -> [NodeInstallation] {
         let fileManager = FileManager.default
+        if let versionsFolder {
+            return chosenFolderInstallations(in: versionsFolder)
+        }
         var found: [NodeInstallation] = []
 
         for location in Self.locations {
@@ -72,5 +80,30 @@ public struct NodeVersionDiscovery: Sendable {
         }
 
         return found.sorted { PackageVersion($0.version) > PackageVersion($1.version) }
+    }
+
+    private func chosenFolderInstallations(in folder: URL) -> [NodeInstallation] {
+        let fileManager = FileManager.default
+        let manager = Self.manager(for: folder.path)
+        let entries = (try? fileManager.contentsOfDirectory(atPath: folder.path)) ?? []
+
+        let found = entries.compactMap { entry -> NodeInstallation? in
+            let version = entry.hasPrefix("v") ? String(entry.dropFirst()) : entry
+            guard version.first?.isNumber == true else { return nil }
+            // fnm keeps the files one folder deeper than the other managers.
+            let candidates = [folder.appending(path: entry), folder.appending(path: entry).appending(path: "installation")]
+            return candidates
+                .map { NodeInstallation(version: version, manager: manager, root: $0) }
+                .first { fileManager.isExecutableFile(atPath: $0.npm.path) }
+        }
+        return found.sorted { PackageVersion($0.version) > PackageVersion($1.version) }
+    }
+
+    private static func manager(for path: String) -> NodeVersionManager {
+        if path.contains("/.nvm/") { return .nvm }
+        if path.contains("fnm") { return .fnm }
+        if path.contains("/.volta/") { return .volta }
+        if path.contains("/.asdf/") { return .asdf }
+        return .custom
     }
 }

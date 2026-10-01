@@ -63,9 +63,9 @@ struct HistoryView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer(minLength: 8)
-            Button("Show log in Finder") { showInFinder() }
+            Button("Show log in Finder") { HistoryFileActions.showInFinder(history) }
                 .clickable()
-            Button("Export…") { export() }
+            Button("Export…") { HistoryFileActions.export(history) }
                 .disabled(history.totalCount == 0)
                 .clickable()
             Button("Clear…") { ui.isConfirmingClearHistory = true }
@@ -75,23 +75,6 @@ struct HistoryView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 14)
-    }
-
-    private func showInFinder() {
-        guard let url = history.fileURL else { return }
-        if FileManager.default.fileExists(atPath: url.path) {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        } else {
-            NSWorkspace.shared.open(url.deletingLastPathComponent())
-        }
-    }
-
-    private func export() {
-        let panel = NSSavePanel()
-        panel.nameFieldStringValue = "devhub-history.jsonl"
-        panel.canCreateDirectories = true
-        guard panel.runModal() == .OK, let destination = panel.url else { return }
-        Task { try? await history.export(to: destination) }
     }
 
     // MARK: Filters

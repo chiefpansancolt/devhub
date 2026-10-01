@@ -3,6 +3,7 @@ import SwiftUI
 
 struct PackageRowView: View {
     @Environment(AppState.self) private var state
+    @Environment(SettingsStore.self) private var settings
     let package: InstalledPackage
     let ui: WindowUIState
 
@@ -49,7 +50,11 @@ struct PackageRowView: View {
                 Spacer(minLength: 0)
                 statusOrAction
                 Button {
-                    ui.askToUninstall(package)
+                    if settings.values.confirmUninstall {
+                        ui.askToUninstall(package)
+                    } else {
+                        state.startUninstall(package)
+                    }
                 } label: {
                     Image(systemName: "trash")
                 }

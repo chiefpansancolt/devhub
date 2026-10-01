@@ -2,6 +2,14 @@ import DevHubCore
 import SwiftUI
 
 extension Bucket {
+    var settingsTab: SettingsTab {
+        switch self {
+        case .homebrew: .homebrew
+        case .node: .node
+        case .ruby: .ruby
+        }
+    }
+
     var logo: String {
         switch self {
         case .homebrew: "BucketHomebrew"

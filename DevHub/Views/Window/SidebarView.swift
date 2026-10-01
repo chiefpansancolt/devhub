@@ -3,6 +3,7 @@ import SwiftUI
 
 struct SidebarView: View {
     @Environment(AppState.self) private var state
+    @Environment(\.openSettings) private var openSettings
     let ui: WindowUIState
 
     var body: some View {
@@ -44,6 +45,21 @@ struct SidebarView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 18)
                 .padding(.vertical, 10)
+            Divider()
+            Button {
+                openSettings()
+                AppActivation.bringToFront()
+            } label: {
+                Label("Settings", systemImage: "gearshape")
+                    .font(.system(size: 13))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.accentColor)
+            .clickable()
+            .padding(.horizontal, 18)
+            .padding(.vertical, 10)
         }
         .background(.regularMaterial)
     }

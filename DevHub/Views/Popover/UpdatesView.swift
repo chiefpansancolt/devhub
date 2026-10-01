@@ -3,6 +3,7 @@ import SwiftUI
 
 struct UpdatesView: View {
     @Environment(AppState.self) private var state
+    @Environment(SettingsStore.self) private var settings
     @State private var expanded: Set<Bucket> = []
     @State private var hasChosenDefaultExpansion = false
     @State private var isConfirmingUpdateAll = false
@@ -48,7 +49,13 @@ struct UpdatesView: View {
                 }
                 .controlSize(.small)
             } else {
-                Button("Update all") { isConfirmingUpdateAll = true }
+                Button("Update all") {
+                    if settings.values.confirmUpdateAll {
+                        isConfirmingUpdateAll = true
+                    } else {
+                        state.startUpdateAll()
+                    }
+                }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.regular)
                     .clickable()

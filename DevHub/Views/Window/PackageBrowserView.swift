@@ -10,6 +10,8 @@ enum Columns {
 
 struct PackageBrowserView: View {
     @Environment(AppState.self) private var state
+    @Environment(SettingsStore.self) private var settings
+    @Environment(\.openSettings) private var openSettings
     let ui: WindowUIState
 
     var body: some View {
@@ -19,7 +21,9 @@ struct PackageBrowserView: View {
             modeBar
             Divider()
             content
-            OutputLogView()
+            if settings.values.showOutputLog {
+                OutputLogView()
+            }
         }
         .confirmationDialog(
             "Update \(outdatedInScope.count) packages?",
@@ -72,7 +76,13 @@ struct PackageBrowserView: View {
             Button("Update selected (\(checkedPackages.count))") { state.startUpdate(checkedPackages) }
                 .disabled(checkedPackages.isEmpty || state.isBusy)
                 .clickable()
-            Button("Update all") { ui.isConfirmingUpdateAll = true }
+            Button("Update all") {
+                if settings.values.confirmUpdateAll {
+                    ui.isConfirmingUpdateAll = true
+                } else {
+                    state.startUpdate(outdatedInScope)
+                }
+            }
                 .buttonStyle(.borderedProminent)
                 .disabled(outdatedInScope.isEmpty || state.isBusy)
                 .clickable()
@@ -137,7 +147,16 @@ struct PackageBrowserView: View {
     @ViewBuilder
     private var content: some View {
         if let problem = state.setupProblems[ui.scope.bucket] {
-            EmptyMessage(symbol: "wrench.and.screwdriver", title: Text("\(ui.scope.bucket.displayName) is not set up"), detail: Text(problem))
+            EmptyMessage(
+                symbol: "wrench.and.screwdriver",
+                title: Text("\(ui.scope.bucket.displayName) is not set up"),
+                detail: Text(problem),
+                actionTitle: "Open Settings"
+            ) {
+                settings.selectedTab = ui.scope.bucket.settingsTab
+                openSettings()
+                AppActivation.bringToFront()
+            }
         } else if !state.hasChecked {
             EmptyMessage(symbol: nil, title: Text("Checking for updates"), detail: nil)
         } else if rows.isEmpty {
@@ -242,6 +261,8 @@ struct EmptyMessage: View {
     let symbol: String?
     let title: Text
     let detail: Text?
+    var actionTitle: LocalizedStringKey?
+    var action: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 10) {
@@ -252,6 +273,11 @@ struct EmptyMessage: View {
             }
             title.font(.system(size: 15, weight: .semibold))
             detail?.font(.system(size: 12)).foregroundStyle(.secondary).multilineTextAlignment(.center).frame(maxWidth: 380)
+            if let actionTitle, let action {
+                Button(actionTitle, action: action)
+                    .controlSize(.large)
+                    .clickable()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(32)

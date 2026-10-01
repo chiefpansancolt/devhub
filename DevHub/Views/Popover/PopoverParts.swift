@@ -61,15 +61,27 @@ struct NextCheckText: View {
 }
 
 struct NotSetUpRow: View {
+    @Environment(SettingsStore.self) private var settings
+    @Environment(\.openSettings) private var openSettings
     let bucket: Bucket
     let message: String
 
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             BucketBadge(bucket: bucket).opacity(0.5)
-            VStack(alignment: .leading, spacing: 2) {
-                Text("\(bucket.displayName) is not set up").font(.system(size: 13, weight: .semibold))
-                Text(message).font(.system(size: 12)).foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("\(bucket.displayName) is not set up").font(.system(size: 13, weight: .semibold))
+                    Text(message).font(.system(size: 12)).foregroundStyle(.secondary)
+                }
+                Button("Open Settings") {
+                    settings.selectedTab = bucket.settingsTab
+                    openSettings()
+                    AppActivation.bringToFront()
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .clickable()
             }
             Spacer(minLength: 0)
         }
@@ -81,6 +93,7 @@ struct NotSetUpRow: View {
 struct PopoverFooter: View {
     @Environment(AppState.self) private var state
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         HStack(spacing: 8) {
@@ -120,13 +133,18 @@ struct PopoverFooter: View {
 
                 Button("Open window") {
                     openWindow(id: MainWindow.id)
-                    AppActivation.becomeRegularApp()
+                    AppActivation.bringToFront()
                 }
                 .buttonStyle(.borderless)
                 .fontWeight(.semibold)
                 .clickable()
 
                 Menu {
+                    Button("Settings…") {
+                        openSettings()
+                        AppActivation.bringToFront()
+                    }
+                    Divider()
                     Button("Quit DevHub") { NSApplication.shared.terminate(nil) }
                 } label: {
                     Image(systemName: "ellipsis.circle")
