@@ -44,8 +44,7 @@ public struct RubyVersionDiscovery: Sendable {
     /// Every Ruby version whose `gem` can run, newest first. The macOS system Ruby is left out because its gems need `sudo`.
     public func installations() -> [RubyInstallation] {
         let found = versionsFolder.map(chosenFolderInstallations) ?? (rvm() + rbenv() + chruby() + asdf())
-        return found
-            .filter { FileManager.default.isExecutableFile(atPath: $0.gem.path) }
+        return InstallationAliases.removing(from: found.filter { FileManager.default.isExecutableFile(atPath: $0.gem.path) }, root: \.root)
             .sorted { PackageVersion($0.version) > PackageVersion($1.version) }
     }
 

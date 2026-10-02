@@ -20,6 +20,20 @@ struct UpdateProgressStrip: View {
                     .controlSize(.small)
                     .clickable()
             }
+        } else if let session = state.session {
+            strip {
+                Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
+                session.resultTitle.fontWeight(.semibold)
+                Spacer(minLength: 8)
+                if session.failedCount > 0 {
+                    Button("Try again") { state.retryFailed() }
+                        .controlSize(.small)
+                        .clickable()
+                }
+                Button("Dismiss") { state.dismissSession() }
+                    .controlSize(.small)
+                    .clickable()
+            }
         } else if state.uninstallProgress?.status == .updating {
             strip {
                 ProgressView().controlSize(.small)

@@ -76,6 +76,15 @@ import Testing
         #expect(merged.count == installed.count)
     }
 
+    @Test func matchesATappedFormulaReportedByItsFullName() {
+        let installed = InstalledPackage(bucket: .homebrew, kind: .formula, name: "terraform", installedVersion: "1.9.0")
+        let outdated = [BrewParser.OutdatedItem(name: "hashicorp/tap/terraform", kind: .formula, currentVersion: "1.10.0", isPinned: false)]
+
+        let merged = BrewParser.merge(installed: [installed], outdated: outdated)
+
+        #expect(merged.first?.availableUpdate == "1.10.0")
+    }
+
     @Test func aPinnedPackageReportsNoUpdate() {
         let package = InstalledPackage(bucket: .homebrew, kind: .formula, name: "node", installedVersion: "22.0.0")
         let outdated = [BrewParser.OutdatedItem(name: "node", kind: .formula, currentVersion: "23.0.0", isPinned: true)]

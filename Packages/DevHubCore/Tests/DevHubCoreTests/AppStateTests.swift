@@ -472,3 +472,21 @@ private struct SlowScanner: PackageScanner {
         #expect(machine.scanReasons.filter { $0 == .afterUpdate }.count == 2)
     }
 }
+
+@MainActor
+@Suite struct RepeatedRequestTests {
+    @Test func aSecondUpdateRequestDoesNotTakeOverCancel() async throws {
+        let machine = FakeMachine(packages: [outdatedPackage("git")])
+        let app = AppState(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: HangingRunner(), history: HistoryStore())
+        await app.refresh(.afterUpdate)
+        let outdated = app.outdated(in: .homebrew)
+        app.startUpdate(outdated)
+        try await Task.sleep(for: .milliseconds(100))
+
+        app.startUpdate(outdated)
+        app.cancelUpdate()
+        for _ in 0..<60 where app.session?.isRunning == true { try await Task.sleep(for: .milliseconds(50)) }
+
+        #expect(app.session?.isRunning != true)
+    }
+}

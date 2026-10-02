@@ -20,8 +20,13 @@ public actor HistoryLog {
             try line.write(to: fileURL)
             return
         }
-        let handle = try FileHandle(forWritingTo: fileURL)
+        let handle = try FileHandle(forUpdating: fileURL)
         defer { try? handle.close() }
+        let end = try handle.seekToEnd()
+        if end > 0 {
+            try handle.seek(toOffset: end - 1)
+            if try handle.read(upToCount: 1) != Data([0x0A]) { line.insert(0x0A, at: 0) }
+        }
         try handle.seekToEnd()
         try handle.write(contentsOf: line)
     }
@@ -38,8 +43,7 @@ public actor HistoryLog {
     }
 
     public func entryCount() -> Int {
-        let decoder = HistoryCoding.decoder()
-        return lines().filter { (try? decoder.decode(HistoryEntry.self, from: $0)) != nil }.count
+        lines().filter { $0.first == UInt8(ascii: "{") && $0.last == UInt8(ascii: "}") }.count
     }
 
     public func fileSize() -> Int64 {

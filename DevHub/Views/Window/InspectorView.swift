@@ -200,6 +200,7 @@ private struct InspectorContent: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 .clickable()
+                .disabled(state.isBusy)
             }
             .controlSize(.large)
         }

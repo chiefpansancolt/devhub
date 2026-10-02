@@ -62,11 +62,15 @@ enum BrewParser {
     }
 
     static func merge(installed: [InstalledPackage], outdated: [OutdatedItem]) -> [InstalledPackage] {
-        let outdatedByKey = Dictionary(outdated.map { (Key(kind: $0.kind, name: $0.name), $0) }, uniquingKeysWith: { first, _ in first })
+        let outdatedByKey = Dictionary(outdated.map { (Key(kind: $0.kind, name: shortName($0.name)), $0) }, uniquingKeysWith: { first, _ in first })
         return installed.map { package in
             guard let item = outdatedByKey[Key(kind: package.kind, name: package.name)] else { return package }
             return package.withUpdate(item.isPinned ? nil : item.currentVersion, isPinned: item.isPinned)
         }
+    }
+
+    private static func shortName(_ name: String) -> String {
+        name.split(separator: "/").last.map(String.init) ?? name
     }
 
     private struct Key: Hashable {

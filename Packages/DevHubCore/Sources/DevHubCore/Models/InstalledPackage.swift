@@ -52,7 +52,7 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
     public var isOutdated: Bool { availableUpdate != nil }
 
     private static func newerVersion(_ candidate: String?, than installed: String) -> String? {
-        guard let candidate, !(PackageVersion(candidate) < PackageVersion(installed)) else { return nil }
+        guard let candidate, PackageVersion(installed) < PackageVersion(candidate) else { return nil }
         return candidate
     }
 

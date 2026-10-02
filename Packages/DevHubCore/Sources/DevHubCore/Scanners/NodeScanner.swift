@@ -11,6 +11,8 @@ public struct NodeOptions: Sendable, Equatable {
 public struct NodeScanner: PackageScanner {
     public let bucket = Bucket.node
 
+    private static let concurrentLookups = 6
+
     private let installations: [NodeInstallation]
     private let options: NodeOptions
     private let support: ScanSupport
@@ -90,12 +92,18 @@ public struct NodeScanner: PackageScanner {
         in installation: NodeInstallation
     ) async -> [String: String] {
         await withTaskGroup(of: (String, String?).self) { group in
-            for (name, update) in updates {
+            var waiting = updates.makeIterator()
+            var versions: [String: String] = [:]
+
+            for _ in 0..<Self.concurrentLookups {
+                guard let (name, update) = waiting.next() else { break }
                 group.addTask { (name, await highestAllowedVersion(of: name, update: update, in: installation)) }
             }
-            var versions: [String: String] = [:]
             for await (name, version) in group {
                 versions[name] = version
+                if let (nextName, nextUpdate) = waiting.next() {
+                    group.addTask { (nextName, await highestAllowedVersion(of: nextName, update: nextUpdate, in: installation)) }
+                }
             }
             return versions
         }

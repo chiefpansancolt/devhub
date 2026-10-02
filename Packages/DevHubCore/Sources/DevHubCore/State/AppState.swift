@@ -268,7 +268,7 @@ public final class AppState {
             for (bucket, scanner) in scanners {
                 group.addTask { (bucket, await scanner.scan(reason)) }
             }
-            for await (bucket, result) in group {
+            for await (bucket, result) in group where scanners[bucket] != nil {
                 results[bucket] = result
             }
         }
@@ -289,7 +289,14 @@ public final class AppState {
 
     private func announceNewUpdates() async {
         guard notificationOptions.isOn, let notifier, let notificationLedger else { return }
-        let outdated = allOutdated
+        let failed = readyBuckets.filter { bucket in
+            results[bucket].map { $0.packages.isEmpty && !$0.issues.isEmpty } ?? false
+        }
+        guard notificationLedger.isSeeded || failed.isEmpty else { return }
+        let outdated = readyBuckets.filter { !failed.contains($0) }.flatMap { outdated(in: $0) }
+        let rememberedFromFailed = notificationLedger.seenKeys.filter { key in
+            failed.contains { key.hasPrefix("\($0.rawValue)/") }
+        }
         let plan = NotificationPlanner.plan(
             outdated: outdated,
             seenKeys: notificationLedger.seenKeys,
@@ -298,7 +305,7 @@ public final class AppState {
             lastSummary: notificationLedger.lastSummary,
             now: now()
         )
-        notificationLedger.record(plan, stillOutdated: Set(outdated.compactMap(NotificationPlanner.key)))
+        notificationLedger.record(plan, stillOutdated: Set(outdated.compactMap(NotificationPlanner.key)).union(rememberedFromFailed))
         if let notification = plan.notification {
             await notifier.send(notification, playSound: notificationOptions.playsSound)
         }
@@ -383,6 +390,7 @@ public final class AppState {
     }
 
     public func startUpdate(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) {
+        guard !isBusy else { return }
         updateTask = Task { await update(packages, trigger: trigger) }
     }
 
@@ -429,6 +437,7 @@ public final class AppState {
     }
 
     public func startUninstall(_ package: InstalledPackage) {
+        guard !isBusy else { return }
         Task { await uninstall(package) }
     }
 

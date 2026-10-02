@@ -50,7 +50,7 @@ public enum HistoryListing {
 
     public static func days(_ entries: [HistoryEntry], calendar: Calendar = .current) -> [HistoryDay] {
         var days: [HistoryDay] = []
-        for entry in entries {
+        for entry in entries.sorted(by: { $0.timestamp > $1.timestamp }) {
             let day = calendar.startOfDay(for: entry.timestamp)
             if let last = days.last, last.day == day {
                 days[days.count - 1] = HistoryDay(day: day, entries: last.entries + [entry])

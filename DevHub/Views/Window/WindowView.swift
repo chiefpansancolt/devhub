@@ -49,6 +49,12 @@ struct WindowView: View {
         }
         .onDisappear { AppActivation.windowClosed() }
         .onChange(of: state.enabledBuckets) { keepSelectionOnAToolThatIsOn() }
+        .onChange(of: inspectedPackageIsMissing) {
+            if inspectedPackageIsMissing { ui.closeInspector() }
+        }
+        .onChange(of: state.isBusy) {
+            if state.isBusy { ui.isConfirmingUninstall = false }
+        }
         .onChange(of: state.lastChecked) {
             ui.checkedIDs = ui.checkedIDs.filter { state.package(withID: $0)?.isOutdated == true }
         }
@@ -60,6 +66,10 @@ struct WindowView: View {
         }
         guard !state.enabledBuckets.contains(ui.scope.bucket), let first = state.enabledBuckets.first else { return }
         ui.select(PackageScope(bucket: first))
+    }
+
+    private var inspectedPackageIsMissing: Bool {
+        ui.inspectedID.map { state.package(withID: $0) == nil } ?? false
     }
 
     private var inspectorIsOpen: Bool {

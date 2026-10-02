@@ -7,7 +7,7 @@ struct SummaryView: View {
     var body: some View {
         if let session = state.session {
             VStack(spacing: 0) {
-                PopoverHeader(title: title(for: session)) {
+                PopoverHeader(title: session.resultTitle) {
                     if session.failedCount > 0, session.skippedCount > 0 {
                         Text("\(session.skippedCount) skipped")
                     }
@@ -42,11 +42,14 @@ struct SummaryView: View {
         }
     }
 
-    private func title(for session: UpdateSession) -> Text {
-        if session.failedCount > 0 {
-            Text("\(session.doneCount) updated, \(session.failedCount) failed")
+}
+
+extension UpdateSession {
+    var resultTitle: Text {
+        if failedCount > 0 {
+            Text("\(doneCount) updated, \(failedCount) failed")
         } else {
-            Text("\(session.doneCount) updated, \(session.skippedCount) skipped")
+            Text("\(doneCount) updated, \(skippedCount) skipped")
         }
     }
 }

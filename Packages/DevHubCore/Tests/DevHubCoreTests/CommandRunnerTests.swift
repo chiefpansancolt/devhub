@@ -91,3 +91,21 @@ import Testing
         #expect(ContinuousClock.now - started < .seconds(10))
     }
 }
+
+@Suite struct HeldPipeTests {
+    @Test func finishesWhenAChildProcessKeepsTheOutputOpen() async throws {
+        let runner = CommandRunner(drainTimeout: .milliseconds(300))
+        let command = ToolCommand(
+            executable: URL(filePath: "/bin/sh"),
+            arguments: ["-c", "sleep 4 & echo started"],
+            environment: ToolEnvironment.make()
+        )
+        let began = ContinuousClock.now
+
+        let result = try await runner.run(command)
+
+        #expect(result.exitCode == 0)
+        #expect(result.standardOutput == "started")
+        #expect(ContinuousClock.now - began < .seconds(3))
+    }
+}

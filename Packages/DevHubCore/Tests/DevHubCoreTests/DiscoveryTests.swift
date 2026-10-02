@@ -97,4 +97,19 @@ import Testing
 
         #expect(ruby.gemEnvironment.isEmpty)
     }
+
+    @Test func aSymlinkedAliasOfARubyFolderIsNotASecondInstallation() throws {
+        let home = try TemporaryHome()
+        defer { home.remove() }
+        try home.makeExecutable(".rbenv/versions/3.2.2/bin/gem")
+        try FileManager.default.createSymbolicLink(
+            at: home.url.appending(path: ".rbenv/versions/3.2"),
+            withDestinationURL: home.url.appending(path: ".rbenv/versions/3.2.2")
+        )
+
+        let found = RubyVersionDiscovery(home: home.url).installations()
+
+        #expect(found.map(\.version) == ["3.2.2"])
+    }
 }
+

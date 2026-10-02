@@ -5,7 +5,8 @@ import SwiftUI
 struct GeneralSettingsView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
-    @State private var opensAtLogin = LoginItem.isEnabled
+    @State private var opensAtLogin = LoginItem.isEnabled || LoginItem.needsApproval
+    @State private var loginNeedsApproval = LoginItem.needsApproval
     @State private var loginError: String?
     @State private var notificationAccess = NotificationAuthorization.notAsked
     private let notifier = SystemNotifier()
@@ -95,6 +96,16 @@ struct GeneralSettingsView: View {
                 if let loginError {
                     Text(loginError).font(.system(size: 12)).foregroundStyle(.red)
                 }
+                if loginNeedsApproval {
+                    HStack {
+                        Text("Allow DevHub in System Settings, under Login Items.")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Button("Open System Settings") { LoginItem.openSystemSettings() }
+                            .clickable()
+                    }
+                }
             }
 
             Section("Window") {
@@ -159,8 +170,13 @@ struct GeneralSettingsView: View {
         }
     }
 
+    private func refreshLoginItem() {
+        loginNeedsApproval = LoginItem.needsApproval
+        opensAtLogin = LoginItem.isEnabled || loginNeedsApproval
+    }
+
     private func setLoginItem(_ enabled: Bool) {
         loginError = LoginItem.set(enabled)
-        opensAtLogin = LoginItem.isEnabled
+        refreshLoginItem()
     }
 }

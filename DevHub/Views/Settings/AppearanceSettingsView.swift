@@ -2,6 +2,7 @@ import DevHubCore
 import SwiftUI
 
 struct AppearanceSettingsView: View {
+    @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
 
     var body: some View {
@@ -41,6 +42,7 @@ struct AppearanceSettingsView: View {
                         Spacer()
                         Button("Restart DevHub") { AppEffects.restart() }
                             .clickable()
+                            .disabled(state.isBusy)
                     }
                 }
             }

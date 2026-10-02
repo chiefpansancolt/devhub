@@ -24,7 +24,7 @@ enum GemParser {
                 if item.hasPrefix("default:") {
                     defaultVersion = item.dropFirst("default:".count).trimmingCharacters(in: .whitespaces)
                 } else {
-                    versions.append(item)
+                    versions.append(item.split(separator: " ").first.map(String.init) ?? item)
                 }
             }
             let allVersions = versions + (defaultVersion.map { [$0] } ?? [])

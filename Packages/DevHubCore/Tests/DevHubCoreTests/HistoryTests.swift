@@ -472,3 +472,35 @@ private func entry(
         #expect(await log.entryCount() == 2)
     }
 }
+
+@Suite struct HistoryRecoveryTests {
+    @Test func anEntryAfterAHalfWrittenLineIsStillReadable() async throws {
+        let home = try TemporaryHome()
+        defer { home.remove() }
+        let log = HistoryLog(fileURL: home.url.appending(path: "Logs/DevHub/history.jsonl"))
+        try await log.append(entry("2026-10-01T09:00:00Z", package: "git"))
+        let handle = try FileHandle(forWritingTo: log.fileURL)
+        try handle.seekToEnd()
+        try handle.write(contentsOf: Data(#"{"action":"upd"#.utf8))
+        try handle.close()
+
+        try await log.append(entry("2026-10-01T10:00:00Z", package: "wget"))
+
+        let packages = await log.recentEntries().compactMap(\.package)
+        #expect(packages == ["wget", "git"])
+    }
+
+    @Test func entriesThatFinishedOutOfOrderStayInOneDayGroup() throws {
+        let calendar = Calendar(identifier: .gregorian)
+        let entries = [
+            entry("2026-10-01T10:00:00Z", package: "a"),
+            entry("2026-09-30T23:00:00Z", package: "b"),
+            entry("2026-10-01T09:00:00Z", package: "c")
+        ]
+
+        let days = HistoryListing.days(entries, calendar: calendar)
+
+        #expect(days.count == 2)
+        #expect(days.first?.entries.compactMap(\.package) == ["a", "c"])
+    }
+}

@@ -127,7 +127,7 @@ struct DevHubCommands: Commands {
                 .keyboardShortcut("u", modifiers: .command)
                 .disabled(selectedPackage?.isOutdated != true || state.isBusy)
             Button("Uninstall…") { if let package = selectedPackage { uninstall(package) } }
-                .keyboardShortcut(.delete, modifiers: .command)
+                .keyboardShortcut(.delete, modifiers: [.command, .control])
                 .disabled(selectedPackage == nil || state.isBusy)
             Divider()
             Button("Open Source Page") {

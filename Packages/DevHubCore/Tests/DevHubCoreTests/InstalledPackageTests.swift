@@ -23,6 +23,15 @@ import Testing
         #expect(!package(installed: "2.47.0_1", available: "2.47.0").isOutdated)
     }
 
+    @Test func anUpdateEqualToTheInstalledVersionIsNotOutdated() {
+        #expect(!package(installed: "latest", available: "latest").isOutdated)
+        #expect(!package(installed: "1.0", available: "1.0.0").isOutdated)
+    }
+
+    @Test func versionsWithLettersAndNumbersCompareByPart() {
+        #expect(package(installed: "7.1.0.rc2", available: "7.1.0.rc10").isOutdated)
+    }
+
     @Test func noUpdateStaysNoUpdate() {
         #expect(!package(installed: "1.0.0", available: nil).isOutdated)
     }

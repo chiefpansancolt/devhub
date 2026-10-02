@@ -17,6 +17,12 @@ enum HistoryFileActions {
         panel.nameFieldStringValue = "devhub-history.jsonl"
         panel.canCreateDirectories = true
         guard panel.runModal() == .OK, let destination = panel.url else { return }
-        Task { try? await history.export(to: destination) }
+        Task {
+            do {
+                try await history.export(to: destination)
+            } catch {
+                NSAlert(error: error).runModal()
+            }
+        }
     }
 }

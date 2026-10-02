@@ -12,9 +12,26 @@ public struct PackageVersion: Comparable, Sendable, CustomStringConvertible {
         let trimmed = text.hasPrefix("v") ? String(text.dropFirst()) : text
         parts = trimmed
             .split(whereSeparator: { !$0.isLetter && !$0.isNumber })
-            .map { piece in
-                if let number = Int(piece) { .number(number) } else { .word(String(piece)) }
-            }
+            .flatMap { Self.runs(in: $0) }
+    }
+
+    private static func runs(in piece: Substring) -> [Part] {
+        var parts: [Part] = []
+        var run = ""
+        var isDigits = false
+        func flush() {
+            guard !run.isEmpty else { return }
+            parts.append(isDigits ? .number(Int(run) ?? Int.max) : .word(run))
+            run = ""
+        }
+        for character in piece {
+            let characterIsDigit = character.isNumber
+            if !run.isEmpty, characterIsDigit != isDigits { flush() }
+            isDigits = characterIsDigit
+            run.append(character)
+        }
+        flush()
+        return parts
     }
 
     public var description: String { text }

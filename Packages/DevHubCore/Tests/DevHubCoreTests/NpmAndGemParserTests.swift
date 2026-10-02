@@ -102,3 +102,18 @@ import Testing
         #expect(entries == [GemParser.OutdatedEntry(name: "nokogiri", latest: "1.18.0")])
     }
 }
+
+@Suite struct GemPlatformTests {
+    @Test func dropsThePlatformFromAnInstalledVersion() {
+        let entries = GemParser.parseList("nokogiri (1.19.4 arm64-darwin)\nrake (13.3.0, 13.2.1)")
+
+        #expect(entries.first { $0.name == "nokogiri" }?.displayVersion == "1.19.4")
+        #expect(entries.first { $0.name == "rake" }?.displayVersion == "13.3.0")
+    }
+
+    @Test func keepsAMixOfPlainAndPlatformVersionsInOrder() {
+        let entries = GemParser.parseList("nokogiri (1.19.4 arm64-darwin, 1.18.10 arm64-darwin, 1.17.0)")
+
+        #expect(entries.first?.displayVersion == "1.19.4")
+    }
+}

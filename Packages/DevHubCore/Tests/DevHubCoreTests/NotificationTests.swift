@@ -289,3 +289,74 @@ final class FakeNotifier: NotificationSending, @unchecked Sendable {
         #expect(!values.notificationSound)
     }
 }
+
+private struct FlakyScanner: PackageScanner {
+    let inner: FakeScanner
+    let fails: FailureSwitch
+
+    var bucket: Bucket { inner.bucket }
+
+    func scan(_ reason: ScanReason) async -> ScanResult {
+        if fails.isOn { return ScanResult(packages: [], issues: [ScanIssue(group: nil, message: "offline")]) }
+        return await inner.scan(reason)
+    }
+
+    func updateCommand(for package: InstalledPackage) -> ToolCommand? { inner.updateCommand(for: package) }
+    func uninstallCommand(for package: InstalledPackage) -> ToolCommand? { inner.uninstallCommand(for: package) }
+}
+
+private final class FailureSwitch: @unchecked Sendable {
+    private let lock = NSLock()
+    private var on = false
+
+    var isOn: Bool {
+        get { lock.withLock { on } }
+        set { lock.withLock { on = newValue } }
+    }
+}
+
+@MainActor
+@Suite struct FailedScanNotificationTests {
+    private func state(notifier: FakeNotifier, fails: FailureSwitch, ledger: NotificationLedger) -> AppState {
+        let machine = FakeMachine(packages: [outdatedPackage("git"), outdatedPackage("typescript", bucket: .node, group: "22.11.0")])
+        return AppState(
+            scanners: [
+                .homebrew: FakeScanner(bucket: .homebrew, machine: machine),
+                .node: FlakyScanner(inner: FakeScanner(bucket: .node, machine: machine), fails: fails)
+            ],
+            runner: machine.runner,
+            notifier: notifier,
+            notificationLedger: ledger,
+            notificationOptions: NotificationOptions(isOn: true, frequency: .everyUpdate, playsSound: false)
+        )
+    }
+
+    @Test func aBucketThatFailedToScanDoesNotMakeItsUpdatesNewAgain() async {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let fails = FailureSwitch()
+        let notifier = FakeNotifier()
+        let app = state(notifier: notifier, fails: fails, ledger: NotificationLedger(defaults: UserDefaults(suiteName: suite)!))
+        await app.refresh(.check, trigger: .automatic)
+
+        fails.isOn = true
+        await app.refresh(.check, trigger: .automatic)
+        fails.isOn = false
+        await app.refresh(.check, trigger: .automatic)
+
+        #expect(notifier.notifications.isEmpty)
+    }
+
+    @Test func theFirstCheckDoesNotSeedWhileABucketIsFailing() async {
+        let suite = "devhub-tests-\(UUID().uuidString)"
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let fails = FailureSwitch()
+        fails.isOn = true
+        let ledger = NotificationLedger(defaults: UserDefaults(suiteName: suite)!)
+        let app = state(notifier: FakeNotifier(), fails: fails, ledger: ledger)
+
+        await app.refresh(.check, trigger: .automatic)
+
+        #expect(!ledger.isSeeded)
+    }
+}

@@ -86,7 +86,7 @@ struct PackageRowView: View {
                 ProgressView().controlSize(.small)
                 Text("Removing").font(.system(size: 12)).foregroundStyle(.secondary)
             }
-        } else if let status = state.status(of: package) {
+        } else if state.session?.isRunning == true, let status = state.status(of: package) {
             UpdateStatusLabel(status: status)
         } else if package.isOutdated {
             Button("Update") { state.startUpdate([package]) }

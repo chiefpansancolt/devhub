@@ -2049,6 +2049,58 @@
         }
       }
     },
+    "Allow DevHub in System Settings, under Login Items.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlaube DevHub in den Systemeinstellungen unter „Anmeldeobjekte“."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite DevHub en Ajustes del Sistema, en Ítems de inicio de sesión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisez DevHub dans Réglages Système, sous Éléments d’ouverture de session."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム設定の「ログイン項目」でDevHubを許可してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시스템 설정의 “로그인 항목”에서 DevHub를 허용하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permita o DevHub em Ajustes do Sistema, em Itens de login."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите DevHub в Системных настройках, в разделе «Объекты входа»."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请在“系统设置”的“登录项”中允许 DevHub。"
+          }
+        }
+      }
+    },
     "Appearance": {
       "localizations": {
         "de": {

@@ -47,7 +47,11 @@ public protocol CommandRunning: Sendable {
 }
 
 public struct CommandRunner: CommandRunning {
-    public init() {}
+    private let drainTimeout: Duration
+
+    public init(drainTimeout: Duration = .seconds(5)) {
+        self.drainTimeout = drainTimeout
+    }
 
     public func run(_ command: ToolCommand) async throws -> CommandResult {
         var standardOutput: [String] = []
@@ -94,10 +98,15 @@ public struct CommandRunner: CommandRunning {
             let outputReader = LineReader(source: .standardOutput, handle: outputPipe.fileHandleForReading, continuation: continuation, drained: drained)
             let errorReader = LineReader(source: .standardError, handle: errorPipe.fileHandleForReading, continuation: continuation, drained: drained)
             let started = ContinuousClock.now
+            let drainNanoseconds = Int(drainTimeout.components.seconds) * 1_000_000_000 + Int(drainTimeout.components.attoseconds / 1_000_000_000)
 
             // The termination handler can run before the last bytes are read. Wait for both pipes to close first.
+            // A child process that outlives the command keeps the pipes open, so the wait has a limit.
             process.terminationHandler = { finished in
-                drained.notify(queue: .global()) {
+                DispatchQueue.global().async {
+                    _ = drained.wait(timeout: .now() + .nanoseconds(drainNanoseconds))
+                    outputReader.stop()
+                    errorReader.stop()
                     continuation.yield(.finished(exitCode: finished.terminationStatus, duration: ContinuousClock.now - started))
                     continuation.finish()
                 }
@@ -129,7 +138,12 @@ private final class ProcessHandle: @unchecked Sendable {
     }
 
     func terminateIfRunning() {
-        if process.isRunning { process.terminate() }
+        guard process.isRunning else { return }
+        process.terminate()
+        let pid = process.processIdentifier
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(5)) { [process] in
+            if process.isRunning { kill(pid, SIGKILL) }
+        }
     }
 }
 
@@ -140,6 +154,7 @@ private final class LineReader: @unchecked Sendable {
     private let drained: DispatchGroup
     private let lock = NSLock()
     private var pending = Data()
+    private var isFinished = false
 
     init(
         source: OutputSource,
@@ -158,18 +173,32 @@ private final class LineReader: @unchecked Sendable {
         handle.readabilityHandler = { [self] readable in
             let data = readable.availableData
             if data.isEmpty {
-                readable.readabilityHandler = nil
-                flush()
-                drained.leave()
+                finish()
             } else {
                 consume(data)
             }
         }
     }
 
+    func stop() {
+        finish()
+    }
+
+    private func finish() {
+        handle.readabilityHandler = nil
+        lock.lock()
+        let wasFinished = isFinished
+        isFinished = true
+        lock.unlock()
+        guard !wasFinished else { return }
+        flush()
+        drained.leave()
+    }
+
     private func consume(_ data: Data) {
         lock.lock()
         defer { lock.unlock() }
+        guard !isFinished else { return }
         pending.append(data)
         while let newline = pending.firstIndex(of: 0x0A) {
             let line = pending[pending.startIndex..<newline]

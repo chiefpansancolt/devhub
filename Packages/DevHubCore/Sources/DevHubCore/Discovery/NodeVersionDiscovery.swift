@@ -52,7 +52,7 @@ public struct NodeVersionDiscovery: Sendable {
     public func installations() -> [NodeInstallation] {
         let fileManager = FileManager.default
         if let versionsFolder {
-            return chosenFolderInstallations(in: versionsFolder)
+            return InstallationAliases.removing(from: chosenFolderInstallations(in: versionsFolder), root: \.root)
         }
         var found: [NodeInstallation] = []
 
@@ -73,7 +73,7 @@ public struct NodeVersionDiscovery: Sendable {
             }
         }
 
-        return found.sorted { PackageVersion($0.version) > PackageVersion($1.version) }
+        return InstallationAliases.removing(from: found, root: \.root).sorted { PackageVersion($0.version) > PackageVersion($1.version) }
     }
 
     private func chosenFolderInstallations(in folder: URL) -> [NodeInstallation] {
