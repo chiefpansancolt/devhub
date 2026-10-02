@@ -1,0 +1,5 @@
+/Users/example/.bun/install/global node_modules (291 installed)
+├── @angular/cli@17.0.0
+├── @antfu/ni@0.21.0
+├── cowsay@1.5.0
+└── semver@7.5.0

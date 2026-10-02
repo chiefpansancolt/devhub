@@ -21,11 +21,29 @@ if node.isEmpty {
     scanners.append(NodeScanner(installations: node, runner: runner))
 }
 
+let nodeManagers = NodePackageManagerLocator.locate(nodeInstallations: node)
+if !nodeManagers.isEmpty {
+    scanners.append(NodeToolsScanner(installations: nodeManagers, runner: runner, nodeBinDirectory: node.first?.binDirectory))
+}
+
 let ruby = RubyVersionDiscovery().installations()
 if ruby.isEmpty {
     notes.append("Ruby: no version manager found (looked for RVM, rbenv, chruby and asdf)")
 } else {
     scanners.append(RubyScanner(installations: ruby, runner: runner))
+}
+
+if let rust = RustLocator.locate() {
+    scanners.append(RustScanner(installation: rust, runner: runner))
+} else {
+    notes.append("Rust: rustup not found in ~/.cargo/bin or Homebrew")
+}
+
+let python = PythonLocator.locate()
+if python.isEmpty {
+    notes.append("Python: neither pipx nor uv found")
+} else {
+    scanners.append(PythonScanner(installations: python, runner: runner))
 }
 
 for note in notes { print(note) }

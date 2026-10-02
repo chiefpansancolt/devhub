@@ -20,7 +20,7 @@ PLACEHOLDER = re.compile(r"%(?:\d+\$)?(?:lld|ld|d|@|f)")
 
 
 def placeholders(text):
-    return sorted(PLACEHOLDER.findall(text))
+    return sorted(re.sub(r"%\d+\$", "%", found) for found in PLACEHOLDER.findall(text))
 
 
 def check(catalog):

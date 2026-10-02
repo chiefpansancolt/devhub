@@ -1,0 +1,6 @@
+cowsay v6.1
+- cowsay
+pycowsay v0.0.0.1
+- pycowsay
+ruff v0.5.0
+- ruff

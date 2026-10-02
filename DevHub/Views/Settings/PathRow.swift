@@ -13,6 +13,7 @@ struct PathRow: View {
     let detectedText: String
     let check: PathCheck?
     let kind: PathKind
+    var showsStatus = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -35,7 +36,7 @@ struct PathRow: View {
                         .clickable()
                 }
             }
-            status
+            if showsStatus { status }
         }
         .padding(.vertical, 2)
     }

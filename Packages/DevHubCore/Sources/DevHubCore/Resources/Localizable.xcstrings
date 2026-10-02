@@ -1177,6 +1177,58 @@
         }
       }
     },
+    "Every Python tool manager is turned off in Settings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Python-Tool-Manager sind in den Einstellungen ausgeschaltet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos los gestores de herramientas de Python están desactivados en Ajustes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous les gestionnaires d’outils Python sont désactivés dans les Réglages."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定ですべてのPythonツールマネージャーがオフになっています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정에서 모든 Python 도구 관리자가 꺼져 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos os gerenciadores de ferramentas do Python estão desativados em Ajustes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все менеджеры инструментов Python выключены в настройках."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置中已关闭所有 Python 工具管理器。"
+          }
+        }
+      }
+    },
     "Every Ruby version is turned off in Settings.": {
       "localizations": {
         "de": {
@@ -1437,6 +1489,58 @@
         }
       }
     },
+    "No Python tool manager found. DevHub looked for pipx and uv.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Python-Tool-Manager gefunden. DevHub hat nach pipx und uv gesucht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró ningún gestor de herramientas de Python. DevHub buscó pipx y uv."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun gestionnaire d’outils Python trouvé. DevHub a cherché pipx et uv."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pythonツールマネージャーが見つかりません。DevHubはpipxとuvを探しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Python 도구 관리자를 찾을 수 없습니다. DevHub가 pipx와 uv를 찾아봤습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum gerenciador de ferramentas do Python foi encontrado. O DevHub procurou pipx e uv."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менеджер инструментов Python не найден. DevHub искал pipx и uv."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Python 工具管理器。DevHub 已查找 pipx 和 uv。"
+          }
+        }
+      }
+    },
     "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf.": {
       "localizations": {
         "de": {
@@ -1541,6 +1645,58 @@
         }
       }
     },
+    "No folder was printed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es wurde kein Ordner ausgegeben"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se imprimió ninguna carpeta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun dossier n’a été affiché"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フォルダが出力されませんでした"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "폴더가 출력되지 않았습니다"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma pasta foi exibida"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка не была выведена"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未输出文件夹"
+          }
+        }
+      }
+    },
     "Nothing was found at this path.": {
       "localizations": {
         "de": {
@@ -1589,6 +1745,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "此路径下未找到任何内容。"
+          }
+        }
+      }
+    },
+    "Rust was not found. DevHub looked for rustup in ~/.cargo/bin and in Homebrew.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust wurde nicht gefunden. DevHub hat in ~/.cargo/bin und in Homebrew nach rustup gesucht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró Rust. DevHub buscó rustup en ~/.cargo/bin y en Homebrew."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust est introuvable. DevHub a cherché rustup dans ~/.cargo/bin et dans Homebrew."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rustが見つかりません。DevHubは~/.cargo/binとHomebrewでrustupを探しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust를 찾을 수 없습니다. DevHub가 ~/.cargo/bin과 Homebrew에서 rustup을 찾아봤습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Rust não foi encontrado. O DevHub procurou o rustup em ~/.cargo/bin e no Homebrew."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust не найден. DevHub искал rustup в ~/.cargo/bin и в Homebrew."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Rust。DevHub 已在 ~/.cargo/bin 和 Homebrew 中查找 rustup。"
           }
         }
       }
@@ -1697,6 +1905,64 @@
         }
       }
     },
+    "There is no %@ program at %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter %2$@ gibt es kein %1$@-Programm."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "There is no %1$@ program at %2$@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún programa %1$@ en %2$@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n’y a aucun programme %1$@ dans %2$@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@に%1$@プログラムはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@에 %1$@ 프로그램이 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há nenhum programa %1$@ em %2$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По пути %2$@ нет программы %1$@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ 处没有 %1$@ 程序。"
+          }
+        }
+      }
+    },
     "There is no brew program at %@.": {
       "localizations": {
         "de": {
@@ -1745,6 +2011,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ 处没有 brew 程序。"
+          }
+        }
+      }
+    },
+    "There is no rustup program at %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter %@ gibt es kein rustup-Programm."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún programa rustup en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n’y a aucun programme rustup dans %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にrustupプログラムはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에 rustup 프로그램이 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há nenhum programa rustup em %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По пути %@ нет программы rustup."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 处没有 rustup 程序。"
           }
         }
       }
@@ -1853,6 +2171,58 @@
         }
       }
     },
+    "This program did not run as %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Programm lief nicht als %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa no se ejecutó como %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce programme ne s’est pas exécuté comme %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このプログラムは%@として動作しませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 프로그램은 %@(으)로 실행되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa não funcionou como %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта программа не запустилась как %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此程序无法作为 %@ 运行。"
+          }
+        }
+      }
+    },
     "This program did not run as brew.": {
       "localizations": {
         "de": {
@@ -1901,6 +2271,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "此程序无法作为 brew 运行。"
+          }
+        }
+      }
+    },
+    "This program did not run as rustup.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Programm lief nicht als rustup."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa no se ejecutó como rustup."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce programme ne s’est pas exécuté comme rustup."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このプログラムはrustupとして動作しませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 프로그램은 rustup으로 실행되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa não funcionou como rustup."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта программа не запустилась как rustup."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此程序无法作为 rustup 运行。"
           }
         }
       }

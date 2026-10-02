@@ -7,6 +7,8 @@ extension Bucket {
         case .homebrew: .homebrew
         case .node: .node
         case .ruby: .ruby
+        case .rust: .rust
+        case .python: .python
         }
     }
 
@@ -15,6 +17,8 @@ extension Bucket {
         case .homebrew: "BucketHomebrew"
         case .node: "BucketNode"
         case .ruby: "BucketRuby"
+        case .rust: "BucketRust"
+        case .python: "BucketPython"
         }
     }
 }
@@ -52,7 +56,42 @@ extension SettingsTab {
         case .homebrew: .homebrew
         case .node: .node
         case .ruby: .ruby
+        case .rust: .rust
+        case .python: .python
         case .general, .appearance, .history: nil
+        }
+    }
+}
+
+extension Bucket {
+    var groupsByVersion: Bool {
+        self == .node || self == .ruby
+    }
+}
+
+extension PackageKind {
+    var singularTitle: LocalizedStringKey {
+        switch self {
+        case .formula: "Formula"
+        case .cask: "Cask"
+        case .npmGlobal: "npm global"
+        case .gem: "Gem"
+        case .rustToolchain: "Toolchain"
+        case .cargoTool: "Cargo tool"
+        case .pythonTool: "Python tool"
+        case .pnpmGlobal: "pnpm global"
+        case .bunGlobal: "Bun global"
+        case .yarnGlobal: "Yarn global"
+        }
+    }
+
+    var pluralTitle: LocalizedStringKey {
+        switch self {
+        case .formula: "Formulae"
+        case .cask: "Casks"
+        case .rustToolchain: "Toolchains"
+        case .cargoTool: "Cargo tools"
+        case .npmGlobal, .gem, .pythonTool, .pnpmGlobal, .bunGlobal, .yarnGlobal: singularTitle
         }
     }
 }

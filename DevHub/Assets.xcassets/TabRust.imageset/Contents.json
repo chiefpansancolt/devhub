@@ -1,0 +1,12 @@
+{
+  "images": [
+    { "idiom": "universal", "scale": "1x", "filename": "TabRust.png" },
+    { "idiom": "universal", "scale": "2x", "filename": "TabRust@2x.png" },
+    { "idiom": "universal", "scale": "3x", "filename": "TabRust@3x.png" },
+    { "idiom": "universal", "appearances": [{ "appearance": "luminosity", "value": "dark" }], "scale": "1x", "filename": "TabRustDark.png" },
+    { "idiom": "universal", "appearances": [{ "appearance": "luminosity", "value": "dark" }], "scale": "2x", "filename": "TabRustDark@2x.png" },
+    { "idiom": "universal", "appearances": [{ "appearance": "luminosity", "value": "dark" }], "scale": "3x", "filename": "TabRustDark@3x.png" }
+  ],
+  "info": { "author": "xcode", "version": 1 },
+  "properties": { "template-rendering-intent": "original" }
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "path": "/Users/example/Library/pnpm/global/v11",
+    "private": true,
+    "dependencies": {
+      "@antfu/ni": {
+        "from": "@antfu/ni",
+        "version": "0.21.0",
+        "path": "/Users/example/Library/pnpm/global/v11/1503c-18dad0e9304fd890-2/node_modules/@antfu/ni"
+      },
+      "cowsay": {
+        "from": "cowsay",
+        "version": "1.5.0",
+        "path": "/Users/example/Library/pnpm/global/v11/1503c-18dad0e929852ee8-0/node_modules/cowsay"
+      },
+      "semver": {
+        "from": "semver",
+        "version": "7.5.0",
+        "path": "/Users/example/Library/pnpm/global/v11/1503c-18dad0e92e6a1130-1/node_modules/semver"
+      }
+    }
+  }
+]

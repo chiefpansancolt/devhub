@@ -1,0 +1,1 @@
+stable-aarch64-apple-darwin (active, default) /Users/example/.rustup/toolchains/stable-aarch64-apple-darwin

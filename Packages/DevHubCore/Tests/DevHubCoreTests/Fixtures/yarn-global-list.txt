@@ -1,0 +1,15 @@
+yarn global v1.22.22
+info "@antfu/ni@0.21.0" has binaries:
+   - ni
+   - nci
+   - nr
+   - nu
+   - nlx
+   - na
+   - nun
+info "cowsay@1.5.0" has binaries:
+   - cowsay
+   - cowthink
+info "semver@7.5.0" has binaries:
+   - semver
+Done in 0.03s.

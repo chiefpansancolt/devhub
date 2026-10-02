@@ -89,6 +89,10 @@ private struct InspectorContent: View {
         case .cask: "Cask"
         case .npmGlobal: "npm global · Node \(package.group ?? "")"
         case .gem: "Gem · Ruby \(package.group ?? "")"
+        case .rustToolchain: "Rust toolchain"
+        case .cargoTool: "Cargo tool"
+        case .pythonTool: "Python tool · \(package.group ?? "")"
+        case .pnpmGlobal, .bunGlobal, .yarnGlobal: package.kind.singularTitle
         }
     }
 
@@ -240,10 +244,18 @@ private struct InspectorContent: View {
             }
             let names = package.requiredBy.formatted(.list(type: .and, width: .narrow))
             return String(localized: "Other installed packages need this: \(names). They may stop working.")
-        case .node:
+        case .node where package.kind == .npmGlobal:
             return String(localized: "It is removed from the global packages of Node \(package.group ?? "").")
+        case .node:
+            return String(localized: "It is removed from the global packages of \(package.group ?? "").")
         case .ruby:
             return String(localized: "Every installed version of this gem is removed from Ruby \(package.group ?? "").")
+        case .rust where package.kind == .rustToolchain:
+            return String(localized: "It is removed from rustup. You can install it again later.")
+        case .rust:
+            return String(localized: "Its program is removed from the Cargo bin folder.")
+        case .python:
+            return String(localized: "Its environment and programs are removed from \(package.group ?? "").")
         }
     }
 }

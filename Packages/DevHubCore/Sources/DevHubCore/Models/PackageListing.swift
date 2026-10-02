@@ -15,7 +15,7 @@ public enum PackageListing {
             let matching = query.isEmpty ? packages : packages.filter { $0.name.localizedCaseInsensitiveContains(query) }
             return matching.sorted { left, right in
                 if left.isOutdated != right.isOutdated { return left.isOutdated }
-                if left.group != right.group { return PackageVersion(left.group ?? "") > PackageVersion(right.group ?? "") }
+                if left.group != right.group { return PackageGroup.precedes(left.group ?? "", right.group ?? "") }
                 return left.name < right.name
             }
         }

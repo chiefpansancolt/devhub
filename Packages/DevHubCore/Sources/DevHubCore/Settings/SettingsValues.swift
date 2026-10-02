@@ -60,6 +60,16 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var excludedRubyVersions: Set<String> = []
     public var gemInstallDocumentation = false
 
+    public var rustPath: String?
+    public var rustIncludeCargoTools = true
+    public var pipxPath: String?
+    public var uvPath: String?
+    public var excludedPythonManagers: Set<String> = []
+    public var pnpmPath: String?
+    public var bunPath: String?
+    public var yarnPath: String?
+    public var excludedNodeManagers: Set<String> = []
+
     public var historyRetention = HistoryRetention.oneYear
     public var historyIncludesOutput = true
 
@@ -96,6 +106,15 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         rubyFolder = value(.rubyFolder, rubyFolder)
         excludedRubyVersions = value(.excludedRubyVersions, excludedRubyVersions)
         gemInstallDocumentation = value(.gemInstallDocumentation, gemInstallDocumentation)
+        rustPath = value(.rustPath, rustPath)
+        rustIncludeCargoTools = value(.rustIncludeCargoTools, rustIncludeCargoTools)
+        pipxPath = value(.pipxPath, pipxPath)
+        uvPath = value(.uvPath, uvPath)
+        excludedPythonManagers = value(.excludedPythonManagers, excludedPythonManagers)
+        pnpmPath = value(.pnpmPath, pnpmPath)
+        bunPath = value(.bunPath, bunPath)
+        yarnPath = value(.yarnPath, yarnPath)
+        excludedNodeManagers = value(.excludedNodeManagers, excludedNodeManagers)
         historyRetention = value(.historyRetention, historyRetention)
         historyIncludesOutput = value(.historyIncludesOutput, historyIncludesOutput)
     }
@@ -108,6 +127,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case brewPath, brewRefreshIndex, brewIncludeCasks, brewIncludeSelfUpdatingCasks, brewCleanupAfterUpdate
         case nodeFolder, excludedNodeVersions, nodeIncludeNpm
         case rubyFolder, excludedRubyVersions, gemInstallDocumentation
+        case rustPath, rustIncludeCargoTools
+        case pipxPath, uvPath, excludedPythonManagers
+        case pnpmPath, bunPath, yarnPath, excludedNodeManagers
         case historyRetention, historyIncludesOutput
     }
 
@@ -121,6 +143,15 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         let includeNpm: Bool
         let rubyFolder: String?
         let excludedRubyVersions: Set<String>
+        let rustPath: String?
+        let includeCargoTools: Bool
+        let pipxPath: String?
+        let uvPath: String?
+        let excludedPythonManagers: Set<String>
+        let pnpmPath: String?
+        let bunPath: String?
+        let yarnPath: String?
+        let excludedNodeManagers: Set<String>
     }
 
     var scanningFields: ScanningFields {
@@ -133,7 +164,16 @@ public struct SettingsValues: Codable, Equatable, Sendable {
             excludedNodeVersions: excludedNodeVersions,
             includeNpm: nodeIncludeNpm,
             rubyFolder: rubyFolder,
-            excludedRubyVersions: excludedRubyVersions
+            excludedRubyVersions: excludedRubyVersions,
+            rustPath: rustPath,
+            includeCargoTools: rustIncludeCargoTools,
+            pipxPath: pipxPath,
+            uvPath: uvPath,
+            excludedPythonManagers: excludedPythonManagers,
+            pnpmPath: pnpmPath,
+            bunPath: bunPath,
+            yarnPath: yarnPath,
+            excludedNodeManagers: excludedNodeManagers
         )
     }
 }

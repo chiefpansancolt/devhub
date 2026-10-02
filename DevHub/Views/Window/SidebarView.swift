@@ -185,10 +185,10 @@ private struct ChildRow: View {
 
     private var title: LocalizedStringKey {
         guard let group = scope.group else {
-            return scope.bucket == .homebrew ? "All packages" : "All versions"
+            return scope.bucket.groupsByVersion ? "All versions" : "All packages"
         }
-        if scope.bucket == .homebrew {
-            return group == PackageKind.cask.rawValue ? "Casks" : "Formulae"
+        if scope.bucket.groupsByKind, let kind = PackageKind(rawValue: group) {
+            return kind.pluralTitle
         }
         return LocalizedStringKey(group)
     }
