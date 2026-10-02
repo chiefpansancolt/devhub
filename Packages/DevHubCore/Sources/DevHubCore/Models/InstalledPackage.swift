@@ -38,7 +38,7 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
         self.name = name
         self.group = group
         self.installedVersion = installedVersion
-        self.availableUpdate = availableUpdate
+        self.availableUpdate = Self.newerVersion(availableUpdate, than: installedVersion)
         self.isPinned = isPinned
         self.summary = summary
         self.homepage = homepage
@@ -50,6 +50,11 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
     public var id: String { "\(bucket.rawValue)/\(group ?? "-")/\(kind.rawValue)/\(name)" }
 
     public var isOutdated: Bool { availableUpdate != nil }
+
+    private static func newerVersion(_ candidate: String?, than installed: String) -> String? {
+        guard let candidate, !(PackageVersion(candidate) < PackageVersion(installed)) else { return nil }
+        return candidate
+    }
 
     func withUpdate(_ version: String?, isPinned: Bool) -> InstalledPackage {
         InstalledPackage(

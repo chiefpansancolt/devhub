@@ -29,6 +29,8 @@ public struct UpdateSession: Sendable, Equatable {
         self.isRunning = isRunning
     }
 
+    public var runningItem: UpdateItem? { items.first { $0.status == .updating } }
+
     public var doneCount: Int { items.filter { $0.status == .done }.count }
     public var skippedCount: Int { items.filter { $0.status == .skipped }.count }
     public var failedItems: [UpdateItem] { items.filter { if case .failed = $0.status { true } else { false } } }

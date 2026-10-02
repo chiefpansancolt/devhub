@@ -20,6 +20,24 @@ enum NpmParser {
             .sorted { $0.name < $1.name }
     }
 
+    struct PublishedVersion: Equatable {
+        let version: String
+        let nodeRange: String?
+    }
+
+    /// `npm view <name>@<range> version engines.node --json`. One match prints an object, several print a list and none print nothing.
+    static func parsePublishedVersions(_ data: Data) throws -> [PublishedVersion] {
+        guard !isBlank(data) else { return [] }
+        let decoder = JSONDecoder()
+        let entries: [PublishedEntry]
+        if let list = try? decoder.decode([PublishedEntry].self, from: data) {
+            entries = list
+        } else {
+            entries = [try decoder.decode(PublishedEntry.self, from: data)]
+        }
+        return entries.compactMap { entry in entry.version.map { PublishedVersion(version: $0, nodeRange: entry.nodeRange) } }
+    }
+
     /// `npm outdated -g --json`. Prints nothing, or `{}`, when every package is current.
     static func parseOutdated(_ data: Data) throws -> [String: OutdatedPackage] {
         guard !isBlank(data) else { return [:] }
@@ -46,4 +64,20 @@ private struct ListPayload: Decodable {
 private struct OutdatedEntry: Decodable {
     let current: String?
     let latest: String?
+}
+
+private struct PublishedEntry: Decodable {
+    let version: String?
+    let nodeRange: String?
+
+    enum CodingKeys: String, CodingKey {
+        case version
+        case nodeRange = "engines.node"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        version = try? container.decode(String.self, forKey: .version)
+        nodeRange = try? container.decode(String.self, forKey: .nodeRange)
+    }
 }

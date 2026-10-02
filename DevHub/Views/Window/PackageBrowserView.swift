@@ -23,6 +23,7 @@ struct PackageBrowserView: View {
             modeBar
             Divider()
             content
+            UpdateProgressStrip()
             if settings.values.showOutputLog {
                 OutputLogView()
             }

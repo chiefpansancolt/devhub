@@ -1,3 +1,5 @@
+import Foundation
+
 public struct NodeOptions: Sendable, Equatable {
     public var includeNpm: Bool
 
@@ -46,7 +48,7 @@ public struct NodeScanner: PackageScanner {
     }
 
     public func updateCommand(for package: InstalledPackage) -> ToolCommand? {
-        command(for: package, arguments: ["install", "-g", "\(package.name)@latest"])
+        command(for: package, arguments: ["install", "-g", "\(package.name)@\(package.availableUpdate ?? "latest")"])
     }
 
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
@@ -65,6 +67,7 @@ public struct NodeScanner: PackageScanner {
         // npm outdated exits with 1 when at least one package is outdated.
         try support.requireExit(outdatedResult, in: outdated, allowing: [0, 1])
         let updates = try support.decode(outdated, outdatedResult.standardOutput, NpmParser.parseOutdated)
+        let allowedVersions = await highestAllowedVersions(of: updates, in: installation)
 
         return installed
             .filter { options.includeNpm || $0.name != "npm" }
@@ -75,11 +78,53 @@ public struct NodeScanner: PackageScanner {
                     name: package.name,
                     group: installation.version,
                     installedVersion: package.version,
-                    availableUpdate: updates[package.name]?.latest,
+                    availableUpdate: allowedVersions[package.name],
                     homepage: "https://www.npmjs.com/package/\(package.name)",
                     installPath: installation.globalModules.appending(path: package.name).path
                 )
             }
+    }
+
+    private func highestAllowedVersions(
+        of updates: [String: NpmParser.OutdatedPackage],
+        in installation: NodeInstallation
+    ) async -> [String: String] {
+        await withTaskGroup(of: (String, String?).self) { group in
+            for (name, update) in updates {
+                group.addTask { (name, await highestAllowedVersion(of: name, update: update, in: installation)) }
+            }
+            var versions: [String: String] = [:]
+            for await (name, version) in group {
+                versions[name] = version
+            }
+            return versions
+        }
+    }
+
+    private func highestAllowedVersion(
+        of name: String,
+        update: NpmParser.OutdatedPackage,
+        in installation: NodeInstallation
+    ) async -> String? {
+        let view = command(for: installation, arguments: ["view", "\(name)@>\(update.current)", "version", "engines.node", "--json"])
+        guard let result = try? await support.run(view), result.exitCode == 0,
+              let published = try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)) else {
+            return update.latest
+        }
+
+        func isAllowed(_ version: NpmParser.PublishedVersion) -> Bool {
+            NodeEngineRange(version.nodeRange).allows(installation.version)
+        }
+
+        if published.first(where: { $0.version == update.latest }).map(isAllowed) ?? true {
+            return update.latest
+        }
+        let keepsPrereleases = update.current.contains("-")
+        return published
+            .filter { isAllowed($0) && (keepsPrereleases || !$0.version.contains("-")) }
+            .map { PackageVersion($0.version) }
+            .max()?
+            .text
     }
 
     private func command(for package: InstalledPackage, arguments: [String]) -> ToolCommand? {

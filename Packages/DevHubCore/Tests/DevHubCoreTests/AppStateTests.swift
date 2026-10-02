@@ -396,3 +396,25 @@ private actor StatusLog {
         #expect(Set(toolchain.setupProblems.keys) == [.node, .ruby])
     }
 }
+
+@Suite struct UpdateSessionTests {
+    private func item(_ name: String, _ status: UpdateStatus) -> UpdateItem {
+        UpdateItem(
+            package: InstalledPackage(bucket: .node, kind: .npmGlobal, name: name, group: "22.11.0", installedVersion: "1.0.0"),
+            status: status
+        )
+    }
+
+    @Test func theRunningItemIsTheOneBeingUpdated() {
+        let session = UpdateSession(items: [item("a", .done), item("b", .updating), item("c", .waiting)], isRunning: true)
+
+        #expect(session.runningItem?.package.name == "b")
+        #expect(session.finishedCount == 1)
+    }
+
+    @Test func nothingRunsBeforeTheFirstPackageStarts() {
+        let session = UpdateSession(items: [item("a", .waiting)], isRunning: true)
+
+        #expect(session.runningItem == nil)
+    }
+}

@@ -46,6 +46,7 @@ public final class AppState {
     public private(set) var nextCheck: Date?
     public private(set) var session: UpdateSession?
     public private(set) var uninstallProgress: UninstallProgress?
+    public private(set) var runningSince: Date?
     public private(set) var log: [LogLine] = []
     public private(set) var setupProblems: [Bucket: String]
     public private(set) var disabledBuckets: Set<Bucket> = []
@@ -367,6 +368,7 @@ public final class AppState {
             await self?.handle(event)
         }
         session?.isRunning = false
+        runningSince = nil
         record(outcomes, trigger: trigger)
 
         // A cancelled task cannot run the scan, so the scan starts in a task of its own.
@@ -409,10 +411,12 @@ public final class AppState {
     public func uninstall(_ package: InstalledPackage) async {
         guard !isBusy else { return }
         uninstallProgress = UninstallProgress(packageID: package.id, status: .updating)
+        runningSince = Date()
 
         let outcome = await actions.uninstall(package) { [weak self] event in
             await self?.handle(event)
         }
+        runningSince = nil
         record([outcome], trigger: .manual)
 
         if case .failed = outcome.status {
@@ -447,6 +451,7 @@ public final class AppState {
         case let .status(id, status):
             guard let index = session?.items.firstIndex(where: { $0.id == id }) else { return }
             session?.items[index].status = status
+            runningSince = status == .updating ? Date() : nil
         case let .log(entry):
             log.append(LogLine(id: nextLogID, entry: entry))
             nextLogID += 1
