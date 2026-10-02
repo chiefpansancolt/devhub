@@ -28,6 +28,12 @@ if ruby.isEmpty {
     scanners.append(RubyScanner(installations: ruby, runner: runner))
 }
 
+if let rust = RustLocator.locate() {
+    scanners.append(RustScanner(installation: rust, runner: runner))
+} else {
+    notes.append("Rust: rustup not found in ~/.cargo/bin or Homebrew")
+}
+
 for note in notes { print(note) }
 
 for scanner in scanners {

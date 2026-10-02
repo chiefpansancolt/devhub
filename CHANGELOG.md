@@ -7,6 +7,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Features
+
+- Rust support: rustup toolchains and rustup itself, plus the tools installed with `cargo install`, each checked against the newest version on crates.io
+- A Rust tab in Settings to choose the rustup program and to leave Cargo tools out
+- Rust icons for the sidebar and Settings, with a white version for dark mode
+
+### Changed
+
+- History moves to `⌘5`, because Rust takes `⌘4`
+
 ## [1.0.0] - 2026-10-01
 
 First release.

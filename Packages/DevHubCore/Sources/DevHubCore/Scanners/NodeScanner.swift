@@ -91,21 +91,11 @@ public struct NodeScanner: PackageScanner {
         of updates: [String: NpmParser.OutdatedPackage],
         in installation: NodeInstallation
     ) async -> [String: String] {
-        await withTaskGroup(of: (String, String?).self) { group in
-            var waiting = updates.makeIterator()
-            var versions: [String: String] = [:]
-
-            for _ in 0..<Self.concurrentLookups {
-                guard let (name, update) = waiting.next() else { break }
-                group.addTask { (name, await highestAllowedVersion(of: name, update: update, in: installation)) }
-            }
-            for await (name, version) in group {
-                versions[name] = version
-                if let (nextName, nextUpdate) = waiting.next() {
-                    group.addTask { (nextName, await highestAllowedVersion(of: nextName, update: nextUpdate, in: installation)) }
-                }
-            }
-            return versions
+        let lookups = await BoundedConcurrency.map(Array(updates), limit: Self.concurrentLookups) { name, update in
+            (name, await highestAllowedVersion(of: name, update: update, in: installation))
+        }
+        return lookups.reduce(into: [:]) { versions, lookup in
+            if let version = lookup.1 { versions[lookup.0] = version }
         }
     }
 

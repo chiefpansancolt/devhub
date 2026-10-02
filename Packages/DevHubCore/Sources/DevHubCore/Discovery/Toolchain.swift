@@ -4,6 +4,7 @@ public struct ScannerOptions: Sendable, Equatable {
     public var homebrew = HomebrewOptions()
     public var node = NodeOptions()
     public var ruby = RubyOptions()
+    public var rust = RustOptions()
 
     public init() {}
 
@@ -16,6 +17,7 @@ public struct ScannerOptions: Sendable, Equatable {
         )
         node = NodeOptions(includeNpm: settings.nodeIncludeNpm)
         ruby = RubyOptions(installDocumentation: settings.gemInstallDocumentation)
+        rust = RustOptions(includeCargoTools: settings.rustIncludeCargoTools)
     }
 }
 
@@ -23,6 +25,7 @@ public struct Toolchain: Sendable {
     public var homebrew: HomebrewInstallation?
     public var node: [NodeInstallation]
     public var ruby: [RubyInstallation]
+    public var rust: RustInstallation?
     private var chosenPathProblems: [Bucket: String]
     public private(set) var disabled: Set<Bucket>
 
@@ -30,12 +33,14 @@ public struct Toolchain: Sendable {
         homebrew: HomebrewInstallation?,
         node: [NodeInstallation],
         ruby: [RubyInstallation],
+        rust: RustInstallation? = nil,
         chosenPathProblems: [Bucket: String] = [:],
         disabled: Set<Bucket> = []
     ) {
         self.homebrew = homebrew
         self.node = node
         self.ruby = ruby
+        self.rust = rust
         self.chosenPathProblems = chosenPathProblems
         self.disabled = disabled
     }
@@ -75,7 +80,17 @@ public struct Toolchain: Sendable {
             if ruby.isEmpty { problems[.ruby] = String(localized: "Every Ruby version is turned off in Settings.", bundle: .module) }
         }
 
-        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, chosenPathProblems: problems)
+        var rust = RustLocator.locate()
+        if let path = settings.rustPath {
+            if FileManager.default.isExecutableFile(atPath: path) {
+                rust = RustLocator.installation(rustup: URL(filePath: path))
+            } else {
+                rust = nil
+                problems[.rust] = String(localized: "There is no rustup program at \(path).", bundle: .module)
+            }
+        }
+
+        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, rust: rust, chosenPathProblems: problems)
         if !includingDisabledTools {
             toolchain.turnOff(settings.disabledBuckets)
         }
@@ -87,6 +102,7 @@ public struct Toolchain: Sendable {
         if buckets.contains(.homebrew) { homebrew = nil }
         if buckets.contains(.node) { node = [] }
         if buckets.contains(.ruby) { ruby = [] }
+        if buckets.contains(.rust) { rust = nil }
     }
 
     public func scanners(runner: CommandRunning, options: ScannerOptions = ScannerOptions()) -> [Bucket: any PackageScanner] {
@@ -99,6 +115,9 @@ public struct Toolchain: Sendable {
         }
         if !ruby.isEmpty {
             scanners[.ruby] = RubyScanner(installations: ruby, runner: runner, options: options.ruby)
+        }
+        if let rust {
+            scanners[.rust] = RustScanner(installation: rust, runner: runner, options: options.rust)
         }
         return scanners
     }
@@ -113,6 +132,9 @@ public struct Toolchain: Sendable {
         }
         if ruby.isEmpty {
             problems[.ruby] = chosenPathProblems[.ruby] ?? String(localized: "No Ruby version manager found. DevHub looked for RVM, rbenv, chruby and asdf.", bundle: .module)
+        }
+        if rust == nil {
+            problems[.rust] = chosenPathProblems[.rust] ?? String(localized: "Rust was not found. DevHub looked for rustup in ~/.cargo/bin and in Homebrew.", bundle: .module)
         }
         for bucket in disabled { problems[bucket] = nil }
         return problems

@@ -3,6 +3,8 @@ public enum PackageKind: String, Sendable, Codable, CaseIterable {
     case cask
     case npmGlobal
     case gem
+    case rustToolchain
+    case cargoTool
 }
 
 public struct InstalledPackage: Identifiable, Sendable, Equatable {

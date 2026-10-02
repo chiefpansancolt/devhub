@@ -7,6 +7,7 @@ extension Bucket {
         case .homebrew: "brew outdated --json=v2"
         case .node: "npm outdated -g --json"
         case .ruby: "gem outdated"
+        case .rust: "rustup check · cargo install --list"
         }
     }
 }

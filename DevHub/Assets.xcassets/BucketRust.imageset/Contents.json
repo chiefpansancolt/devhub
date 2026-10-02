@@ -1,0 +1,12 @@
+{
+  "images": [
+    { "idiom": "universal", "filename": "BucketRust.svg" },
+    {
+      "idiom": "universal",
+      "appearances": [{ "appearance": "luminosity", "value": "dark" }],
+      "filename": "BucketRustDark.svg"
+    }
+  ],
+  "info": { "author": "xcode", "version": 1 },
+  "properties": { "preserves-vector-representation": true }
+}

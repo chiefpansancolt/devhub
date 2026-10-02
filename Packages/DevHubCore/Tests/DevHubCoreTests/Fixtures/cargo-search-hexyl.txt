@@ -1,0 +1,6 @@
+hexyl = "0.17.0"         # A command-line hex viewer
+cargo-lbin = "0.20.0"    # Cargo-powered application manager for crates.io command-line binaries
+hextazy = "0.8.6"        # A colorful hexadecimal editor
+hexler = "1.0.0"         # A colorful hex printer with opinionated defaults
+dtree-tui = "1.3.0"      # A fast, lightweight TUI for interactive directory tree navigation with file preview and fuzzy search
+... and 22 crates more (use --limit N to see more)

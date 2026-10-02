@@ -73,10 +73,7 @@ struct PackageRowView: View {
     }
 
     private var kind: Text {
-        switch package.bucket {
-        case .homebrew: package.kind == .cask ? Text("Cask") : Text("Formula")
-        case .node, .ruby: Text(verbatim: package.group ?? "")
-        }
+        package.bucket.groupsByKind ? Text(package.kind.singularTitle) : Text(verbatim: package.group ?? "")
     }
 
     @ViewBuilder

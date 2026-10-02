@@ -167,6 +167,7 @@ struct GeneralSettingsView: View {
         case .homebrew: toolchain.homebrew != nil
         case .node: !toolchain.node.isEmpty
         case .ruby: !toolchain.ruby.isEmpty
+        case .rust: toolchain.rust != nil
         }
     }
 

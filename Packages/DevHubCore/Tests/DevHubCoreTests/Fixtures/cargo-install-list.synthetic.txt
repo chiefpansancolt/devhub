@@ -1,0 +1,11 @@
+cargo-update v16.0.0:
+    cargo-install-update
+    cargo-install-update-config
+from-git v0.3.1 (https://github.com/example/from-git#a1b2c3d4):
+    from-git
+hexyl v0.9.0:
+    hexyl
+local-tool v0.1.0 (/Users/example/Code/local-tool):
+    local-tool
+ripgrep v14.1.1:
+    rg

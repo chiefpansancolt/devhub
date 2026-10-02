@@ -89,6 +89,8 @@ private struct InspectorContent: View {
         case .cask: "Cask"
         case .npmGlobal: "npm global · Node \(package.group ?? "")"
         case .gem: "Gem · Ruby \(package.group ?? "")"
+        case .rustToolchain: "Rust toolchain"
+        case .cargoTool: "Cargo tool"
         }
     }
 
@@ -244,6 +246,10 @@ private struct InspectorContent: View {
             return String(localized: "It is removed from the global packages of Node \(package.group ?? "").")
         case .ruby:
             return String(localized: "Every installed version of this gem is removed from Ruby \(package.group ?? "").")
+        case .rust where package.kind == .rustToolchain:
+            return String(localized: "It is removed from rustup. You can install it again later.")
+        case .rust:
+            return String(localized: "Its program is removed from the Cargo bin folder.")
         }
     }
 }

@@ -1593,6 +1593,58 @@
         }
       }
     },
+    "Rust was not found. DevHub looked for rustup in ~/.cargo/bin and in Homebrew.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust wurde nicht gefunden. DevHub hat in ~/.cargo/bin und in Homebrew nach rustup gesucht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró Rust. DevHub buscó rustup en ~/.cargo/bin y en Homebrew."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust est introuvable. DevHub a cherché rustup dans ~/.cargo/bin et dans Homebrew."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rustが見つかりません。DevHubは~/.cargo/binとHomebrewでrustupを探しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust를 찾을 수 없습니다. DevHub가 ~/.cargo/bin과 Homebrew에서 rustup을 찾아봤습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Rust não foi encontrado. O DevHub procurou o rustup em ~/.cargo/bin e no Homebrew."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rust не найден. DevHub искал rustup в ~/.cargo/bin и в Homebrew."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Rust。DevHub 已在 ~/.cargo/bin 和 Homebrew 中查找 rustup。"
+          }
+        }
+      }
+    },
     "The command exited with code %d.": {
       "localizations": {
         "de": {
@@ -1749,6 +1801,58 @@
         }
       }
     },
+    "There is no rustup program at %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter %@ gibt es kein rustup-Programm."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún programa rustup en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n’y a aucun programme rustup dans %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にrustupプログラムはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에 rustup 프로그램이 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há nenhum programa rustup em %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По пути %@ нет программы rustup."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 处没有 rustup 程序。"
+          }
+        }
+      }
+    },
     "This file is not a program.": {
       "localizations": {
         "de": {
@@ -1901,6 +2005,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "此程序无法作为 brew 运行。"
+          }
+        }
+      }
+    },
+    "This program did not run as rustup.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Programm lief nicht als rustup."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa no se ejecutó como rustup."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce programme ne s’est pas exécuté comme rustup."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このプログラムはrustupとして動作しませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 프로그램은 rustup으로 실행되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa não funcionou como rustup."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта программа не запустилась как rustup."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此程序无法作为 rustup 运行。"
           }
         }
       }

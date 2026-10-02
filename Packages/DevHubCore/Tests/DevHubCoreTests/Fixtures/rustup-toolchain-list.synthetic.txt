@@ -1,0 +1,4 @@
+stable-aarch64-apple-darwin (active, default) /Users/example/.rustup/toolchains/stable-aarch64-apple-darwin
+nightly-aarch64-apple-darwin /Users/example/.rustup/toolchains/nightly-aarch64-apple-darwin
+1.85.0-aarch64-apple-darwin (override) /Users/example/.rustup/toolchains/1.85.0-aarch64-apple-darwin
+my-custom (linked) /Users/example/Code/rust/build/stage1

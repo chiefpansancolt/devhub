@@ -60,6 +60,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var excludedRubyVersions: Set<String> = []
     public var gemInstallDocumentation = false
 
+    public var rustPath: String?
+    public var rustIncludeCargoTools = true
+
     public var historyRetention = HistoryRetention.oneYear
     public var historyIncludesOutput = true
 
@@ -96,6 +99,8 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         rubyFolder = value(.rubyFolder, rubyFolder)
         excludedRubyVersions = value(.excludedRubyVersions, excludedRubyVersions)
         gemInstallDocumentation = value(.gemInstallDocumentation, gemInstallDocumentation)
+        rustPath = value(.rustPath, rustPath)
+        rustIncludeCargoTools = value(.rustIncludeCargoTools, rustIncludeCargoTools)
         historyRetention = value(.historyRetention, historyRetention)
         historyIncludesOutput = value(.historyIncludesOutput, historyIncludesOutput)
     }
@@ -108,6 +113,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case brewPath, brewRefreshIndex, brewIncludeCasks, brewIncludeSelfUpdatingCasks, brewCleanupAfterUpdate
         case nodeFolder, excludedNodeVersions, nodeIncludeNpm
         case rubyFolder, excludedRubyVersions, gemInstallDocumentation
+        case rustPath, rustIncludeCargoTools
         case historyRetention, historyIncludesOutput
     }
 
@@ -121,6 +127,8 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         let includeNpm: Bool
         let rubyFolder: String?
         let excludedRubyVersions: Set<String>
+        let rustPath: String?
+        let includeCargoTools: Bool
     }
 
     var scanningFields: ScanningFields {
@@ -133,7 +141,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
             excludedNodeVersions: excludedNodeVersions,
             includeNpm: nodeIncludeNpm,
             rubyFolder: rubyFolder,
-            excludedRubyVersions: excludedRubyVersions
+            excludedRubyVersions: excludedRubyVersions,
+            rustPath: rustPath,
+            includeCargoTools: rustIncludeCargoTools
         )
     }
 }

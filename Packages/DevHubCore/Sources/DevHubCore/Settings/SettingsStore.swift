@@ -7,6 +7,7 @@ public enum SettingsTab: String, Sendable, CaseIterable {
     case homebrew
     case node
     case ruby
+    case rust
     case history
 }
 

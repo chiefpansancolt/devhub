@@ -25,6 +25,21 @@ public enum PathValidation {
         return first.hasPrefix("Homebrew") ? .found(first) : .problem(String(localized: "This program did not run as brew.", bundle: .module))
     }
 
+    public static func rustup(path: String, runner: CommandRunning) async -> PathCheck {
+        guard FileManager.default.fileExists(atPath: path) else {
+            return .problem(String(localized: "Nothing was found at this path.", bundle: .module))
+        }
+        guard FileManager.default.isExecutableFile(atPath: path) else {
+            return .problem(String(localized: "This file is not a program.", bundle: .module))
+        }
+        let command = ToolCommand(executable: URL(filePath: path), arguments: ["--version"], environment: ToolEnvironment.make())
+        guard let result = try? await runner.run(command), result.succeeded else {
+            return .problem(String(localized: "This program did not run as rustup.", bundle: .module))
+        }
+        let first = result.standardOutput.split(whereSeparator: \.isNewline).first.map(String.init) ?? ""
+        return first.hasPrefix("rustup") ? .found(first) : .problem(String(localized: "This program did not run as rustup.", bundle: .module))
+    }
+
     public static func nodeFolder(path: String) -> PathCheck {
         folder(path: path, count: NodeVersionDiscovery(versionsFolder: URL(filePath: path)).installations().count, noun: "Node")
     }

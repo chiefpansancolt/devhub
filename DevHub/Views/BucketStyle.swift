@@ -7,6 +7,7 @@ extension Bucket {
         case .homebrew: .homebrew
         case .node: .node
         case .ruby: .ruby
+        case .rust: .rust
         }
     }
 
@@ -15,6 +16,7 @@ extension Bucket {
         case .homebrew: "BucketHomebrew"
         case .node: "BucketNode"
         case .ruby: "BucketRuby"
+        case .rust: "BucketRust"
         }
     }
 }
@@ -52,7 +54,32 @@ extension SettingsTab {
         case .homebrew: .homebrew
         case .node: .node
         case .ruby: .ruby
+        case .rust: .rust
         case .general, .appearance, .history: nil
+        }
+    }
+}
+
+extension PackageKind {
+    var singularTitle: LocalizedStringKey {
+        switch self {
+        case .formula: "Formula"
+        case .cask: "Cask"
+        case .npmGlobal: "npm global"
+        case .gem: "Gem"
+        case .rustToolchain: "Toolchain"
+        case .cargoTool: "Cargo tool"
+        }
+    }
+
+    var pluralTitle: LocalizedStringKey {
+        switch self {
+        case .formula: "Formulae"
+        case .cask: "Casks"
+        case .npmGlobal: "npm globals"
+        case .gem: "Gems"
+        case .rustToolchain: "Toolchains"
+        case .cargoTool: "Cargo tools"
         }
     }
 }

@@ -59,8 +59,8 @@ struct PackageBrowserView: View {
     private var title: Text {
         let bucketName = Text(verbatim: ui.scope.bucket.displayName)
         guard let group = ui.scope.group else { return bucketName }
-        if ui.scope.bucket == .homebrew {
-            return bucketName + Text(verbatim: " · ") + (group == PackageKind.cask.rawValue ? Text("Casks") : Text("Formulae"))
+        if ui.scope.bucket.groupsByKind, let kind = PackageKind(rawValue: group) {
+            return bucketName + Text(verbatim: " · ") + Text(kind.pluralTitle)
         }
         return bucketName + Text(verbatim: " · \(group)")
     }
@@ -271,6 +271,7 @@ private struct ColumnHeader: View {
         case .homebrew: "Type"
         case .node: "Node version"
         case .ruby: "Ruby version"
+        case .rust: "Type"
         }
     }
 }

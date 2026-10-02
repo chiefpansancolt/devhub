@@ -28,6 +28,11 @@ struct SettingsView: View {
                     .tabItem { Label { Text("Ruby") } icon: { Image("TabRuby") } }
                     .tag(SettingsTab.ruby)
             }
+            if isOn(.rust) {
+                RustSettingsView()
+                    .tabItem { Label { Text("Rust") } icon: { Image("TabRust") } }
+                    .tag(SettingsTab.rust)
+            }
             HistorySettingsView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
                 .tag(SettingsTab.history)
