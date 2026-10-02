@@ -418,3 +418,57 @@ private actor StatusLog {
         #expect(session.runningItem == nil)
     }
 }
+
+private struct SlowScanner: PackageScanner {
+    let inner: FakeScanner
+    let slowReason: ScanReason
+    let delay: Duration
+
+    var bucket: Bucket { inner.bucket }
+
+    func scan(_ reason: ScanReason) async -> ScanResult {
+        if reason == slowReason { try? await Task.sleep(for: delay) }
+        return await inner.scan(reason)
+    }
+
+    func updateCommand(for package: InstalledPackage) -> ToolCommand? { inner.updateCommand(for: package) }
+    func uninstallCommand(for package: InstalledPackage) -> ToolCommand? { inner.uninstallCommand(for: package) }
+}
+
+@MainActor
+@Suite struct FinishedActionTests {
+    private func state(machine: FakeMachine, slowReason: ScanReason, delay: Duration) -> AppState {
+        let scanner = SlowScanner(inner: FakeScanner(bucket: .homebrew, machine: machine), slowReason: slowReason, delay: delay)
+        return AppState(scanners: [.homebrew: scanner], runner: machine.runner, history: HistoryStore())
+    }
+
+    @Test func anUpdatedPackageLeavesTheUpdatesListBeforeTheRescanFinishes() async throws {
+        let machine = FakeMachine(packages: [outdatedPackage("git"), outdatedPackage("wget")])
+        let app = state(machine: machine, slowReason: .afterUpdate, delay: .seconds(2))
+        await app.refresh()
+        #expect(app.outdated(in: .homebrew).count == 2)
+
+        app.startUpdate(app.outdated(in: .homebrew).filter { $0.name == "git" })
+        for _ in 0..<40 where app.session?.doneCount != 1 { try await Task.sleep(for: .milliseconds(50)) }
+
+        #expect(app.isChecking)
+        #expect(app.outdated(in: .homebrew).map(\.name) == ["wget"])
+        let git = try #require(app.packages(in: PackageScope(bucket: .homebrew)).first { $0.name == "git" })
+        #expect(git.installedVersion == "2.0")
+        app.cancelUpdate()
+    }
+
+    @Test func scansAfterAnUpdateEvenWhenACheckIsRunning() async throws {
+        let machine = FakeMachine(packages: [outdatedPackage("git")])
+        let app = state(machine: machine, slowReason: .check, delay: .milliseconds(600))
+        await app.refresh(.afterUpdate)
+        let outdated = app.outdated(in: .homebrew)
+        app.startRefresh()
+        try await Task.sleep(for: .milliseconds(100))
+        #expect(app.isChecking)
+
+        await app.update(outdated)
+
+        #expect(machine.scanReasons.filter { $0 == .afterUpdate }.count == 2)
+    }
+}

@@ -56,6 +56,7 @@ struct OutputLogView: View {
                             .padding(.bottom, 8)
                         }
                     }
+                    .defaultScrollAnchor(.bottom, for: .initialOffset)
                     .frame(height: 110)
                     .onChange(of: state.log.last?.id) {
                         if let last = state.log.last { proxy.scrollTo(last.id, anchor: .bottom) }

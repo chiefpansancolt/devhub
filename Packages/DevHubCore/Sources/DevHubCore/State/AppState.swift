@@ -375,7 +375,7 @@ public final class AppState {
         if Task.isCancelled {
             startRefresh(.afterUpdate)
         } else {
-            await refresh(.afterUpdate)
+            await refreshAfterAction()
         }
         if session?.endedWithoutProblems == true {
             session = nil
@@ -424,7 +424,8 @@ public final class AppState {
             return
         }
         uninstallProgress = nil
-        await refresh(.afterUpdate)
+        removeFromResults(package.id)
+        await refreshAfterAction()
     }
 
     public func startUninstall(_ package: InstalledPackage) {
@@ -446,12 +447,34 @@ public final class AppState {
 
     // MARK: Events from running commands
 
+    private func refreshAfterAction() async {
+        while isChecking, !Task.isCancelled {
+            try? await Task.sleep(for: .milliseconds(200))
+        }
+        await refresh(.afterUpdate)
+    }
+
+    private func applyUpdateInResults(_ id: String) {
+        changeResults(containing: id) { packages in packages.map { $0.id == id ? $0.withUpdateApplied() : $0 } }
+    }
+
+    private func removeFromResults(_ id: String) {
+        changeResults(containing: id) { packages in packages.filter { $0.id != id } }
+    }
+
+    private func changeResults(containing id: String, _ change: ([InstalledPackage]) -> [InstalledPackage]) {
+        for (bucket, result) in results where result.packages.contains(where: { $0.id == id }) {
+            results[bucket] = ScanResult(packages: change(result.packages), issues: result.issues)
+        }
+    }
+
     private func handle(_ event: ActionEvent) {
         switch event {
         case let .status(id, status):
             guard let index = session?.items.firstIndex(where: { $0.id == id }) else { return }
             session?.items[index].status = status
             runningSince = status == .updating ? Date() : nil
+            if status == .done { applyUpdateInResults(id) }
         case let .log(entry):
             log.append(LogLine(id: nextLogID, entry: entry))
             nextLogID += 1

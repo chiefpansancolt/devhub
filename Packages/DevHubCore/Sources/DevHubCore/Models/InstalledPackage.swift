@@ -56,6 +56,14 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
         return candidate
     }
 
+    func withUpdateApplied() -> InstalledPackage {
+        InstalledPackage(
+            bucket: bucket, kind: kind, name: name, group: group, installedVersion: availableUpdate ?? installedVersion,
+            availableUpdate: nil, isPinned: isPinned, summary: summary, homepage: homepage,
+            installPath: installPath, requiredBy: requiredBy, installedOnRequest: installedOnRequest
+        )
+    }
+
     func withUpdate(_ version: String?, isPinned: Bool) -> InstalledPackage {
         InstalledPackage(
             bucket: bucket, kind: kind, name: name, group: group, installedVersion: installedVersion,
