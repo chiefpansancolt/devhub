@@ -20,11 +20,20 @@ struct DevHubCommands: Commands {
     private var checkedPackages: [InstalledPackage] { outdatedInScope.filter { ui.checkedIDs.contains($0.id) } }
 
     var body: some Commands {
+        appCommands
         fileCommands
         editCommands
         viewCommands
         packageCommands
         helpCommands
+    }
+
+    // MARK: App
+
+    private var appCommands: some Commands {
+        CommandGroup(replacing: .appInfo) {
+            Button("About DevHub") { AboutPanel.show() }
+        }
     }
 
     // MARK: File
