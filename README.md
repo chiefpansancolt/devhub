@@ -42,12 +42,12 @@
 ### 📦 Five tools in one list
 
 - **Homebrew** formulae and casks
-- **Node** global packages, kept separate for every Node version you have installed
+- **Node** global packages, kept separate for every Node version you have installed, plus the global packages of pnpm, Bun and Yarn 1
 - **Ruby** gems, kept separate for every Ruby version you have installed
 - **Rust** toolchains, rustup itself, and the tools installed with `cargo install`
 - **Python** tools installed with pipx and with uv, listed by manager
 
-DevHub finds your versions through nvm, fnm, Volta and asdf for Node, and through RVM, rbenv, chruby and asdf for Ruby. The macOS system Ruby is left out on purpose, because its gems need `sudo`. DevHub finds Rust through rustup, in `~/.cargo/bin` or in Homebrew, and finds pipx and uv in `~/.local/bin`, in `~/.cargo/bin` (uv) and in Homebrew. If a tool is not in a usual place, choose its folder or program in Settings.
+DevHub finds your versions through nvm, fnm, Volta and asdf for Node, and through RVM, rbenv, chruby and asdf for Ruby. The macOS system Ruby is left out on purpose, because its gems need `sudo`. DevHub finds Rust through rustup, in `~/.cargo/bin` or in Homebrew, finds pnpm, Bun and Yarn in their own folders and in the `bin` folder of your Node versions, and finds pipx and uv in `~/.local/bin`, in `~/.cargo/bin` (uv) and in Homebrew. If a tool is not in a usual place, choose its folder or program in Settings.
 
 ### 🔄 Updating
 
@@ -146,10 +146,11 @@ DevHub runs the tools you already have and reads what they print. It does not us
 | Homebrew | `brew update` (optional), `brew info --json=v2 --installed`, `brew outdated --json=v2`, `brew upgrade`, `brew uninstall` |
 | Node     | `npm ls -g --depth=0 --json`, `npm outdated -g --json`, `npm view`, `npm install -g <name>@<version>`, `npm uninstall -g` |
 | Ruby     | `gem list --local`, `gem outdated`, `gem update --no-document`, `gem uninstall --all --executables`       |
+| pnpm, Bun, Yarn | `pnpm list -g --json`, `pnpm outdated -g`, `pnpm add -g`, `pnpm remove -g`, `bun pm ls -g`, `bun outdated -g`, `bun add -g`, `bun remove -g`, `yarn global list`, `yarn global dir`, `yarn outdated --json`, `yarn global add`, `yarn global remove` |
 | Python   | `pipx list --json`, `pipx runpip <tool> list --outdated --format=json`, `pipx upgrade`, `pipx uninstall`, `uv tool list`, `uv tool list --outdated --show-version-specifiers`, `uv tool upgrade`, `uv tool uninstall` |
 | Rust     | `rustup toolchain list -v`, `rustup check`, `rustup update`, `rustup self update`, `rustup toolchain uninstall`, `cargo install --list`, `cargo search`, `cargo install --locked`, `cargo uninstall` |
 
-For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. For Python, pipx and uv ask PyPI for the newest version of each tool, and a uv tool pinned to a version or capped below the newest one shows no update. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.
+For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For pnpm, Bun and Yarn, DevHub installs the exact newest version by name, because their update commands stay inside the version range that a package was installed with, and it does not check the `engines` of a package. Yarn 2 and newer has no global packages and is skipped. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. For Python, pipx and uv ask PyPI for the newest version of each tool, and a uv tool pinned to a version or capped below the newest one shows no update. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.
 
 ### Your data
 
@@ -234,7 +235,7 @@ Then open the catalogs in Xcode to translate the new strings, and run `make chec
 
 **macOS says DevHub cannot be opened.** The app is not notarized yet. See [Installation](#-installation) for the one-time steps.
 
-**A tool says it was not found.** Open Settings, choose the tab for that tool, and choose its program or its folder of versions. For Rust, choose the `rustup` program, and for Python, the `pipx` or `uv` program.
+**A tool says it was not found.** Open Settings, choose the tab for that tool, and choose its program or its folder of versions. For Rust, choose the `rustup` program, for Python, the `pipx` or `uv` program, and for the other Node package managers, the matching program in the Node tab.
 
 **An update fails with a permission error.** DevHub runs everything as you and never uses `sudo`. Fix the ownership of the folder that npm or gem writes to, then choose Try again. The History page keeps the full output.
 

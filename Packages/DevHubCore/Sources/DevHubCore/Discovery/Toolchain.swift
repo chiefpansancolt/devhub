@@ -24,6 +24,7 @@ public struct ScannerOptions: Sendable, Equatable {
 public struct Toolchain: Sendable {
     public var homebrew: HomebrewInstallation?
     public var node: [NodeInstallation]
+    public var nodeManagers: [NodePackageManagerInstallation]
     public var ruby: [RubyInstallation]
     public var rust: RustInstallation?
     public var python: [PythonInstallation]
@@ -33,6 +34,7 @@ public struct Toolchain: Sendable {
     public init(
         homebrew: HomebrewInstallation?,
         node: [NodeInstallation],
+        nodeManagers: [NodePackageManagerInstallation] = [],
         ruby: [RubyInstallation],
         rust: RustInstallation? = nil,
         python: [PythonInstallation] = [],
@@ -41,6 +43,7 @@ public struct Toolchain: Sendable {
     ) {
         self.homebrew = homebrew
         self.node = node
+        self.nodeManagers = nodeManagers
         self.ruby = ruby
         self.rust = rust
         self.python = python
@@ -72,6 +75,20 @@ public struct Toolchain: Sendable {
         if applyingExclusions, !node.isEmpty {
             node.removeAll { settings.excludedNodeVersions.contains($0.version) }
             if node.isEmpty { problems[.node] = String(localized: "Every Node version is turned off in Settings.", bundle: .module) }
+        }
+
+        var nodeManagers = NodePackageManagerLocator.locate(nodeInstallations: node)
+        for (manager, path) in [(NodePackageManager.pnpm, settings.pnpmPath), (.bun, settings.bunPath), (.yarn, settings.yarnPath)] {
+            guard let path else { continue }
+            nodeManagers.removeAll { $0.manager == manager }
+            if FileManager.default.isExecutableFile(atPath: path) {
+                nodeManagers.append(NodePackageManagerInstallation(manager: manager, executable: URL(filePath: path)))
+            } else {
+                problems[.node] = String(localized: "There is no \(manager.displayName) program at \(path).", bundle: .module)
+            }
+        }
+        if applyingExclusions {
+            nodeManagers.removeAll { settings.excludedNodeManagers.contains($0.manager.rawValue) }
         }
 
         var ruby = RubyVersionDiscovery(versionsFolder: settings.rubyFolder.map { URL(filePath: $0) }).installations()
@@ -109,7 +126,7 @@ public struct Toolchain: Sendable {
             if python.isEmpty { problems[.python] = String(localized: "Every Python tool manager is turned off in Settings.", bundle: .module) }
         }
 
-        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, rust: rust, python: python, chosenPathProblems: problems)
+        var toolchain = Toolchain(homebrew: homebrew, node: node, nodeManagers: nodeManagers, ruby: ruby, rust: rust, python: python, chosenPathProblems: problems)
         if !includingDisabledTools {
             toolchain.turnOff(settings.disabledBuckets)
         }
@@ -119,7 +136,10 @@ public struct Toolchain: Sendable {
     private mutating func turnOff(_ buckets: Set<Bucket>) {
         disabled = buckets
         if buckets.contains(.homebrew) { homebrew = nil }
-        if buckets.contains(.node) { node = [] }
+        if buckets.contains(.node) {
+            node = []
+            nodeManagers = []
+        }
         if buckets.contains(.ruby) { ruby = [] }
         if buckets.contains(.rust) { rust = nil }
         if buckets.contains(.python) { python = [] }
@@ -130,8 +150,17 @@ public struct Toolchain: Sendable {
         if let homebrew {
             scanners[.homebrew] = HomebrewScanner(installation: homebrew, runner: runner, options: options.homebrew)
         }
+        var nodeScanners: [any PackageScanner] = []
         if !node.isEmpty {
-            scanners[.node] = NodeScanner(installations: node, runner: runner, options: options.node)
+            nodeScanners.append(NodeScanner(installations: node, runner: runner, options: options.node))
+        }
+        if !nodeManagers.isEmpty {
+            nodeScanners.append(NodeToolsScanner(installations: nodeManagers, runner: runner, nodeBinDirectory: node.first?.binDirectory))
+        }
+        if nodeScanners.count == 1 {
+            scanners[.node] = nodeScanners[0]
+        } else if !nodeScanners.isEmpty {
+            scanners[.node] = CombinedScanner(bucket: .node, scanners: nodeScanners)
         }
         if !ruby.isEmpty {
             scanners[.ruby] = RubyScanner(installations: ruby, runner: runner, options: options.ruby)
@@ -145,12 +174,20 @@ public struct Toolchain: Sendable {
         return scanners
     }
 
+    public var knownGroups: [Bucket: [String]] {
+        [
+            .node: node.map(\.version) + nodeManagers.map(\.manager.displayName),
+            .ruby: ruby.map(\.version),
+            .python: python.map(\.manager.rawValue)
+        ]
+    }
+
     public var setupProblems: [Bucket: String] {
         var problems: [Bucket: String] = [:]
         if homebrew == nil {
             problems[.homebrew] = chosenPathProblems[.homebrew] ?? String(localized: "Homebrew was not found in /opt/homebrew or /usr/local.", bundle: .module)
         }
-        if node.isEmpty {
+        if node.isEmpty, nodeManagers.isEmpty {
             problems[.node] = chosenPathProblems[.node] ?? String(localized: "No Node version manager found. DevHub looked for nvm, fnm, Volta and asdf.", bundle: .module)
         }
         if ruby.isEmpty {

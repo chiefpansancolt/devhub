@@ -6,6 +6,9 @@ public enum PackageKind: String, Sendable, Codable, CaseIterable {
     case rustToolchain
     case cargoTool
     case pythonTool
+    case pnpmGlobal
+    case bunGlobal
+    case yarnGlobal
 }
 
 public struct InstalledPackage: Identifiable, Sendable, Equatable {

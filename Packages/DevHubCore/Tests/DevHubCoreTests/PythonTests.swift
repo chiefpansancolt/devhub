@@ -269,6 +269,9 @@ import Testing
         var settings = SettingsValues()
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
 
         let toolchain = Toolchain.detect(settings: settings)
 
@@ -309,6 +312,9 @@ import Testing
         var settings = SettingsValues()
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
         settings.disabledBuckets = [.python]
 
         let toolchain = Toolchain.detect(settings: settings)

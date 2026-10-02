@@ -269,7 +269,7 @@ private struct ColumnHeader: View {
     private var kindTitle: LocalizedStringKey {
         switch bucket {
         case .homebrew: "Type"
-        case .node: "Node version"
+        case .node: "Version or manager"
         case .ruby: "Ruby version"
         case .rust: "Type"
         case .python: "Manager"

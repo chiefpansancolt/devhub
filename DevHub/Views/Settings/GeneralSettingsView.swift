@@ -165,7 +165,7 @@ struct GeneralSettingsView: View {
     private func isInstalled(_ bucket: Bucket, in toolchain: Toolchain) -> Bool {
         switch bucket {
         case .homebrew: toolchain.homebrew != nil
-        case .node: !toolchain.node.isEmpty
+        case .node: !toolchain.node.isEmpty || !toolchain.nodeManagers.isEmpty
         case .ruby: !toolchain.ruby.isEmpty
         case .rust: toolchain.rust != nil
         case .python: !toolchain.python.isEmpty

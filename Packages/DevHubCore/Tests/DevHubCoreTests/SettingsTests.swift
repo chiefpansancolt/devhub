@@ -365,6 +365,9 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         values.rustPath = "/nonexistent/bin/rustup"
         values.pipxPath = "/nonexistent/bin/pipx"
         values.uvPath = "/nonexistent/bin/uv"
+        values.pnpmPath = "/nonexistent/bin/pnpm"
+        values.bunPath = "/nonexistent/bin/bun"
+        values.yarnPath = "/nonexistent/bin/yarn"
         return values
     }
 
@@ -506,6 +509,9 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.rustPath = "/nonexistent/bin/rustup"
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
         settings.disabledBuckets = [.node, .homebrew]
 
         let toolchain = Toolchain.detect(settings: settings)
@@ -543,6 +549,9 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.rustPath = "/nonexistent/bin/rustup"
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
         settings.disabledBuckets = [.ruby]
         state.apply(settings)
 
@@ -562,6 +571,9 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.rustPath = "/nonexistent/bin/rustup"
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
         settings.disabledBuckets = [.homebrew]
         state.apply(settings)
         #expect(state.setupProblems[.homebrew] == nil)
@@ -586,6 +598,9 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.rustPath = "/nonexistent/bin/rustup"
         settings.pipxPath = "/nonexistent/bin/pipx"
         settings.uvPath = "/nonexistent/bin/uv"
+        settings.pnpmPath = "/nonexistent/bin/pnpm"
+        settings.bunPath = "/nonexistent/bin/bun"
+        settings.yarnPath = "/nonexistent/bin/yarn"
         settings.disabledBuckets = [.homebrew]
         state.apply(settings)
 

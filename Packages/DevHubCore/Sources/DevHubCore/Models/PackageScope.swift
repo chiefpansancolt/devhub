@@ -34,7 +34,7 @@ extension Bucket {
         switch self {
         case .homebrew: [.formula, .cask]
         case .rust: [.rustToolchain, .cargoTool]
-        case .node: [.npmGlobal]
+        case .node: [.npmGlobal, .pnpmGlobal, .bunGlobal, .yarnGlobal]
         case .ruby: [.gem]
         case .python: [.pythonTool]
         }

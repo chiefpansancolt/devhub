@@ -79,6 +79,9 @@ extension PackageKind {
         case .rustToolchain: "Toolchain"
         case .cargoTool: "Cargo tool"
         case .pythonTool: "Python tool"
+        case .pnpmGlobal: "pnpm global"
+        case .bunGlobal: "Bun global"
+        case .yarnGlobal: "Yarn global"
         }
     }
 
@@ -86,11 +89,9 @@ extension PackageKind {
         switch self {
         case .formula: "Formulae"
         case .cask: "Casks"
-        case .npmGlobal: "npm globals"
-        case .gem: "Gems"
         case .rustToolchain: "Toolchains"
         case .cargoTool: "Cargo tools"
-        case .pythonTool: "Python tools"
+        case .npmGlobal, .gem, .pythonTool, .pnpmGlobal, .bunGlobal, .yarnGlobal: singularTitle
         }
     }
 }

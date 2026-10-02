@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A Rust tab in Settings to choose the rustup program and to leave Cargo tools out
 - Rust icons for the sidebar and Settings, with a white version for dark mode
 
+- Node global packages from pnpm, Bun and Yarn 1, each as its own row next to the Node versions in the sidebar
+- A section in the Node tab of Settings to choose the pnpm, Bun and Yarn programs and to turn a manager off
 - Python support: tools installed with pipx and uv, grouped by manager, each checked for a newer version
 - A Python tab in Settings to choose the pipx and uv programs and to turn a manager off
 - A uv tool installed with an exact version or an upper bound shows no update, because `uv tool upgrade` cannot install a version outside that requirement

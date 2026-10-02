@@ -110,7 +110,7 @@ public final class AppState {
         self.init(
             scanners: toolchain.scanners(runner: runner, options: ScannerOptions(settings)),
             setupProblems: toolchain.setupProblems,
-            versions: [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)],
+            versions: toolchain.knownGroups,
             runner: runner,
             history: history,
             notifier: notifier,
@@ -137,7 +137,7 @@ public final class AppState {
         let toolchain = Toolchain.detect(settings: newSettings)
         scanners = toolchain.scanners(runner: runner, options: ScannerOptions(newSettings))
         actions = PackageActionRunner(scanners: scanners, runner: runner)
-        knownVersions = [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version), .python: toolchain.python.map(\.manager.rawValue)]
+        knownVersions = toolchain.knownGroups
         setupProblems = toolchain.setupProblems
         disabledBuckets = newSettings.disabledBuckets
         results = results.filter { scanners[$0.key] != nil }
@@ -184,7 +184,7 @@ public final class AppState {
 
     public func groupScopes(of bucket: Bucket) -> [PackageScope] {
         let seen = Set((results[bucket]?.packages ?? []).compactMap(\.group))
-        let versions = (knownVersions[bucket] ?? []) + seen.subtracting(knownVersions[bucket] ?? []).sorted { PackageVersion($0) > PackageVersion($1) }
+        let versions = (knownVersions[bucket] ?? []) + seen.subtracting(knownVersions[bucket] ?? []).sorted(by: PackageGroup.precedes)
         return PackageScope.groups(of: bucket, versions: versions)
     }
 

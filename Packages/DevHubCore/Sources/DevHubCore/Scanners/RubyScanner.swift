@@ -101,7 +101,7 @@ public struct RubyScanner: PackageScanner {
 
     private static func sorted(_ packages: [InstalledPackage]) -> [InstalledPackage] {
         packages.sorted {
-            if $0.group != $1.group { return PackageVersion($0.group ?? "") > PackageVersion($1.group ?? "") }
+            if $0.group != $1.group { return PackageGroup.precedes($0.group ?? "", $1.group ?? "") }
             return $0.name < $1.name
         }
     }
