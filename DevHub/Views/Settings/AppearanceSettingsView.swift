@@ -27,7 +27,9 @@ struct AppearanceSettingsView: View {
                     Text(verbatim: "Español").tag(String?.some("es"))
                     Text(verbatim: "Français").tag(String?.some("fr"))
                     Text(verbatim: "Português (Brasil)").tag(String?.some("pt-BR"))
+                    Text(verbatim: "Русский").tag(String?.some("ru"))
                     Text(verbatim: "日本語").tag(String?.some("ja"))
+                    Text(verbatim: "한국어").tag(String?.some("ko"))
                     Text(verbatim: "简体中文").tag(String?.some("zh-Hans"))
                 }
                 .clickable()

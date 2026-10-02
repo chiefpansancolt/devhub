@@ -33,10 +33,22 @@
             "value": "%@がコード%dで終了しました%@"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@이(가) 코드 %d(으)로 종료되었습니다%@"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ terminou com o código %d%@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ завершилась с кодом %d%@"
           }
         },
         "zh-Hans": {
@@ -73,10 +85,22 @@
             "value": "%@はキャンセルされました"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@이(가) 취소되었습니다"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ foi cancelado"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ отменено"
           }
         },
         "zh-Hans": {
@@ -173,6 +197,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "주요 업데이트 %lld개"
+                }
+              }
+            }
+          }
+        },
         "pt-BR": {
           "variations": {
             "plural": {
@@ -186,6 +222,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld atualizações principais"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld крупных обновления"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld крупных обновлений"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld крупное обновление"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld крупных обновлений"
                 }
               }
             }
@@ -291,6 +357,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "새 업데이트 %lld개"
+                }
+              }
+            }
+          }
+        },
         "pt-BR": {
           "variations": {
             "plural": {
@@ -304,6 +382,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld novas atualizações"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld новых обновления"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld новых обновлений"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld новое обновление"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld новых обновлений"
                 }
               }
             }
@@ -409,6 +517,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "사용 가능한 업데이트 %lld개"
+                }
+              }
+            }
+          }
+        },
         "pt-BR": {
           "variations": {
             "plural": {
@@ -422,6 +542,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld atualizações disponíveis"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld доступных обновления"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld доступных обновлений"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld доступное обновление"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld доступных обновлений"
                 }
               }
             }
@@ -527,6 +677,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "업데이트 %lld개 발견"
+                }
+              }
+            }
+          }
+        },
         "pt-BR": {
           "variations": {
             "plural": {
@@ -540,6 +702,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld atualizações encontradas"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld обновления"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld обновлений"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld обновление"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld обновлений"
                 }
               }
             }
@@ -645,6 +837,18 @@
             }
           }
         },
+        "ko": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "버전 %lld개 찾음"
+                }
+              }
+            }
+          }
+        },
         "pt-BR": {
           "variations": {
             "plural": {
@@ -658,6 +862,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld versões encontradas"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld версии"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld версий"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдена %lld версия"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Найдено %lld версий"
                 }
               }
             }
@@ -703,10 +937,22 @@
             "value": "キャンセル済み"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취소됨"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Cancelado"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отменено"
           }
         },
         "zh-Hans": {
@@ -749,10 +995,22 @@
             "value": "%@の出力を読み取れませんでした: %@"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@의 출력을 읽을 수 없습니다: %@"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Não foi possível ler a saída de %@: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать вывод %@: %@"
           }
         },
         "zh-Hans": {
@@ -789,10 +1047,22 @@
             "value": "DevHubはこのパッケージをアンインストールできません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub가 이 패키지를 제거할 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "O DevHub não consegue desinstalar este pacote."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub не может удалить этот пакет."
           }
         },
         "zh-Hans": {
@@ -829,10 +1099,22 @@
             "value": "DevHubはこのパッケージをアップデートできません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub가 이 패키지를 업데이트할 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "O DevHub não consegue atualizar este pacote."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub не может обновить этот пакет."
           }
         },
         "zh-Hans": {
@@ -869,10 +1151,22 @@
             "value": "設定ですべてのNodeバージョンがオフになっています。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정에서 모든 Node 버전이 꺼져 있습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Todas as versões do Node estão desativadas em Ajustes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все версии Node выключены в настройках."
           }
         },
         "zh-Hans": {
@@ -909,10 +1203,22 @@
             "value": "設定ですべてのRubyバージョンがオフになっています。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정에서 모든 Ruby 버전이 꺼져 있습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Todas as versões do Ruby estão desativadas em Ajustes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все версии Ruby выключены в настройках."
           }
         },
         "zh-Hans": {
@@ -949,10 +1255,22 @@
             "value": "/opt/homebrewにも/usr/localにもHomebrewが見つかりません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/opt/homebrew 또는 /usr/local에서 Homebrew를 찾을 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "O Homebrew não foi encontrado em /opt/homebrew nem em /usr/local."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew не найден ни в /opt/homebrew, ни в /usr/local."
           }
         },
         "zh-Hans": {
@@ -989,10 +1307,22 @@
             "value": "このフォルダには%@のバージョンが見つかりません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 폴더에서 %@ 버전을 찾을 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhuma versão do %@ foi encontrada nesta pasta."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В этой папке не найдено версий %@."
           }
         },
         "zh-Hans": {
@@ -1029,10 +1359,22 @@
             "value": "Nodeのバージョン管理ツールが見つかりません。DevHubはnvm、fnm、Volta、asdfを探しました。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Node 버전 관리자를 찾을 수 없습니다. DevHub는 nvm, fnm, Volta, asdf를 찾아보았습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhum gerenciador de versões do Node foi encontrado. O DevHub procurou nvm, fnm, Volta e asdf."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менеджер версий Node не найден. DevHub искал nvm, fnm, Volta и asdf."
           }
         },
         "zh-Hans": {
@@ -1069,10 +1411,22 @@
             "value": "%@にNodeのバージョンが見つかりません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에서 Node 버전을 찾을 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhuma versão do Node foi encontrada em %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В %@ не найдено версий Node."
           }
         },
         "zh-Hans": {
@@ -1109,10 +1463,22 @@
             "value": "Rubyのバージョン管理ツールが見つかりません。DevHubはRVM、rbenv、chruby、asdfを探しました。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby 버전 관리자를 찾을 수 없습니다. DevHub는 RVM, rbenv, chruby, asdf를 찾아보았습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhum gerenciador de versões do Ruby foi encontrado. O DevHub procurou RVM, rbenv, chruby e asdf."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менеджер версий Ruby не найден. DevHub искал RVM, rbenv, chruby и asdf."
           }
         },
         "zh-Hans": {
@@ -1149,10 +1515,22 @@
             "value": "%@にRubyのバージョンが見つかりません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에서 Ruby 버전을 찾을 수 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhuma versão do Ruby foi encontrada em %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В %@ не найдено версий Ruby."
           }
         },
         "zh-Hans": {
@@ -1189,10 +1567,22 @@
             "value": "このパスには何も見つかりません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 경로에서 아무것도 찾지 못했습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nada foi encontrado neste caminho."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По этому пути ничего не найдено."
           }
         },
         "zh-Hans": {
@@ -1229,10 +1619,22 @@
             "value": "コマンドがコード%dで終了しました。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "명령이 코드 %d(으)로 종료되었습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "O comando terminou com o código %d."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Команда завершилась с кодом %d."
           }
         },
         "zh-Hans": {
@@ -1269,10 +1671,22 @@
             "value": "チェックはキャンセルされました"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "확인이 취소되었습니다"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "A verificação foi cancelada"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка отменена"
           }
         },
         "zh-Hans": {
@@ -1309,10 +1723,22 @@
             "value": "%@にbrewプログラムはありません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에 brew 프로그램이 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Não há nenhum programa brew em %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По пути %@ нет программы brew."
           }
         },
         "zh-Hans": {
@@ -1349,10 +1775,22 @@
             "value": "このファイルはプログラムではありません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 파일은 프로그램이 아닙니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Este arquivo não é um programa."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот файл не является программой."
           }
         },
         "zh-Hans": {
@@ -1389,10 +1827,22 @@
             "value": "このフォルダは存在しません。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 폴더가 없습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Esta pasta não existe."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта папка не существует."
           }
         },
         "zh-Hans": {
@@ -1429,10 +1879,22 @@
             "value": "このプログラムはbrewとして動作しませんでした。"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 프로그램은 brew로 실행되지 않았습니다."
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Este programa não funcionou como brew."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эта программа не запустилась как brew."
           }
         },
         "zh-Hans": {
@@ -1469,10 +1931,22 @@
             "value": "他%lld件"
           }
         },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "외 %lld개"
+          }
+        },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "e mais %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "и ещё %lld"
           }
         },
         "zh-Hans": {
