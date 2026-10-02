@@ -91,7 +91,7 @@ struct GeneralSettingsView: View {
             }
 
             Section("Startup") {
-                Toggle("Open DevHub at login", isOn: Binding(get: { opensAtLogin }, set: setLoginItem))
+                Toggle("Open DevHub at login", isOn: Binding(get: { opensAtLogin }, set: { setLoginItem($0) }))
                 .clickable()
                 if let loginError {
                     Text(loginError).font(.system(size: 12)).foregroundStyle(.red)
