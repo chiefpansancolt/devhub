@@ -101,7 +101,7 @@ import Testing
         try home.makeExecutable(".cargo/bin/rustup")
         try home.makeExecutable(".cargo/bin/cargo")
 
-        let installation = try #require(RustLocator.locate(home: home.url))
+        let installation = try #require(RustLocator.locate(home: home.url, systemFolders: []))
 
         #expect(installation.rustup == home.url.appending(path: ".cargo/bin/rustup"))
         #expect(installation.cargo == home.url.appending(path: ".cargo/bin/cargo"))
@@ -113,7 +113,7 @@ import Testing
         defer { home.remove() }
         try home.makeExecutable(".cargo/bin/rustup")
 
-        #expect(try #require(RustLocator.locate(home: home.url)).cargo == nil)
+        #expect(try #require(RustLocator.locate(home: home.url, systemFolders: [])).cargo == nil)
     }
 
     @Test func findsNothingWithoutRustup() throws {
@@ -121,7 +121,7 @@ import Testing
         defer { home.remove() }
         try home.makeExecutable(".cargo/bin/cargo")
 
-        #expect(RustLocator.locate(home: home.url) == nil)
+        #expect(RustLocator.locate(home: home.url, systemFolders: []) == nil)
     }
 }
 

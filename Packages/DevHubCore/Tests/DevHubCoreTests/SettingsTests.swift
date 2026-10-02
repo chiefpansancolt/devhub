@@ -193,6 +193,7 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         try home.makeFolder("empty")
         var settings = SettingsValues()
         settings.nodeFolder = home.url.appending(path: "empty").path
+        settings.excludedNodeManagers = ["pnpm", "bun", "yarn"]
 
         let toolchain = Toolchain.detect(settings: settings)
 

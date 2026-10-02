@@ -38,16 +38,17 @@ public enum NodePackageManagerLocator {
     public static func locate(
         nodeInstallations: [NodeInstallation] = [],
         home: URL = FileManager.default.homeDirectoryForCurrentUser,
+        systemFolders: [URL] = [URL(filePath: "/opt/homebrew/bin"), URL(filePath: "/usr/local/bin")],
         fileManager: FileManager = .default
     ) -> [NodePackageManagerInstallation] {
         NodePackageManager.allCases.compactMap { manager in
-            candidates(for: manager, nodeInstallations: nodeInstallations, home: home)
+            candidates(for: manager, nodeInstallations: nodeInstallations, home: home, systemFolders: systemFolders)
                 .first { fileManager.isExecutableFile(atPath: $0.path) }
                 .map { NodePackageManagerInstallation(manager: manager, executable: $0) }
         }
     }
 
-    private static func candidates(for manager: NodePackageManager, nodeInstallations: [NodeInstallation], home: URL) -> [URL] {
+    private static func candidates(for manager: NodePackageManager, nodeInstallations: [NodeInstallation], home: URL, systemFolders: [URL]) -> [URL] {
         let name = manager.rawValue
         let own: [URL]
         switch manager {
@@ -55,10 +56,9 @@ public enum NodePackageManagerLocator {
         case .bun: own = [home.appending(path: ".bun/bin")]
         case .yarn: own = [home.appending(path: ".yarn/bin")]
         }
-        let shared = [URL(filePath: "/opt/homebrew/bin"), URL(filePath: "/usr/local/bin")]
         let insideNode = nodeInstallations
             .sorted { PackageVersion($0.version) > PackageVersion($1.version) }
             .map(\.binDirectory)
-        return (own + shared + insideNode).map { $0.appending(path: name) }
+        return (own + systemFolders + insideNode).map { $0.appending(path: name) }
     }
 }

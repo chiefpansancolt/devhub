@@ -17,13 +17,10 @@ public struct RustInstallation: Sendable, Equatable {
 public enum RustLocator {
     public static func locate(
         home: URL = FileManager.default.homeDirectoryForCurrentUser,
+        systemFolders: [URL] = [URL(filePath: "/opt/homebrew/opt/rustup/bin"), URL(filePath: "/usr/local/opt/rustup/bin")],
         fileManager: FileManager = .default
     ) -> RustInstallation? {
-        let candidates = [
-            home.appending(path: ".cargo/bin/rustup"),
-            URL(filePath: "/opt/homebrew/opt/rustup/bin/rustup"),
-            URL(filePath: "/usr/local/opt/rustup/bin/rustup")
-        ]
+        let candidates = ([home.appending(path: ".cargo/bin")] + systemFolders).map { $0.appending(path: "rustup") }
         return candidates
             .first { fileManager.isExecutableFile(atPath: $0.path) }
             .map { installation(rustup: $0, fileManager: fileManager) }

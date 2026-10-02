@@ -84,7 +84,7 @@ import Testing
         try home.makeExecutable(".local/bin/pipx")
         try home.makeExecutable(".cargo/bin/uv")
 
-        let found = PythonLocator.locate(home: home.url)
+        let found = PythonLocator.locate(home: home.url, systemFolders: [])
 
         #expect(found.map(\.manager) == [.pipx, .uv])
         #expect(found[0].executable == home.url.appending(path: ".local/bin/pipx"))
@@ -96,7 +96,7 @@ import Testing
         defer { home.remove() }
         try home.makeExecutable(".local/bin/uv")
 
-        #expect(PythonLocator.locate(home: home.url).map(\.manager) == [.uv])
+        #expect(PythonLocator.locate(home: home.url, systemFolders: []).map(\.manager) == [.uv])
     }
 }
 

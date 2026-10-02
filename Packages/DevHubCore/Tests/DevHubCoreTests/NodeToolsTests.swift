@@ -74,7 +74,7 @@ import Testing
         try home.makeExecutable(".bun/bin/bun")
         try home.makeExecutable(".yarn/bin/yarn")
 
-        let found = NodePackageManagerLocator.locate(home: home.url)
+        let found = NodePackageManagerLocator.locate(home: home.url, systemFolders: [])
 
         #expect(found.map(\.manager) == [.pnpm, .bun, .yarn])
         #expect(found[0].executable == home.url.appending(path: "Library/pnpm/pnpm"))
@@ -90,7 +90,7 @@ import Testing
         try home.makeExecutable(".nvm/versions/node/v24.21.0/bin/pnpm")
         let versions = NodeVersionDiscovery(home: home.url).installations()
 
-        let found = NodePackageManagerLocator.locate(nodeInstallations: versions, home: home.url)
+        let found = NodePackageManagerLocator.locate(nodeInstallations: versions, home: home.url, systemFolders: [])
 
         #expect(found.map(\.manager) == [.pnpm, .yarn])
         #expect(found.map(\.executable) == [
@@ -103,7 +103,7 @@ import Testing
         let home = try TemporaryHome()
         defer { home.remove() }
 
-        #expect(NodePackageManagerLocator.locate(home: home.url).isEmpty)
+        #expect(NodePackageManagerLocator.locate(home: home.url, systemFolders: []).isEmpty)
     }
 
     @Test func theSidebarNamesAreStable() {
