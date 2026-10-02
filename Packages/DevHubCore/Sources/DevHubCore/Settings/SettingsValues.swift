@@ -62,6 +62,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
 
     public var rustPath: String?
     public var rustIncludeCargoTools = true
+    public var pipxPath: String?
+    public var uvPath: String?
+    public var excludedPythonManagers: Set<String> = []
 
     public var historyRetention = HistoryRetention.oneYear
     public var historyIncludesOutput = true
@@ -101,6 +104,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         gemInstallDocumentation = value(.gemInstallDocumentation, gemInstallDocumentation)
         rustPath = value(.rustPath, rustPath)
         rustIncludeCargoTools = value(.rustIncludeCargoTools, rustIncludeCargoTools)
+        pipxPath = value(.pipxPath, pipxPath)
+        uvPath = value(.uvPath, uvPath)
+        excludedPythonManagers = value(.excludedPythonManagers, excludedPythonManagers)
         historyRetention = value(.historyRetention, historyRetention)
         historyIncludesOutput = value(.historyIncludesOutput, historyIncludesOutput)
     }
@@ -114,6 +120,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case nodeFolder, excludedNodeVersions, nodeIncludeNpm
         case rubyFolder, excludedRubyVersions, gemInstallDocumentation
         case rustPath, rustIncludeCargoTools
+        case pipxPath, uvPath, excludedPythonManagers
         case historyRetention, historyIncludesOutput
     }
 
@@ -129,6 +136,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         let excludedRubyVersions: Set<String>
         let rustPath: String?
         let includeCargoTools: Bool
+        let pipxPath: String?
+        let uvPath: String?
+        let excludedPythonManagers: Set<String>
     }
 
     var scanningFields: ScanningFields {
@@ -143,7 +153,10 @@ public struct SettingsValues: Codable, Equatable, Sendable {
             rubyFolder: rubyFolder,
             excludedRubyVersions: excludedRubyVersions,
             rustPath: rustPath,
-            includeCargoTools: rustIncludeCargoTools
+            includeCargoTools: rustIncludeCargoTools,
+            pipxPath: pipxPath,
+            uvPath: uvPath,
+            excludedPythonManagers: excludedPythonManagers
         )
     }
 }

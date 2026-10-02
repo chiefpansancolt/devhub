@@ -5,6 +5,7 @@ public enum PackageKind: String, Sendable, Codable, CaseIterable {
     case gem
     case rustToolchain
     case cargoTool
+    case pythonTool
 }
 
 public struct InstalledPackage: Identifiable, Sendable, Equatable {

@@ -272,6 +272,7 @@ private struct ColumnHeader: View {
         case .node: "Node version"
         case .ruby: "Ruby version"
         case .rust: "Type"
+        case .python: "Manager"
         }
     }
 }

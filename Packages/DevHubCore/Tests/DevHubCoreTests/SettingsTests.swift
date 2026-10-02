@@ -363,6 +363,8 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         values.nodeFolder = "/nonexistent/node"
         values.rubyFolder = "/nonexistent/ruby"
         values.rustPath = "/nonexistent/bin/rustup"
+        values.pipxPath = "/nonexistent/bin/pipx"
+        values.uvPath = "/nonexistent/bin/uv"
         return values
     }
 
@@ -502,6 +504,8 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.brewPath = "/nonexistent/bin/brew"
         settings.rubyFolder = "/nonexistent/ruby"
         settings.rustPath = "/nonexistent/bin/rustup"
+        settings.pipxPath = "/nonexistent/bin/pipx"
+        settings.uvPath = "/nonexistent/bin/uv"
         settings.disabledBuckets = [.node, .homebrew]
 
         let toolchain = Toolchain.detect(settings: settings)
@@ -530,17 +534,19 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
     @Test func theStateListsOnlyTheToolsThatAreOn() async {
         let machine = FakeMachine(packages: [outdatedPackage("git")])
         let state = AppState(scanners: [.homebrew: FakeScanner(bucket: .homebrew, machine: machine)], runner: machine.runner)
-        #expect(state.enabledBuckets == [.homebrew, .node, .ruby, .rust])
+        #expect(state.enabledBuckets == [.homebrew, .node, .ruby, .rust, .python])
 
         var settings = SettingsValues()
         settings.brewPath = "/nonexistent/bin/brew"
         settings.nodeFolder = "/nonexistent/node"
         settings.rubyFolder = "/nonexistent/ruby"
         settings.rustPath = "/nonexistent/bin/rustup"
+        settings.pipxPath = "/nonexistent/bin/pipx"
+        settings.uvPath = "/nonexistent/bin/uv"
         settings.disabledBuckets = [.ruby]
         state.apply(settings)
 
-        #expect(state.enabledBuckets == [.homebrew, .node, .rust])
+        #expect(state.enabledBuckets == [.homebrew, .node, .rust, .python])
         #expect(state.disabledBuckets == [.ruby])
         #expect(state.setupProblems[.ruby] == nil)
         #expect(state.setupProblems[.node] != nil)
@@ -554,6 +560,8 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.nodeFolder = "/nonexistent/node"
         settings.rubyFolder = "/nonexistent/ruby"
         settings.rustPath = "/nonexistent/bin/rustup"
+        settings.pipxPath = "/nonexistent/bin/pipx"
+        settings.uvPath = "/nonexistent/bin/uv"
         settings.disabledBuckets = [.homebrew]
         state.apply(settings)
         #expect(state.setupProblems[.homebrew] == nil)
@@ -576,6 +584,8 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         settings.nodeFolder = "/nonexistent/node"
         settings.rubyFolder = "/nonexistent/ruby"
         settings.rustPath = "/nonexistent/bin/rustup"
+        settings.pipxPath = "/nonexistent/bin/pipx"
+        settings.uvPath = "/nonexistent/bin/uv"
         settings.disabledBuckets = [.homebrew]
         state.apply(settings)
 
@@ -587,7 +597,7 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         let machine = FakeMachine(packages: [])
         let state = AppState(scanners: [:], runner: machine.runner)
         var settings = SettingsValues()
-        settings.disabledBuckets = [.homebrew, .node, .ruby, .rust]
+        settings.disabledBuckets = [.homebrew, .node, .ruby, .rust, .python]
 
         state.apply(settings)
 

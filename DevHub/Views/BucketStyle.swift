@@ -8,6 +8,7 @@ extension Bucket {
         case .node: .node
         case .ruby: .ruby
         case .rust: .rust
+        case .python: .python
         }
     }
 
@@ -17,6 +18,7 @@ extension Bucket {
         case .node: "BucketNode"
         case .ruby: "BucketRuby"
         case .rust: "BucketRust"
+        case .python: "BucketPython"
         }
     }
 }
@@ -55,8 +57,15 @@ extension SettingsTab {
         case .node: .node
         case .ruby: .ruby
         case .rust: .rust
+        case .python: .python
         case .general, .appearance, .history: nil
         }
+    }
+}
+
+extension Bucket {
+    var groupsByVersion: Bool {
+        self == .node || self == .ruby
     }
 }
 
@@ -69,6 +78,7 @@ extension PackageKind {
         case .gem: "Gem"
         case .rustToolchain: "Toolchain"
         case .cargoTool: "Cargo tool"
+        case .pythonTool: "Python tool"
         }
     }
 
@@ -80,6 +90,7 @@ extension PackageKind {
         case .gem: "Gems"
         case .rustToolchain: "Toolchains"
         case .cargoTool: "Cargo tools"
+        case .pythonTool: "Python tools"
         }
     }
 }

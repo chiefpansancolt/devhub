@@ -34,6 +34,13 @@ if let rust = RustLocator.locate() {
     notes.append("Rust: rustup not found in ~/.cargo/bin or Homebrew")
 }
 
+let python = PythonLocator.locate()
+if python.isEmpty {
+    notes.append("Python: neither pipx nor uv found")
+} else {
+    scanners.append(PythonScanner(installations: python, runner: runner))
+}
+
 for note in notes { print(note) }
 
 for scanner in scanners {

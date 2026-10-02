@@ -108,7 +108,7 @@ struct DevHubCommands: Commands {
             .keyboardShortcut("2", modifiers: [.command, .option])
             .disabled(state.enabledBuckets.isEmpty)
             Toggle("Show History", isOn: Binding(get: { ui.page == .history }, set: { _ in ui.showHistory() }))
-                .keyboardShortcut("5", modifiers: .command)
+                .keyboardShortcut("6", modifiers: .command)
             Divider()
             Button(ui.hasOpenDetails ? "Hide Details Pane" : "Show Details Pane") {
                 if ui.hasOpenDetails { ui.hideDetails() } else { ui.showDetails() }
@@ -184,6 +184,7 @@ extension Bucket {
         case .node: "2"
         case .ruby: "3"
         case .rust: "4"
+        case .python: "5"
         }
     }
 }

@@ -3,6 +3,7 @@ public enum Bucket: String, CaseIterable, Sendable, Codable {
     case node
     case ruby
     case rust
+    case python
 
     public var displayName: String {
         switch self {
@@ -10,6 +11,7 @@ public enum Bucket: String, CaseIterable, Sendable, Codable {
         case .node: "Node"
         case .ruby: "Ruby"
         case .rust: "Rust"
+        case .python: "Python"
         }
     }
 }

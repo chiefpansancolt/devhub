@@ -8,6 +8,7 @@ extension Bucket {
         case .node: "npm outdated -g --json"
         case .ruby: "gem outdated"
         case .rust: "rustup check · cargo install --list"
+        case .python: "pipx list · uv tool list"
         }
     }
 }
@@ -136,7 +137,7 @@ public final class AppState {
         let toolchain = Toolchain.detect(settings: newSettings)
         scanners = toolchain.scanners(runner: runner, options: ScannerOptions(newSettings))
         actions = PackageActionRunner(scanners: scanners, runner: runner)
-        knownVersions = [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version)]
+        knownVersions = [.node: toolchain.node.map(\.version), .ruby: toolchain.ruby.map(\.version), .python: toolchain.python.map(\.manager.rawValue)]
         setupProblems = toolchain.setupProblems
         disabledBuckets = newSettings.disabledBuckets
         results = results.filter { scanners[$0.key] != nil }

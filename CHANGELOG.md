@@ -13,9 +13,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A Rust tab in Settings to choose the rustup program and to leave Cargo tools out
 - Rust icons for the sidebar and Settings, with a white version for dark mode
 
+- Python support: tools installed with pipx and uv, grouped by manager, each checked for a newer version
+- A Python tab in Settings to choose the pipx and uv programs and to turn a manager off
+- A uv tool installed with an exact version or an upper bound shows no update, because `uv tool upgrade` cannot install a version outside that requirement
+
 ### Changed
 
-- History moves to `⌘5`, because Rust takes `⌘4`
+- History moves to `⌘6`, because Rust takes `⌘4` and Python takes `⌘5`
 
 ## [1.0.0] - 2026-10-01
 

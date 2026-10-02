@@ -26,6 +26,7 @@ public struct Toolchain: Sendable {
     public var node: [NodeInstallation]
     public var ruby: [RubyInstallation]
     public var rust: RustInstallation?
+    public var python: [PythonInstallation]
     private var chosenPathProblems: [Bucket: String]
     public private(set) var disabled: Set<Bucket>
 
@@ -34,6 +35,7 @@ public struct Toolchain: Sendable {
         node: [NodeInstallation],
         ruby: [RubyInstallation],
         rust: RustInstallation? = nil,
+        python: [PythonInstallation] = [],
         chosenPathProblems: [Bucket: String] = [:],
         disabled: Set<Bucket> = []
     ) {
@@ -41,6 +43,7 @@ public struct Toolchain: Sendable {
         self.node = node
         self.ruby = ruby
         self.rust = rust
+        self.python = python
         self.chosenPathProblems = chosenPathProblems
         self.disabled = disabled
     }
@@ -90,7 +93,23 @@ public struct Toolchain: Sendable {
             }
         }
 
-        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, rust: rust, chosenPathProblems: problems)
+        var python = PythonLocator.locate()
+        for (manager, path) in [(PythonManager.pipx, settings.pipxPath), (.uv, settings.uvPath)] {
+            guard let path else { continue }
+            python.removeAll { $0.manager == manager }
+            if FileManager.default.isExecutableFile(atPath: path) {
+                python.append(PythonInstallation(manager: manager, executable: URL(filePath: path)))
+            } else {
+                problems[.python] = String(localized: "There is no \(manager.rawValue) program at \(path).", bundle: .module)
+            }
+        }
+        python.sort { $0.manager.rawValue < $1.manager.rawValue }
+        if applyingExclusions, !python.isEmpty {
+            python.removeAll { settings.excludedPythonManagers.contains($0.manager.rawValue) }
+            if python.isEmpty { problems[.python] = String(localized: "Every Python tool manager is turned off in Settings.", bundle: .module) }
+        }
+
+        var toolchain = Toolchain(homebrew: homebrew, node: node, ruby: ruby, rust: rust, python: python, chosenPathProblems: problems)
         if !includingDisabledTools {
             toolchain.turnOff(settings.disabledBuckets)
         }
@@ -103,6 +122,7 @@ public struct Toolchain: Sendable {
         if buckets.contains(.node) { node = [] }
         if buckets.contains(.ruby) { ruby = [] }
         if buckets.contains(.rust) { rust = nil }
+        if buckets.contains(.python) { python = [] }
     }
 
     public func scanners(runner: CommandRunning, options: ScannerOptions = ScannerOptions()) -> [Bucket: any PackageScanner] {
@@ -118,6 +138,9 @@ public struct Toolchain: Sendable {
         }
         if let rust {
             scanners[.rust] = RustScanner(installation: rust, runner: runner, options: options.rust)
+        }
+        if !python.isEmpty {
+            scanners[.python] = PythonScanner(installations: python, runner: runner)
         }
         return scanners
     }
@@ -135,6 +158,9 @@ public struct Toolchain: Sendable {
         }
         if rust == nil {
             problems[.rust] = chosenPathProblems[.rust] ?? String(localized: "Rust was not found. DevHub looked for rustup in ~/.cargo/bin and in Homebrew.", bundle: .module)
+        }
+        if python.isEmpty {
+            problems[.python] = chosenPathProblems[.python] ?? String(localized: "No Python tool manager found. DevHub looked for pipx and uv.", bundle: .module)
         }
         for bucket in disabled { problems[bucket] = nil }
         return problems

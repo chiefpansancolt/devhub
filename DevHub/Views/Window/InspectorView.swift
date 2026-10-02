@@ -91,6 +91,7 @@ private struct InspectorContent: View {
         case .gem: "Gem · Ruby \(package.group ?? "")"
         case .rustToolchain: "Rust toolchain"
         case .cargoTool: "Cargo tool"
+        case .pythonTool: "Python tool · \(package.group ?? "")"
         }
     }
 
@@ -250,6 +251,8 @@ private struct InspectorContent: View {
             return String(localized: "It is removed from rustup. You can install it again later.")
         case .rust:
             return String(localized: "Its program is removed from the Cargo bin folder.")
+        case .python:
+            return String(localized: "Its environment and programs are removed from \(package.group ?? "").")
         }
     }
 }

@@ -33,6 +33,11 @@ struct SettingsView: View {
                     .tabItem { Label { Text("Rust") } icon: { Image("TabRust") } }
                     .tag(SettingsTab.rust)
             }
+            if isOn(.python) {
+                PythonSettingsView()
+                    .tabItem { Label { Text("Python") } icon: { Image("TabPython") } }
+                    .tag(SettingsTab.python)
+            }
             HistorySettingsView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
                 .tag(SettingsTab.history)

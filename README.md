@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src=".github/images/icon.png" alt="DevHub app icon" width="120" height="120">
-  <h3>One place to keep Homebrew, Node, Ruby and Rust up to date</h3>
+  <h3>One place to keep Homebrew, Node, Ruby, Rust and Python up to date</h3>
   <p>A macOS menu bar app that shows what is outdated and updates it for you</p>
   <p><a href="https://devhub.chiefpansancolt.dev">devhub.chiefpansancolt.dev</a></p>
 
@@ -39,14 +39,15 @@
 
 ## ✨ Features
 
-### 📦 Four tools in one list
+### 📦 Five tools in one list
 
 - **Homebrew** formulae and casks
 - **Node** global packages, kept separate for every Node version you have installed
 - **Ruby** gems, kept separate for every Ruby version you have installed
 - **Rust** toolchains, rustup itself, and the tools installed with `cargo install`
+- **Python** tools installed with pipx and with uv, listed by manager
 
-DevHub finds your versions through nvm, fnm, Volta and asdf for Node, and through RVM, rbenv, chruby and asdf for Ruby. The macOS system Ruby is left out on purpose, because its gems need `sudo`. DevHub finds Rust through rustup, in `~/.cargo/bin` or in Homebrew. If a tool is not in a usual place, choose its folder or program in Settings.
+DevHub finds your versions through nvm, fnm, Volta and asdf for Node, and through RVM, rbenv, chruby and asdf for Ruby. The macOS system Ruby is left out on purpose, because its gems need `sudo`. DevHub finds Rust through rustup, in `~/.cargo/bin` or in Homebrew, and finds pipx and uv in `~/.local/bin`, in `~/.cargo/bin` (uv) and in Homebrew. If a tool is not in a usual place, choose its folder or program in Settings.
 
 ### 🔄 Updating
 
@@ -78,7 +79,7 @@ Every check, update and uninstall is written to `~/Library/Logs/DevHub/history.j
 
 ## ⬇️ Installation
 
-DevHub needs macOS 15 (Sequoia) or newer, on Apple Silicon or Intel. It works with whichever of Homebrew, Node, Ruby and Rust you have.
+DevHub needs macOS 15 (Sequoia) or newer, on Apple Silicon or Intel. It works with whichever of Homebrew, Node, Ruby, Rust and Python tools you have.
 
 ### Download
 
@@ -124,9 +125,10 @@ An app built on your own Mac is not quarantined and opens without the steps abov
 | `⌘2`     | Show Node                       |
 | `⌘3`     | Show Ruby                       |
 | `⌘4`     | Show Rust                       |
+| `⌘5`     | Show Python                     |
 | `⌥⌘1`    | Show updates                    |
 | `⌥⌘2`    | Show all installed packages     |
-| `⌘5`     | Show History                    |
+| `⌘6`     | Show History                    |
 | `⌥⌘I`    | Show or hide the details pane   |
 | `⌥⌘L`    | Show or hide the output log     |
 | `⌘,`     | Open Settings                   |
@@ -144,9 +146,10 @@ DevHub runs the tools you already have and reads what they print. It does not us
 | Homebrew | `brew update` (optional), `brew info --json=v2 --installed`, `brew outdated --json=v2`, `brew upgrade`, `brew uninstall` |
 | Node     | `npm ls -g --depth=0 --json`, `npm outdated -g --json`, `npm view`, `npm install -g <name>@<version>`, `npm uninstall -g` |
 | Ruby     | `gem list --local`, `gem outdated`, `gem update --no-document`, `gem uninstall --all --executables`       |
+| Python   | `pipx list --json`, `pipx runpip <tool> list --outdated --format=json`, `pipx upgrade`, `pipx uninstall`, `uv tool list`, `uv tool list --outdated --show-version-specifiers`, `uv tool upgrade`, `uv tool uninstall` |
 | Rust     | `rustup toolchain list -v`, `rustup check`, `rustup update`, `rustup self update`, `rustup toolchain uninstall`, `cargo install --list`, `cargo search`, `cargo install --locked`, `cargo uninstall` |
 
-For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.
+For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. For Python, pipx and uv ask PyPI for the newest version of each tool, and a uv tool pinned to a version or capped below the newest one shows no update. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.
 
 ### Your data
 
@@ -185,16 +188,16 @@ make release         # build dist/DevHub-<version>.dmg and its checksum
 │   ├── Views/
 │   │   ├── Popover/             # The menu bar popover
 │   │   ├── Window/              # The main window, details pane and History
-│   │   └── Settings/            # The seven Settings tabs
+│   │   └── Settings/            # The eight Settings tabs
 │   ├── DevHubApp.swift          # App entry point and scenes
 │   ├── DevHubCommands.swift     # Application menus and shortcuts
 │   └── Localizable.xcstrings    # App strings
 ├── Packages/DevHubCore/         # Logic with no SwiftUI, covered by tests
 │   ├── Sources/DevHubCore/
 │   │   ├── Commands/            # Runs commands and streams their output
-│   │   ├── Scanners/            # Homebrew, Node, Ruby and Rust scanners
-│   │   ├── Parsing/             # Reads brew, npm, gem, rustup and cargo output
-│   │   ├── Discovery/           # Finds Homebrew, Node, Ruby and Rust installs
+│   │   ├── Scanners/            # Homebrew, Node, Ruby, Rust and Python scanners
+│   │   ├── Parsing/             # Reads brew, npm, gem, rustup, cargo, pipx and uv output
+│   │   ├── Discovery/           # Finds Homebrew, Node, Ruby, Rust and Python installs
 │   │   ├── State/               # AppState, the single source of truth
 │   │   ├── History/             # The JSON Lines history log
 │   │   ├── Settings/            # Settings values and storage
@@ -205,7 +208,7 @@ make release         # build dist/DevHub-<version>.dmg and its checksum
 └── Makefile
 ```
 
-The Xcode project is generated from `project.yml` and is not committed. The tests use recorded output from real `brew`, `npm`, `gem`, `rustup` and `cargo` runs, and never run the real tools.
+The Xcode project is generated from `project.yml` and is not committed. The tests use recorded output from real `brew`, `npm`, `gem`, `rustup`, `cargo`, `pipx` and `uv` runs, and never run the real tools.
 
 ---
 
@@ -231,7 +234,7 @@ Then open the catalogs in Xcode to translate the new strings, and run `make chec
 
 **macOS says DevHub cannot be opened.** The app is not notarized yet. See [Installation](#-installation) for the one-time steps.
 
-**A tool says it was not found.** Open Settings, choose the tab for that tool, and choose its program or its folder of versions. For Rust, choose the `rustup` program.
+**A tool says it was not found.** Open Settings, choose the tab for that tool, and choose its program or its folder of versions. For Rust, choose the `rustup` program, and for Python, the `pipx` or `uv` program.
 
 **An update fails with a permission error.** DevHub runs everything as you and never uses `sudo`. Fix the ownership of the folder that npm or gem writes to, then choose Try again. The History page keeps the full output.
 

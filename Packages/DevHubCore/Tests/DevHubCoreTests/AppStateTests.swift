@@ -384,7 +384,7 @@ private actor StatusLog {
     @Test func listsAProblemForEveryBucketThatIsMissing() {
         let toolchain = Toolchain(homebrew: nil, node: [], ruby: [])
 
-        #expect(Set(toolchain.setupProblems.keys) == [.homebrew, .node, .ruby, .rust])
+        #expect(Set(toolchain.setupProblems.keys) == [.homebrew, .node, .ruby, .rust, .python])
         #expect(toolchain.scanners(runner: CommandRunner()).isEmpty)
     }
 
@@ -393,7 +393,7 @@ private actor StatusLog {
         let toolchain = Toolchain(homebrew: brew, node: [], ruby: [])
 
         #expect(Set(toolchain.scanners(runner: CommandRunner()).keys) == [.homebrew])
-        #expect(Set(toolchain.setupProblems.keys) == [.node, .ruby, .rust])
+        #expect(Set(toolchain.setupProblems.keys) == [.node, .ruby, .rust, .python])
     }
 }
 

@@ -185,7 +185,7 @@ private struct ChildRow: View {
 
     private var title: LocalizedStringKey {
         guard let group = scope.group else {
-            return scope.bucket.groupsByKind ? "All packages" : "All versions"
+            return scope.bucket.groupsByVersion ? "All versions" : "All packages"
         }
         if scope.bucket.groupsByKind, let kind = PackageKind(rawValue: group) {
             return kind.pluralTitle

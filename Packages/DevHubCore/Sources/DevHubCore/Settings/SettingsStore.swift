@@ -8,6 +8,7 @@ public enum SettingsTab: String, Sendable, CaseIterable {
     case node
     case ruby
     case rust
+    case python
     case history
 }
 

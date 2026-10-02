@@ -26,7 +26,7 @@ extension Bucket {
     public var groupsByKind: Bool {
         switch self {
         case .homebrew, .rust: true
-        case .node, .ruby: false
+        case .node, .ruby, .python: false
         }
     }
 
@@ -36,6 +36,7 @@ extension Bucket {
         case .rust: [.rustToolchain, .cargoTool]
         case .node: [.npmGlobal]
         case .ruby: [.gem]
+        case .python: [.pythonTool]
         }
     }
 }

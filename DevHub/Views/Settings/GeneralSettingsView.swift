@@ -168,6 +168,7 @@ struct GeneralSettingsView: View {
         case .node: !toolchain.node.isEmpty
         case .ruby: !toolchain.ruby.isEmpty
         case .rust: toolchain.rust != nil
+        case .python: !toolchain.python.isEmpty
         }
     }
 
