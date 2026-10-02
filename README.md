@@ -29,7 +29,7 @@ An app built on your own Mac with `make build` is not quarantined and opens with
 
 ## Languages
 
-Strings live in two String Catalogs: `DevHub/Localizable.xcstrings` for the app and `Packages/DevHubCore/Sources/DevHubCore/Resources/Localizable.xcstrings` for messages from the core. English is the source language. German is translated.
+Strings live in two String Catalogs: `DevHub/Localizable.xcstrings` for the app and `Packages/DevHubCore/Sources/DevHubCore/Resources/Localizable.xcstrings` for messages from the core. English is the source language. German, Japanese and Simplified Chinese are translated.
 
 After you add or change a string in the code, run `make build`, then update the catalogs from what the compiler found:
 

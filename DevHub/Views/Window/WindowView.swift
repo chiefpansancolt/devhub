@@ -42,7 +42,7 @@ struct WindowView: View {
             }
         }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.22), value: inspectorIsOpen)
-        .frame(minWidth: 960, minHeight: 560)
+        .frame(minWidth: inspectorIsOpen ? 1180 : 860, minHeight: 560)
         .onAppear {
             AppActivation.windowOpened()
             keepSelectionOnAToolThatIsOn()

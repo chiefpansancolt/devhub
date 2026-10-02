@@ -14,6 +14,18 @@
             "state": "new",
             "value": "%1$@ exited with code %2$d%3$@"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@がコード%dで終了しました%@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 已退出，退出代码 %d%@"
+          }
         }
       }
     },
@@ -23,6 +35,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ wurde abgebrochen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@はキャンセルされました"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 已取消"
           }
         }
       }
@@ -60,6 +84,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld major updates"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のメジャーアップデート"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个主版本更新"
                 }
               }
             }
@@ -104,6 +152,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "新しいアップデートが%lld件"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个新更新"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -140,6 +212,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld updates available"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のアップデートがあります"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "有 %lld 个可用更新"
                 }
               }
             }
@@ -184,6 +280,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のアップデートが見つかりました"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "发现 %lld 个更新"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -224,6 +344,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld個のバージョンが見つかりました"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "找到 %lld 个版本"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -233,6 +377,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abgebrochen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャンセル済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已取消"
           }
         }
       }
@@ -250,6 +406,18 @@
             "state": "new",
             "value": "Could not read the output of %1$@: %2$@"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@の出力を読み取れませんでした: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法读取 %@ 的输出：%@"
+          }
         }
       }
     },
@@ -259,6 +427,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "DevHub kann dieses Paket nicht deinstallieren."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubはこのパッケージをアンインストールできません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 无法卸载此软件包。"
           }
         }
       }
@@ -270,6 +450,18 @@
             "state": "translated",
             "value": "DevHub kann dieses Paket nicht aktualisieren."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubはこのパッケージをアップデートできません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 无法更新此软件包。"
+          }
         }
       }
     },
@@ -279,6 +471,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle Node-Versionen sind in den Einstellungen ausgeschaltet."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定ですべてのNodeバージョンがオフになっています。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置中已关闭所有 Node 版本。"
           }
         }
       }
@@ -290,6 +494,18 @@
             "state": "translated",
             "value": "Alle Ruby-Versionen sind in den Einstellungen ausgeschaltet."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定ですべてのRubyバージョンがオフになっています。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置中已关闭所有 Ruby 版本。"
+          }
         }
       }
     },
@@ -299,6 +515,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Homebrew wurde weder in /opt/homebrew noch in /usr/local gefunden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/opt/homebrewにも/usr/localにもHomebrewが見つかりません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 /opt/homebrew 或 /usr/local 中未找到 Homebrew。"
           }
         }
       }
@@ -310,6 +538,18 @@
             "state": "translated",
             "value": "In diesem Ordner wurden keine %@-Versionen gefunden."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このフォルダには%@のバージョンが見つかりません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此文件夹中未找到 %@ 版本。"
+          }
         }
       }
     },
@@ -319,6 +559,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Node-Versionsverwaltung gefunden. DevHub hat nach nvm, fnm, Volta und asdf gesucht."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nodeのバージョン管理ツールが見つかりません。DevHubはnvm、fnm、Volta、asdfを探しました。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Node 版本管理器。DevHub 查找了 nvm、fnm、Volta 和 asdf。"
           }
         }
       }
@@ -330,6 +582,18 @@
             "state": "translated",
             "value": "In %@ wurden keine Node-Versionen gefunden."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にNodeのバージョンが見つかりません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 %@ 中未找到 Node 版本。"
+          }
         }
       }
     },
@@ -339,6 +603,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Ruby-Versionsverwaltung gefunden. DevHub hat nach RVM, rbenv, chruby und asdf gesucht."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubyのバージョン管理ツールが見つかりません。DevHubはRVM、rbenv、chruby、asdfを探しました。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Ruby 版本管理器。DevHub 查找了 RVM、rbenv、chruby 和 asdf。"
           }
         }
       }
@@ -350,6 +626,18 @@
             "state": "translated",
             "value": "In %@ wurden keine Ruby-Versionen gefunden."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にRubyのバージョンが見つかりません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 %@ 中未找到 Ruby 版本。"
+          }
         }
       }
     },
@@ -359,6 +647,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "An diesem Pfad wurde nichts gefunden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このパスには何も見つかりません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此路径下未找到任何内容。"
           }
         }
       }
@@ -370,6 +670,18 @@
             "state": "translated",
             "value": "Der Befehl wurde mit Code %d beendet."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コマンドがコード%dで終了しました。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "命令已退出，退出代码 %d。"
+          }
         }
       }
     },
@@ -379,6 +691,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Die Prüfung wurde abgebrochen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェックはキャンセルされました"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查已取消"
           }
         }
       }
@@ -390,6 +714,18 @@
             "state": "translated",
             "value": "Unter %@ gibt es kein brew-Programm."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にbrewプログラムはありません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 处没有 brew 程序。"
+          }
         }
       }
     },
@@ -399,6 +735,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diese Datei ist kein Programm."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このファイルはプログラムではありません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此文件不是程序。"
           }
         }
       }
@@ -410,6 +758,18 @@
             "state": "translated",
             "value": "Dieser Ordner existiert nicht."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このフォルダは存在しません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此文件夹不存在。"
+          }
         }
       }
     },
@@ -420,6 +780,18 @@
             "state": "translated",
             "value": "Dieses Programm lief nicht als brew."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このプログラムはbrewとして動作しませんでした。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此程序无法作为 brew 运行。"
+          }
         }
       }
     },
@@ -429,6 +801,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "und %lld weitere"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "他%lld件"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以及另外 %lld 项"
           }
         }
       }

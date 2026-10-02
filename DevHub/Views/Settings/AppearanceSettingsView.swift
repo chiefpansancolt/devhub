@@ -24,6 +24,8 @@ struct AppearanceSettingsView: View {
                     Text("Same as system").tag(String?.none)
                     Text(verbatim: "English").tag(String?.some("en"))
                     Text(verbatim: "Deutsch").tag(String?.some("de"))
+                    Text(verbatim: "日本語").tag(String?.some("ja"))
+                    Text(verbatim: "简体中文").tag(String?.some("zh-Hans"))
                 }
                 .clickable()
                 if settings.values.language != AppEffects.launchLanguage {

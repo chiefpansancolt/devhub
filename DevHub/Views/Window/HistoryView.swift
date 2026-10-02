@@ -4,7 +4,7 @@ import SwiftUI
 
 private enum HistoryColumns {
     static let time: CGFloat = 92
-    static let action: CGFloat = 112
+    static let action: CGFloat = 132
     static let bucket: CGFloat = 100
     static let change: CGFloat = 130
     static let result: CGFloat = 96

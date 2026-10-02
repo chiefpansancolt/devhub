@@ -22,6 +22,18 @@
             "state": "translated",
             "value": "%@ ist nicht eingerichtet"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ は設定されていません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 尚未设置"
+          }
         }
       }
     },
@@ -76,6 +88,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のエントリ"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 条记录"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -112,6 +148,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld gems"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld個のgem"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个 gem"
                 }
               }
             }
@@ -156,6 +216,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld個のグローバルパッケージ"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个全局软件包"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -165,6 +249,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld installiert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件インストール済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已安装 %lld 个"
           }
         }
       }
@@ -182,6 +278,18 @@
             "state": "new",
             "value": "%1$lld of %2$lld"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld"
+          }
         }
       }
     },
@@ -198,6 +306,18 @@
             "state": "new",
             "value": "%1$lld of %2$lld done"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld 件完了"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已完成 %lld / %lld"
+          }
         }
       }
     },
@@ -207,6 +327,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld übersprungen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件スキップ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已跳过 %lld 个"
           }
         }
       }
@@ -224,6 +356,18 @@
             "state": "new",
             "value": "%1$lld updated, %2$lld failed"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件アップデート、%lld件失敗"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已更新 %lld 个，失败 %lld 个"
+          }
         }
       }
     },
@@ -239,6 +383,18 @@
           "stringUnit": {
             "state": "new",
             "value": "%1$lld updated, %2$lld skipped"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件アップデート、%lld件スキップ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已更新 %lld 个，跳过 %lld 个"
           }
         }
       }
@@ -276,6 +432,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld updates available"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のアップデートがあります"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "有 %lld 个可用更新"
                 }
               }
             }
@@ -320,6 +500,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld個のバージョンが見つかりました"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "找到 %lld 个版本"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -329,6 +533,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "1 Jahr"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1年"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 年"
           }
         }
       }
@@ -340,6 +556,18 @@
             "state": "translated",
             "value": "30 Tage"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30日"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 天"
+          }
         }
       }
     },
@@ -349,6 +577,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "90 Tage"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90日"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90 天"
           }
         }
       }
@@ -360,6 +600,18 @@
             "state": "translated",
             "value": "Eine Abhängigkeit eines anderen Pakets"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "他のパッケージの依存関係"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他软件包的依赖项"
+          }
         }
       }
     },
@@ -369,6 +621,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aktion"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作"
           }
         }
       }
@@ -380,6 +644,18 @@
             "state": "translated",
             "value": "Aktionen und Befehlsausgabe"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作とコマンド出力"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作和命令输出"
+          }
         }
       }
     },
@@ -389,6 +665,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nur Aktionen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作のみ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅操作"
           }
         }
       }
@@ -400,6 +688,18 @@
             "state": "translated",
             "value": "Aktivität"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アクティビティ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动"
+          }
         }
       }
     },
@@ -409,6 +709,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部"
           }
         }
       }
@@ -420,6 +732,18 @@
             "state": "translated",
             "value": "Alle Paketmanager"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全マネージャー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有包管理器"
+          }
         }
       }
     },
@@ -429,6 +753,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle installiert (%lld)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済み (%lld)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部已安装 (%lld)"
           }
         }
       }
@@ -440,6 +776,18 @@
             "state": "translated",
             "value": "Alle Pakete"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全パッケージ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有软件包"
+          }
         }
       }
     },
@@ -449,6 +797,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gesamter Zeitraum"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべての期間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部时间"
           }
         }
       }
@@ -460,6 +820,18 @@
             "state": "translated",
             "value": "Alle Werkzeuge sind ausgeschaltet"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのツールがオフです"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有工具均已关闭"
+          }
         }
       }
     },
@@ -469,6 +841,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle Werkzeuge sind ausgeschaltet. Schalte sie in den Einstellungen ein."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのツールがオフです。設定でオンにしてください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有工具均已关闭。请在“设置”中开启。"
           }
         }
       }
@@ -480,6 +864,18 @@
             "state": "translated",
             "value": "Alle Versionen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有版本"
+          }
         }
       }
     },
@@ -489,6 +885,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erscheinungsbild"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外観"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外观"
           }
         }
       }
@@ -500,6 +908,18 @@
             "state": "translated",
             "value": "Vor „Alle aktualisieren“ nachfragen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてをアップデートする前に確認"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部更新前先询问"
+          }
         }
       }
     },
@@ -509,6 +929,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vor dem Deinstallieren nachfragen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストールする前に確認"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载前先询问"
           }
         }
       }
@@ -520,6 +952,18 @@
             "state": "translated",
             "value": "Automatische Prüfung"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動チェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动检查"
+          }
         }
       }
     },
@@ -529,6 +973,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Paketmanager"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージマネージャー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包管理器"
           }
         }
       }
@@ -540,6 +996,18 @@
             "state": "translated",
             "value": "Die Zahlen bei den Paketmanagern zeigen verfügbare Updates. Die Zeilen darunter zeigen Updates von installierten Paketen."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージマネージャーの数字は利用可能なアップデート数です。下の行はインストール済みパッケージのアップデートを表します。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包管理器旁的数字表示可用更新数量，下方各行表示已安装软件包的更新。"
+          }
         }
       }
     },
@@ -549,6 +1017,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Paketmanager"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージマネージャー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包管理器"
           }
         }
       }
@@ -560,6 +1040,18 @@
             "state": "translated",
             "value": "Wird berechnet …"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "計算中…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在计算…"
+          }
         }
       }
     },
@@ -570,12 +1062,36 @@
             "state": "translated",
             "value": "Abbrechen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャンセル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
     "Cask": {
       "localizations": {
         "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cask"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cask"
+          }
+        },
+        "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "Cask"
@@ -593,6 +1109,18 @@
             "state": "translated",
             "value": "Casks"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cask"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cask"
+          }
         }
       }
     },
@@ -606,6 +1134,18 @@
             "state": "translated",
             "value": "Änderung"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "変更"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "变更"
+          }
         }
       }
     },
@@ -615,6 +1155,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erneut prüfen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再チェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新检查"
           }
         }
       }
@@ -626,6 +1178,18 @@
             "state": "translated",
             "value": "Nach Updates suchen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートを確認"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查更新"
+          }
         }
       }
     },
@@ -635,6 +1199,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jetzt prüfen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今すぐチェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即检查"
           }
         }
       }
@@ -646,6 +1222,18 @@
             "state": "translated",
             "value": "Beim Öffnen von DevHub prüfen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubを開いたときにチェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开 DevHub 时检查"
+          }
         }
       }
     },
@@ -655,6 +1243,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nach dem Ruhezustand des Macs prüfen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macのスリープ解除時にチェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac 唤醒后检查"
           }
         }
       }
@@ -666,6 +1266,18 @@
             "state": "translated",
             "value": "Geprüft"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已检查"
+          }
         }
       }
     },
@@ -675,6 +1287,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Geprüft %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查于 %@"
           }
         }
       }
@@ -686,6 +1310,18 @@
             "state": "translated",
             "value": "Gerade eben geprüft"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "たった今確認"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刚刚检查"
+          }
         }
       }
     },
@@ -695,6 +1331,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wird geprüft"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查中"
           }
         }
       }
@@ -706,6 +1354,18 @@
             "state": "translated",
             "value": "Suche nach Updates"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートを確認中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在检查更新"
+          }
         }
       }
     },
@@ -715,6 +1375,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wird geprüft …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック中…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查中…"
           }
         }
       }
@@ -726,6 +1398,18 @@
             "state": "translated",
             "value": "Prüfungen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查"
+          }
         }
       }
     },
@@ -735,6 +1419,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auswählen …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選択…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择…"
           }
         }
       }
@@ -746,6 +1442,18 @@
             "state": "translated",
             "value": "Verlauf löschen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴を消去"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除历史记录"
+          }
         }
       }
     },
@@ -755,6 +1463,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verlauf löschen …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴を消去…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除历史记录…"
           }
         }
       }
@@ -766,6 +1486,18 @@
             "state": "translated",
             "value": "Verlauf löschen?"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴を消去しますか？"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要清除历史记录吗？"
+          }
         }
       }
     },
@@ -775,6 +1507,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Löschen …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "消去…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除…"
           }
         }
       }
@@ -786,6 +1530,18 @@
             "state": "translated",
             "value": "Details schließen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細を閉じる"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭详情"
+          }
         }
       }
     },
@@ -795,6 +1551,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eingeklappt"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "折りたたみ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已折叠"
           }
         }
       }
@@ -806,6 +1574,18 @@
             "state": "translated",
             "value": "Befehl"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コマンド"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "命令"
+          }
         }
       }
     },
@@ -815,6 +1595,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hier erscheint die Befehlsausgabe, wenn du ein Paket aktualisierst oder deinstallierst."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージをアップデートまたはアンインストールすると、コマンドの出力がここに表示されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新或卸载软件包时，命令输出会显示在这里。"
           }
         }
       }
@@ -826,6 +1618,18 @@
             "state": "translated",
             "value": "Die Befehlsausgabe vergrößert die Datei, hilft aber, wenn etwas fehlschlägt."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コマンドの出力を含めるとファイルは大きくなりますが、問題が起きたときに役立ちます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "命令输出会使文件变大，但出错时很有帮助。"
+          }
         }
       }
     },
@@ -835,6 +1639,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installationspfad kopieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストールパスをコピー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷贝安装路径"
           }
         }
       }
@@ -846,6 +1662,18 @@
             "state": "translated",
             "value": "Paketnamen kopieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージ名をコピー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷贝软件包名称"
+          }
         }
       }
     },
@@ -855,6 +1683,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ausgabe kopieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出力をコピー"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷贝输出"
           }
         }
       }
@@ -866,6 +1706,18 @@
             "state": "translated",
             "value": "Zahl"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "件数"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数量"
+          }
         }
       }
     },
@@ -875,6 +1727,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aktuell"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前"
           }
         }
       }
@@ -886,6 +1750,18 @@
             "state": "translated",
             "value": "Dunkel"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ダーク"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深色"
+          }
         }
       }
     },
@@ -896,6 +1772,18 @@
             "state": "translated",
             "value": "Zeitraum"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日期范围"
+          }
         }
       }
     },
@@ -905,6 +1793,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Detailgrad"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細レベル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "详细程度"
           }
         }
       }
@@ -919,6 +1819,18 @@
             "state": "translated",
             "value": "DevHub-Testmitteilung"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubテスト通知"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 测试通知"
+          }
         }
       }
     },
@@ -928,6 +1840,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speicherplatz"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ディスク容量"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "磁盘占用"
           }
         }
       }
@@ -939,6 +1863,18 @@
             "state": "translated",
             "value": "Schließen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "閉じる"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
         }
       }
     },
@@ -948,6 +1884,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fertig"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完了"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
           }
         }
       }
@@ -959,6 +1907,18 @@
             "state": "translated",
             "value": "Dauer"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所要時間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "耗时"
+          }
         }
       }
     },
@@ -968,6 +1928,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Die Pakete werden nacheinander aktualisiert. Das kann eine Weile dauern."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージは1つずつアップデートされます。時間がかかる場合があります。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "软件包将逐个更新，这可能需要一些时间。"
           }
         }
       }
@@ -979,6 +1951,18 @@
             "state": "translated",
             "value": "Einträge"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エントリ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条目"
+          }
         }
       }
     },
@@ -988,6 +1972,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle 4 Stunden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4時間ごと"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每 4 小时"
           }
         }
       }
@@ -999,6 +1995,18 @@
             "state": "translated",
             "value": "Jede Stunde"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1時間ごと"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每小时"
+          }
         }
       }
     },
@@ -1008,6 +2016,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle installierten Versionen dieses Gems werden aus Ruby %@ entfernt."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このgemのインストール済みのすべてのバージョンがRuby %@から削除されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此 gem 的所有已安装版本都将从 Ruby %@ 中移除。"
           }
         }
       }
@@ -1019,6 +2039,18 @@
             "state": "translated",
             "value": "Jedes Update, jede Deinstallation und jede Prüfung wird hier mit Uhrzeit und verwendetem Befehl festgehalten."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのアップデート、アンインストール、チェックが、実行時刻と使用したコマンドとともにここに記録されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每次更新、卸载和检查都会记录在这里，包括运行时间和所用命令。"
+          }
         }
       }
     },
@@ -1028,6 +2060,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hier ist alles auf dem neuesten Stand"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ここはすべて最新です"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此处全部是最新版本"
           }
         }
       }
@@ -1039,6 +2083,18 @@
             "state": "translated",
             "value": "Alles ist auf dem neuesten Stand"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて最新です"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部都是最新版本"
+          }
         }
       }
     },
@@ -1048,6 +2104,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exit-Code"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "終了コード"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出代码"
           }
         }
       }
@@ -1059,6 +2127,18 @@
             "state": "translated",
             "value": "Ausgeklappt"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "展開"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已展开"
+          }
         }
       }
     },
@@ -1068,6 +2148,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exportieren …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "書き出す…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导出…"
           }
         }
       }
@@ -1079,6 +2171,18 @@
             "state": "translated",
             "value": "Fehler"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "失敗"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "失败"
+          }
         }
       }
     },
@@ -1088,6 +2192,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dateigröße"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ファイルサイズ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件大小"
           }
         }
       }
@@ -1099,6 +2215,18 @@
             "state": "translated",
             "value": "Installierte filtern"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済みを絞り込む"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "筛选已安装"
+          }
         }
       }
     },
@@ -1108,6 +2236,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installierte Pakete filtern"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済みパッケージを絞り込む"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "筛选已安装的软件包"
           }
         }
       }
@@ -1119,6 +2259,18 @@
             "state": "translated",
             "value": "Suchen …"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "検索…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查找…"
+          }
         }
       }
     },
@@ -1128,6 +2280,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bei jedem Update"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートごと"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每次更新"
           }
         }
       }
@@ -1139,6 +2303,18 @@
             "state": "translated",
             "value": "Unbegrenzt"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無期限"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久"
+          }
         }
       }
     },
@@ -1148,6 +2324,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Formel"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formula"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formula"
           }
         }
       }
@@ -1159,6 +2347,18 @@
             "state": "translated",
             "value": "Formeln"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formula"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formula"
+          }
         }
       }
     },
@@ -1169,6 +2369,18 @@
             "state": "translated",
             "value": "Automatisch gefunden: %@"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動検出: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动找到：%@"
+          }
         }
       }
     },
@@ -1178,6 +2390,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auf diesem Mac gefunden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このMacで見つかりました"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在此 Mac 上找到"
           }
         }
       }
@@ -1192,6 +2416,18 @@
             "state": "translated",
             "value": "Allgemein"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一般"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通用"
+          }
         }
       }
     },
@@ -1201,6 +2437,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Detailbereich ausblenden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細パネルを隠す"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏详情窗格"
           }
         }
       }
@@ -1212,6 +2460,18 @@
             "state": "translated",
             "value": "Ausgabeprotokoll ausblenden"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出力ログを隠す"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏输出日志"
+          }
         }
       }
     },
@@ -1222,6 +2482,18 @@
             "state": "translated",
             "value": "Verlauf"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "历史记录"
+          }
         }
       }
     },
@@ -1231,6 +2503,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verlaufsdatei"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴ファイル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "历史记录文件"
           }
         }
       }
@@ -1245,6 +2529,18 @@
             "state": "translated",
             "value": "Homebrew wurde nicht gefunden. Wähle das brew-Programm aus."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrewが見つかりません。brewプログラムを選択してください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Homebrew。请选择 brew 程序。"
+          }
         }
       }
     },
@@ -1254,6 +2550,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Symbol"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アイコン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图标"
           }
         }
       }
@@ -1265,6 +2573,18 @@
             "state": "translated",
             "value": "Symbol und Zahl"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アイコンと件数"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图标和数量"
+          }
         }
       }
     },
@@ -1274,6 +2594,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Symbolstil"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アイコンのスタイル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图标样式"
           }
         }
       }
@@ -1285,6 +2617,18 @@
             "state": "translated",
             "value": "Wenn du das lesen kannst, funktionieren Mitteilungen."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "これが読めれば、通知は動作しています。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果你能看到这条消息，说明通知正常。"
+          }
         }
       }
     },
@@ -1294,6 +2638,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Casks einbeziehen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caskを含める"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含 Cask"
           }
         }
       }
@@ -1305,6 +2661,18 @@
             "state": "translated",
             "value": "Casks einbeziehen, die sich selbst aktualisieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動で更新されるCaskを含める"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含可自动更新的 Cask"
+          }
         }
       }
     },
@@ -1314,6 +2682,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "npm selbst einbeziehen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "npm自体を含める"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含 npm 本身"
           }
         }
       }
@@ -1325,6 +2705,18 @@
             "state": "translated",
             "value": "Gem-Dokumentation installieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gemのドキュメントをインストール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安装 gem 文档"
+          }
         }
       }
     },
@@ -1335,6 +2727,18 @@
             "state": "translated",
             "value": "Installiert"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已安装"
+          }
         }
       }
     },
@@ -1344,6 +2748,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installiert %@, aktuell"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済み %@、最新です"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已安装 %@，已是最新"
           }
         }
       }
@@ -1361,6 +2777,18 @@
             "state": "new",
             "value": "Installed %1$@, update to %2$@"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済み %@、%@にアップデート可能"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已安装 %@，可更新至 %@"
+          }
         }
       }
     },
@@ -1370,6 +2798,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installiert als"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール形態"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安装方式"
           }
         }
       }
@@ -1381,6 +2821,18 @@
             "state": "translated",
             "value": "Installierte Version"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストール済みバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已安装版本"
+          }
         }
       }
     },
@@ -1390,6 +2842,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Es wird aus den globalen Paketen von Node %@ entfernt."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Node %@のグローバルパッケージから削除されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它将从 Node %@ 的全局软件包中移除。"
           }
         }
       }
@@ -1401,6 +2865,18 @@
             "state": "translated",
             "value": "Verlauf aufbewahren für"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴の保存期間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "历史记录保留时长"
+          }
         }
       }
     },
@@ -1410,6 +2886,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sprache"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "言語"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "语言"
           }
         }
       }
@@ -1421,6 +2909,18 @@
             "state": "translated",
             "value": "Letzte 30 Tage"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "過去30日間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近 30 天"
+          }
         }
       }
     },
@@ -1430,6 +2930,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Letzte 7 Tage"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "過去7日間"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近 7 天"
           }
         }
       }
@@ -1441,6 +2953,18 @@
             "state": "translated",
             "value": "Zuletzt geprüft"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最終チェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上次检查"
+          }
         }
       }
     },
@@ -1450,6 +2974,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Neueste"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新"
           }
         }
       }
@@ -1461,6 +2997,18 @@
             "state": "translated",
             "value": "Neueste Version"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新バージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新版本"
+          }
         }
       }
     },
@@ -1470,6 +3018,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hell"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ライト"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "浅色"
           }
         }
       }
@@ -1481,6 +3041,18 @@
             "state": "translated",
             "value": "Liste"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リスト"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "列表"
+          }
         }
       }
     },
@@ -1490,6 +3062,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speicherort"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "場所"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置"
           }
         }
       }
@@ -1501,6 +3085,18 @@
             "state": "translated",
             "value": "Protokolldatei"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログファイル"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日志文件"
+          }
         }
       }
     },
@@ -1510,6 +3106,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Manuell"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手動"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手动"
           }
         }
       }
@@ -1521,6 +3129,18 @@
             "state": "translated",
             "value": "Nur manuell"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手動のみ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅手动"
+          }
         }
       }
     },
@@ -1530,6 +3150,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Symbol in der Menüleiste"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メニューバーアイコン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "菜单栏图标"
           }
         }
       }
@@ -1541,6 +3173,18 @@
             "state": "translated",
             "value": "Mehr"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "その他"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多"
+          }
         }
       }
     },
@@ -1550,6 +3194,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Name"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名前"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名称"
           }
         }
       }
@@ -1561,6 +3217,18 @@
             "state": "translated",
             "value": "Nächste Prüfung in %@"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次のチェックまで %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@后再次检查"
+          }
         }
       }
     },
@@ -1570,6 +3238,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nächste Prüfung in Kürze"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まもなく次のチェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "即将再次检查"
           }
         }
       }
@@ -1581,6 +3261,18 @@
             "state": "translated",
             "value": "Keine Node-Versionsverwaltung gefunden. Wähle den Ordner mit deinen Node-Versionen aus."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nodeのバージョン管理ツールが見つかりません。Nodeのバージョンが入っているフォルダを選択してください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Node 版本管理器。请选择存放 Node 版本的文件夹。"
+          }
         }
       }
     },
@@ -1590,6 +3282,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Ruby-Versionsverwaltung gefunden. Wähle den Ordner mit deinen Ruby-Versionen aus."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubyのバージョン管理ツールが見つかりません。Rubyのバージョンが入っているフォルダを選択してください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Ruby 版本管理器。请选择存放 Ruby 版本的文件夹。"
           }
         }
       }
@@ -1601,6 +3305,18 @@
             "state": "translated",
             "value": "Keine Einträge entsprechen diesen Filtern"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "これらの条件に一致するエントリはありません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有符合这些筛选条件的条目"
+          }
         }
       }
     },
@@ -1610,6 +3326,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Pakete passen zu „%@“"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%@」に一致するパッケージはありません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有与“%@”匹配的软件包"
           }
         }
       }
@@ -1624,6 +3352,18 @@
             "state": "translated",
             "value": "Node-Version"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nodeバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Node 版本"
+          }
         }
       }
     },
@@ -1633,6 +3373,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zu prüfende Node-Versionen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェックするNodeバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要检查的 Node 版本"
           }
         }
       }
@@ -1644,6 +3396,18 @@
             "state": "translated",
             "value": "An den üblichen Orten nicht gefunden"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通常の場所に見つかりません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在常见位置未找到"
+          }
         }
       }
     },
@@ -1653,6 +3417,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auf diesem Mac nicht gefunden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このMacで見つかりません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在此 Mac 上未找到"
           }
         }
       }
@@ -1664,6 +3440,18 @@
             "state": "translated",
             "value": "Nicht eingerichtet"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未設定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未设置"
+          }
         }
       }
     },
@@ -1673,6 +3461,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nichts anderes Installiertes hängt davon ab. Die Dateien werden vom Datenträger entfernt."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "他のインストール済みパッケージはこれに依存していません。ファイルはディスクから削除されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有其他已安装的软件包依赖它。其文件将从磁盘中删除。"
           }
         }
       }
@@ -1684,6 +3484,18 @@
             "state": "translated",
             "value": "An den üblichen Orten nichts gefunden"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通常の場所には何も見つかりません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在常见位置未找到任何内容"
+          }
         }
       }
     },
@@ -1693,6 +3505,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Noch ist nichts passiert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだ何も行われていません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚无任何操作"
           }
         }
       }
@@ -1704,6 +3528,18 @@
             "state": "translated",
             "value": "Hier ist nichts installiert"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ここには何もインストールされていません"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这里没有安装任何内容"
+          }
         }
       }
     },
@@ -1713,6 +3549,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mitteilungen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知"
           }
         }
       }
@@ -1724,6 +3572,18 @@
             "state": "translated",
             "value": "Mitteilungen für DevHub sind in den Systemeinstellungen ausgeschaltet."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム設定でDevHubの通知がオフになっています。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“系统设置”中已关闭 DevHub 的通知。"
+          }
         }
       }
     },
@@ -1733,6 +3593,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mitteilung"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知頻度"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知频率"
           }
         }
       }
@@ -1744,6 +3616,18 @@
             "state": "translated",
             "value": "Über neue Updates informieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しいアップデートを通知"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有新更新时通知我"
+          }
         }
       }
     },
@@ -1753,6 +3637,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einmal am Tag"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1日1回"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每天一次"
           }
         }
       }
@@ -1764,6 +3660,18 @@
             "state": "translated",
             "value": "Einmal am Tag als Zusammenfassung"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1日1回、まとめて通知"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每天一次，汇总通知"
+          }
         }
       }
     },
@@ -1773,6 +3681,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eine Zeile pro Aktion im JSON-Lines-Format. Jede Zeile hat einen Zeitstempel."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作ごとに1行、JSON Lines形式です。各行にタイムスタンプが付きます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每个操作一行，采用 JSON Lines 格式。每行都有时间戳。"
           }
         }
       }
@@ -1784,6 +3704,18 @@
             "state": "translated",
             "value": "Nur bei Hauptversionen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メジャーバージョンのみ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅主版本更新"
+          }
         }
       }
     },
@@ -1793,6 +3725,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "DevHub bei der Anmeldung öffnen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン時にDevHubを開く"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录时打开 DevHub"
           }
         }
       }
@@ -1804,6 +3748,18 @@
             "state": "translated",
             "value": "Einstellungen öffnen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定を開く"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开设置"
+          }
         }
       }
     },
@@ -1813,6 +3769,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quellseite öffnen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ソースページを開く"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开源页面"
           }
         }
       }
@@ -1824,6 +3792,18 @@
             "state": "translated",
             "value": "Systemeinstellungen öffnen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム設定を開く"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开系统设置"
+          }
         }
       }
     },
@@ -1833,6 +3813,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fenster öffnen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ウインドウを開く"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开窗口"
           }
         }
       }
@@ -1844,6 +3836,18 @@
             "state": "translated",
             "value": "Andere installierte Pakete benötigen dies: %@. Sie funktionieren möglicherweise nicht mehr."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "他のインストール済みパッケージがこれを必要としています: %@。動作しなくなる可能性があります。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他已安装的软件包需要它：%@。它们可能无法继续使用。"
+          }
         }
       }
     },
@@ -1853,6 +3857,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ausgabe"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出力"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输出"
           }
         }
       }
@@ -1864,6 +3880,18 @@
             "state": "translated",
             "value": "Paket"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "软件包"
+          }
         }
       }
     },
@@ -1873,6 +3901,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ton abspielen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音を鳴らす"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "播放声音"
           }
         }
       }
@@ -1884,6 +3924,18 @@
             "state": "translated",
             "value": "Präfix"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プレフィックス"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前缀"
+          }
         }
       }
     },
@@ -1893,6 +3945,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "DevHub beenden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubを終了"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出 DevHub"
           }
         }
       }
@@ -1904,6 +3968,18 @@
             "state": "translated",
             "value": "Grund"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "理由"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "原因"
+          }
         }
       }
     },
@@ -1913,6 +3989,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle erneut prüfen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて再チェック"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部重新检查"
           }
         }
       }
@@ -1924,6 +4012,18 @@
             "state": "translated",
             "value": "Alte Versionen nach dem Update entfernen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート後に古いバージョンを削除"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新后移除旧版本"
+          }
         }
       }
     },
@@ -1933,6 +4033,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wird entfernt"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "削除中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在移除"
           }
         }
       }
@@ -1944,6 +4056,18 @@
             "state": "translated",
             "value": "%@ wird entfernt"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@を削除中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在移除 %@"
+          }
         }
       }
     },
@@ -1953,6 +4077,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Problem melden …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "問題を報告…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "报告问题…"
           }
         }
       }
@@ -1964,6 +4100,18 @@
             "state": "translated",
             "value": "Benötigt von"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依存元"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "被依赖于"
+          }
         }
       }
     },
@@ -1973,6 +4121,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auf erkannten Wert zurücksetzen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "検出された値に戻す"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复为检测到的值"
           }
         }
       }
@@ -1984,6 +4144,18 @@
             "state": "translated",
             "value": "DevHub neu starten"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubを再起動"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新启动 DevHub"
+          }
         }
       }
     },
@@ -1994,6 +4166,18 @@
             "state": "translated",
             "value": "Starte DevHub neu, um die Sprache zu ändern."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "言語を変更するには、DevHubを再起動してください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新启动 DevHub 以更改语言。"
+          }
         }
       }
     },
@@ -2003,6 +4187,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ergebnis"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結果"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "结果"
           }
         }
       }
@@ -2017,6 +4213,18 @@
             "state": "translated",
             "value": "Ruby-Version"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubyバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby 版本"
+          }
         }
       }
     },
@@ -2026,6 +4234,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zu prüfende Ruby-Versionen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェックするRubyバージョン"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要检查的 Ruby 版本"
           }
         }
       }
@@ -2037,6 +4257,18 @@
             "state": "translated",
             "value": "Vor jeder Prüfung brew update ausführen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェックの前にbrew updateを実行"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每次检查前运行 brew update"
+          }
         }
       }
     },
@@ -2046,6 +4278,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sicherheit"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全性"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安全"
           }
         }
       }
@@ -2057,6 +4301,18 @@
             "state": "translated",
             "value": "Wie das System"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システムに合わせる"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "与系统相同"
+          }
         }
       }
     },
@@ -2066,6 +4322,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verlauf durchsuchen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴を検索"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜索历史记录"
           }
         }
       }
@@ -2077,6 +4345,18 @@
             "state": "translated",
             "value": "%@ auswählen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@を選択"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择 %@"
+          }
         }
       }
     },
@@ -2086,6 +4366,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle Updates auswählen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのアップデートを選択"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择全部更新"
           }
         }
       }
@@ -2097,6 +4389,18 @@
             "state": "translated",
             "value": "Alle auswählen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて選択"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全选"
+          }
         }
       }
     },
@@ -2106,6 +4410,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Testmitteilung senden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "テスト通知を送信"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送测试通知"
           }
         }
       }
@@ -2117,6 +4433,18 @@
             "state": "translated",
             "value": "Einstellungen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置"
+          }
         }
       }
     },
@@ -2126,6 +4454,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einstellungen …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置…"
           }
         }
       }
@@ -2137,6 +4477,18 @@
             "state": "translated",
             "value": "Alle Installierten anzeigen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのインストール済みを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示全部已安装"
+          }
         }
       }
     },
@@ -2146,6 +4498,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Detailbereich einblenden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳細パネルを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示详情窗格"
           }
         }
       }
@@ -2157,6 +4521,18 @@
             "state": "translated",
             "value": "Verlauf anzeigen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "履歴を表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示历史记录"
+          }
         }
       }
     },
@@ -2166,6 +4542,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ausgabeprotokoll einblenden"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出力ログを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示输出日志"
           }
         }
       }
@@ -2177,6 +4565,18 @@
             "state": "translated",
             "value": "Updates anzeigen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示更新"
+          }
         }
       }
     },
@@ -2186,6 +4586,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Details zu %@ anzeigen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@の詳細を表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 %@ 的详情"
           }
         }
       }
@@ -2197,6 +4609,18 @@
             "state": "translated",
             "value": "Im Finder zeigen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finderで表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在访达中显示"
+          }
         }
       }
     },
@@ -2206,6 +4630,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Protokoll im Finder zeigen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログをFinderで表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在访达中显示日志"
           }
         }
       }
@@ -2217,6 +4653,18 @@
             "state": "translated",
             "value": "Protokoll der Befehlsausgabe anzeigen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コマンド出力ログを表示"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示命令输出日志"
+          }
         }
       }
     },
@@ -2226,6 +4674,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Übersprungen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スキップ済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已跳过"
           }
         }
       }
@@ -2237,6 +4697,18 @@
             "state": "translated",
             "value": "Langsamer und benötigt mehr Speicherplatz."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間がかかり、ディスク容量も多く使います。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "速度较慢，并占用更多磁盘空间。"
+          }
         }
       }
     },
@@ -2246,6 +4718,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quelle"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ソース"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来源"
           }
         }
       }
@@ -2257,6 +4741,18 @@
             "state": "translated",
             "value": "Gestartet von"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始元"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "触发方式"
+          }
         }
       }
     },
@@ -2266,6 +4762,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Start"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "起動"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启动"
           }
         }
       }
@@ -2277,6 +4785,18 @@
             "state": "translated",
             "value": "Speicher"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ストレージ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存储"
+          }
         }
       }
     },
@@ -2286,6 +4806,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erfolgreich"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "成功"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "成功"
           }
         }
       }
@@ -2297,6 +4829,18 @@
             "state": "translated",
             "value": "Wechsle zu „Alle installiert“, um jedes Paket zu sehen."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「インストール済み」に切り替えると、すべてのパッケージが表示されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换到“全部已安装”以查看所有软件包。"
+          }
         }
       }
     },
@@ -2306,6 +4850,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "System"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统"
           }
         }
       }
@@ -2317,6 +4873,18 @@
             "state": "translated",
             "value": "Dadurch werden alle Einträge der Verlaufsdatei gelöscht. Deine Pakete bleiben unverändert."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "これにより履歴ファイルのすべてのエントリが削除されます。パッケージは変更されません。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这将删除历史记录文件中的所有条目。你的软件包不会受到影响。"
+          }
         }
       }
     },
@@ -2326,6 +4894,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zeit"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時刻"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "时间"
           }
         }
       }
@@ -2337,6 +4917,18 @@
             "state": "translated",
             "value": "Heute"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天"
+          }
         }
       }
     },
@@ -2346,6 +4938,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Werkzeuge"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ツール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工具"
           }
         }
       }
@@ -2357,6 +4961,18 @@
             "state": "translated",
             "value": "Erneut versuchen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再試行"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重试"
+          }
         }
       }
     },
@@ -2366,6 +4982,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ausprobieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "試してみる"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试一试"
           }
         }
       }
@@ -2377,6 +5005,18 @@
             "state": "translated",
             "value": "Schalte ein Werkzeug aus, das du nicht benutzt. DevHub prüft es dann nicht mehr und blendet es in der Menüleiste, in der Seitenleiste des Fensters und in diesen Einstellungen aus."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使わないツールはオフにしてください。DevHubはそのツールのチェックを止め、メニューバー、ウインドウのサイドバー、この設定画面から非表示にします。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭你不使用的工具。DevHub 将不再检查它，并在菜单栏、窗口边栏和此设置中隐藏它。"
+          }
         }
       }
     },
@@ -2386,6 +5026,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Schalte Homebrew, Node oder Ruby in den Einstellungen ein."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定でHomebrew、Node、Rubyのいずれかをオンにしてください。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请在“设置”中开启 Homebrew、Node 或 Ruby。"
           }
         }
       }
@@ -2397,6 +5049,18 @@
             "state": "translated",
             "value": "Typ"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "種類"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "类型"
+          }
         }
       }
     },
@@ -2406,6 +5070,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deinstallieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载"
           }
         }
       }
@@ -2417,6 +5093,18 @@
             "state": "translated",
             "value": "%@ deinstallieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@をアンインストール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载 %@"
+          }
         }
       }
     },
@@ -2426,6 +5114,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ deinstallieren?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@をアンインストールしますか？"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要卸载 %@ 吗？"
           }
         }
       }
@@ -2437,6 +5137,18 @@
             "state": "translated",
             "value": "Deinstallation fehlgeschlagen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストールに失敗しました"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载失败"
+          }
         }
       }
     },
@@ -2446,6 +5158,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deinstalliert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストール済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已卸载"
           }
         }
       }
@@ -2457,6 +5181,18 @@
             "state": "translated",
             "value": "Deinstallationen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストール"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载"
+          }
         }
       }
     },
@@ -2466,6 +5202,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deinstallieren …"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アンインストール…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载…"
           }
         }
       }
@@ -2477,6 +5225,18 @@
             "state": "translated",
             "value": "Aktuell"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最新"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已是最新"
+          }
         }
       }
     },
@@ -2486,6 +5246,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aktualisieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新"
           }
         }
       }
@@ -2497,6 +5269,18 @@
             "state": "translated",
             "value": "%@ aktualisieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@をアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新 %@"
+          }
         }
       }
     },
@@ -2506,6 +5290,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld aktualisieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件をアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新 %lld 个"
           }
         }
       }
@@ -2547,6 +5343,30 @@
               }
             }
           }
+        },
+        "ja": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件のパッケージをアップデートしますか？"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "要更新 %lld 个软件包吗？"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -2556,6 +5376,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle aktualisieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部更新"
           }
         }
       }
@@ -2567,6 +5399,18 @@
             "state": "translated",
             "value": "Auswahl aktualisieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選択項目をアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新所选项"
+          }
         }
       }
     },
@@ -2576,6 +5420,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle aktualisieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部更新"
           }
         }
       }
@@ -2587,6 +5443,18 @@
             "state": "translated",
             "value": "Update verfügbar"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートあり"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有可用更新"
+          }
         }
       }
     },
@@ -2596,6 +5464,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Update-Prüfung"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートの確認"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新检查"
           }
         }
       }
@@ -2607,6 +5487,18 @@
             "state": "translated",
             "value": "Aktualisierungsoptionen"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートのオプション"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新选项"
+          }
         }
       }
     },
@@ -2616,6 +5508,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auswahl aktualisieren (%lld)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選択項目をアップデート (%lld)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新所选项 (%lld)"
           }
         }
       }
@@ -2627,6 +5531,18 @@
             "state": "translated",
             "value": "Auf %@ aktualisieren"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@にアップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新至 %@"
+          }
         }
       }
     },
@@ -2636,6 +5552,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aktualisiert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート済み"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已更新"
           }
         }
       }
@@ -2647,6 +5575,18 @@
             "state": "translated",
             "value": "Updates"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新"
+          }
         }
       }
     },
@@ -2656,6 +5596,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Updates (%lld)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート (%lld)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新 (%lld)"
           }
         }
       }
@@ -2667,6 +5619,18 @@
             "state": "translated",
             "value": "Updates laufen pro Paketmanager einzeln nacheinander."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデートは各パッケージマネージャー内で1つずつ実行されます。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每个包管理器内的更新逐个运行。"
+          }
         }
       }
     },
@@ -2676,6 +5640,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wird aktualisiert"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アップデート中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在更新"
           }
         }
       }
@@ -2687,6 +5663,18 @@
             "state": "translated",
             "value": "Pakete werden aktualisiert"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パッケージをアップデート中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在更新软件包"
+          }
         }
       }
     },
@@ -2696,6 +5684,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ordner der Versionsverwaltung"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バージョン管理ツールのフォルダ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本管理器文件夹"
           }
         }
       }
@@ -2707,6 +5707,18 @@
             "state": "translated",
             "value": "Wartet"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "待機中"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "等待中"
+          }
         }
       }
     },
@@ -2716,6 +5728,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Was aufbewahrt wird"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存する内容"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保留内容"
           }
         }
       }
@@ -2727,6 +5751,18 @@
             "state": "translated",
             "value": "Fenster"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ウインドウ"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "窗口"
+          }
         }
       }
     },
@@ -2736,6 +5772,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gestern"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "昨日"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "昨天"
           }
         }
       }
@@ -2747,6 +5795,18 @@
             "state": "translated",
             "value": "brew-Programm"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "brewプログラム"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "brew 程序"
+          }
         }
       }
     },
@@ -2756,6 +5816,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cask"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cask"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cask"
           }
         }
       }
