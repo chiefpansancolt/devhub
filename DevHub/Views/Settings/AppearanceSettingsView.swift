@@ -24,6 +24,9 @@ struct AppearanceSettingsView: View {
                     Text("Same as system").tag(String?.none)
                     Text(verbatim: "English").tag(String?.some("en"))
                     Text(verbatim: "Deutsch").tag(String?.some("de"))
+                    Text(verbatim: "Español").tag(String?.some("es"))
+                    Text(verbatim: "Français").tag(String?.some("fr"))
+                    Text(verbatim: "Português (Brasil)").tag(String?.some("pt-BR"))
                     Text(verbatim: "日本語").tag(String?.some("ja"))
                     Text(verbatim: "简体中文").tag(String?.some("zh-Hans"))
                 }

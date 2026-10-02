@@ -15,10 +15,28 @@
             "value": "%1$@ exited with code %2$d%3$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ terminó con el código %d%@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ s’est terminé avec le code %d%@"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@がコード%dで終了しました%@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ terminou com o código %d%@"
           }
         },
         "zh-Hans": {
@@ -37,10 +55,28 @@
             "value": "%@ wurde abgebrochen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ se canceló"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ a été annulé"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@はキャンセルされました"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ foi cancelado"
           }
         },
         "zh-Hans": {
@@ -89,6 +125,42 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualización mayor"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualizaciones mayores"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mise à jour majeure"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mises à jour majeures"
+                }
+              }
+            }
+          }
+        },
         "ja": {
           "variations": {
             "plural": {
@@ -96,6 +168,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld件のメジャーアップデート"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualização principal"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualizações principais"
                 }
               }
             }
@@ -153,6 +243,42 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualización nueva"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualizaciones nuevas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelle mise à jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelles mises à jour"
+                }
+              }
+            }
+          }
+        },
         "ja": {
           "variations": {
             "plural": {
@@ -160,6 +286,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "新しいアップデートが%lld件"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nova atualização"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld novas atualizações"
                 }
               }
             }
@@ -217,6 +361,42 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualización disponible"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualizaciones disponibles"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mise à jour disponible"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mises à jour disponibles"
+                }
+              }
+            }
+          }
+        },
         "ja": {
           "variations": {
             "plural": {
@@ -224,6 +404,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld件のアップデートがあります"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualização disponível"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualizações disponíveis"
                 }
               }
             }
@@ -281,6 +479,42 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualización encontrada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld actualizaciones encontradas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mise à jour trouvée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mises à jour trouvées"
+                }
+              }
+            }
+          }
+        },
         "ja": {
           "variations": {
             "plural": {
@@ -288,6 +522,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld件のアップデートが見つかりました"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualização encontrada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld atualizações encontradas"
                 }
               }
             }
@@ -345,6 +597,42 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versión encontrada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versiones encontradas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld version trouvée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versions trouvées"
+                }
+              }
+            }
+          }
+        },
         "ja": {
           "variations": {
             "plural": {
@@ -352,6 +640,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld個のバージョンが見つかりました"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versão encontrada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld versões encontradas"
                 }
               }
             }
@@ -379,10 +685,28 @@
             "value": "Abgebrochen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulé"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "キャンセル済み"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelado"
           }
         },
         "zh-Hans": {
@@ -407,10 +731,28 @@
             "value": "Could not read the output of %1$@: %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer la salida de %@: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de lire la sortie de %@ : %@"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@の出力を読み取れませんでした: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler a saída de %@: %@"
           }
         },
         "zh-Hans": {
@@ -429,10 +771,28 @@
             "value": "DevHub kann dieses Paket nicht deinstallieren."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub no puede desinstalar este paquete."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub ne peut pas désinstaller ce paquet."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "DevHubはこのパッケージをアンインストールできません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DevHub não consegue desinstalar este pacote."
           }
         },
         "zh-Hans": {
@@ -451,10 +811,28 @@
             "value": "DevHub kann dieses Paket nicht aktualisieren."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub no puede actualizar este paquete."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub ne peut pas mettre à jour ce paquet."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "DevHubはこのパッケージをアップデートできません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DevHub não consegue atualizar este pacote."
           }
         },
         "zh-Hans": {
@@ -473,10 +851,28 @@
             "value": "Alle Node-Versionen sind in den Einstellungen ausgeschaltet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas las versiones de Node están desactivadas en Ajustes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les versions de Node sont désactivées dans les Réglages."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "設定ですべてのNodeバージョンがオフになっています。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as versões do Node estão desativadas em Ajustes."
           }
         },
         "zh-Hans": {
@@ -495,10 +891,28 @@
             "value": "Alle Ruby-Versionen sind in den Einstellungen ausgeschaltet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas las versiones de Ruby están desactivadas en Ajustes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les versions de Ruby sont désactivées dans les Réglages."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "設定ですべてのRubyバージョンがオフになっています。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as versões do Ruby estão desativadas em Ajustes."
           }
         },
         "zh-Hans": {
@@ -517,10 +931,28 @@
             "value": "Homebrew wurde weder in /opt/homebrew noch in /usr/local gefunden."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró Homebrew en /opt/homebrew ni en /usr/local."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew est introuvable dans /opt/homebrew et /usr/local."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "/opt/homebrewにも/usr/localにもHomebrewが見つかりません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Homebrew não foi encontrado em /opt/homebrew nem em /usr/local."
           }
         },
         "zh-Hans": {
@@ -539,10 +971,28 @@
             "value": "In diesem Ordner wurden keine %@-Versionen gefunden."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron versiones de %@ en esta carpeta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune version de %@ trouvée dans ce dossier."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このフォルダには%@のバージョンが見つかりません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma versão do %@ foi encontrada nesta pasta."
           }
         },
         "zh-Hans": {
@@ -561,10 +1011,28 @@
             "value": "Keine Node-Versionsverwaltung gefunden. DevHub hat nach nvm, fnm, Volta und asdf gesucht."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró ningún gestor de versiones de Node. DevHub buscó nvm, fnm, Volta y asdf."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun gestionnaire de versions de Node trouvé. DevHub a cherché nvm, fnm, Volta et asdf."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Nodeのバージョン管理ツールが見つかりません。DevHubはnvm、fnm、Volta、asdfを探しました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum gerenciador de versões do Node foi encontrado. O DevHub procurou nvm, fnm, Volta e asdf."
           }
         },
         "zh-Hans": {
@@ -583,10 +1051,28 @@
             "value": "In %@ wurden keine Node-Versionen gefunden."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron versiones de Node en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune version de Node trouvée dans %@."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@にNodeのバージョンが見つかりません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma versão do Node foi encontrada em %@."
           }
         },
         "zh-Hans": {
@@ -605,10 +1091,28 @@
             "value": "Keine Ruby-Versionsverwaltung gefunden. DevHub hat nach RVM, rbenv, chruby und asdf gesucht."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró ningún gestor de versiones de Ruby. DevHub buscó RVM, rbenv, chruby y asdf."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun gestionnaire de versions de Ruby trouvé. DevHub a cherché RVM, rbenv, chruby et asdf."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Rubyのバージョン管理ツールが見つかりません。DevHubはRVM、rbenv、chruby、asdfを探しました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum gerenciador de versões do Ruby foi encontrado. O DevHub procurou RVM, rbenv, chruby e asdf."
           }
         },
         "zh-Hans": {
@@ -627,10 +1131,28 @@
             "value": "In %@ wurden keine Ruby-Versionen gefunden."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontraron versiones de Ruby en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune version de Ruby trouvée dans %@."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@にRubyのバージョンが見つかりません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma versão do Ruby foi encontrada em %@."
           }
         },
         "zh-Hans": {
@@ -649,10 +1171,28 @@
             "value": "An diesem Pfad wurde nichts gefunden."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró nada en esta ruta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n’a été trouvé à cet emplacement."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このパスには何も見つかりません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada foi encontrado neste caminho."
           }
         },
         "zh-Hans": {
@@ -671,10 +1211,28 @@
             "value": "Der Befehl wurde mit Code %d beendet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El comando terminó con el código %d."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La commande s’est terminée avec le code %d."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "コマンドがコード%dで終了しました。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O comando terminou com o código %d."
           }
         },
         "zh-Hans": {
@@ -693,10 +1251,28 @@
             "value": "Die Prüfung wurde abgebrochen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La comprobación se canceló"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La vérification a été annulée"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "チェックはキャンセルされました"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A verificação foi cancelada"
           }
         },
         "zh-Hans": {
@@ -715,10 +1291,28 @@
             "value": "Unter %@ gibt es kein brew-Programm."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún programa brew en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n’y a aucun programme brew dans %@."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "%@にbrewプログラムはありません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há nenhum programa brew em %@."
           }
         },
         "zh-Hans": {
@@ -737,10 +1331,28 @@
             "value": "Diese Datei ist kein Programm."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este archivo no es un programa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce fichier n’est pas un programme."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このファイルはプログラムではありません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este arquivo não é um programa."
           }
         },
         "zh-Hans": {
@@ -759,10 +1371,28 @@
             "value": "Dieser Ordner existiert nicht."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta no existe."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce dossier n’existe pas."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このフォルダは存在しません。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta pasta não existe."
           }
         },
         "zh-Hans": {
@@ -781,10 +1411,28 @@
             "value": "Dieses Programm lief nicht als brew."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa no se ejecutó como brew."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce programme ne s’est pas exécuté comme brew."
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "このプログラムはbrewとして動作しませんでした。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este programa não funcionou como brew."
           }
         },
         "zh-Hans": {
@@ -803,10 +1451,28 @@
             "value": "und %lld weitere"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "y %lld más"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "et %lld autres"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "他%lld件"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e mais %lld"
           }
         },
         "zh-Hans": {
