@@ -10,6 +10,23 @@ Planning and design are finished. The build is starting.
 
 The plan, the design mockups and the app icon live in the private repository [devhub-plan](https://github.com/chiefpansancolt/devhub-plan). Start with `docs/build-plan.md` there. It describes the architecture, the scanner commands, the history log format and the nine build phases.
 
+## Releases
+
+`make release` builds a universal Release app and packages it as `dist/DevHub-<version>.dmg` with a `.sha256` file next to it. The version comes from `MARKETING_VERSION` in `project.yml`.
+
+DevHub is signed ad hoc. There is no Developer ID certificate, so the build is not notarized, and macOS blocks it the first time it runs from a download. To open it once:
+
+1. Drag DevHub to Applications and open it. macOS says it cannot verify the app.
+2. Open System Settings, then Privacy & Security, scroll down and choose Open Anyway next to DevHub.
+
+Or remove the quarantine flag from a terminal:
+
+```
+xattr -dr com.apple.quarantine /Applications/DevHub.app
+```
+
+An app built on your own Mac with `make build` is not quarantined and opens without this step.
+
 ## Languages
 
 Strings live in two String Catalogs: `DevHub/Localizable.xcstrings` for the app and `Packages/DevHubCore/Sources/DevHubCore/Resources/Localizable.xcstrings` for messages from the core. English is the source language. German is translated.

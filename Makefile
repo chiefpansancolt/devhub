@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: project build run test scan help
+.PHONY: project build run test scan release help
 
 project:
 	@xcodegen generate
@@ -19,6 +19,10 @@ help:
 	@echo "make run       Build and open the app"
 	@echo "make test      Run the DevHubCore tests"
 	@echo "make scan      Scan this machine for outdated packages and print the result"
+	@echo "make release   Build a universal Release app and package it as dist/DevHub-<version>.dmg"
 
 scan:
 	@swift run -q --package-path Packages/DevHubCore devhub-scan --no-update
+
+release:
+	@scripts/release.sh
