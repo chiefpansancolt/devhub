@@ -7,7 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-First public version.
+## [1.0.0] - 2026-10-01
+
+First release.
 
 ### Features
 
@@ -19,6 +21,7 @@ First public version.
 - Settings for checks, notifications, appearance, the menu bar icon, custom tool paths, version selection and history
 - Notifications for new updates, scheduled checks, checks on wake, and an option to open at login
 - Application menus with keyboard shortcuts
+- An About panel with the version, the license and links to the website, the source code and the issue tracker, also reachable from the popover menu
 - Light and dark mode, VoiceOver labels and keyboard navigation in the lists
 - Translations for German, Spanish, French, Brazilian Portuguese, Russian, Japanese, Korean and Simplified Chinese, with a language picker
 

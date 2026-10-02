@@ -22,7 +22,7 @@ body:
     attributes:
       label: DevHub version
       description: Shown in the DevHub menu, under About DevHub.
-      placeholder: "0.1.0"
+      placeholder: "1.0.0"
     validations:
       required: true
   - type: input
