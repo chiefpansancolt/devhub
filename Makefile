@@ -11,7 +11,7 @@ run: build
 	@open build/Build/Products/Debug/DevHub.app
 
 test:
-	@swift test --package-path Packages/DevHubCore
+	@swift test --package-path Packages/DevHubCore --build-system swiftbuild
 
 help:
 	@echo "make project   Generate DevHub.xcodeproj from project.yml (needs xcodegen)"
