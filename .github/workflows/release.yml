@@ -1,0 +1,127 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      pre_release:
+        description: "Mark as pre-release"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  check-permission:
+    name: Check Permission
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if user is repo owner
+        if: github.actor != github.repository_owner
+        run: |
+          echo "Only the repository owner can trigger releases"
+          exit 1
+
+  build:
+    name: Build Release
+    needs: check-permission
+    runs-on: macos-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Read the version
+        id: version
+        run: |
+          VERSION=$(awk '/MARKETING_VERSION/ { print $2 }' project.yml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Check if the tag exists
+        run: |
+          if git ls-remote --tags origin | grep -q "refs/tags/v${{ steps.version.outputs.version }}$"; then
+            echo "Tag v${{ steps.version.outputs.version }} already exists"
+            exit 1
+          fi
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Run DevHubCore tests
+        run: make test
+
+      - name: Build the release
+        run: make release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ steps.version.outputs.version }}
+          path: |
+            dist/*.dmg
+            dist/*.sha256
+          retention-days: 5
+
+  create-release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: release-${{ needs.build.outputs.version }}
+          path: release-artifacts
+
+      - name: Write the release notes
+        run: |
+          VERSION="${{ needs.build.outputs.version }}"
+          awk -v v="$VERSION" '$0 ~ "^## \\[" v "\\]" { found = 1; next } found && /^## \[/ { exit } found { print }' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then
+            awk '/^## \[Unreleased\]/ { found = 1; next } found && /^## \[/ { exit } found { print }' CHANGELOG.md > notes.md
+          fi
+          {
+            echo ""
+            echo "### Installation"
+            echo ""
+            echo "Download the \`.dmg\`, open it and drag DevHub to Applications."
+            echo ""
+            echo "DevHub is signed ad hoc and is not notarized yet, so macOS blocks it the first time. Open System Settings, then Privacy & Security, and choose **Open Anyway** next to DevHub. Or run:"
+            echo ""
+            echo "\`\`\`"
+            echo "xattr -dr com.apple.quarantine /Applications/DevHub.app"
+            echo "\`\`\`"
+            echo ""
+            echo "The SHA-256 checksum is attached as a \`.sha256\` file."
+          } >> notes.md
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ needs.build.outputs.tag }}
+          name: ${{ needs.build.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          body_path: notes.md
+          draft: false
+          prerelease: ${{ inputs.pre_release }}
+          files: |
+            release-artifacts/*.dmg
+            release-artifacts/*.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up artifacts
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: release-${{ needs.build.outputs.version }}

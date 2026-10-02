@@ -1,0 +1,50 @@
+name: Translation
+description: Report a wrong, unclear or missing translation
+title: "[Translation]: "
+labels: ["translation", "new"]
+assignees:
+  - chiefpansancolt
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping DevHub read naturally in your language! The translations have not had a native review yet, so every correction is welcome.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - Deutsch (German)
+        - Español (Spanish)
+        - Français (French)
+        - Português do Brasil (Brazilian Portuguese)
+        - Русский (Russian)
+        - 日本語 (Japanese)
+        - 한국어 (Korean)
+        - 简体中文 (Simplified Chinese)
+        - Another language
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where does the text appear?
+      description: The screen, menu or button, and the English text next to it.
+      placeholder: "Settings, General, Last checked"
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What does it say now, and what should it say?
+      description: Add a short reason if the wording is unclear or wrong in your region.
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/chiefpansancolt/devhub/blob/main/.github/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

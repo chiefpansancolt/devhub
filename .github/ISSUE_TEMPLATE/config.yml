@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Get Help
+    url: https://github.com/chiefpansancolt/devhub/discussions/new?category=help
+    about: If you can't get something to work the way you expect, open a question in our discussion forums.
+  - name: Report a security vulnerability
+    url: https://github.com/chiefpansancolt/devhub/security/advisories/new
+    about: Please report security vulnerabilities privately here, not in a public issue.

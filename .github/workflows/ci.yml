@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  strings:
+    name: Localization
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Check that every string is translated
+        run: python3 scripts/check-strings.py
+
+  test:
+    name: Test & Build
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Run DevHubCore tests
+        run: make test
+
+      - name: Build the app
+        run: make build
+
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+    needs: [strings, test]
+    if: always()
+
+    steps:
+      - name: Check results
+        run: |
+          echo "Localization: ${{ needs.strings.result }}"
+          echo "Test & Build: ${{ needs.test.result }}"
+
+          if [[ "${{ needs.strings.result }}" != "success" || "${{ needs.test.result }}" != "success" ]]; then
+            echo "Build failed"
+            exit 1
+          fi
+          echo "All checks passed"
