@@ -75,6 +75,37 @@ layout.
 - Write a comment only when the code departs from a standard pattern, such as a
   workaround or a platform quirk. Prefer a clear name or type over a comment.
 
+## Commit messages
+
+DevHub uses [Conventional Commits](https://www.conventionalcommits.org/). Start
+the subject with a type, then a colon and a short summary in the imperative
+mood, with no period at the end. Keep the subject under about 72 characters.
+
+| Type        | Use it for                                              |
+| ----------- | ------------------------------------------------------- |
+| `feat:`     | A new feature that people can see or use                |
+| `fix:`      | A bug fix                                               |
+| `chore:`    | Maintenance, dependencies, tooling and configuration    |
+| `docs:`     | Documentation only                                      |
+| `test:`     | Adding or changing tests only                           |
+| `refactor:` | A code change that fixes no bug and adds no feature     |
+| `ci:`       | Changes to the GitHub Actions workflows                 |
+
+Add a scope in parentheses when it helps, such as `fix(history): ...` or
+`feat(node): ...`. Use the body to explain why the change is needed, in plain
+sentences. Put one kind of change in each commit, so that the type is accurate
+and the changelog can be written from the history.
+
+```
+fix: rename a local that shadowed the outdated(in:) method
+
+announceNewUpdates named a local variable outdated and then called the
+outdated(in:) method inside its own initializer. The compiler on the CI
+runner rejects that, so the DevHubCore tests failed to build.
+```
+
+Pull request titles follow the same format.
+
 ## Pull requests
 
 The process described here has several goals:
