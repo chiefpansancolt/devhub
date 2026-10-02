@@ -449,7 +449,7 @@ private struct SlowScanner: PackageScanner {
         #expect(app.outdated(in: .homebrew).count == 2)
 
         app.startUpdate(app.outdated(in: .homebrew).filter { $0.name == "git" })
-        for _ in 0..<40 where app.session?.doneCount != 1 { try await Task.sleep(for: .milliseconds(50)) }
+        await waitUntil { app.session?.doneCount == 1 && app.isChecking }
 
         #expect(app.isChecking)
         #expect(app.outdated(in: .homebrew).map(\.name) == ["wget"])
@@ -464,7 +464,7 @@ private struct SlowScanner: PackageScanner {
         await app.refresh(.afterUpdate)
         let outdated = app.outdated(in: .homebrew)
         app.startRefresh()
-        try await Task.sleep(for: .milliseconds(100))
+        await waitUntil { app.isChecking }
         #expect(app.isChecking)
 
         await app.update(outdated)
@@ -481,11 +481,11 @@ private struct SlowScanner: PackageScanner {
         await app.refresh(.afterUpdate)
         let outdated = app.outdated(in: .homebrew)
         app.startUpdate(outdated)
-        try await Task.sleep(for: .milliseconds(100))
+        await waitUntil { app.session?.isRunning == true }
 
         app.startUpdate(outdated)
         app.cancelUpdate()
-        for _ in 0..<60 where app.session?.isRunning == true { try await Task.sleep(for: .milliseconds(50)) }
+        await waitUntil { app.session?.isRunning != true }
 
         #expect(app.session?.isRunning != true)
     }

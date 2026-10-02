@@ -48,6 +48,14 @@ final class FakeRunner: CommandRunning, @unchecked Sendable {
     }
 }
 
+@MainActor
+func waitUntil(timeout: Duration = .seconds(5), _ condition: @MainActor () -> Bool) async {
+    let deadline = ContinuousClock.now + timeout
+    while !condition(), ContinuousClock.now < deadline {
+        try? await Task.sleep(for: .milliseconds(20))
+    }
+}
+
 func succeeded(_ standardOutput: String, standardError: String = "") -> CommandResult {
     CommandResult(exitCode: 0, standardOutput: standardOutput, standardError: standardError)
 }
