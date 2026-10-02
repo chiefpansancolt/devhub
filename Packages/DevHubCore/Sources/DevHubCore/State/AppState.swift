@@ -293,19 +293,19 @@ public final class AppState {
             results[bucket].map { $0.packages.isEmpty && !$0.issues.isEmpty } ?? false
         }
         guard notificationLedger.isSeeded || failed.isEmpty else { return }
-        let outdated = readyBuckets.filter { !failed.contains($0) }.flatMap { outdated(in: $0) }
+        let packagesToAnnounce = readyBuckets.filter { !failed.contains($0) }.flatMap { outdated(in: $0) }
         let rememberedFromFailed = notificationLedger.seenKeys.filter { key in
             failed.contains { key.hasPrefix("\($0.rawValue)/") }
         }
         let plan = NotificationPlanner.plan(
-            outdated: outdated,
+            outdated: packagesToAnnounce,
             seenKeys: notificationLedger.seenKeys,
             isFirstCheck: !notificationLedger.isSeeded,
             frequency: notificationOptions.frequency,
             lastSummary: notificationLedger.lastSummary,
             now: now()
         )
-        notificationLedger.record(plan, stillOutdated: Set(outdated.compactMap(NotificationPlanner.key)).union(rememberedFromFailed))
+        notificationLedger.record(plan, stillOutdated: Set(packagesToAnnounce.compactMap(NotificationPlanner.key)).union(rememberedFromFailed))
         if let notification = plan.notification {
             await notifier.send(notification, playSound: notificationOptions.playsSound)
         }
