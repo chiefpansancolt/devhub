@@ -5,17 +5,13 @@ public enum RubyVersionManager: String, Sendable, CaseIterable {
     case rbenv
     case chruby
     case asdf
-    /// A folder the person chose that DevHub does not recognise as one of the above.
     case custom
 }
 
 public struct RubyInstallation: Sendable, Equatable, Identifiable {
-    /// The version without a `ruby-` prefix, for example `3.3.12`.
     public let version: String
     public let manager: RubyVersionManager
-    /// The folder that holds `bin`.
     public let root: URL
-    /// The folders that hold installed gems. Empty when the Ruby keeps its gems inside its own folder.
     public let gemFolders: [URL]
 
     public init(version: String, manager: RubyVersionManager, root: URL, gemFolders: [URL] = []) {
@@ -40,7 +36,6 @@ public struct RubyVersionDiscovery: Sendable {
     private let home: URL
     private let versionsFolder: URL?
 
-    /// With a `versionsFolder`, only that folder is searched. It holds one folder per Ruby version.
     public init(home: URL = FileManager.default.homeDirectoryForCurrentUser, versionsFolder: URL? = nil) {
         self.home = home
         self.versionsFolder = versionsFolder

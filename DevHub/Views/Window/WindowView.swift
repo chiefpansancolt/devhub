@@ -54,7 +54,6 @@ struct WindowView: View {
         }
     }
 
-    // A tool that was turned off can no longer be the selected one, nor the history filter.
     private func keepSelectionOnAToolThatIsOn() {
         if let filter = ui.historyBucket, !state.enabledBuckets.contains(filter) {
             ui.historyBucket = nil

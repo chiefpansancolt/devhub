@@ -2,7 +2,6 @@ import AppKit
 import DevHubCore
 import SwiftUI
 
-/// The application menus: File, Edit, View, Package and Help.
 struct DevHubCommands: Commands {
     let state: AppState
     let settings: SettingsStore
@@ -170,7 +169,6 @@ struct DevHubCommands: Commands {
 }
 
 extension Bucket {
-    /// The key that selects this bucket in the View menu, with the Command key.
     var shortcutKey: Character {
         switch self {
         case .homebrew: "1"

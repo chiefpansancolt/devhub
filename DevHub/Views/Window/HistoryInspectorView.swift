@@ -137,7 +137,6 @@ private struct HistoryInspectorContent: View {
         canRetry || !(entry.output ?? []).isEmpty
     }
 
-    /// A failed update can run again while the package still has an update. A failed check can always run again.
     private var retryablePackage: InstalledPackage? {
         guard entry.action == .update, !entry.ok, let name = entry.package, let bucket = entry.bucket else { return nil }
         return state.packages(in: PackageScope(bucket: bucket)).first {

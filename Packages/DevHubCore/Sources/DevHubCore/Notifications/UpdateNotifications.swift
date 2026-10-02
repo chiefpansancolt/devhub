@@ -22,9 +22,7 @@ public enum NotificationAuthorization: Sendable, Equatable {
     case allowed
 }
 
-/// The part of the system that shows a notification. The app uses the system notification center. Tests use a fake.
 public protocol NotificationSending: Sendable {
-    /// Shows the notification. Asks for permission first when the person was never asked.
     func send(_ notification: UpdateNotification, playSound: Bool) async
     func requestAuthorization() async -> Bool
     func authorization() async -> NotificationAuthorization
@@ -46,7 +44,6 @@ public struct NotificationOptions: Sendable, Equatable {
     }
 }
 
-/// What to do after a check: show a notification, and which updates to remember so they are not announced twice.
 public struct NotificationPlan: Equatable, Sendable {
     public let notification: UpdateNotification?
     public let keysToRemember: Set<String>
@@ -54,12 +51,10 @@ public struct NotificationPlan: Equatable, Sendable {
 }
 
 public enum NotificationPlanner {
-    /// One update is identified by the package and the version it would update to, so a newer version is a new update.
     public static func key(for package: InstalledPackage) -> String? {
         package.availableUpdate.map { "\(package.id)@\($0)" }
     }
 
-    /// Decides what to announce after a check. The first check only records what is already out of date.
     public static func plan(
         outdated: [InstalledPackage],
         seenKeys: Set<String>,
@@ -128,7 +123,6 @@ public enum NotificationPlanner {
     }
 }
 
-/// What DevHub has already announced, kept between launches so a restart does not announce it again.
 public final class NotificationLedger: @unchecked Sendable {
     private struct Stored: Codable {
         var seenKeys: Set<String> = []
@@ -150,7 +144,6 @@ public final class NotificationLedger: @unchecked Sendable {
     public var lastSummary: Date? { lock.withLock { stored.lastSummary } }
     public var isSeeded: Bool { lock.withLock { stored.isSeeded } }
 
-    /// Remembers what a plan announced. Keys of updates that are no longer outdated are forgotten.
     public func record(_ plan: NotificationPlan, stillOutdated: Set<String>) {
         lock.withLock {
             stored.isSeeded = true

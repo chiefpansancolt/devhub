@@ -1,7 +1,5 @@
-/// The part of a bucket the window shows: the whole bucket, or one Node or Ruby version, or one Homebrew kind.
 public struct PackageScope: Hashable, Sendable {
     public let bucket: Bucket
-    /// A Node or Ruby version, or `formula` or `cask` for Homebrew. `nil` means the whole bucket.
     public let group: String?
 
     public init(bucket: Bucket, group: String? = nil) {
@@ -15,7 +13,6 @@ public struct PackageScope: Hashable, Sendable {
         return bucket == .homebrew ? package.kind.rawValue == group : package.group == group
     }
 
-    /// The scopes for the sidebar rows under a bucket, not counting the whole bucket.
     public static func groups(of bucket: Bucket, versions: [String]) -> [PackageScope] {
         switch bucket {
         case .homebrew:

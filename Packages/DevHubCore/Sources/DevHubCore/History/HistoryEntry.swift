@@ -12,15 +12,12 @@ public enum HistoryTrigger: String, Codable, Sendable {
     case automatic
 }
 
-/// One line of the history file.
 public struct HistoryEntry: Codable, Equatable, Identifiable, Sendable {
     public let id: UUID
     public let timestamp: Date
     public let action: HistoryAction
-    /// `nil` for a check of every bucket.
     public let bucket: Bucket?
     public let package: String?
-    /// The Node or Ruby version that holds the package.
     public let group: String?
     public let fromVersion: String?
     public let toVersion: String?
@@ -29,9 +26,7 @@ public struct HistoryEntry: Codable, Equatable, Identifiable, Sendable {
     public let exitCode: Int32
     public let durationMs: Int
     public let ok: Bool
-    /// What happened in a few words: the failure reason, or for a check how many updates it found.
     public let message: String?
-    /// The lines the command printed. Left out when the detail level is "actions only".
     public let output: [String]?
 
     public init(
@@ -110,7 +105,6 @@ enum HistoryCoding {
 }
 
 extension HistoryEntry {
-    /// The entry for a finished action. `nil` when the command never started, because nothing happened.
     init?(outcome: ActionOutcome, trigger: HistoryTrigger, includesOutput: Bool) {
         guard let startedAt = outcome.startedAt else { return nil }
 

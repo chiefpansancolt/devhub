@@ -28,7 +28,6 @@ struct PackageBrowserView: View {
             }
         }
         .onChange(of: ui.searchFocusRequest) {
-            // The field exists only in the full list, which the menu command switches to first.
             Task {
                 try? await Task.sleep(for: .milliseconds(60))
                 searchIsFocused = true
@@ -105,7 +104,6 @@ struct PackageBrowserView: View {
     @ViewBuilder
     private var subtitle: some View {
         if state.hasChecked {
-            // The checked time moves to its own line when the header is too narrow for one line.
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 4) { counts; Text("·"); CheckedAgoText(date: state.lastChecked) }
                 VStack(alignment: .leading, spacing: 1) { counts; CheckedAgoText(date: state.lastChecked) }
@@ -216,7 +214,6 @@ struct PackageBrowserView: View {
                 ui.closeInspector()
                 return .handled
             }
-            // Choosing a row focuses the list, so the arrow keys work right after.
             .onChange(of: ui.inspectedID) { listIsFocused = true }
         }
     }

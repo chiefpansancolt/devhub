@@ -2,7 +2,6 @@ import Foundation
 import Observation
 
 extension Bucket {
-    /// The command a routine check runs for this bucket. Used in the history.
     var checkCommandText: String {
         switch self {
         case .homebrew: "brew outdated --json=v2"
@@ -13,14 +12,11 @@ extension Bucket {
 }
 
 public enum PopoverMode: Sendable, Equatable {
-    /// Every tool is turned off in Settings.
     case noTools
-    /// The first scan has not finished.
     case checking
     case upToDate
     case updates
     case updating
-    /// An update ended with failed or skipped packages that the user has not dismissed.
     case summary
 }
 
@@ -38,7 +34,6 @@ public struct LogLine: Identifiable, Sendable, Equatable {
 
 public struct UninstallProgress: Sendable, Equatable {
     public let packageID: String
-    /// `.updating` while the command runs, `.failed` with the reason when it ended badly.
     public var status: UpdateStatus
 }
 
@@ -51,13 +46,9 @@ public final class AppState {
     public private(set) var nextCheck: Date?
     public private(set) var session: UpdateSession?
     public private(set) var uninstallProgress: UninstallProgress?
-    /// The commands that ran and what they printed, oldest first.
     public private(set) var log: [LogLine] = []
-    /// Buckets that cannot be scanned, with the reason.
     public private(set) var setupProblems: [Bucket: String]
-    /// The tools the person turned off. They are not scanned and not shown.
     public private(set) var disabledBuckets: Set<Bucket> = []
-    /// Every check, update and uninstall, newest first. Also written to the history file.
     public let history: HistoryStore
 
     private static let logLimit = 2000
@@ -67,7 +58,6 @@ public final class AppState {
     private var actions: PackageActionRunner
     private let runner: CommandRunning
     private var nextLogID = 0
-    /// How long to wait between checks. `nil` means DevHub only checks when asked.
     private var checkInterval: Duration?
     private var settings: SettingsValues?
     private var scanAgainWhenDone = false
@@ -104,7 +94,6 @@ public final class AppState {
         self.now = now
     }
 
-    /// Builds the state the way the settings say, with a history file in the usual place.
     public convenience init(
         settings: SettingsValues,
         runner: CommandRunning = CommandRunner(),
@@ -132,8 +121,6 @@ public final class AppState {
 
     // MARK: Settings
 
-    /// Takes new settings. The scanners are built again, the history options and the check schedule follow, and
-    /// DevHub scans again when a change affects what a scan finds.
     public func apply(_ newSettings: SettingsValues) {
         let previous = settings
         settings = newSettings
@@ -166,12 +153,16 @@ public final class AppState {
 
     // MARK: Reading the state
 
-    /// The buckets that are turned on, in sidebar order. One that is on but not set up is still listed, with its reason.
+    public var toolsNeedingSetup: [(bucket: Bucket, reason: String)] {
+        Bucket.allCases.compactMap { bucket in
+            setupProblems[bucket].map { (bucket, $0) }
+        }
+    }
+
     public var enabledBuckets: [Bucket] {
         Bucket.allCases.filter { !disabledBuckets.contains($0) }
     }
 
-    /// The buckets that can be scanned, in sidebar order.
     public var readyBuckets: [Bucket] {
         Bucket.allCases.filter { scanners[$0] != nil }
     }
@@ -188,7 +179,6 @@ public final class AppState {
         packages(in: scope).filter(\.isOutdated)
     }
 
-    /// The sidebar rows under a bucket. Every installed Node or Ruby version is listed, even one with no packages.
     public func groupScopes(of bucket: Bucket) -> [PackageScope] {
         let seen = Set((results[bucket]?.packages ?? []).compactMap(\.group))
         let versions = (knownVersions[bucket] ?? []) + seen.subtracting(knownVersions[bucket] ?? []).sorted { PackageVersion($0) > PackageVersion($1) }
@@ -207,7 +197,6 @@ public final class AppState {
         scanners[package.bucket]?.uninstallCommand(for: package)?.displayText
     }
 
-    /// The outdated packages of a bucket, split by Node or Ruby version. Homebrew has a single group with no name.
     public func outdatedGroups(in bucket: Bucket) -> [(group: String?, packages: [InstalledPackage])] {
         var groups: [(group: String?, packages: [InstalledPackage])] = []
         for package in outdated(in: bucket) {
@@ -237,7 +226,6 @@ public final class AppState {
         session?.isRunning == true || uninstallProgress?.status == .updating
     }
 
-    /// A bucket whose scan produced no packages and at least one issue.
     private var failedScanCount: Int {
         results.values.filter { $0.packages.isEmpty && !$0.issues.isEmpty }.count
     }
@@ -266,8 +254,6 @@ public final class AppState {
 
     // MARK: Checking
 
-    /// Scans every ready bucket. Each bucket's result appears as soon as that bucket is done.
-    /// A routine check is added to the history. A scan right after an update is not, because the update has its own entry.
     public func refresh(_ reason: ScanReason = .check, trigger: HistoryTrigger = .manual) async {
         guard !isChecking, !isBusy else { return }
         isChecking = true
@@ -300,7 +286,6 @@ public final class AppState {
         }
     }
 
-    /// Shows a notification for updates that were not announced before, as the notification settings say.
     private func announceNewUpdates() async {
         guard notificationOptions.isOn, let notifier, let notificationLedger else { return }
         let outdated = allOutdated
@@ -322,8 +307,6 @@ public final class AppState {
         refreshTask = Task { await refresh(reason, trigger: trigger) }
     }
 
-    /// Checks now (unless `checkNow` is `false`), then again after every interval, until `stopScheduledChecks()` is called.
-    /// With no interval, it only makes the first check.
     public func startScheduledChecks(checkNow: Bool = true) {
         scheduleTask?.cancel()
         scheduleTask = Task { [weak self] in
@@ -340,7 +323,6 @@ public final class AppState {
         }
     }
 
-    /// A check after the Mac wakes from sleep.
     public func checkAfterWake() {
         startRefresh(.check, trigger: .automatic)
     }
@@ -377,7 +359,6 @@ public final class AppState {
         await update(allOutdated, trigger: .updateAll)
     }
 
-    /// Updates the given packages, then scans again. Cancelling the task, or calling `cancelUpdate()`, stops after the running package.
     public func update(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) async {
         guard !packages.isEmpty, !isBusy else { return }
         session = UpdateSession(items: packages.map { UpdateItem(package: $0) }, isRunning: true)
@@ -425,7 +406,6 @@ public final class AppState {
 
     // MARK: Uninstalling
 
-    /// Removes one package, then scans again. A failure stays in `uninstallProgress` until it is dismissed.
     public func uninstall(_ package: InstalledPackage) async {
         guard !isBusy else { return }
         uninstallProgress = UninstallProgress(packageID: package.id, status: .updating)

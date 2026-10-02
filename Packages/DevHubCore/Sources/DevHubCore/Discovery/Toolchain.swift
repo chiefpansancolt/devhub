@@ -1,6 +1,5 @@
 import Foundation
 
-/// The options of every scanner, read from the settings.
 public struct ScannerOptions: Sendable, Equatable {
     public var homebrew = HomebrewOptions()
     public var node = NodeOptions()
@@ -20,14 +19,11 @@ public struct ScannerOptions: Sendable, Equatable {
     }
 }
 
-/// The package managers found on this Mac.
 public struct Toolchain: Sendable {
     public var homebrew: HomebrewInstallation?
     public var node: [NodeInstallation]
     public var ruby: [RubyInstallation]
-    /// Why a path the person chose does not work. It replaces the usual message for that bucket.
     private var chosenPathProblems: [Bucket: String]
-    /// The tools the person turned off. They have no installation and no setup problem.
     public private(set) var disabled: Set<Bucket>
 
     public init(
@@ -48,10 +44,6 @@ public struct Toolchain: Sendable {
         detect(settings: SettingsValues())
     }
 
-    /// Looks where the settings say. A path the person chose replaces the usual search for that bucket.
-    /// Versions that the person turned off are left out, unless `applyingExclusions` is `false`.
-    /// Tools that the person turned off are left out, unless `includingDisabledTools` is `true`. The Settings screen
-    /// uses that to say whether a tool is on this Mac even when it is turned off.
     public static func detect(settings: SettingsValues, applyingExclusions: Bool = true, includingDisabledTools: Bool = false) -> Toolchain {
         var problems: [Bucket: String] = [:]
 
@@ -111,7 +103,6 @@ public struct Toolchain: Sendable {
         return scanners
     }
 
-    /// Why a bucket cannot be scanned. A bucket that is not listed here is ready, or turned off.
     public var setupProblems: [Bucket: String] {
         var problems: [Bucket: String] = [:]
         if homebrew == nil {

@@ -1,7 +1,6 @@
 import AppKit
 import DevHubCore
 
-/// The file actions that the History page and the History settings share.
 @MainActor
 enum HistoryFileActions {
     static func showInFinder(_ history: HistoryStore) {

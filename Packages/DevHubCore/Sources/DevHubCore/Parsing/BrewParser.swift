@@ -61,7 +61,6 @@ enum BrewParser {
         return (formulae + casks).sorted { $0.name < $1.name }
     }
 
-    /// A pinned package is not updatable, so it never reports an available update.
     static func merge(installed: [InstalledPackage], outdated: [OutdatedItem]) -> [InstalledPackage] {
         let outdatedByKey = Dictionary(outdated.map { (Key(kind: $0.kind, name: $0.name), $0) }, uniquingKeysWith: { first, _ in first })
         return installed.map { package in
@@ -136,7 +135,6 @@ private struct InfoPayload: Decodable {
             case installed
         }
 
-        /// The linked version is the one the user runs. Without one, the newest installed version is used.
         var activeKeg: Keg {
             installed.first { $0.version == linkedKeg } ?? installed[installed.count - 1]
         }

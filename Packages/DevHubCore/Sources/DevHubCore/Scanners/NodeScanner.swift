@@ -1,5 +1,4 @@
 public struct NodeOptions: Sendable, Equatable {
-    /// Includes `npm` itself in the list of global packages.
     public var includeNpm: Bool
 
     public init(includeNpm: Bool = true) {

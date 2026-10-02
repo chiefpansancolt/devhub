@@ -7,13 +7,11 @@ enum WindowPage {
     case history
 }
 
-/// What the person has selected in the window. The scan data lives in `AppState`.
 @MainActor
 @Observable
 final class WindowUIState {
     var page = WindowPage.packages
     var scope = PackageScope(bucket: .homebrew)
-    /// The buckets whose rows are open in the sidebar. A header only opens or closes its rows.
     var expandedBuckets: Set<Bucket> = [.homebrew]
     var mode = PackageListMode.updates
     var search = ""
@@ -22,10 +20,8 @@ final class WindowUIState {
     var isConfirmingUninstall = false
     var isConfirmingUpdateAll = false
 
-    /// The details that were open before a menu command hid them, so the same command can show them again.
     var lastInspectedID: String?
     var lastInspectedHistoryID: UUID?
-    /// Counts the requests to focus the search field. The page watches it.
     var searchFocusRequest = 0
 
     var historyFilter = HistoryActionFilter.all
@@ -59,7 +55,6 @@ final class WindowUIState {
         }
     }
 
-    /// Clicking the open package again closes the inspector.
     func toggleInspector(for package: InstalledPackage) {
         isConfirmingUninstall = false
         inspectedID = inspectedID == package.id ? nil : package.id
@@ -96,7 +91,6 @@ final class WindowUIState {
         }
     }
 
-    /// Moves to the full list, where the search field is, and asks the page to focus it.
     func requestSearch() {
         if page == .packages { mode = .allInstalled }
         searchFocusRequest += 1
@@ -107,7 +101,6 @@ final class WindowUIState {
         isConfirmingUninstall = false
     }
 
-    /// Clicking the open entry again closes its details.
     func toggleHistoryEntry(_ entry: HistoryEntry) {
         inspectedHistoryID = inspectedHistoryID == entry.id ? nil : entry.id
     }

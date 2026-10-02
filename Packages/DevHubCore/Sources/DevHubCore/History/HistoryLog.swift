@@ -1,6 +1,5 @@
 import Foundation
 
-/// The history file: one JSON object per line, oldest first, appended as actions finish.
 public actor HistoryLog {
     public static var defaultFileURL: URL {
         FileManager.default.homeDirectoryForCurrentUser.appending(path: "Library/Logs/DevHub/history.jsonl")
@@ -12,7 +11,6 @@ public actor HistoryLog {
         self.fileURL = fileURL
     }
 
-    /// Adds one line. A crash can lose at most the entry that was being written.
     public func append(_ entry: HistoryEntry) throws {
         var line = try HistoryCoding.encoder().encode(entry)
         line.append(0x0A)
@@ -28,7 +26,6 @@ public actor HistoryLog {
         try handle.write(contentsOf: line)
     }
 
-    /// The newest entries, newest first. A line that cannot be read, such as a half-written last line, is skipped.
     public func recentEntries(limit: Int = 5000) -> [HistoryEntry] {
         let decoder = HistoryCoding.decoder()
         var entries: [HistoryEntry] = []
@@ -50,7 +47,6 @@ public actor HistoryLog {
         return size?.int64Value ?? 0
     }
 
-    /// Removes the entries that are older than the cutoff. Returns how many were removed.
     @discardableResult
     public func prune(olderThan cutoff: Date) throws -> Int {
         let decoder = HistoryCoding.decoder()

@@ -6,7 +6,6 @@ public enum CheckInterval: String, Codable, Sendable, CaseIterable {
     case daily
     case manual
 
-    /// How long to wait between checks. `nil` means DevHub only checks when asked.
     public var duration: Duration? {
         switch self {
         case .hourly: .seconds(60 * 60)
@@ -29,13 +28,9 @@ public enum MenuBarIconStyle: String, Codable, Sendable, CaseIterable {
     case countOnly
 }
 
-/// Everything the person can set. Stored as one JSON value, so a new field with a default never breaks an old file.
 public struct SettingsValues: Codable, Equatable, Sendable {
-    // Tools
-    /// The tools the person turned off, for example because they do not use Ruby. A tool that is off is not scanned and not shown.
     public var disabledBuckets: Set<Bucket> = []
 
-    // General
     public var checkInterval = CheckInterval.everyFourHours
     public var checkOnLaunch = true
     public var checkOnWake = false
@@ -43,37 +38,28 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var confirmUpdateAll = true
     public var showOutputLog = true
 
-    // Notifications
     public var notifyAboutUpdates = true
     public var notificationFrequency = NotificationFrequency.dailySummary
     public var notificationSound = false
 
-    // Appearance
-    /// A language code such as `de`. `nil` follows the language of the Mac.
     public var language: String?
     public var theme = AppTheme.system
     public var menuBarIconStyle = MenuBarIconStyle.iconAndCount
 
-    // Homebrew
-    /// A `brew` file the person chose. `nil` means DevHub looks in the usual places.
     public var brewPath: String?
     public var brewRefreshIndex = true
     public var brewIncludeCasks = true
     public var brewIncludeSelfUpdatingCasks = false
     public var brewCleanupAfterUpdate = true
 
-    // Node
-    /// A folder of Node versions the person chose. `nil` means DevHub looks for nvm, fnm, Volta and asdf.
     public var nodeFolder: String?
     public var excludedNodeVersions: Set<String> = []
     public var nodeIncludeNpm = true
 
-    // Ruby
     public var rubyFolder: String?
     public var excludedRubyVersions: Set<String> = []
     public var gemInstallDocumentation = false
 
-    // History
     public var historyRetention = HistoryRetention.oneYear
     public var historyIncludesOutput = true
 
@@ -125,7 +111,6 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case historyRetention, historyIncludesOutput
     }
 
-    /// The fields that change what a scan finds. When one changes, DevHub scans again.
     struct ScanningFields: Equatable {
         let disabledBuckets: Set<Bucket>
         let brewPath: String?

@@ -2,7 +2,6 @@ import Foundation
 import Testing
 @testable import DevHubCore
 
-/// A fake machine. Its packages are outdated until an update command for them runs.
 final class FakeMachine: @unchecked Sendable {
     private let lock = NSLock()
     private var packages: [InstalledPackage]
@@ -86,7 +85,6 @@ func outdatedPackage(_ name: String, bucket: Bucket = .homebrew, group: String? 
     InstalledPackage(bucket: bucket, kind: bucket == .homebrew ? .formula : .npmGlobal, name: name, group: group, installedVersion: "1.0", availableUpdate: "2.0")
 }
 
-/// A runner whose commands never finish until the task is cancelled.
 struct HangingRunner: CommandRunning {
     func run(_ command: ToolCommand) async throws -> CommandResult {
         try await Task.sleep(for: .seconds(60))

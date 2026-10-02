@@ -1,11 +1,7 @@
 public struct HomebrewOptions: Sendable, Equatable {
-    /// Runs `brew update` before each scan so the version list is current.
     public var refreshIndexFirst: Bool
-    /// Includes casks that update themselves, such as browsers.
     public var includeSelfUpdatingCasks: Bool
-    /// Lists casks at all. When off, only formulae are listed.
     public var includeCasks: Bool
-    /// Lets Homebrew remove the old version of a package after it updates it.
     public var cleanupAfterUpdate: Bool
 
     public init(

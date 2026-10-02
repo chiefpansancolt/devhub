@@ -72,7 +72,6 @@ struct UpdatesView: View {
         )
     }
 
-    // A bucket with a long list starts collapsed so the popover stays short. The user can open it.
     private func expandSmallBuckets() {
         guard !hasChosenDefaultExpansion else { return }
         hasChosenDefaultExpansion = true
@@ -174,10 +173,12 @@ struct PackageRow: View {
                         Text("cask").font(.system(size: 10)).foregroundStyle(.secondary)
                     }
                 }
-                Text("\(package.installedVersion) → \(package.availableUpdate ?? "")")
-                    .font(.system(size: 12))
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
+                if let update = package.availableUpdate {
+                    Text("\(package.installedVersion) → \(update)")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
             }
             Spacer(minLength: 8)
             Button("Update") { state.startUpdate([package]) }

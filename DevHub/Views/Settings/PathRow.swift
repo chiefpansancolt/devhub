@@ -7,13 +7,10 @@ enum PathKind {
     case folder
 }
 
-/// A path the person can choose, with a status line that says whether it works.
 struct PathRow: View {
     let title: LocalizedStringKey
     @Binding var chosenPath: String?
-    /// What to show while the person has chosen nothing.
     let detectedText: String
-    /// `nil` while the check is running.
     let check: PathCheck?
     let kind: PathKind
 

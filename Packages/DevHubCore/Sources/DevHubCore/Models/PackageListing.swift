@@ -6,8 +6,6 @@ public enum PackageListMode: Sendable, Equatable {
 }
 
 public enum PackageListing {
-    /// The rows the window shows. The updates list keeps the scan order. The full list puts outdated
-    /// packages first, then sorts by Node or Ruby version (newest first) and name. The search matches names only.
     public static func rows(from packages: [InstalledPackage], mode: PackageListMode, search: String) -> [InstalledPackage] {
         switch mode {
         case .updates:

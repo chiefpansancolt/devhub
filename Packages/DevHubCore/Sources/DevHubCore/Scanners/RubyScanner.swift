@@ -1,5 +1,4 @@
 public struct RubyOptions: Sendable, Equatable {
-    /// Installs the documentation of a gem when it updates the gem. This is slow and uses disk space.
     public var installDocumentation: Bool
 
     public init(installDocumentation: Bool = false) {
@@ -50,7 +49,6 @@ public struct RubyScanner: PackageScanner {
         command(for: package, arguments: ["update", package.name] + (options.installDocumentation ? [] : ["--no-document"]))
     }
 
-    /// Removes every installed version of the gem.
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         command(for: package, arguments: ["uninstall", package.name, "--all", "--executables"])
     }

@@ -41,11 +41,8 @@ public enum CommandError: Error, Sendable, Equatable {
 }
 
 public protocol CommandRunning: Sendable {
-    /// Runs the command to the end. A non-zero exit code is a result, not an error.
-    /// Throws `CommandError.launchFailed` when the process cannot start, and `CancellationError` when the task is cancelled.
     func run(_ command: ToolCommand) async throws -> CommandResult
 
-    /// Yields each output line as it arrives, then one `.finished` event. Cancelling the consumer stops the process.
     func stream(_ command: ToolCommand) -> AsyncThrowingStream<CommandEvent, Error>
 }
 

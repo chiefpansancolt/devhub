@@ -1,7 +1,6 @@
 import Foundation
 
 public enum DiskSize {
-    /// The space a folder or file uses on disk, in bytes. `nil` when the path does not exist.
     public static func measure(path: String) async -> Int64? {
         await Task.detached(priority: .utility) { measureNow(path: path) }.value
     }

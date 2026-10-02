@@ -15,7 +15,6 @@ enum GemParser {
         let latest: String
     }
 
-    /// `gem list --local`. Each line is `name (1.0.0, 0.9.0, default: 0.8.0)`. Lines of any other shape are ignored.
     static func parseList(_ text: String) -> [ListEntry] {
         text.split(whereSeparator: \.isNewline).compactMap { line in
             guard let (name, inside) = nameAndParentheses(String(line)) else { return nil }
@@ -34,7 +33,6 @@ enum GemParser {
         }
     }
 
-    /// `gem outdated`. Each line is `name (1.0.0 < 1.1.0)`. Lines of any other shape are ignored.
     static func parseOutdated(_ text: String) -> [OutdatedEntry] {
         text.split(whereSeparator: \.isNewline).compactMap { line in
             guard let (name, inside) = nameAndParentheses(String(line)) else { return nil }

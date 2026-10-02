@@ -16,14 +16,11 @@ public enum HistoryRange: Sendable, CaseIterable {
 }
 
 public struct HistoryDay: Sendable, Equatable {
-    /// The start of the day.
     public let day: Date
     public let entries: [HistoryEntry]
 }
 
 public enum HistoryListing {
-    /// Keeps the entries that pass every filter, in the order they were given.
-    /// A check of every bucket has no bucket, so it only shows when no bucket is chosen.
     public static func filter(
         _ entries: [HistoryEntry],
         action: HistoryActionFilter,
@@ -51,7 +48,6 @@ public enum HistoryListing {
         }
     }
 
-    /// Groups newest-first entries by calendar day, keeping their order.
     public static func days(_ entries: [HistoryEntry], calendar: Calendar = .current) -> [HistoryDay] {
         var days: [HistoryDay] = []
         for entry in entries {

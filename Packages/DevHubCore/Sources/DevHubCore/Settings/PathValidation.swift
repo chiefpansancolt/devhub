@@ -1,9 +1,7 @@
 import Foundation
 
 public enum PathCheck: Sendable, Equatable {
-    /// The path works. The text says what was found.
     case found(String)
-    /// The path does not work. The text says why.
     case problem(String)
 
     public var isFound: Bool {
@@ -12,7 +10,6 @@ public enum PathCheck: Sendable, Equatable {
 }
 
 public enum PathValidation {
-    /// Runs `brew --version` to be sure the file is Homebrew.
     public static func homebrew(path: String, runner: CommandRunning) async -> PathCheck {
         guard FileManager.default.fileExists(atPath: path) else {
             return .problem(String(localized: "Nothing was found at this path.", bundle: .module))

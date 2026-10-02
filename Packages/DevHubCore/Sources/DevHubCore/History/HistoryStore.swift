@@ -17,16 +17,13 @@ public enum HistoryRetention: String, Codable, Sendable, CaseIterable {
     }
 }
 
-/// The history the window shows, and the writer that keeps the file in step with it.
 @MainActor
 @Observable
 public final class HistoryStore {
-    /// Newest first.
     public private(set) var entries: [HistoryEntry] = []
     public private(set) var totalCount = 0
     public private(set) var fileSize: Int64 = 0
     public private(set) var lastError: String?
-    /// Whether an entry keeps the lines the command printed.
     public var includesOutput = true
     public var retention = HistoryRetention.oneYear
 
@@ -34,13 +31,11 @@ public final class HistoryStore {
     private let log: HistoryLog?
     private var lastWrite: Task<Void, Never>?
 
-    /// With no log, entries stay in memory only.
     public init(log: HistoryLog? = nil) {
         self.log = log
         fileURL = log?.fileURL
     }
 
-    /// Removes entries past the retention, then reads the file.
     public func startUp(now: Date = Date()) async {
         guard let log else { return }
         if let cutoff = retention.cutoff(from: now) {
@@ -56,7 +51,6 @@ public final class HistoryStore {
         fileSize = await log.fileSize()
     }
 
-    /// Shows the entry at once and writes it to the file after the entries that came before it.
     public func record(_ entry: HistoryEntry) {
         entries.insert(entry, at: 0)
         totalCount += 1
@@ -75,7 +69,6 @@ public final class HistoryStore {
         }
     }
 
-    /// Returns when every recorded entry is in the file.
     public func waitUntilWritten() async {
         await lastWrite?.value
     }

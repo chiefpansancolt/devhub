@@ -47,7 +47,6 @@ struct CountPill: View {
 }
 
 extension SettingsTab {
-    /// The bucket this tab belongs to. `nil` for General, Appearance and History.
     var bucket: Bucket? {
         switch self {
         case .homebrew: .homebrew

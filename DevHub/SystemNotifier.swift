@@ -2,7 +2,6 @@ import AppKit
 import DevHubCore
 import UserNotifications
 
-/// Shows notifications through the system notification center.
 struct SystemNotifier: NotificationSending {
     func send(_ notification: UpdateNotification, playSound: Bool) async {
         let center = UNUserNotificationCenter.current()

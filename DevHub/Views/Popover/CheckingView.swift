@@ -21,8 +21,8 @@ struct CheckingView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
                 }
-                ForEach(Bucket.allCases.filter { state.setupProblems[$0] != nil }, id: \.self) { bucket in
-                    NotSetUpRow(bucket: bucket, message: state.setupProblems[bucket] ?? "")
+                ForEach(state.toolsNeedingSetup, id: \.bucket) { tool in
+                    NotSetUpRow(bucket: tool.bucket, message: tool.reason)
                 }
             }
             .accessibilityHidden(true)

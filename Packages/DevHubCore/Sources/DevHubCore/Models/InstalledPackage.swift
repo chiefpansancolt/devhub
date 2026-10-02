@@ -9,17 +9,14 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
     public let bucket: Bucket
     public let kind: PackageKind
     public let name: String
-    /// The Node or Ruby version that holds the package. `nil` for Homebrew.
     public let group: String?
     public let installedVersion: String
-    /// The newest version, set only when it differs from the installed version and the package can be updated.
     public let availableUpdate: String?
     public let isPinned: Bool
     public let summary: String?
     public let homepage: String?
     public let installPath: String?
     public let requiredBy: [String]
-    /// `false` for packages that were installed only to satisfy another package.
     public let installedOnRequest: Bool
 
     public init(
@@ -64,7 +61,6 @@ public struct InstalledPackage: Identifiable, Sendable, Equatable {
 }
 
 public struct ScanIssue: Sendable, Equatable, Identifiable {
-    /// The Node or Ruby version the problem belongs to. `nil` when it affects the whole bucket.
     public let group: String?
     public let message: String
 

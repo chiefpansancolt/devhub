@@ -83,7 +83,6 @@ struct HistoryView: View {
     // MARK: Filters
 
     private var filterBar: some View {
-        // With the details pane open the bar has less room, so the filters move to a second row.
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 12) {
                 actionPicker
@@ -365,7 +364,6 @@ extension HistoryAction {
 }
 
 extension HistoryEntry {
-    /// The change column: the versions for an update, the removed version for an uninstall, the result for a check.
     var changeText: String {
         switch action {
         case .check: message ?? ""

@@ -22,10 +22,8 @@ public final class SettingsStore {
         }
     }
 
-    /// Called after every change with the old and the new values. The app uses it to apply the change.
     @ObservationIgnored public var onChange: (@MainActor (SettingsValues, SettingsValues) -> Void)?
 
-    /// The tab the Settings window shows. Not saved. A setup message sets it before it opens the window.
     public var selectedTab = SettingsTab.general
 
     @ObservationIgnored private let defaults: UserDefaults

@@ -7,7 +7,6 @@ public struct HomebrewInstallation: Sendable, Equatable {
         self.executable = executable
     }
 
-    /// `/opt/homebrew` on Apple Silicon and `/usr/local` on Intel.
     public var prefix: URL {
         executable.deletingLastPathComponent().deletingLastPathComponent()
     }

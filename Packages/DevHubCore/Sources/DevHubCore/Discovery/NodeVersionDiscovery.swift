@@ -5,15 +5,12 @@ public enum NodeVersionManager: String, Sendable, CaseIterable {
     case fnm
     case volta
     case asdf
-    /// A folder the person chose that DevHub does not recognise as one of the above.
     case custom
 }
 
 public struct NodeInstallation: Sendable, Equatable, Identifiable {
-    /// The version without a leading `v`, for example `24.21.0`.
     public let version: String
     public let manager: NodeVersionManager
-    /// The folder that holds `bin` and `lib/node_modules`.
     public let root: URL
 
     public init(version: String, manager: NodeVersionManager, root: URL) {
@@ -32,7 +29,6 @@ public struct NodeVersionDiscovery: Sendable {
     private struct Location {
         let manager: NodeVersionManager
         let folder: String
-        /// The path from a version folder to the folder that holds `bin`.
         let rootInsideVersion: String
     }
 
@@ -48,13 +44,11 @@ public struct NodeVersionDiscovery: Sendable {
     private let home: URL
     private let versionsFolder: URL?
 
-    /// With a `versionsFolder`, only that folder is searched. It holds one folder per Node version.
     public init(home: URL = FileManager.default.homeDirectoryForCurrentUser, versionsFolder: URL? = nil) {
         self.home = home
         self.versionsFolder = versionsFolder
     }
 
-    /// Every Node version whose `npm` can run, newest first.
     public func installations() -> [NodeInstallation] {
         let fileManager = FileManager.default
         if let versionsFolder {

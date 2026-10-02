@@ -1,13 +1,10 @@
 import AppKit
 import DevHubCore
 
-/// The parts of the settings that act on the app itself instead of on a screen.
 @MainActor
 final class AppEffects {
-    /// Set by a view that can open the main window. A clicked notification calls it.
     static var openMainWindow: (@MainActor () -> Void)?
 
-    /// The language setting when DevHub started. A different setting needs a restart.
     static var launchLanguage: String?
 
     let notificationDelegate = NotificationDelegate()
@@ -38,7 +35,6 @@ final class AppEffects {
         }
     }
 
-    /// Calls `perform` after the Mac wakes from sleep.
     func watchForWake(perform: @escaping @MainActor () -> Void) {
         wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
             forName: NSWorkspace.didWakeNotification,

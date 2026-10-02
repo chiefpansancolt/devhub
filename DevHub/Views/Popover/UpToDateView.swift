@@ -20,9 +20,9 @@ struct UpToDateView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 28)
 
-            ForEach(Bucket.allCases.filter { state.setupProblems[$0] != nil }, id: \.self) { bucket in
+            ForEach(state.toolsNeedingSetup, id: \.bucket) { tool in
                 Divider()
-                NotSetUpRow(bucket: bucket, message: state.setupProblems[bucket] ?? "")
+                NotSetUpRow(bucket: tool.bucket, message: tool.reason)
             }
         }
     }
