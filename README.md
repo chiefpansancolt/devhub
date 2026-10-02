@@ -4,6 +4,7 @@
   <img src=".github/images/icon.png" alt="DevHub app icon" width="120" height="120">
   <h3>One place to keep Homebrew, Node and Ruby up to date</h3>
   <p>A macOS menu bar app that shows what is outdated and updates it for you</p>
+  <p><a href="https://devhub.chiefpansancolt.dev">devhub.chiefpansancolt.dev</a></p>
 
 [![CI](https://github.com/chiefpansancolt/devhub/actions/workflows/ci.yml/badge.svg)](https://github.com/chiefpansancolt/devhub/actions/workflows/ci.yml)
 ![macOS 15+](https://img.shields.io/badge/macOS-15%2B-000000?style=for-the-badge&logo=apple&logoColor=white)
