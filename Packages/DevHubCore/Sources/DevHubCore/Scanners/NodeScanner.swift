@@ -57,6 +57,10 @@ public struct NodeScanner: PackageScanner {
         command(for: package, arguments: ["uninstall", "-g", package.name])
     }
 
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        updateCommand(for: package)
+    }
+
     private func scan(_ installation: NodeInstallation) async throws -> [InstalledPackage] {
         let list = command(for: installation, arguments: ["ls", "-g", "--depth=0", "--json"])
         let listResult = try await support.run(list)
@@ -92,7 +96,7 @@ public struct NodeScanner: PackageScanner {
         in installation: NodeInstallation
     ) async -> [String: String] {
         let lookups = await BoundedConcurrency.map(Array(updates), limit: Self.concurrentLookups) { name, update in
-            (name, await highestAllowedVersion(of: name, update: update, in: installation))
+            (name, await highestAllowedVersion(of: name, current: update.current, latest: update.latest, in: installation))
         }
         return lookups.reduce(into: [:]) { versions, lookup in
             if let version = lookup.1 { versions[lookup.0] = version }
@@ -101,28 +105,65 @@ public struct NodeScanner: PackageScanner {
 
     private func highestAllowedVersion(
         of name: String,
-        update: NpmParser.OutdatedPackage,
+        current: String,
+        latest: String,
         in installation: NodeInstallation
     ) async -> String? {
-        let view = command(for: installation, arguments: ["view", "\(name)@>\(update.current)", "version", "engines.node", "--json"])
+        let view = command(for: installation, arguments: ["view", "\(name)@>\(current)", "version", "engines.node", "--json"])
         guard let result = try? await support.run(view), result.exitCode == 0,
               let published = try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)) else {
-            return update.latest
+            return latest
         }
 
         func isAllowed(_ version: NpmParser.PublishedVersion) -> Bool {
             NodeEngineRange(version.nodeRange).allows(installation.version)
         }
 
-        if published.first(where: { $0.version == update.latest }).map(isAllowed) ?? true {
-            return update.latest
+        if published.first(where: { $0.version == latest }).map(isAllowed) ?? true {
+            return latest
         }
-        let keepsPrereleases = update.current.contains("-")
+        let keepsPrereleases = current.contains("-")
         return published
             .filter { isAllowed($0) && (keepsPrereleases || !$0.version.contains("-")) }
             .map { PackageVersion($0.version) }
             .max()?
             .text
+    }
+
+    private static let searchBatch = 6
+    private static let searchBatches = 8
+
+    /// Finds the version that installing `package` would install. The newest version is checked first. Older versions are only
+    /// searched when the newest does not run on this Node version, because one lookup for every version cannot tell the engines apart:
+    /// npm prints plain version numbers when some of the versions have no `engines` field.
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        guard package.bucket == .node, let installation = installations.first(where: { $0.version == package.group }) else { return nil }
+        let latest = command(for: installation, arguments: ["view", package.name, "version", "engines.node", "--json"])
+        guard let result = try? await support.run(latest) else { return .unavailable }
+        guard result.exitCode == 0 else {
+            return result.standardError.contains("E404") ? .notFound : .unavailable
+        }
+        guard let newest = (try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)))?.first else { return .unavailable }
+
+        func runs(_ version: NpmParser.PublishedVersion) -> Bool {
+            NodeEngineRange(version.nodeRange).allows(installation.version)
+        }
+        if runs(newest) { return .current(version: newest.version) }
+
+        guard let list = try? await support.run(command(for: installation, arguments: ["view", package.name, "versions", "--json"])),
+              list.exitCode == 0 else { return .unavailable }
+        let candidates = VersionSearch.candidates(below: newest.version, among: NpmParser.parseVersionList(Data(list.standardOutput.utf8)))
+        var lookupFailed = false
+        for batch in candidates.chunked(into: Self.searchBatch).prefix(Self.searchBatches) {
+            let checked = await BoundedConcurrency.map(batch, limit: Self.searchBatch) { version -> NpmParser.PublishedVersion? in
+                let view = command(for: installation, arguments: ["view", "\(package.name)@\(version)", "version", "engines.node", "--json"])
+                guard let result = try? await support.run(view), result.exitCode == 0 else { return nil }
+                return (try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)))?.first
+            }
+            lookupFailed = lookupFailed || checked.contains { $0 == nil }
+            if let match = checked.compactMap({ $0 }).first(where: runs) { return .older(newest: newest.version, installs: match.version) }
+        }
+        return lookupFailed ? .unavailable : .incompatible(newest: newest.version)
     }
 
     private func command(for package: InstalledPackage, arguments: [String]) -> ToolCommand? {
@@ -149,5 +190,11 @@ public struct NodeScanner: PackageScanner {
             if $0.group != $1.group { return PackageGroup.precedes($0.group ?? "", $1.group ?? "") }
             return $0.name < $1.name
         }
+    }
+}
+
+private extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map { Array(self[$0..<Swift.min($0 + size, count)]) }
     }
 }

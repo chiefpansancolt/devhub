@@ -58,6 +58,34 @@ public struct RustScanner: PackageScanner {
         }
     }
 
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard package.bucket == .rust else { return nil }
+        switch package.kind {
+        case .rustToolchain where package.name != Self.rustupPackageName:
+            return command(installation.rustup, ["toolchain", "install", package.name, "--no-self-update"])
+        case .cargoTool:
+            let version = package.availableUpdate.map { ["--version", $0] } ?? []
+            return installation.cargo.map { command($0, ["install", "--locked"] + version + [package.name]) }
+        default:
+            return nil
+        }
+    }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        guard package.bucket == .rust else { return nil }
+        switch package.kind {
+        case .rustToolchain where package.name != Self.rustupPackageName:
+            return RustupParser.isToolchainName(package.name) ? .current(version: package.name) : .notFound
+        case .cargoTool:
+            guard let cargo = installation.cargo else { return .unavailable }
+            let search = command(cargo, ["search", package.name, "--limit", "10"])
+            guard let result = try? await support.run(search), result.succeeded else { return .unavailable }
+            return CargoParser.parseLatestVersion(of: package.name, in: result.standardOutput).map { .current(version: $0) } ?? .notFound
+        default:
+            return nil
+        }
+    }
+
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         guard package.bucket == .rust else { return nil }
         switch package.kind {

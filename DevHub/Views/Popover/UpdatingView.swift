@@ -9,7 +9,7 @@ struct UpdatingView: View {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 10) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Updating packages").font(.system(size: 15, weight: .semibold))
+                        session.progressTitle.font(.system(size: 15, weight: .semibold))
                         Text("\(session.finishedCount) of \(session.items.count) done")
                             .font(.system(size: 12))
                             .foregroundStyle(.secondary)
@@ -22,7 +22,7 @@ struct UpdatingView: View {
                 FittingScrollView(maxHeight: 260) {
                     VStack(spacing: 0) {
                         ForEach(session.items) { item in
-                            UpdateStatusRow(item: item)
+                            UpdateStatusRow(item: item, action: session.action)
                         }
                     }
                 }
@@ -33,6 +33,7 @@ struct UpdatingView: View {
 
 struct UpdateStatusRow: View {
     let item: UpdateItem
+    var action = PackageAction.update
 
     var body: some View {
         HStack(spacing: 10) {
@@ -52,7 +53,7 @@ struct UpdateStatusRow: View {
         case .updating:
             HStack(spacing: 6) {
                 ProgressView().controlSize(.small)
-                Text("Updating").font(.system(size: 12)).foregroundStyle(.secondary)
+                (action == .install ? Text("Installing") : Text("Updating")).font(.system(size: 12)).foregroundStyle(.secondary)
             }
         case .done:
             Label("Done", systemImage: "checkmark").font(.system(size: 12)).foregroundStyle(.green)

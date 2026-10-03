@@ -69,6 +69,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
     public var bunPath: String?
     public var yarnPath: String?
     public var excludedNodeManagers: Set<String> = []
+    public var standardPackages = StandardPackageLists()
+    public var disabledStandardBanners: Set<String> = []
+    public var notifyStandardPackages = false
 
     public var historyRetention = HistoryRetention.oneYear
     public var historyIncludesOutput = true
@@ -115,6 +118,9 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         bunPath = value(.bunPath, bunPath)
         yarnPath = value(.yarnPath, yarnPath)
         excludedNodeManagers = value(.excludedNodeManagers, excludedNodeManagers)
+        standardPackages = value(.standardPackages, standardPackages)
+        disabledStandardBanners = value(.disabledStandardBanners, disabledStandardBanners)
+        notifyStandardPackages = value(.notifyStandardPackages, notifyStandardPackages)
         historyRetention = value(.historyRetention, historyRetention)
         historyIncludesOutput = value(.historyIncludesOutput, historyIncludesOutput)
     }
@@ -130,6 +136,7 @@ public struct SettingsValues: Codable, Equatable, Sendable {
         case rustPath, rustIncludeCargoTools
         case pipxPath, uvPath, excludedPythonManagers
         case pnpmPath, bunPath, yarnPath, excludedNodeManagers
+        case standardPackages, disabledStandardBanners, notifyStandardPackages
         case historyRetention, historyIncludesOutput
     }
 

@@ -1,0 +1,1 @@
+Error: Cask 'definitely-not-a-cask-xyz' is unavailable: No Cask with this name exists.

@@ -13,9 +13,19 @@ public protocol PackageScanner: Sendable {
     func updateCommand(for package: InstalledPackage) -> ToolCommand?
 
     func uninstallCommand(for package: InstalledPackage) -> ToolCommand?
+
+    /// Installs a package that is not installed yet. `availableUpdate` holds the version to install, or nil for the newest.
+    func installCommand(for package: InstalledPackage) -> ToolCommand?
+
+    /// Looks up what installing `package` would do, without installing it. Nil when this scanner does not handle the package.
+    func resolveInstall(of package: InstalledPackage) async -> PackageResolution?
 }
 
 extension PackageScanner {
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? { nil }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? { nil }
+
     public func scan() async -> ScanResult {
         await scan(.check)
     }

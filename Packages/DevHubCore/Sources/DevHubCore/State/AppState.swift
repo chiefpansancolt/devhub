@@ -52,23 +52,27 @@ public final class AppState {
     public private(set) var log: [LogLine] = []
     public private(set) var setupProblems: [Bucket: String]
     public private(set) var disabledBuckets: Set<Bucket> = []
+    public internal(set) var standardOffers: [StandardOffer] = []
     public let history: HistoryStore
 
     private static let logLimit = 2000
 
-    private var scanners: [Bucket: any PackageScanner]
-    private var knownVersions: [Bucket: [String]]
+    private(set) var scanners: [Bucket: any PackageScanner]
+    private(set) var knownVersions: [Bucket: [String]]
+    public internal(set) var isPreparingInstall = false
     private var actions: PackageActionRunner
     private let runner: CommandRunning
     private var nextLogID = 0
     private var checkInterval: Duration?
-    private var settings: SettingsValues?
+    private(set) var settings: SettingsValues?
     private var scanAgainWhenDone = false
-    private var notifier: (any NotificationSending)?
+    private(set) var notifier: (any NotificationSending)?
     private var notificationLedger: NotificationLedger?
-    private var notificationOptions = NotificationOptions()
+    private(set) var notificationOptions = NotificationOptions()
+    private(set) var versionLedger: VersionLedger?
+    private let toolchainDetector: (@Sendable (SettingsValues) -> Toolchain)?
     private let now: @Sendable () -> Date
-    private var updateTask: Task<Void, Never>?
+    var updateTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
     private var scheduleTask: Task<Void, Never>?
 
@@ -80,6 +84,8 @@ public final class AppState {
         history: HistoryStore = HistoryStore(),
         notifier: (any NotificationSending)? = nil,
         notificationLedger: NotificationLedger? = nil,
+        versionLedger: VersionLedger? = nil,
+        toolchainDetector: (@Sendable (SettingsValues) -> Toolchain)? = nil,
         notificationOptions: NotificationOptions = NotificationOptions(),
         checkInterval: Duration? = .seconds(4 * 60 * 60),
         now: @escaping @Sendable () -> Date = { Date() }
@@ -90,6 +96,8 @@ public final class AppState {
         self.history = history
         self.notifier = notifier
         self.notificationLedger = notificationLedger
+        self.versionLedger = versionLedger
+        self.toolchainDetector = toolchainDetector
         self.notificationOptions = notificationOptions
         self.actions = PackageActionRunner(scanners: scanners, runner: runner)
         self.runner = runner
@@ -101,7 +109,8 @@ public final class AppState {
         settings: SettingsValues,
         runner: CommandRunning = CommandRunner(),
         notifier: (any NotificationSending)? = nil,
-        notificationLedger: NotificationLedger? = nil
+        notificationLedger: NotificationLedger? = nil,
+        versionLedger: VersionLedger? = nil
     ) {
         let toolchain = Toolchain.detect(settings: settings)
         let history = HistoryStore(log: HistoryLog())
@@ -115,6 +124,8 @@ public final class AppState {
             history: history,
             notifier: notifier,
             notificationLedger: notificationLedger,
+            versionLedger: versionLedger,
+            toolchainDetector: { Toolchain.detect(settings: $0) },
             notificationOptions: NotificationOptions(settings),
             checkInterval: settings.checkInterval.duration
         )
@@ -134,13 +145,13 @@ public final class AppState {
         checkInterval = newSettings.checkInterval.duration
         nextCheck = checkInterval.map { (lastChecked ?? now()).addingTimeInterval($0.seconds) }
 
-        let toolchain = Toolchain.detect(settings: newSettings)
-        scanners = toolchain.scanners(runner: runner, options: ScannerOptions(newSettings))
-        actions = PackageActionRunner(scanners: scanners, runner: runner)
-        knownVersions = toolchain.knownGroups
-        setupProblems = toolchain.setupProblems
-        disabledBuckets = newSettings.disabledBuckets
-        results = results.filter { scanners[$0.key] != nil }
+        rebuild(from: (toolchainDetector ?? { Toolchain.detect(settings: $0) })(newSettings), settings: newSettings)
+        if let previous {
+            for bucket in [Bucket.node, .ruby] where previous.standardPackages.entries(for: bucket) != newSettings.standardPackages.entries(for: bucket) {
+                versionLedger?.clearDismissals(for: bucket)
+            }
+        }
+        updateStandardOffers()
 
         if scheduleTask != nil, previous?.checkInterval != newSettings.checkInterval {
             startScheduledChecks(checkNow: false)
@@ -151,6 +162,24 @@ public final class AppState {
             } else {
                 startRefresh()
             }
+        }
+    }
+
+    private func rebuild(from toolchain: Toolchain, settings: SettingsValues) {
+        scanners = toolchain.scanners(runner: runner, options: ScannerOptions(settings))
+        actions = PackageActionRunner(scanners: scanners, runner: runner)
+        knownVersions = toolchain.knownGroups
+        setupProblems = toolchain.setupProblems
+        disabledBuckets = settings.disabledBuckets
+        results = results.filter { scanners[$0.key] != nil }
+    }
+
+    /// Node and Ruby versions that were installed after the last scan are not known to the scanners. A check looks for them again.
+    private func rediscoverVersions() {
+        guard let toolchainDetector, let settings else { return }
+        let toolchain = toolchainDetector(settings)
+        if toolchain.knownGroups != knownVersions {
+            rebuild(from: toolchain, settings: settings)
         }
     }
 
@@ -226,7 +255,7 @@ public final class AppState {
 
     /// An update or an uninstall is running. Only one runs at a time because Homebrew locks its files.
     public var isBusy: Bool {
-        session?.isRunning == true || uninstallProgress?.status == .updating
+        session?.isRunning == true || uninstallProgress?.status == .updating || isPreparingInstall
     }
 
     private var failedScanCount: Int {
@@ -262,6 +291,7 @@ public final class AppState {
         isChecking = true
         defer { isChecking = false }
 
+        if reason == .check { rediscoverVersions() }
         let started = now()
         let clock = ContinuousClock()
         let begin = clock.now
@@ -277,11 +307,13 @@ public final class AppState {
 
         lastChecked = now()
         nextCheck = checkInterval.map { now().addingTimeInterval($0.seconds) }
+        updateStandardOffers()
         if reason == .check, !scanners.isEmpty {
             history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
         }
         if reason == .check, trigger == .automatic {
             await announceNewUpdates()
+            await announceStandardOffers()
         }
         if scanAgainWhenDone {
             scanAgainWhenDone = false
@@ -370,12 +402,21 @@ public final class AppState {
     }
 
     public func update(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) async {
-        guard !packages.isEmpty, !isBusy else { return }
-        session = UpdateSession(items: packages.map { UpdateItem(package: $0) }, isRunning: true)
+        await run(.update, packages, trigger: trigger)
+    }
 
-        let outcomes = await actions.update(packages) { [weak self] event in
+    public func install(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) async {
+        await run(.install, packages, trigger: trigger)
+    }
+
+    private func run(_ action: PackageAction, _ packages: [InstalledPackage], trigger: HistoryTrigger) async {
+        guard !packages.isEmpty, !isBusy else { return }
+        session = UpdateSession(items: packages.map { UpdateItem(package: $0) }, isRunning: true, action: action)
+
+        let report: @Sendable (ActionEvent) async -> Void = { [weak self] event in
             await self?.handle(event)
         }
+        let outcomes = action == .install ? await actions.install(packages, onEvent: report) : await actions.update(packages, onEvent: report)
         session?.isRunning = false
         runningSince = nil
         record(outcomes, trigger: trigger)
@@ -396,6 +437,11 @@ public final class AppState {
         updateTask = Task { await update(packages, trigger: trigger) }
     }
 
+    public func startInstall(_ packages: [InstalledPackage], trigger: HistoryTrigger = .manual) {
+        guard !isBusy else { return }
+        updateTask = Task { await install(packages, trigger: trigger) }
+    }
+
     public func startUpdateAll() {
         startUpdate(allOutdated, trigger: .updateAll)
     }
@@ -408,7 +454,11 @@ public final class AppState {
         guard let session, !session.isRunning else { return }
         let failed = session.failedItems.map(\.package)
         self.session = nil
-        startUpdate(failed)
+        if session.action == .install {
+            startInstall(failed)
+        } else {
+            startUpdate(failed)
+        }
     }
 
     public func dismissSession() {
@@ -479,7 +529,7 @@ public final class AppState {
         }
     }
 
-    private func handle(_ event: ActionEvent) {
+    func handle(_ event: ActionEvent) {
         switch event {
         case let .status(id, status):
             guard let index = session?.items.firstIndex(where: { $0.id == id }) else { return }

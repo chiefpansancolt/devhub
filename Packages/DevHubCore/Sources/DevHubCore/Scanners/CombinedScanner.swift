@@ -28,4 +28,15 @@ public struct CombinedScanner: PackageScanner {
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         scanners.lazy.compactMap { $0.uninstallCommand(for: package) }.first
     }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        for scanner in scanners {
+            if let resolution = await scanner.resolveInstall(of: package) { return resolution }
+        }
+        return nil
+    }
+
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        scanners.lazy.compactMap { $0.installCommand(for: package) }.first
+    }
 }

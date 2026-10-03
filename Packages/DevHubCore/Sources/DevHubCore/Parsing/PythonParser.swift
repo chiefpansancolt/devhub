@@ -88,6 +88,13 @@ enum PythonParser {
         return text[start.upperBound...].firstIndex(of: "]").map { String(text[start.upperBound..<$0]) }
     }
 
+    /// `pip index versions <name>`. The first line is `name (1.2.3)`, the newest version.
+    static func parsePipIndexNewest(_ text: String) -> String? {
+        guard let first = text.split(whereSeparator: \.isNewline).first,
+              let open = first.lastIndex(of: "("), let close = first.lastIndex(of: ")"), open < close else { return nil }
+        return String(first[first.index(after: open)..<close])
+    }
+
     // PyPI treats `-`, `_` and `.` as the same character in a name.
     private static func normalized(_ name: String) -> String {
         name.lowercased().replacing(/[-_.]+/, with: "-")

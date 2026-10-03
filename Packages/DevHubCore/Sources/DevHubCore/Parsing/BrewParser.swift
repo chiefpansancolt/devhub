@@ -171,3 +171,28 @@ private struct InfoPayload: Decodable {
         let installed: String?
     }
 }
+
+extension BrewParser {
+    private struct NewestPayload: Decodable {
+        struct Formula: Decodable {
+            struct Versions: Decodable {
+                let stable: String?
+            }
+
+            let versions: Versions?
+        }
+
+        struct Cask: Decodable {
+            let version: String?
+        }
+
+        let formulae: [Formula]?
+        let casks: [Cask]?
+    }
+
+    /// `brew info --json=v2 <name>` for one formula or one cask. A formula that has only a head version has no stable version.
+    static func parseNewestVersion(_ data: Data) -> String? {
+        guard let payload = try? JSONDecoder().decode(NewestPayload.self, from: data) else { return nil }
+        return payload.formulae?.first?.versions?.stable ?? payload.casks?.first?.version
+    }
+}

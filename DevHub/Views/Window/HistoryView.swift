@@ -108,6 +108,7 @@ struct HistoryView: View {
         Picker("Action", selection: Binding(get: { ui.historyFilter }, set: { ui.historyFilter = $0 })) {
             Text("All").tag(HistoryActionFilter.all)
             Text("Updates").tag(HistoryActionFilter.updates)
+            Text("Installs").tag(HistoryActionFilter.installs)
             Text("Uninstalls").tag(HistoryActionFilter.uninstalls)
             Text("Checks").tag(HistoryActionFilter.checks)
             Text("Failed").tag(HistoryActionFilter.failed)
@@ -350,6 +351,7 @@ extension HistoryAction {
         switch self {
         case .check: "Checked"
         case .update: "Updated"
+        case .install: "Installed"
         case .uninstall: "Uninstalled"
         }
     }
@@ -358,6 +360,7 @@ extension HistoryAction {
         switch self {
         case .check: "arrow.clockwise"
         case .update: "arrow.up"
+        case .install: "arrow.down"
         case .uninstall: "trash"
         }
     }
@@ -368,6 +371,7 @@ extension HistoryEntry {
         switch action {
         case .check: message ?? ""
         case .update: [fromVersion, toVersion].compactMap { $0 }.joined(separator: " → ")
+        case .install: toVersion ?? ""
         case .uninstall: fromVersion ?? ""
         }
     }

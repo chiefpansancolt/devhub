@@ -74,6 +74,11 @@ struct GeneralSettingsView: View {
                 Toggle("Play a sound", isOn: $settings.values.notificationSound)
                     .clickable()
                     .disabled(!settings.values.notifyAboutUpdates)
+                Toggle("Tell me when a new Node or Ruby version needs the standard packages", isOn: $settings.values.notifyStandardPackages)
+                    .clickable()
+                Text("Opens the window. Nothing installs until you choose Install there.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
                 if notificationAccess == .denied {
                     HStack {
                         Label("Notifications are turned off for DevHub in System Settings.", systemImage: "exclamationmark.circle")

@@ -46,11 +46,20 @@ struct SummaryView: View {
 
 extension UpdateSession {
     var resultTitle: Text {
-        if failedCount > 0 {
-            Text("\(doneCount) updated, \(failedCount) failed")
-        } else {
-            Text("\(doneCount) updated, \(skippedCount) skipped")
+        switch (action, failedCount > 0) {
+        case (.install, true): Text("\(doneCount) installed, \(failedCount) failed")
+        case (.install, false): Text("\(doneCount) installed, \(skippedCount) skipped")
+        case (_, true): Text("\(doneCount) updated, \(failedCount) failed")
+        case (_, false): Text("\(doneCount) updated, \(skippedCount) skipped")
         }
+    }
+
+    var progressTitle: Text {
+        action == .install ? Text("Installing packages") : Text("Updating packages")
+    }
+
+    var verbTitle: Text {
+        action == .install ? Text("Installing") : Text("Updating")
     }
 }
 

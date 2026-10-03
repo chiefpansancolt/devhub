@@ -23,10 +23,12 @@ public struct UpdateItem: Sendable, Equatable, Identifiable {
 public struct UpdateSession: Sendable, Equatable {
     public var items: [UpdateItem]
     public var isRunning: Bool
+    public let action: PackageAction
 
-    public init(items: [UpdateItem], isRunning: Bool) {
+    public init(items: [UpdateItem], isRunning: Bool, action: PackageAction = .update) {
         self.items = items
         self.isRunning = isRunning
+        self.action = action
     }
 
     public var runningItem: UpdateItem? { items.first { $0.status == .updating } }
@@ -46,6 +48,7 @@ public struct UpdateSession: Sendable, Equatable {
 public enum PackageAction: String, Sendable, Codable {
     case update
     case uninstall
+    case install
 }
 
 public struct LogEntry: Sendable, Equatable {
@@ -121,17 +124,39 @@ public struct PackageActionRunner: Sendable {
         _ packages: [InstalledPackage],
         onEvent: @escaping @Sendable (ActionEvent) async -> Void
     ) async -> [ActionOutcome] {
-        let byBucket = Dictionary(grouping: packages, by: \.bucket)
+        await run(.update, packages, onEvent: onEvent)
+    }
 
-        let outcomes = await withTaskGroup(of: [ActionOutcome].self) { group in
-            for (bucket, bucketPackages) in byBucket {
-                group.addTask {
-                    var finished: [ActionOutcome] = []
-                    for package in bucketPackages {
-                        finished.append(await perform(.update, on: package, in: scanners[bucket], onEvent: onEvent))
-                    }
-                    return finished
-                }
+    public func install(
+        _ packages: [InstalledPackage],
+        onEvent: @escaping @Sendable (ActionEvent) async -> Void
+    ) async -> [ActionOutcome] {
+        await run(.install, packages, onEvent: onEvent)
+    }
+
+    public func uninstall(
+        _ package: InstalledPackage,
+        onEvent: @escaping @Sendable (ActionEvent) async -> Void
+    ) async -> ActionOutcome {
+        await perform(.uninstall, on: package, in: scanners[package.bucket], onEvent: onEvent)
+    }
+
+    private func run(
+        _ action: PackageAction,
+        _ packages: [InstalledPackage],
+        onEvent: @escaping @Sendable (ActionEvent) async -> Void
+    ) async -> [ActionOutcome] {
+        var byBucket = Dictionary(grouping: packages, by: \.bucket)
+        var outcomes: [ActionOutcome] = []
+
+        // Other tools can depend on what Homebrew installs, such as a Node version manager or rustup, so Homebrew finishes first.
+        if action == .install, let homebrew = byBucket.removeValue(forKey: .homebrew) {
+            outcomes += await runInOrder(action, homebrew, onEvent: onEvent)
+        }
+
+        outcomes += await withTaskGroup(of: [ActionOutcome].self) { group in
+            for bucketPackages in byBucket.values {
+                group.addTask { await runInOrder(action, bucketPackages, onEvent: onEvent) }
             }
             var all: [ActionOutcome] = []
             for await bucketOutcomes in group { all += bucketOutcomes }
@@ -142,11 +167,16 @@ public struct PackageActionRunner: Sendable {
         return outcomes.sorted { order[$0.package.id, default: 0] < order[$1.package.id, default: 0] }
     }
 
-    public func uninstall(
-        _ package: InstalledPackage,
+    private func runInOrder(
+        _ action: PackageAction,
+        _ packages: [InstalledPackage],
         onEvent: @escaping @Sendable (ActionEvent) async -> Void
-    ) async -> ActionOutcome {
-        await perform(.uninstall, on: package, in: scanners[package.bucket], onEvent: onEvent)
+    ) async -> [ActionOutcome] {
+        var finished: [ActionOutcome] = []
+        for package in packages {
+            finished.append(await perform(action, on: package, in: scanners[package.bucket], onEvent: onEvent))
+        }
+        return finished
     }
 
     private func perform(
@@ -160,9 +190,13 @@ public struct PackageActionRunner: Sendable {
             return ActionOutcome(package: package, action: action, command: nil, result: nil, status: .skipped)
         }
 
-        let command = action == .update ? scanner?.updateCommand(for: package) : scanner?.uninstallCommand(for: package)
+        let command: ToolCommand? = switch action {
+        case .update: scanner?.updateCommand(for: package)
+        case .uninstall: scanner?.uninstallCommand(for: package)
+        case .install: scanner?.installCommand(for: package)
+        }
         guard let command else {
-            let status = UpdateStatus.failed(action == .update ? String(localized: "DevHub has no way to update this package.", bundle: .module) : String(localized: "DevHub has no way to uninstall this package.", bundle: .module))
+            let status = UpdateStatus.failed(Self.noCommandReason(for: action))
             await onEvent(.status(packageID: package.id, status))
             return ActionOutcome(package: package, action: action, command: nil, result: nil, status: status)
         }
@@ -187,6 +221,14 @@ public struct PackageActionRunner: Sendable {
             let status = UpdateStatus.failed(error.localizedDescription)
             await onEvent(.status(packageID: package.id, status))
             return ActionOutcome(package: package, action: action, command: command, result: nil, status: status, startedAt: startedAt, output: collected.all)
+        }
+    }
+
+    private static func noCommandReason(for action: PackageAction) -> String {
+        switch action {
+        case .update: String(localized: "DevHub has no way to update this package.", bundle: .module)
+        case .uninstall: String(localized: "DevHub has no way to uninstall this package.", bundle: .module)
+        case .install: String(localized: "DevHub has no way to install this package.", bundle: .module)
         }
     }
 

@@ -41,6 +41,9 @@ struct WindowView: View {
                 .transition(.move(edge: .trailing))
             }
         }
+        .sheet(isPresented: Binding(get: { ui.isShowingStandardPackages }, set: { ui.isShowingStandardPackages = $0 })) {
+            StandardPackagesView(initialTool: ui.standardPackagesTool)
+        }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.22), value: inspectorIsOpen)
         .frame(minWidth: inspectorIsOpen ? 1180 : 860, minHeight: 560)
         .onAppear {

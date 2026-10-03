@@ -19,6 +19,8 @@ final class WindowUIState {
     var checkedIDs: Set<String> = []
     var isConfirmingUninstall = false
     var isConfirmingUpdateAll = false
+    var isShowingStandardPackages = false
+    var standardPackagesTool = Bucket.node
 
     var lastInspectedID: String?
     var lastInspectedHistoryID: UUID?

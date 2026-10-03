@@ -7,6 +7,7 @@ final class FakeMachine: @unchecked Sendable {
     private var packages: [InstalledPackage]
     private var failing: Set<String>
     private var reasons: [ScanReason] = []
+    private var installed: [String] = []
 
     init(packages: [InstalledPackage], failing: Set<String> = []) {
         self.packages = packages
@@ -14,6 +15,7 @@ final class FakeMachine: @unchecked Sendable {
     }
 
     var scanReasons: [ScanReason] { lock.withLock { reasons } }
+    var installedNames: [String] { lock.withLock { installed } }
 
     func packages(in bucket: Bucket) -> [InstalledPackage] {
         lock.withLock { packages.filter { $0.bucket == bucket } }
@@ -37,6 +39,16 @@ final class FakeMachine: @unchecked Sendable {
         }
     }
 
+    func runInstall(of name: String) -> CommandResult {
+        lock.withLock {
+            if failing.contains(name) {
+                return CommandResult(exitCode: 243, standardOutput: "", standardError: "npm error code EACCES\nnpm error permission denied")
+            }
+            installed.append(name)
+            return CommandResult(exitCode: 0, standardOutput: "installed \(name)", standardError: "")
+        }
+    }
+
     func runUninstall(of name: String) -> CommandResult {
         lock.withLock {
             if failing.contains(name) {
@@ -54,6 +66,7 @@ final class FakeMachine: @unchecked Sendable {
             }
             switch verb {
             case "update": return runUpdate(of: name)
+            case "install": return runInstall(of: name)
             case "uninstall": return runUninstall(of: name)
             default: return failed(exitCode: 1, standardError: "unexpected command")
             }
@@ -78,6 +91,11 @@ struct FakeScanner: PackageScanner {
     func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         guard package.bucket == bucket else { return nil }
         return ToolCommand(executable: URL(filePath: "/usr/bin/true"), arguments: ["uninstall", package.name], environment: [:])
+    }
+
+    func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard package.bucket == bucket else { return nil }
+        return ToolCommand(executable: URL(filePath: "/usr/bin/true"), arguments: ["install", package.name], environment: [:])
     }
 }
 

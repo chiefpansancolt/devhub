@@ -47,6 +47,30 @@ public struct PythonScanner: PackageScanner {
         }
     }
 
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard let installation = installation(for: package) else { return nil }
+        let requirement = package.name + (package.availableUpdate.map { "==\($0)" } ?? "")
+        switch installation.manager {
+        case .pipx: return command(installation, ["install", requirement])
+        case .uv: return command(installation, ["tool", "install", requirement])
+        }
+    }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        guard let installation = installation(for: package) else { return nil }
+        // pip is not always installed, so each manager runs it in a temporary environment.
+        let index: ToolCommand
+        switch installation.manager {
+        case .pipx: index = command(installation, ["run", "pip", "index", "versions", package.name])
+        case .uv: index = command(installation, ["tool", "run", "pip", "index", "versions", package.name])
+        }
+        guard let result = try? await support.run(index) else { return .unavailable }
+        guard result.succeeded else {
+            return result.standardError.contains("No matching distribution found") ? .notFound : .unavailable
+        }
+        return PythonParser.parsePipIndexNewest(result.standardOutput).map { .current(version: $0) } ?? .unavailable
+    }
+
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         guard let installation = installation(for: package) else { return nil }
         switch installation.manager {

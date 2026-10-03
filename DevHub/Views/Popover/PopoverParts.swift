@@ -99,7 +99,7 @@ struct PopoverFooter: View {
     var body: some View {
         HStack(spacing: 8) {
             if state.popoverMode == .updating {
-                Text("Updating packages").font(.system(size: 12)).foregroundStyle(.secondary)
+                (state.session?.progressTitle ?? Text("Updating packages")).font(.system(size: 12)).foregroundStyle(.secondary)
                 Spacer()
                 Button("Cancel") { state.cancelUpdate() }
                     .buttonStyle(.bordered)

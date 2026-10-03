@@ -1,3 +1,5 @@
+import Foundation
+
 public struct HomebrewOptions: Sendable, Equatable {
     public var refreshIndexFirst: Bool
     public var includeSelfUpdatingCasks: Bool
@@ -63,6 +65,22 @@ public struct HomebrewScanner: PackageScanner {
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         guard package.bucket == .homebrew else { return nil }
         return command(["uninstall"] + caskFlag(for: package) + [package.name])
+    }
+
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard package.bucket == .homebrew else { return nil }
+        return command(["install"] + caskFlag(for: package) + [package.name])
+    }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        guard package.bucket == .homebrew else { return nil }
+        let info = command(["info", package.kind == .cask ? "--cask" : "--formula", "--json=v2", package.name])
+        guard let result = try? await support.run(info) else { return .unavailable }
+        guard result.succeeded else {
+            let missing = ["No available formula", "No Cask with this name exists", "No available cask"].contains { result.standardError.contains($0) }
+            return missing ? .notFound : .unavailable
+        }
+        return BrewParser.parseNewestVersion(Data(result.standardOutput.utf8)).map { .current(version: $0) } ?? .unavailable
     }
 
     private func readInstalled() async throws -> [InstalledPackage] {

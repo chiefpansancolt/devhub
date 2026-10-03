@@ -4,6 +4,8 @@ import SwiftUI
 struct NodeSettingsView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
+    @Environment(WindowUIState.self) private var windowUI
+    @Environment(\.openWindow) private var openWindow
     @State private var managerChecks: [NodePackageManager: PathCheck] = [:]
 
     var body: some View {
@@ -67,6 +69,21 @@ struct NodeSettingsView: View {
                 }
             }
 
+            Section("Standard packages") {
+                LabeledContent("Standard packages") {
+                    Button("Manage…") { manageStandardPackages() }
+                        .clickable()
+                }
+                Text("Managed in their own window, where you can check the list and install it into a Node version.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+                Toggle("Offer the standard packages in new versions", isOn: offersStandardPackages)
+                    .clickable()
+                Text("Shows a banner in the window when a Node version is missing some of them. Nothing installs until you choose Install.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Update options") {
                 Toggle("Include npm itself", isOn: $settings.values.nodeIncludeNpm)
                 .clickable()
@@ -114,6 +131,22 @@ struct NodeSettingsView: View {
         managerChecks[manager] = nil
         guard let path = effectivePath(of: manager, in: managers) else { return }
         managerChecks[manager] = await PathValidation.nodeManager(manager, path: path, runner: CommandRunner())
+    }
+
+    private var offersStandardPackages: Binding<Bool> {
+        Binding(
+            get: { !settings.values.disabledStandardBanners.contains("node") },
+            set: { isOn in
+                if isOn { settings.values.disabledStandardBanners.remove("node") } else { settings.values.disabledStandardBanners.insert("node") }
+            }
+        )
+    }
+
+    private func manageStandardPackages() {
+        windowUI.standardPackagesTool = .node
+        windowUI.isShowingStandardPackages = true
+        openWindow(id: MainWindow.id)
+        AppActivation.bringToFront()
     }
 
     private func isIncluded(_ manager: NodePackageManager) -> Binding<Bool> {

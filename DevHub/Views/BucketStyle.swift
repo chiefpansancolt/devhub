@@ -12,6 +12,10 @@ extension Bucket {
         }
     }
 
+    var tabIcon: String {
+        "Tab\(displayName)"
+    }
+
     var logo: String {
         switch self {
         case .homebrew: "BucketHomebrew"

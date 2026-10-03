@@ -4,6 +4,8 @@ import SwiftUI
 struct RubySettingsView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
+    @Environment(WindowUIState.self) private var windowUI
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         @Bindable var settings = settings
@@ -42,6 +44,21 @@ struct RubySettingsView: View {
                 }
             }
 
+            Section("Standard gems") {
+                LabeledContent("Standard gems") {
+                    Button("Manage…") { manageStandardPackages() }
+                        .clickable()
+                }
+                Text("Managed in their own window, where you can check the list and install it into a Ruby version.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+                Toggle("Offer the standard gems in new versions", isOn: offersStandardPackages)
+                    .clickable()
+                Text("Shows a banner in the window when a Ruby version is missing some of them. Nothing installs until you choose Install.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Update options") {
                 Toggle("Install gem documentation", isOn: $settings.values.gemInstallDocumentation)
                 .clickable()
@@ -49,6 +66,22 @@ struct RubySettingsView: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    private var offersStandardPackages: Binding<Bool> {
+        Binding(
+            get: { !settings.values.disabledStandardBanners.contains("ruby") },
+            set: { isOn in
+                if isOn { settings.values.disabledStandardBanners.remove("ruby") } else { settings.values.disabledStandardBanners.insert("ruby") }
+            }
+        )
+    }
+
+    private func manageStandardPackages() {
+        windowUI.standardPackagesTool = .ruby
+        windowUI.isShowingStandardPackages = true
+        openWindow(id: MainWindow.id)
+        AppActivation.bringToFront()
     }
 
     private func isIncluded(_ version: String) -> Binding<Bool> {

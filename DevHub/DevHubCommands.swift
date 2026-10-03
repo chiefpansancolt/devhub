@@ -6,6 +6,7 @@ struct DevHubCommands: Commands {
     let state: AppState
     let settings: SettingsStore
     let ui: WindowUIState
+    @Environment(\.openWindow) private var openWindow
 
     private static let issuesURL = URL(string: "https://github.com/chiefpansancolt/devhub/issues/new")!
 
@@ -31,9 +32,21 @@ struct DevHubCommands: Commands {
     // MARK: App
 
     private var appCommands: some Commands {
-        CommandGroup(replacing: .appInfo) {
-            Button("About DevHub") { AboutPanel.show() }
+        Group {
+            CommandGroup(replacing: .appInfo) {
+                Button("About DevHub") { AboutPanel.show() }
+            }
+            CommandGroup(after: .appSettings) {
+                Button("Standard Packages…") { showStandardPackages() }
+                    .disabled(state.enabledBuckets.isEmpty)
+            }
         }
+    }
+
+    private func showStandardPackages() {
+        ui.isShowingStandardPackages = true
+        openWindow(id: MainWindow.id)
+        AppActivation.bringToFront()
     }
 
     // MARK: File
