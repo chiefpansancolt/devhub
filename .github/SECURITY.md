@@ -23,7 +23,8 @@ These facts help when you judge the impact of a report.
 - DevHub runs `brew`, `npm` and `gem` as your user to list, update and uninstall
   packages. It never uses `sudo` and never asks for an administrator password.
 - App Sandbox is off, because the app has to run those tools.
-- DevHub makes two network requests itself, at most once a day: it downloads the public release lists from nodejs.org and ruby-lang.org to find new Node and Ruby versions. No data about your machine is sent, and a switch in Settings turns it off. The package managers it runs make their own requests.
+- DevHub makes two network requests itself, at most once a day: it downloads the public release lists from nodejs.org and ruby-lang.org to find new Node and Ruby versions. No data about your machine is sent, and a switch in Settings turns it off. If you connect a GitHub account, it also signs in with GitHub's device flow and syncs your standard packages lists with a private repository named `devhub-standard-packages`, using the GitHub API. The sign-in asks for the `repo` permission, which can read and write all of your private repositories, because GitHub offers nothing narrower for creating a private repository. The token is stored in the keychain and can be revoked at any time at github.com/settings/applications. The package managers it runs make their own requests.
 - The action history is stored in `~/Library/Logs/DevHub/history.jsonl`, and the
-  settings are stored in the app's preferences. Nothing is sent anywhere.
+  settings are stored in the app's preferences. Nothing is sent anywhere, except the names in
+  your standard packages lists when you connect a GitHub account.
 - Releases are signed ad hoc and are not notarized yet.

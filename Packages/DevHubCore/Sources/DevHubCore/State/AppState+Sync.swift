@@ -34,6 +34,11 @@ extension AppState {
         signInTask?.cancel()
     }
 
+    public func dismissSignInFailure() {
+        guard case .failed = signIn else { return }
+        signIn = .idle
+    }
+
     private func signIn(using services: SyncServices) async {
         signIn = .requesting
         let flow = GitHubDeviceFlow(clientID: services.clientID, transport: services.transport, sleep: services.sleep, now: now)

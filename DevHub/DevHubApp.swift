@@ -26,6 +26,12 @@ struct DevHubApp: App {
             if settings.values.checkOnWake { state?.checkAfterWake() }
         }
 
+        state.configureSync(
+            SyncServices(clientID: GitHubSync.clientID),
+            lists: { settings.values.standardPackages },
+            apply: { settings.values.standardPackages = $0 }
+        )
+
         Task { await state.history.startUp() }
         state.startScheduledChecks(checkNow: settings.values.checkOnLaunch)
 

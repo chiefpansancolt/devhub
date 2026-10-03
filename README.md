@@ -69,6 +69,14 @@ When a version manager owns your Node or Ruby, DevHub looks up the newest releas
 
 A version can also be removed. Select a Node or Ruby version in the sidebar and choose the trash button in the header, or right-click the version and choose Uninstall. DevHub always asks first, even when confirmations are off for packages, because a version holds all of its global packages. nvm, fnm and asdf (Node) and rbenv, rvm and asdf (Ruby) can do this. Volta, chruby and custom folders cannot, so they show no button.
 
+### 🔄 Sync your standard packages with GitHub
+
+Connect a GitHub account in **Settings ▸ Accounts** and DevHub keeps your standard packages lists the same on every Mac. It signs in with GitHub's device flow: DevHub shows a code, you enter it at github.com/login/device, and no password or secret passes through DevHub. It then creates a private repository named `devhub-standard-packages` in your account, with one file, `standard-packages.json`, that holds only the package names. A second Mac finds the same repository and joins it.
+
+Each Mac keeps the lists as they were at its last sync, so a name you remove on one Mac is removed on the others, and names you add on two Macs are both kept. DevHub syncs when it opens, after each check and when the Mac wakes, and uploads a few seconds after you edit a list. **Sync now** and a **Sync automatically** switch are in the same tab. A sync only changes your lists and never installs anything. If the file on GitHub was written by a newer DevHub, DevHub does not overwrite it and asks you to update.
+
+GitHub only offers one permission that can create a private repository, `repo`, which can read and write all of your private repositories. DevHub uses it for the one repository, and the Accounts tab says so before you connect. The token is kept in your keychain, and you can revoke it at any time at github.com/settings/applications.
+
 ### 🧾 History
 
 Every check, update and uninstall is written to `~/Library/Logs/DevHub/history.jsonl`, one JSON object per line, with the time, the command, the exit code and the output. The History page groups entries by day, filters them, and exports them. You can keep history for 30 days, 90 days, a year or forever.
@@ -151,7 +159,7 @@ An app built on your own Mac is not quarantined and opens without the steps abov
 
 ## ⚙️ How it works
 
-DevHub runs the tools you already have and reads what they print. It does not use a private index. The only requests it makes itself are two plain downloads of the public release lists on nodejs.org and ruby-lang.org, at most once a day, to learn about new Node and Ruby versions. A switch in Settings turns that off for each tool.
+DevHub runs the tools you already have and reads what they print. It does not use a private index. The only requests it makes itself are two plain downloads of the public release lists on nodejs.org and ruby-lang.org, at most once a day, to learn about new Node and Ruby versions (a switch in Settings turns that off for each tool), and, only if you connect a GitHub account, the sync of your standard packages lists with the GitHub API.
 
 | Tool     | What DevHub runs                                                                                          |
 | -------- | --------------------------------------------------------------------------------------------------------- |
@@ -162,6 +170,7 @@ DevHub runs the tools you already have and reads what they print. It does not us
 | Python   | `pipx list --json`, `pipx runpip <tool> list --outdated --format=json`, `pipx upgrade`, `pipx uninstall`, `uv tool list`, `uv tool list --outdated --show-version-specifiers`, `uv tool upgrade`, `uv tool uninstall` |
 | Installing | `brew install`, `npm install -g name@version`, `gem install`, `rustup toolchain install`, `cargo install --locked`, `pipx install`, `uv tool install`, `pnpm add -g`, `bun add -g`, `yarn global add`. Checks use `brew info`, `npm view`, `gem list --remote`, `cargo search` and `pip index versions` |
 | Version managers | `nvm install`, `nvm alias default`, `fnm install`, `fnm default`, `volta install`, `volta fetch`, `asdf install`, `asdf set --home`, `asdf global`, `rbenv install`, `rbenv global`, `rvm install`, `nvm uninstall`, `fnm uninstall`, `asdf uninstall`, `rbenv uninstall`, `rvm uninstall` |
+| GitHub sync | `POST github.com/login/device/code` and `POST github.com/login/oauth/access_token` to sign in, then `GET /user`, `GET` and `POST /user/repos`, and `GET` and `PUT /repos/<you>/devhub-standard-packages/contents/standard-packages.json` on api.github.com |
 | Rust     | `rustup toolchain list -v`, `rustup check`, `rustup update`, `rustup self update`, `rustup toolchain uninstall`, `cargo install --list`, `cargo search`, `cargo install --locked`, `cargo uninstall` |
 
 For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For pnpm, Bun and Yarn, DevHub installs the exact newest version by name, because their update commands stay inside the version range that a package was installed with, and it does not check the `engines` of a package. Yarn 2 and newer has no global packages and is skipped. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. For Python, pipx and uv ask PyPI for the newest version of each tool, and a uv tool pinned to a version or capped below the newest one shows no update. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.
@@ -170,7 +179,7 @@ For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, 
 
 - History is a plain text file at `~/Library/Logs/DevHub/history.jsonl`. Open it, export it, or clear it from the History page.
 - Settings are stored in the app's preferences.
-- Nothing is sent anywhere.
+- Nothing is sent anywhere, except the names in your standard packages lists when you connect a GitHub account, which go to your own private repository.
 
 ---
 

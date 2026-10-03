@@ -13,6 +13,9 @@ struct SettingsView: View {
             AppearanceSettingsView()
                 .tabItem { Label("Appearance", systemImage: "circle.lefthalf.filled") }
                 .tag(SettingsTab.appearance)
+            AccountsSettingsView()
+                .tabItem { Label("Accounts", systemImage: "person.crop.circle") }
+                .tag(SettingsTab.accounts)
             if isOn(.homebrew) {
                 HomebrewSettingsView()
                     .tabItem { Label { Text("Homebrew") } icon: { Image("TabHomebrew") } }
@@ -42,7 +45,7 @@ struct SettingsView: View {
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
                 .tag(SettingsTab.history)
         }
-        .frame(width: 600, height: 560)
+        .frame(width: 700, height: 560)
         .onAppear { AppActivation.windowOpened() }
         .onDisappear { AppActivation.windowClosed() }
         .onChange(of: settings.values.disabledBuckets) {

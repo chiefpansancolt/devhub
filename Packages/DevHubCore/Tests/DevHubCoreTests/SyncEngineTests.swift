@@ -1014,6 +1014,32 @@ private final class Rig {
         #expect(rig.state.syncAccountLogin == nil)
     }
 
+    @Test func aFailedSignInCanBeDismissed() async {
+        let github = FakeGitHub()
+        let rig = Rig(github: github, connected: false, tokens: FakeTokenStore(token: nil))
+        rig.attach(transport: RoutedTransport(api: github) { _ in response(200, ["error": "device_flow_disabled"]) })
+        rig.state.connectGitHub()
+        await waitUntil { if case .failed = rig.state.signIn { true } else { false } }
+
+        rig.state.dismissSignInFailure()
+
+        #expect(rig.state.signIn == .idle)
+    }
+
+    @Test func dismissingDoesNotTouchASignInThatIsWaiting() async {
+        let github = FakeGitHub()
+        let rig = Rig(github: github, connected: false, tokens: FakeTokenStore(token: nil))
+        rig.attach(transport: deviceTransport(github: github))
+        rig.pollGate.close()
+        rig.state.connectGitHub()
+        await waitUntil { if case .waiting = rig.state.signIn { true } else { false } }
+
+        rig.state.dismissSignInFailure()
+
+        if case .waiting = rig.state.signIn {} else { Issue.record("The waiting sign-in was dismissed") }
+        rig.state.cancelSignIn()
+    }
+
     @Test func aDeniedApprovalShowsAMessage() async {
         let github = FakeGitHub()
         let rig = Rig(github: github, connected: false, tokens: FakeTokenStore(token: nil))
