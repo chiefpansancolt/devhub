@@ -9,6 +9,10 @@ public enum PackageKind: String, Sendable, Codable, CaseIterable {
     case pnpmGlobal
     case bunGlobal
     case yarnGlobal
+    case runtime
+    case runtimeAsDefault
+
+    public var isRuntime: Bool { self == .runtime || self == .runtimeAsDefault }
 }
 
 public struct InstalledPackage: Identifiable, Sendable, Equatable {

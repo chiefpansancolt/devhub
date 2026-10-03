@@ -54,11 +54,12 @@ public struct NodeScanner: PackageScanner {
     }
 
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
-        command(for: package, arguments: ["uninstall", "-g", package.name])
+        if package.kind.isRuntime { return RuntimeInstaller().uninstallCommand(for: package) }
+        return command(for: package, arguments: ["uninstall", "-g", package.name])
     }
 
     public func installCommand(for package: InstalledPackage) -> ToolCommand? {
-        updateCommand(for: package)
+        package.kind.isRuntime ? RuntimeInstaller().command(for: package) : updateCommand(for: package)
     }
 
     private func scan(_ installation: NodeInstallation) async throws -> [InstalledPackage] {

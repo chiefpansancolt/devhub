@@ -38,6 +38,7 @@ final class WindowUIState {
     var checkedIDs: Set<String> = []
     var isConfirmingUninstall = false
     var isConfirmingUpdateAll = false
+    var runtimeToUninstall: RuntimeVersion?
     var sheet: WindowSheet?
     var pendingImport: PendingImport?
     var standardPackagesNotice: String?

@@ -11,7 +11,7 @@ struct DevHubApp: App {
 
     init() {
         let settings = SettingsStore()
-        let state = AppState(settings: settings.values, notifier: SystemNotifier(), notificationLedger: NotificationLedger(), versionLedger: VersionLedger())
+        let state = AppState(settings: settings.values, notifier: SystemNotifier(), notificationLedger: NotificationLedger(), versionLedger: VersionLedger(), runtimeReleaseSource: OfficialRuntimeReleases())
         UNUserNotificationCenter.current().delegate = effects.notificationDelegate
 
         AppEffects.launchLanguage = settings.values.language

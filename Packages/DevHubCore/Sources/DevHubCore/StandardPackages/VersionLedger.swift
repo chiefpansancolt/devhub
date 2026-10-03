@@ -25,6 +25,11 @@ public final class VersionLedger: @unchecked Sendable {
         "\(bucket.rawValue)/\(version)"
     }
 
+    /// Dismissals of new runtime versions share the ledger with the standard package offers but never clash with their keys.
+    public static func runtimeKey(_ bucket: Bucket, _ version: String) -> String {
+        "runtime/\(bucket.rawValue)/\(version)"
+    }
+
     public var snapshot: Snapshot { lock.withLock { stored } }
 
     /// The first run records the versions that already exist, so they are never offered the standard packages.

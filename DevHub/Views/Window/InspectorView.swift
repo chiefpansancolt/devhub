@@ -92,7 +92,7 @@ private struct InspectorContent: View {
         case .rustToolchain: "Rust toolchain"
         case .cargoTool: "Cargo tool"
         case .pythonTool: "Python tool · \(package.group ?? "")"
-        case .pnpmGlobal, .bunGlobal, .yarnGlobal: package.kind.singularTitle
+        case .pnpmGlobal, .bunGlobal, .yarnGlobal, .runtime, .runtimeAsDefault: package.kind.singularTitle
         }
     }
 

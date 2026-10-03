@@ -195,6 +195,22 @@ private func nodeVersion(of command: ToolCommand) -> String {
         return (state, runner, versionLedger)
     }
 
+    @Test func anOfferShowsOnItsToolAndOnItsVersionOnly() async {
+        let world = World(versions: ["24.21.0"], installed: ["24.21.0": []])
+        let (state, _, _) = makeState(world)
+        await state.refresh()
+        world.box.toolchain = nodeToolchain(["26.1.0", "24.21.0"])
+        world.installed["26.1.0"] = ["eslint"]
+        await state.refresh()
+        #expect(state.standardOffers.map(\.id) == ["node/26.1.0"])
+
+        #expect(state.standardOffers(in: PackageScope(bucket: .node)).map(\.id) == ["node/26.1.0"])
+        #expect(state.standardOffers(in: PackageScope(bucket: .node, group: "26.1.0")).map(\.id) == ["node/26.1.0"])
+        #expect(state.standardOffers(in: PackageScope(bucket: .node, group: "24.21.0")).isEmpty)
+        #expect(state.standardOffers(in: PackageScope(bucket: .ruby)).isEmpty)
+        #expect(state.standardOffers(in: PackageScope(bucket: .homebrew)).isEmpty)
+    }
+
     @Test func aVersionThatAppearsLaterIsOfferedTheMissingPackages() async {
         let world = World(versions: ["24.21.0"], installed: ["24.21.0": []])
         let (state, _, _) = makeState(world)

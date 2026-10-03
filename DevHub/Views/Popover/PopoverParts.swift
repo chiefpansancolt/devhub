@@ -142,10 +142,6 @@ struct PopoverFooter: View {
                 .clickable()
 
                 Menu {
-                    Button("About DevHub") {
-                        AppActivation.dismissMenuBarPopover()
-                        AboutPanel.show()
-                    }
                     Button("Settings…") {
                         AppActivation.dismissMenuBarPopover()
                         openSettings()

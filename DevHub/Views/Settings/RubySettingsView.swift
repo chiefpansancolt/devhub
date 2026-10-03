@@ -42,6 +42,14 @@ struct RubySettingsView: View {
                 }
             }
 
+            Section("New versions") {
+                Toggle("Check for new Ruby versions", isOn: checksForNewVersions)
+                    .clickable()
+                Text("Looks up the newest release on ruby-lang.org once a day. When a version is missing, a banner offers to install it with your version manager.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Standard gems") {
                 LabeledContent("Standard gems") {
                     ManageStandardPackagesButton(bucket: .ruby)
@@ -63,6 +71,15 @@ struct RubySettingsView: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    private var checksForNewVersions: Binding<Bool> {
+        Binding(
+            get: { !settings.values.disabledRuntimeChecks.contains("ruby") },
+            set: { isOn in
+                if isOn { settings.values.disabledRuntimeChecks.remove("ruby") } else { settings.values.disabledRuntimeChecks.insert("ruby") }
+            }
+        )
     }
 
     private var offersStandardPackages: Binding<Bool> {
