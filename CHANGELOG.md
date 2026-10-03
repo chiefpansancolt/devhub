@@ -20,6 +20,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Standard packages: a list for every tool (Homebrew, Node, Ruby, Rust and Python) in a window under the DevHub menu, next to Settings. Validate checks that each package exists and which version would install, and Install missing installs what a Node version, a Ruby version, a package manager or this Mac does not have yet
 - A banner offers the standard packages when a new Node or Ruby version appears, with an optional notification. Nothing installs until you choose Install. Node installs the newest version that the Node version can run
 - Export and Import of the standard lists in the File menu. The file holds only the lists, as JSON. An import asks whether to merge the names or replace the lists, shows what changes for each tool and installs nothing
+- A package that Validate could not check shows why under "Could not check" (for example the first line npm printed), with more of the output on hover and in the output log
 - Install is a new action: the progress strip, the output log, the popover and History know about it, and History has an Installs filter
 
 ### Changed

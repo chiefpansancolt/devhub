@@ -385,8 +385,52 @@ private func nodeVersion(of command: ToolCommand) -> String {
 
         let result = await state.validateStandard(bucket: .node, group: "24.21.0")
 
-        #expect(result.values.allSatisfy { $0 == .unavailable })
+        #expect(result.values.allSatisfy { $0.isUnavailable })
         #expect(result.count == 2)
+    }
+
+    @Test func aTargetThatIsNotSetUpSaysSo() async {
+        let world = World(versions: [], installed: [:])
+        let (state, _, _) = makeState(world)
+
+        let result = await state.validateStandard(bucket: .node, group: "24.21.0")
+
+        guard case let .unavailable(reason, _)? = result["npmGlobal/typescript"] else { Issue.record("Expected unavailable"); return }
+        #expect(reason == "Node is not set up on this Mac.")
+    }
+
+    @Test func aTargetThatTheToolCannotCheckSaysSo() async {
+        let world = World(versions: ["24.21.0"], installed: [:])
+        let (state, _, _) = makeState(world)
+        await state.refresh()
+
+        let result = await state.validateStandard(bucket: .node, group: "99.0.0")
+
+        guard case let .unavailable(reason, _)? = result["npmGlobal/typescript"] else { Issue.record("Expected unavailable"); return }
+        #expect(reason == "DevHub cannot check this package here.")
+    }
+
+    @Test func whyAPackageCouldNotBeCheckedIsWrittenToTheOutputLog() async {
+        let world = World(versions: ["24.21.0"], installed: [:])
+        world.offline = true
+        let (state, _, _) = makeState(world, standard: ["eslint"])
+        await state.refresh()
+
+        _ = await state.validateStandard(bucket: .node, group: "24.21.0")
+
+        let messages = state.log.map(\.entry.text)
+        #expect(messages.contains("eslint: npm failed: npm error code ENOTFOUND"))
+        #expect(messages.contains("    npm error code ENOTFOUND"))
+    }
+
+    @Test func aPackageThatCouldBeCheckedLeavesNothingInTheLog() async {
+        let world = World(versions: ["24.21.0"], installed: [:], latest: ["eslint": ("10.12.0", ">=20")])
+        let (state, _, _) = makeState(world, standard: ["eslint"])
+        await state.refresh()
+
+        _ = await state.validateStandard(bucket: .node, group: "24.21.0")
+
+        #expect(state.log.isEmpty)
     }
 
     @Test func theStatusFollowsTheScanResults() async {

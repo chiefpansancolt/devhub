@@ -77,9 +77,16 @@ public struct RustScanner: PackageScanner {
         case .rustToolchain where package.name != Self.rustupPackageName:
             return RustupParser.isToolchainName(package.name) ? .current(version: package.name) : .notFound
         case .cargoTool:
-            guard let cargo = installation.cargo else { return .unavailable }
+            guard let cargo = installation.cargo else {
+                return .unavailable(reason: String(localized: "Cargo is not installed.", bundle: .module), details: nil)
+            }
             let search = command(cargo, ["search", package.name, "--limit", "10"])
-            guard let result = try? await support.run(search), result.succeeded else { return .unavailable }
+            let result: CommandResult
+            switch await support.lookup(search, tool: "cargo") {
+            case let .ran(value): result = value
+            case let .cannotRun(resolution): return resolution
+            }
+            guard result.succeeded else { return .commandFailed("cargo", result) }
             return CargoParser.parseLatestVersion(of: package.name, in: result.standardOutput).map { .current(version: $0) } ?? .notFound
         default:
             return nil

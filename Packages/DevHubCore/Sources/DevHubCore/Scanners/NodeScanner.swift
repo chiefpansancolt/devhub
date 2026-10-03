@@ -139,31 +139,42 @@ public struct NodeScanner: PackageScanner {
     public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
         guard package.bucket == .node, let installation = installations.first(where: { $0.version == package.group }) else { return nil }
         let latest = command(for: installation, arguments: ["view", package.name, "version", "engines.node", "--json"])
-        guard let result = try? await support.run(latest) else { return .unavailable }
-        guard result.exitCode == 0 else {
-            return result.standardError.contains("E404") ? .notFound : .unavailable
+        let result: CommandResult
+        switch await support.lookup(latest, tool: "npm") {
+        case let .ran(value): result = value
+        case let .cannotRun(resolution): return resolution
         }
-        guard let newest = (try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)))?.first else { return .unavailable }
+        guard result.exitCode == 0 else {
+            return result.standardError.contains("E404") ? .notFound : .commandFailed("npm", result)
+        }
+        guard let newest = (try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)))?.first else { return .unreadable("npm", result) }
 
         func runs(_ version: NpmParser.PublishedVersion) -> Bool {
             NodeEngineRange(version.nodeRange).allows(installation.version)
         }
         if runs(newest) { return .current(version: newest.version) }
 
-        guard let list = try? await support.run(command(for: installation, arguments: ["view", package.name, "versions", "--json"])),
-              list.exitCode == 0 else { return .unavailable }
+        let list: CommandResult
+        switch await support.lookup(command(for: installation, arguments: ["view", package.name, "versions", "--json"]), tool: "npm") {
+        case let .ran(value): list = value
+        case let .cannotRun(resolution): return resolution
+        }
+        guard list.exitCode == 0 else { return .commandFailed("npm", list) }
         let candidates = VersionSearch.candidates(below: newest.version, among: NpmParser.parseVersionList(Data(list.standardOutput.utf8)))
         var lookupFailed = false
         for batch in candidates.chunked(into: Self.searchBatch).prefix(Self.searchBatches) {
             let checked = await BoundedConcurrency.map(batch, limit: Self.searchBatch) { version -> NpmParser.PublishedVersion? in
                 let view = command(for: installation, arguments: ["view", "\(package.name)@\(version)", "version", "engines.node", "--json"])
-                guard let result = try? await support.run(view), result.exitCode == 0 else { return nil }
+                guard case let .ran(result) = await support.lookup(view, tool: "npm"), result.exitCode == 0 else { return nil }
                 return (try? NpmParser.parsePublishedVersions(Data(result.standardOutput.utf8)))?.first
             }
             lookupFailed = lookupFailed || checked.contains { $0 == nil }
             if let match = checked.compactMap({ $0 }).first(where: runs) { return .older(newest: newest.version, installs: match.version) }
         }
-        return lookupFailed ? .unavailable : .incompatible(newest: newest.version)
+        if lookupFailed {
+            return .unavailable(reason: String(localized: "Some older versions could not be checked, so no compatible version was found.", bundle: .module), details: nil)
+        }
+        return .incompatible(newest: newest.version)
     }
 
     private func command(for package: InstalledPackage, arguments: [String]) -> ToolCommand? {

@@ -75,12 +75,16 @@ public struct HomebrewScanner: PackageScanner {
     public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
         guard package.bucket == .homebrew else { return nil }
         let info = command(["info", package.kind == .cask ? "--cask" : "--formula", "--json=v2", package.name])
-        guard let result = try? await support.run(info) else { return .unavailable }
+        let result: CommandResult
+        switch await support.lookup(info, tool: "brew") {
+        case let .ran(value): result = value
+        case let .cannotRun(resolution): return resolution
+        }
         guard result.succeeded else {
             let missing = ["No available formula", "No Cask with this name exists", "No available cask"].contains { result.standardError.contains($0) }
-            return missing ? .notFound : .unavailable
+            return missing ? .notFound : .commandFailed("brew", result)
         }
-        return BrewParser.parseNewestVersion(Data(result.standardOutput.utf8)).map { .current(version: $0) } ?? .unavailable
+        return BrewParser.parseNewestVersion(Data(result.standardOutput.utf8)).map { .current(version: $0) } ?? .unreadable("brew", result)
     }
 
     private func readInstalled() async throws -> [InstalledPackage] {

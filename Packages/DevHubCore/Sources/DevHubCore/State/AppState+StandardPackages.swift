@@ -30,13 +30,27 @@ extension AppState {
         let entries = (settings?.standardPackages ?? StandardPackageLists()).entries(for: bucket)
         let target = StandardTarget(bucket: bucket, group: group)
         guard let scanner = scanners[bucket] else {
-            return Dictionary(uniqueKeysWithValues: entries.map { ($0.id, PackageResolution.unavailable) })
+            let notSetUp = PackageResolution.unavailable(reason: String(localized: "\(bucket.displayName) is not set up on this Mac.", bundle: .module), details: nil)
+            return Dictionary(uniqueKeysWithValues: entries.map { ($0.id, notSetUp) })
         }
         let subjects = entries.map { StandardStatus.subject(for: $0, in: target) }
+        let cannotCheck = PackageResolution.unavailable(reason: String(localized: "DevHub cannot check this package here.", bundle: .module), details: nil)
         let resolutions = await BoundedConcurrency.map(subjects, limit: Self.concurrentLookups) { subject in
-            await scanner.resolveInstall(of: subject) ?? .unavailable
+            await scanner.resolveInstall(of: subject) ?? cannotCheck
         }
+        logUnavailable(entries, resolutions)
         return Dictionary(uniqueKeysWithValues: zip(entries.map(\.id), resolutions))
+    }
+
+    /// The output log keeps what a lookup printed, so a package that could not be checked can be explained.
+    private func logUnavailable(_ entries: [StandardEntry], _ resolutions: [PackageResolution]) {
+        for (entry, resolution) in zip(entries, resolutions) {
+            guard case let .unavailable(reason, details) = resolution else { continue }
+            handle(.log(LogEntry(kind: .error, text: "\(entry.name): \(reason)")))
+            for line in (details ?? "").split(separator: "\n") {
+                handle(.log(LogEntry(kind: .error, text: "    \(line)")))
+            }
+        }
     }
 
     // MARK: Installing

@@ -203,7 +203,7 @@ import Testing
         let offline = failed(exitCode: 1, standardError: "npm error code ENOTFOUND\nnpm error network request failed")
         let (scanner, _) = scanner(node: "18.20.4", Registry(latest: offline))
 
-        #expect(await scanner.resolveInstall(of: package("eslint")) == .unavailable)
+        #expect(await scanner.resolveInstall(of: package("eslint"))?.isUnavailable == true)
     }
 
     @Test func aFailedSearchIsUnavailableAndNotIncompatible() async {
@@ -214,8 +214,8 @@ import Testing
             engines: { _ in failed(exitCode: 1, standardError: "npm error network") }
         )
 
-        #expect(await scanner(node: "18.20.4", noList).0.resolveInstall(of: package("pkg")) == .unavailable)
-        #expect(await scanner(node: "18.20.4", noEngines).0.resolveInstall(of: package("pkg")) == .unavailable)
+        #expect(await scanner(node: "18.20.4", noList).0.resolveInstall(of: package("pkg"))?.isUnavailable == true)
+        #expect(await scanner(node: "18.20.4", noEngines).0.resolveInstall(of: package("pkg"))?.isUnavailable == true)
     }
 
     @Test func aPackageOfAnotherToolOrVersionIsNotHandled() async {

@@ -1,6 +1,14 @@
 import DevHubCore
 import SwiftUI
 
+private enum StandardColumns {
+    static let kind: CGFloat = 84
+    static let newest: CGFloat = 78
+    static let installs: CGFloat = 86
+    static let status: CGFloat = 180
+    static let remove: CGFloat = 22
+}
+
 struct StandardPackagesView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
@@ -29,13 +37,6 @@ struct StandardPackagesView: View {
         let group: String?
         let entries: [StandardEntry]
         var id: String { group ?? "-" }
-    }
-
-    private enum Columns {
-        static let kind: CGFloat = 84
-        static let newest: CGFloat = 78
-        static let installs: CGFloat = 86
-        static let remove: CGFloat = 22
     }
 
     var body: some View {
@@ -192,11 +193,11 @@ struct StandardPackagesView: View {
     private var columnHeader: some View {
         HStack(spacing: 12) {
             Text("Name").frame(maxWidth: .infinity, alignment: .leading)
-            if kinds.count > 1 { Text("Kind").frame(width: Columns.kind, alignment: .leading) }
-            Text("Newest").frame(width: Columns.newest, alignment: .leading)
-            Text("To install").frame(width: Columns.installs, alignment: .leading)
-            Text("Status").frame(width: 130, alignment: .leading)
-            Color.clear.frame(width: Columns.remove, height: 1)
+            if kinds.count > 1 { Text("Kind").frame(width: StandardColumns.kind, alignment: .leading) }
+            Text("Newest").frame(width: StandardColumns.newest, alignment: .leading)
+            Text("To install").frame(width: StandardColumns.installs, alignment: .leading)
+            Text("Status").frame(width: StandardColumns.status, alignment: .leading)
+            Color.clear.frame(width: StandardColumns.remove, height: 1)
         }
         .textCase(.uppercase)
         .font(.system(size: 11, weight: .semibold))
@@ -437,7 +438,7 @@ struct StandardPackagesView: View {
         let notFound = results.filter { $0 == .notFound }.count
         let older = results.filter { if case .older = $0 { true } else { false } }.count
         let incompatible = results.filter { if case .incompatible = $0 { true } else { false } }.count
-        let unavailable = results.filter { $0 == .unavailable }.count
+        let unavailable = results.filter(\.isUnavailable).count
         var parts: [String] = []
         if notFound > 0 { parts.append(String(localized: "Not found: \(notFound)")) }
         if incompatible > 0 { parts.append(String(localized: "Not compatible: \(incompatible)")) }
@@ -484,17 +485,17 @@ private struct EntryRow: View {
                 Text(entry.kind.singularTitle)
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
-                    .frame(width: 84, alignment: .leading)
+                    .frame(width: StandardColumns.kind, alignment: .leading)
             }
-            Text(verbatim: newest).font(.system(size: 12, design: .monospaced)).foregroundStyle(.secondary).frame(width: 78, alignment: .leading)
-            Text(verbatim: installs).font(.system(size: 12, design: .monospaced)).frame(width: 86, alignment: .leading)
-            status.frame(width: 130, alignment: .leading)
+            Text(verbatim: newest).font(.system(size: 12, design: .monospaced)).foregroundStyle(.secondary).frame(width: StandardColumns.newest, alignment: .leading)
+            Text(verbatim: installs).font(.system(size: 12, design: .monospaced)).frame(width: StandardColumns.installs, alignment: .leading)
+            status.frame(width: StandardColumns.status, alignment: .leading)
             Button(action: remove) {
                 Image(systemName: "xmark").font(.system(size: 11, weight: .semibold)).foregroundStyle(.secondary)
             }
             .buttonStyle(.plain)
             .clickable()
-            .frame(width: 22)
+            .frame(width: StandardColumns.remove)
             .accessibilityLabel("Remove \(entry.name)")
         }
         .padding(.horizontal, 14)
@@ -548,8 +549,11 @@ private struct EntryRow: View {
         case .notFound:
             chip(Text("Not found"), symbol: "exclamationmark.circle", color: .red)
             note(entry.kind == .rustToolchain ? Text("Not a toolchain name") : Text("No such package on \(source)"))
-        case .unavailable:
+        case let .unavailable(reason, details):
             chip(Text("Could not check"), symbol: "exclamationmark.circle", color: .secondary)
+            note(Text(verbatim: reason), lineLimit: 4)
+                .textSelection(.enabled)
+                .help(details ?? reason)
         }
     }
 
@@ -562,8 +566,8 @@ private struct EntryRow: View {
             .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: 5))
     }
 
-    private func note(_ text: Text) -> some View {
-        text.font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+    private func note(_ text: Text, lineLimit: Int? = nil) -> some View {
+        text.font(.system(size: 11)).foregroundStyle(.secondary).lineLimit(lineLimit).fixedSize(horizontal: false, vertical: true)
     }
 }
 

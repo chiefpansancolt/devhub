@@ -57,7 +57,12 @@ public struct RubyScanner: PackageScanner {
     public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
         guard package.bucket == .ruby, let installation = installations.first(where: { $0.version == package.group }) else { return nil }
         let list = command(for: installation, arguments: ["list", "--remote", "--exact", package.name])
-        guard let result = try? await support.run(list), result.succeeded else { return .unavailable }
+        let result: CommandResult
+        switch await support.lookup(list, tool: "gem") {
+        case let .ran(value): result = value
+        case let .cannotRun(resolution): return resolution
+        }
+        guard result.succeeded else { return .commandFailed("gem", result) }
         return GemParser.parseRemoteVersion(of: package.name, in: result.standardOutput).map { .current(version: $0) } ?? .notFound
     }
 

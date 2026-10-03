@@ -78,7 +78,7 @@ private func subject(_ name: String, bucket: Bucket, kind: PackageKind, group: S
     @Test func homebrewTreatsOtherFailuresAsUnavailable() async {
         let (scanner, _) = homebrew { _ in failed(exitCode: 1, standardError: "Error: Failed to download") }
 
-        #expect(await scanner.resolveInstall(of: subject("jq", bucket: .homebrew, kind: .formula)) == .unavailable)
+        #expect(await scanner.resolveInstall(of: subject("jq", bucket: .homebrew, kind: .formula))?.isUnavailable == true)
         #expect(await scanner.resolveInstall(of: subject("rake", bucket: .ruby, kind: .gem, group: "3.4.1")) == nil)
     }
 
@@ -101,7 +101,7 @@ private func subject(_ name: String, bucket: Bucket, kind: PackageKind, group: S
         let package = subject("nope", bucket: .ruby, kind: .gem, group: "3.4.1")
 
         #expect(await missing.resolveInstall(of: package) == .notFound)
-        #expect(await offline.resolveInstall(of: package) == .unavailable)
+        #expect(await offline.resolveInstall(of: package)?.isUnavailable == true)
         #expect(await missing.resolveInstall(of: subject("nope", bucket: .ruby, kind: .gem, group: "2.7.0")) == nil)
     }
 
@@ -125,8 +125,8 @@ private func subject(_ name: String, bucket: Bucket, kind: PackageKind, group: S
         let crate = subject("cargo-typo", bucket: .rust, kind: .cargoTool)
 
         #expect(await missing.resolveInstall(of: crate) == .notFound)
-        #expect(await offline.resolveInstall(of: crate) == .unavailable)
-        #expect(await noCargo.resolveInstall(of: crate) == .unavailable)
+        #expect(await offline.resolveInstall(of: crate)?.isUnavailable == true)
+        #expect(await noCargo.resolveInstall(of: crate)?.isUnavailable == true)
     }
 
     @Test func rustChecksToolchainNamesWithoutRunningAnything() async {
@@ -162,7 +162,145 @@ private func subject(_ name: String, bucket: Bucket, kind: PackageKind, group: S
         let package = subject("pythn-typo", bucket: .python, kind: .pythonTool, group: "uv")
 
         #expect(await missing.resolveInstall(of: package) == .notFound)
-        #expect(await offline.resolveInstall(of: package) == .unavailable)
+        #expect(await offline.resolveInstall(of: package)?.isUnavailable == true)
         #expect(await missing.resolveInstall(of: subject("black", bucket: .python, kind: .pythonTool, group: "pipx")) == nil)
+    }
+}
+
+private struct NoSuchProgramRunner: CommandRunning {
+    func run(_ command: ToolCommand) async throws -> CommandResult {
+        throw CommandError.launchFailed(executable: command.executable.path, reason: "No such file or directory")
+    }
+
+    func stream(_ command: ToolCommand) -> AsyncThrowingStream<CommandEvent, Error> {
+        AsyncThrowingStream { $0.finish(throwing: CommandError.launchFailed(executable: command.executable.path, reason: "No such file or directory")) }
+    }
+}
+
+private func reasonAndDetails(_ resolution: PackageResolution?) -> (reason: String, details: String?)? {
+    if case let .unavailable(reason, details)? = resolution { (reason, details) } else { nil }
+}
+
+@Suite struct UnavailableReasonTests {
+    @Test func theFirstLineThatAToolPrintedIsTheReasonAndTheFirstLinesAreTheDetails() throws {
+        let stderr = try Fixture.text("npm-view-offline.stderr.txt")
+
+        let result = reasonAndDetails(PackageResolution.commandFailed("npm", CommandResult(exitCode: 1, standardOutput: "", standardError: stderr)))
+
+        #expect(result?.reason == "npm failed: npm error code ECONNREFUSED")
+        let details = try #require(result?.details)
+        #expect(details.contains("FetchError: request to http://127.0.0.1:9/eslint failed"))
+        #expect(details.split(separator: "\n").count == 6)
+    }
+
+    @Test func stackTraceLinesDoNotBuryTheLineThatExplainsTheFailure() throws {
+        let stderr = try Fixture.text("npm-view-offline.stderr.txt")
+
+        let details = try #require(reasonAndDetails(PackageResolution.commandFailed("npm", CommandResult(exitCode: 1, standardOutput: "", standardError: stderr)))?.details)
+
+        #expect(details.contains("FetchError: request to http://127.0.0.1:9/eslint failed, reason: connect ECONNREFUSED 127.0.0.1:9"))
+        #expect(!details.contains("ClientRequest"))
+        #expect(!details.contains("minipass-fetch"))
+    }
+
+    @Test func aLineThatMerelyContainsTheWordAtIsKept() {
+        let result = reasonAndDetails(PackageResolution.commandFailed("brew", CommandResult(exitCode: 1, standardOutput: "", standardError: "Error: cannot look at the index\nError: retry at 12:30")))
+
+        #expect(result?.details == "Error: cannot look at the index\nError: retry at 12:30")
+    }
+
+    @Test func theDetailsAreCutToAReasonableLength() {
+        let long = String(repeating: "x", count: 2000)
+
+        let details = reasonAndDetails(PackageResolution.commandFailed("brew", CommandResult(exitCode: 1, standardOutput: "", standardError: long)))?.details
+
+        #expect((details?.count ?? 0) <= 600)
+    }
+
+    @Test func whatThePrintedOutputLacksStandardOutputStandsIn() {
+        let result = reasonAndDetails(PackageResolution.commandFailed("gem", CommandResult(exitCode: 2, standardOutput: "\n  ERROR: nope  \n", standardError: "")))
+
+        #expect(result?.reason == "gem failed: ERROR: nope")
+    }
+
+    @Test func aToolThatPrintedNothingGivesItsExitCode() {
+        let result = reasonAndDetails(PackageResolution.commandFailed("cargo", CommandResult(exitCode: 101, standardOutput: "", standardError: "")))
+
+        #expect(result?.reason == "cargo exited with code 101.")
+        #expect(result?.details == nil)
+    }
+
+    @Test func aProgramThatCannotStartIsNamedWithTheSystemMessage() async {
+        let brew = HomebrewScanner(installation: HomebrewInstallation(executable: URL(filePath: "/opt/homebrew/bin/brew")), runner: NoSuchProgramRunner())
+
+        let result = reasonAndDetails(await brew.resolveInstall(of: subject("jq", bucket: .homebrew, kind: .formula)))
+
+        #expect(result?.reason == "Could not run brew: No such file or directory (/opt/homebrew/bin/brew)")
+    }
+
+    @Test func outputThatCannotBeReadIsSaidSoAndKept() async {
+        let brew = HomebrewScanner(installation: HomebrewInstallation(executable: URL(filePath: "/opt/homebrew/bin/brew")), runner: FakeRunner { _ in succeeded("this is not json") })
+
+        let result = reasonAndDetails(await brew.resolveInstall(of: subject("jq", bucket: .homebrew, kind: .formula)))
+
+        #expect(result?.reason == "brew printed output that DevHub could not read.")
+        #expect(result?.details == "this is not json")
+    }
+
+    @Test func eachToolNamesItselfInTheReason() async {
+        let boom = failed(exitCode: 1, standardError: "boom")
+        let gem = RubyScanner(installations: [RubyInstallation(version: "3.4.1", manager: .rbenv, root: URL(filePath: "/r"))], runner: FakeRunner { _ in boom })
+        let cargo = RustScanner(installation: RustInstallation(rustup: URL(filePath: "/c/rustup"), cargo: URL(filePath: "/c/cargo")), runner: FakeRunner { _ in boom })
+        let uv = PythonScanner(installations: [PythonInstallation(manager: .uv, executable: URL(filePath: "/u/uv"))], runner: FakeRunner { _ in boom })
+        let pipx = PythonScanner(installations: [PythonInstallation(manager: .pipx, executable: URL(filePath: "/p/pipx"))], runner: FakeRunner { _ in boom })
+
+        #expect(reasonAndDetails(await gem.resolveInstall(of: subject("x", bucket: .ruby, kind: .gem, group: "3.4.1")))?.reason == "gem failed: boom")
+        #expect(reasonAndDetails(await cargo.resolveInstall(of: subject("x", bucket: .rust, kind: .cargoTool)))?.reason == "cargo failed: boom")
+        #expect(reasonAndDetails(await uv.resolveInstall(of: subject("x", bucket: .python, kind: .pythonTool, group: "uv")))?.reason == "uv failed: boom")
+        #expect(reasonAndDetails(await pipx.resolveInstall(of: subject("x", bucket: .python, kind: .pythonTool, group: "pipx")))?.reason == "pipx failed: boom")
+    }
+
+    @Test func aMissingCargoIsSaidPlainly() async {
+        let scanner = RustScanner(installation: RustInstallation(rustup: URL(filePath: "/c/rustup"), cargo: nil), runner: FakeRunner { _ in succeeded("") })
+
+        let result = reasonAndDetails(await scanner.resolveInstall(of: subject("hexyl", bucket: .rust, kind: .cargoTool)))
+
+        #expect(result?.reason == "Cargo is not installed.")
+    }
+
+    @Test func aNetworkFailureOfNpmKeepsTheRealMessage() async throws {
+        let stderr = try Fixture.text("npm-view-offline.stderr.txt")
+        let node = NodeInstallation(version: "24.21.0", manager: .nvm, root: URL(filePath: "/home/.nvm/versions/node/v24.21.0"))
+        let scanner = NodeScanner(installations: [node], runner: FakeRunner { _ in CommandResult(exitCode: 1, standardOutput: "", standardError: stderr) })
+
+        let result = reasonAndDetails(await scanner.resolveInstall(of: subject("eslint", bucket: .node, kind: .npmGlobal, group: "24.21.0")))
+
+        #expect(result?.reason == "npm failed: npm error code ECONNREFUSED")
+        #expect(result?.details?.contains("ECONNREFUSED 127.0.0.1:9") == true)
+    }
+
+    @Test func aSearchThatCouldNotFinishExplainsWhy() async {
+        let node = NodeInstallation(version: "18.20.4", manager: .nvm, root: URL(filePath: "/home/.nvm/versions/node/v18.20.4"))
+        let scanner = NodeScanner(installations: [node], runner: FakeRunner { command in
+            let arguments = command.arguments
+            if arguments[2] == "versions" { return succeeded(#"["1.0.0","2.0.0"]"#) }
+            if arguments[1] == "pkg" { return succeeded(#"[{"version":"2.0.0","engines.node":">=22"}]"#) }
+            return failed(exitCode: 1, standardError: "npm error network")
+        })
+
+        let result = reasonAndDetails(await scanner.resolveInstall(of: subject("pkg", bucket: .node, kind: .npmGlobal, group: "18.20.4")))
+
+        #expect(result?.reason == "Some older versions could not be checked, so no compatible version was found.")
+    }
+
+    @Test func theVersionListFailingKeepsWhatNpmSaid() async {
+        let node = NodeInstallation(version: "18.20.4", manager: .nvm, root: URL(filePath: "/home/.nvm/versions/node/v18.20.4"))
+        let scanner = NodeScanner(installations: [node], runner: FakeRunner { command in
+            command.arguments[2] == "versions" ? failed(exitCode: 1, standardError: "npm error code EAI_AGAIN") : succeeded(#"[{"version":"2.0.0","engines.node":">=22"}]"#)
+        })
+
+        let result = reasonAndDetails(await scanner.resolveInstall(of: subject("pkg", bucket: .node, kind: .npmGlobal, group: "18.20.4")))
+
+        #expect(result?.reason == "npm failed: npm error code EAI_AGAIN")
     }
 }

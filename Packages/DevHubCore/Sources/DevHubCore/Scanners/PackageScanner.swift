@@ -31,6 +31,11 @@ extension PackageScanner {
     }
 }
 
+enum LookupOutcome {
+    case ran(CommandResult)
+    case cannotRun(PackageResolution)
+}
+
 struct ScanSupport {
     let runner: CommandRunning
 
@@ -42,6 +47,17 @@ struct ScanSupport {
             case let .launchFailed(executable, reason):
                 throw ScanFailure.commandFailed(command: command.displayText, exitCode: -1, detail: "could not start \(executable): \(reason)")
             }
+        }
+    }
+
+    /// Runs a command for a lookup. A command that cannot start becomes an unavailable resolution that says why.
+    func lookup(_ command: ToolCommand, tool: String) async -> LookupOutcome {
+        do {
+            return .ran(try await runner.run(command))
+        } catch let CommandError.launchFailed(executable, reason) {
+            return .cannotRun(.couldNotRun(tool, detail: "\(reason) (\(executable))"))
+        } catch {
+            return .cannotRun(.couldNotRun(tool, detail: error.localizedDescription))
         }
     }
 

@@ -64,11 +64,15 @@ public struct PythonScanner: PackageScanner {
         case .pipx: index = command(installation, ["run", "pip", "index", "versions", package.name])
         case .uv: index = command(installation, ["tool", "run", "pip", "index", "versions", package.name])
         }
-        guard let result = try? await support.run(index) else { return .unavailable }
-        guard result.succeeded else {
-            return result.standardError.contains("No matching distribution found") ? .notFound : .unavailable
+        let result: CommandResult
+        switch await support.lookup(index, tool: installation.manager.rawValue) {
+        case let .ran(value): result = value
+        case let .cannotRun(resolution): return resolution
         }
-        return PythonParser.parsePipIndexNewest(result.standardOutput).map { .current(version: $0) } ?? .unavailable
+        guard result.succeeded else {
+            return result.standardError.contains("No matching distribution found") ? .notFound : .commandFailed(installation.manager.rawValue, result)
+        }
+        return PythonParser.parsePipIndexNewest(result.standardOutput).map { .current(version: $0) } ?? .unreadable(installation.manager.rawValue, result)
     }
 
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
