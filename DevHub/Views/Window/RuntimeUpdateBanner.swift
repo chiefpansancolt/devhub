@@ -3,11 +3,13 @@ import SwiftUI
 
 struct RuntimeUpdateBanners: View {
     @Environment(AppState.self) private var state
+    let bucket: Bucket
 
     var body: some View {
-        if !state.isBusy, !state.runtimeOffers.isEmpty {
+        let offers = state.runtimeOffers(for: bucket)
+        if !state.isBusy, !offers.isEmpty {
             VStack(spacing: 8) {
-                ForEach(state.runtimeOffers) { offer in
+                ForEach(offers) { offer in
                     RuntimeUpdateBanner(offer: offer)
                 }
             }

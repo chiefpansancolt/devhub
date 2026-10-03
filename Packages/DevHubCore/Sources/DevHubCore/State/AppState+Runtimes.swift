@@ -3,6 +3,10 @@ import Foundation
 extension AppState {
     private static let releaseCacheLifetime: TimeInterval = 24 * 60 * 60
 
+    public func runtimeOffers(for bucket: Bucket) -> [RuntimeOffer] {
+        runtimeOffers.filter { $0.bucket == bucket }
+    }
+
     public func dismissRuntimeOffer(_ offer: RuntimeOffer) {
         versionLedger?.dismiss(offer.id)
         updateRuntimeOffers()

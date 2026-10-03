@@ -77,6 +77,25 @@ private final class Machine: @unchecked Sendable {
         #expect(state.runtimeOffers.map(\.version) == ["26.10.0", "24.21.0"])
     }
 
+    @Test func theOffersOfOneToolAreSeparatedFromTheOthers() async {
+        let name = "devhub-tests-\(UUID().uuidString)"
+        let suite = UserDefaults(suiteName: name)!
+        suite.removePersistentDomain(forName: name)
+        let runner = FakeRunner { _ in CommandResult(exitCode: 0, standardOutput: "", standardError: "") }
+        let state = AppState(
+            scanners: [:], runner: runner, versionLedger: VersionLedger(defaults: suite),
+            runtimeVersions: [RuntimeVersion(bucket: .node, version: "24.20.0", manager: .nvm), RuntimeVersion(bucket: .ruby, version: "3.4.1", manager: .rbenv)],
+            runtimeReleaseSource: StubReleases([.node: ["26.10.0", "24.20.0"], .ruby: ["4.0.7", "3.4.1"]])
+        )
+
+        await state.checkRuntimeReleases(force: true)
+
+        #expect(state.runtimeOffers(for: .node).map(\.version) == ["26.10.0"])
+        #expect(state.runtimeOffers(for: .ruby).map(\.version) == ["4.0.7"])
+        #expect(state.runtimeOffers(for: .homebrew).isEmpty)
+        #expect(state.runtimeOffers.count == 2)
+    }
+
     @Test func aMachineWithoutAnInstallerHasNoSource() async {
         let (state, _, _, _) = makeState()
         let withoutSource = AppState(scanners: [:], runner: FakeRunner { _ in CommandResult(exitCode: 0, standardOutput: "", standardError: "") }, runtimeVersions: [RuntimeVersion(bucket: .node, version: "24.20.0", manager: .nvm)])
