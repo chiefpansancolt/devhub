@@ -23,6 +23,11 @@
   <p><em>The window, with a sidebar that filters by tool, Node version and Ruby version</em></p>
 </div>
 
+<div align="center">
+  <img src=".github/images/versions-banner.png" alt="The DevHub window on Node, with banners offering Node 26.10.0 and 25.9.0" width="800">
+  <p><em>A newer Node version, offered with Install or Install and set as default</em></p>
+</div>
+
 <table align="center">
   <tr>
     <td align="center" valign="top">
@@ -32,6 +37,16 @@
     <td align="center" valign="top">
       <img src=".github/images/settings.png" alt="DevHub settings" width="360"><br>
       <em>Settings</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src=".github/images/standard-packages.png" alt="The Standard packages window on the Node tab" width="360"><br>
+      <em>Standard packages, with the versions that are missing some of them</em>
+    </td>
+    <td align="center" valign="top">
+      <img src=".github/images/sync.png" alt="The Accounts tab in Settings, connected to GitHub" width="360"><br>
+      <em>Sync with GitHub in Settings</em>
     </td>
   </tr>
 </table>
