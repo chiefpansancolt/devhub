@@ -6,6 +6,7 @@ struct DevHubCommands: Commands {
     let state: AppState
     let settings: SettingsStore
     let ui: WindowUIState
+    @Environment(\.openWindow) private var openWindow
 
     private static let issuesURL = URL(string: "https://github.com/chiefpansancolt/devhub/issues/new")!
 
@@ -31,9 +32,31 @@ struct DevHubCommands: Commands {
     // MARK: App
 
     private var appCommands: some Commands {
-        CommandGroup(replacing: .appInfo) {
-            Button("About DevHub") { AboutPanel.show() }
+        Group {
+            CommandGroup(replacing: .appInfo) {
+                Button("About DevHub") { AboutPanel.show() }
+            }
+            CommandGroup(after: .appSettings) {
+                Button("Standard Packages") { showStandardPackages() }
+                    .disabled(state.enabledBuckets.isEmpty)
+            }
         }
+    }
+
+    private func showStandardPackages() {
+        show(.standardPackages(.node))
+    }
+
+    private func show(_ sheet: WindowSheet) {
+        ui.sheet = sheet
+        openWindow(id: MainWindow.id)
+        AppActivation.bringToFront()
+    }
+
+    private func importStandardPackages() {
+        guard let pending = StandardListsFileActions.chooseImport() else { return }
+        ui.pendingImport = pending
+        show(.importLists)
     }
 
     // MARK: File
@@ -50,6 +73,10 @@ struct DevHubCommands: Commands {
             Button("Update Selected") { state.startUpdate(checkedPackages) }
                 .keyboardShortcut("u", modifiers: [.command, .option])
                 .disabled(checkedPackages.isEmpty || state.isBusy)
+            Divider()
+            Button("Export Standard Packages") { show(.exportLists) }
+                .disabled(settings.values.standardPackages.isEmpty)
+            Button("Import Standard Packages") { importStandardPackages() }
         }
     }
 

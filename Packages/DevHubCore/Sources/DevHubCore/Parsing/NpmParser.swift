@@ -29,6 +29,10 @@ enum NpmParser {
     static func parsePublishedVersions(_ data: Data) throws -> [PublishedVersion] {
         guard !isBlank(data) else { return [] }
         let decoder = JSONDecoder()
+        // A package that declares no engines in any matching version prints only the version strings.
+        if let versions = try? decoder.decode([String].self, from: data) {
+            return versions.map { PublishedVersion(version: $0, nodeRange: nil) }
+        }
         let entries: [PublishedEntry]
         if let list = try? decoder.decode([PublishedEntry].self, from: data) {
             entries = list
@@ -36,6 +40,13 @@ enum NpmParser {
             entries = [try decoder.decode(PublishedEntry.self, from: data)]
         }
         return entries.compactMap { entry in entry.version.map { PublishedVersion(version: $0, nodeRange: entry.nodeRange) } }
+    }
+
+    /// `npm view <name> versions --json`. Prints a list of version strings, or one string when the package has one version.
+    static func parseVersionList(_ data: Data) -> [String] {
+        let decoder = JSONDecoder()
+        if let list = try? decoder.decode([String].self, from: data) { return list }
+        return (try? decoder.decode(String.self, from: data)).map { [$0] } ?? []
     }
 
     /// `npm outdated -g --json`. Prints nothing, or `{}`, when every package is current.

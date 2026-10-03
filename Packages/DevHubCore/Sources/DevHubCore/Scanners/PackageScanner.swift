@@ -13,12 +13,27 @@ public protocol PackageScanner: Sendable {
     func updateCommand(for package: InstalledPackage) -> ToolCommand?
 
     func uninstallCommand(for package: InstalledPackage) -> ToolCommand?
+
+    /// Installs a package that is not installed yet. `availableUpdate` holds the version to install, or nil for the newest.
+    func installCommand(for package: InstalledPackage) -> ToolCommand?
+
+    /// Looks up what installing `package` would do, without installing it. Nil when this scanner does not handle the package.
+    func resolveInstall(of package: InstalledPackage) async -> PackageResolution?
 }
 
 extension PackageScanner {
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? { nil }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? { nil }
+
     public func scan() async -> ScanResult {
         await scan(.check)
     }
+}
+
+enum LookupOutcome {
+    case ran(CommandResult)
+    case cannotRun(PackageResolution)
 }
 
 struct ScanSupport {
@@ -32,6 +47,17 @@ struct ScanSupport {
             case let .launchFailed(executable, reason):
                 throw ScanFailure.commandFailed(command: command.displayText, exitCode: -1, detail: "could not start \(executable): \(reason)")
             }
+        }
+    }
+
+    /// Runs a command for a lookup. A command that cannot start becomes an unavailable resolution that says why.
+    func lookup(_ command: ToolCommand, tool: String) async -> LookupOutcome {
+        do {
+            return .ran(try await runner.run(command))
+        } catch let CommandError.launchFailed(executable, reason) {
+            return .cannotRun(.couldNotRun(tool, detail: "\(reason) (\(executable))"))
+        } catch {
+            return .cannotRun(.couldNotRun(tool, detail: error.localizedDescription))
         }
     }
 

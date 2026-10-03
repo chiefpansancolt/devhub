@@ -9,7 +9,7 @@ struct UpdateProgressStrip: View {
             strip {
                 ProgressView(value: Double(session.finishedCount), total: Double(session.items.count))
                     .frame(width: 120)
-                Text("Updating").foregroundStyle(.secondary)
+                session.verbTitle.foregroundStyle(.secondary)
                 if let item = session.runningItem {
                     Text(verbatim: runningName(item.package)).fontWeight(.semibold).lineLimit(1)
                 }

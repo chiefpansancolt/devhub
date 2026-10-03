@@ -42,6 +42,20 @@ struct RubySettingsView: View {
                 }
             }
 
+            Section("Standard gems") {
+                LabeledContent("Standard gems") {
+                    ManageStandardPackagesButton(bucket: .ruby)
+                }
+                Text("Managed in their own window, where you can check the list and install it into a Ruby version.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+                Toggle("Offer the standard gems in new versions", isOn: offersStandardPackages)
+                    .clickable()
+                Text("Shows a banner in the window when a Ruby version is missing some of them. Nothing installs until you choose Install.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Update options") {
                 Toggle("Install gem documentation", isOn: $settings.values.gemInstallDocumentation)
                 .clickable()
@@ -50,6 +64,16 @@ struct RubySettingsView: View {
         }
         .formStyle(.grouped)
     }
+
+    private var offersStandardPackages: Binding<Bool> {
+        Binding(
+            get: { !settings.values.disabledStandardBanners.contains("ruby") },
+            set: { isOn in
+                if isOn { settings.values.disabledStandardBanners.remove("ruby") } else { settings.values.disabledStandardBanners.insert("ruby") }
+            }
+        )
+    }
+
 
     private func isIncluded(_ version: String) -> Binding<Bool> {
         Binding(

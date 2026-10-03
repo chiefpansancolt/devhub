@@ -55,4 +55,13 @@ enum GemParser {
         let inside = line[line.index(after: open)..<line.index(before: line.endIndex)]
         return (name, String(inside))
     }
+
+    /// `gem list --remote --exact <name>`. Prints `name (1.2.3)`, or nothing when no gem has that name.
+    static func parseRemoteVersion(of name: String, in text: String) -> String? {
+        for line in text.split(whereSeparator: \.isNewline) {
+            guard let (gem, inside) = nameAndParentheses(String(line)), gem == name else { continue }
+            return inside.split(separator: ",").first.map { $0.trimmingCharacters(in: .whitespaces) }
+        }
+        return nil
+    }
 }

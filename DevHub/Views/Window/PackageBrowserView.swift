@@ -20,6 +20,7 @@ struct PackageBrowserView: View {
         VStack(spacing: 0) {
             header
             Divider()
+            StandardPackagesBanners()
             modeBar
             Divider()
             content

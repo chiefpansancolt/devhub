@@ -49,6 +49,23 @@ public struct RubyScanner: PackageScanner {
         command(for: package, arguments: ["update", package.name] + (options.installDocumentation ? [] : ["--no-document"]))
     }
 
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        let version = package.availableUpdate.map { ["--version", $0] } ?? []
+        return command(for: package, arguments: ["install", package.name] + version + (options.installDocumentation ? [] : ["--no-document"]))
+    }
+
+    public func resolveInstall(of package: InstalledPackage) async -> PackageResolution? {
+        guard package.bucket == .ruby, let installation = installations.first(where: { $0.version == package.group }) else { return nil }
+        let list = command(for: installation, arguments: ["list", "--remote", "--exact", package.name])
+        let result: CommandResult
+        switch await support.lookup(list, tool: "gem") {
+        case let .ran(value): result = value
+        case let .cannotRun(resolution): return resolution
+        }
+        guard result.succeeded else { return .commandFailed("gem", result) }
+        return GemParser.parseRemoteVersion(of: package.name, in: result.standardOutput).map { .current(version: $0) } ?? .notFound
+    }
+
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         command(for: package, arguments: ["uninstall", package.name, "--all", "--executables"])
     }

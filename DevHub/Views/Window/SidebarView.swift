@@ -45,8 +45,11 @@ struct SidebarView: View {
                 .padding(.horizontal, 18)
                 .padding(.top, 6)
                 .padding(.bottom, 6)
-            HistoryRow(ui: ui)
-                .padding(.horizontal, 10)
+            VStack(spacing: 2) {
+                HistoryRow(ui: ui)
+                StandardPackagesRow(ui: ui)
+            }
+            .padding(.horizontal, 10)
 
             Text("Bucket numbers show available updates. Sub-rows show updates of installed.")
                 .font(.system(size: 11))
@@ -144,6 +147,36 @@ private struct HistoryRow: View {
         }
         .buttonStyle(.plain)
         .clickable()
+        .handCursorOnHover()
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+}
+
+private struct StandardPackagesRow: View {
+    @Environment(AppState.self) private var state
+    let ui: WindowUIState
+
+    var body: some View {
+        let isSelected = if case .standardPackages = ui.sheet { true } else { false }
+        Button {
+            ui.sheet = .standardPackages(state.enabledBuckets.contains(ui.scope.bucket) ? ui.scope.bucket : .node)
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "checklist")
+                    .font(.system(size: 13, weight: .medium))
+                    .frame(width: 18)
+                    .accessibilityHidden(true)
+                Text("Standard packages").font(.system(size: 13, weight: isSelected ? .semibold : .regular))
+                Spacer()
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(isSelected ? Color.accentColor.opacity(0.18) : .clear, in: RoundedRectangle(cornerRadius: 7))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .clickable()
+        .disabled(state.enabledBuckets.isEmpty)
         .handCursorOnHover()
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }

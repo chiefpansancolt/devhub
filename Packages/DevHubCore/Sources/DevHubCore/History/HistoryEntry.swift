@@ -4,6 +4,7 @@ public enum HistoryAction: String, Codable, Sendable, CaseIterable {
     case check
     case update
     case uninstall
+    case install
 }
 
 public enum HistoryTrigger: String, Codable, Sendable {
@@ -105,6 +106,14 @@ enum HistoryCoding {
 }
 
 extension HistoryEntry {
+    private static func historyAction(for action: PackageAction) -> HistoryAction {
+        switch action {
+        case .update: .update
+        case .uninstall: .uninstall
+        case .install: .install
+        }
+    }
+
     init?(outcome: ActionOutcome, trigger: HistoryTrigger, includesOutput: Bool) {
         guard let startedAt = outcome.startedAt else { return nil }
 
@@ -117,12 +126,12 @@ extension HistoryEntry {
 
         self.init(
             timestamp: startedAt,
-            action: outcome.action == .update ? .update : .uninstall,
+            action: Self.historyAction(for: outcome.action),
             bucket: outcome.package.bucket,
             package: outcome.package.name,
             group: outcome.package.group,
-            fromVersion: outcome.package.installedVersion,
-            toVersion: outcome.action == .update ? outcome.package.availableUpdate : nil,
+            fromVersion: outcome.action == .install ? nil : outcome.package.installedVersion,
+            toVersion: outcome.action == .uninstall ? nil : outcome.package.availableUpdate,
             trigger: trigger,
             command: outcome.command?.displayText ?? "",
             exitCode: outcome.result?.exitCode ?? -1,

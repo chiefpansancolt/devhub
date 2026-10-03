@@ -41,6 +41,15 @@ struct WindowView: View {
                 .transition(.move(edge: .trailing))
             }
         }
+        .sheet(item: Binding(get: { ui.sheet }, set: { ui.sheet = $0 })) { sheet in
+            switch sheet {
+            case let .standardPackages(tool):
+                StandardPackagesView(initialTool: tool, notice: ui.standardPackagesNotice)
+                    .onAppear { ui.standardPackagesNotice = nil }
+            case .exportLists: ExportListsSheet()
+            case .importLists: ImportListsSheet(ui: ui)
+            }
+        }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.22), value: inspectorIsOpen)
         .frame(minWidth: inspectorIsOpen ? 1180 : 860, minHeight: 560)
         .onAppear {

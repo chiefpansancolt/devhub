@@ -34,7 +34,7 @@ struct OutputLogView: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         if state.log.isEmpty {
-                            Text("Command output appears here when you update or uninstall a package.")
+                            Text("Command output appears here when you update, install or uninstall a package.")
                                 .font(.system(size: 12))
                                 .foregroundStyle(Color(red: 0.63, green: 0.63, blue: 0.65))
                                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -3,6 +3,7 @@ import Foundation
 public enum HistoryActionFilter: Sendable, CaseIterable {
     case all
     case updates
+    case installs
     case uninstalls
     case checks
     case failed
@@ -39,6 +40,7 @@ public enum HistoryListing {
             switch action {
             case .all: break
             case .updates: if entry.action != .update { return false }
+            case .installs: if entry.action != .install { return false }
             case .uninstalls: if entry.action != .uninstall { return false }
             case .checks: if entry.action != .check { return false }
             case .failed: if entry.ok { return false }

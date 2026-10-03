@@ -45,6 +45,11 @@ enum RustupParser {
         }
     }
 
+    /// A toolchain is a channel (`stable`, `beta`, `nightly`) or a version number, optionally followed by a date and a target.
+    static func isToolchainName(_ name: String) -> Bool {
+        name.wholeMatch(of: /(stable|beta|nightly|\d+\.\d+(\.\d+)?)(-\d{4}-\d{2}-\d{2})?(-[A-Za-z0-9_]+)*/) != nil
+    }
+
     /// `rustc --version`, for example `rustc 1.98.1 (48a229cea 2026-09-01)`.
     static func parseCompilerVersion(_ text: String) -> String? {
         let words = text.split(whereSeparator: \.isNewline).first?.split(separator: " ") ?? []

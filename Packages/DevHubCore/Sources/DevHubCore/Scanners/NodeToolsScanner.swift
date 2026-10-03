@@ -56,6 +56,10 @@ public struct NodeToolsScanner: PackageScanner {
         }
     }
 
+    public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        updateCommand(for: package)
+    }
+
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
         guard let installation = installation(for: package) else { return nil }
         switch installation.manager {

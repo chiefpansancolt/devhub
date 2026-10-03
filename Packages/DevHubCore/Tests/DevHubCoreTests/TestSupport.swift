@@ -34,7 +34,8 @@ final class FakeRunner: CommandRunning, @unchecked Sendable {
     }
 
     func stream(_ command: ToolCommand) -> AsyncThrowingStream<CommandEvent, Error> {
-        AsyncThrowingStream { continuation in
+        lock.withLock { recorded.append(command) }
+        return AsyncThrowingStream { continuation in
             let result = handler(command)
             for line in result.standardOutput.split(separator: "\n") {
                 continuation.yield(.output(OutputLine(source: .standardOutput, text: String(line))))
