@@ -4,6 +4,7 @@ import Observation
 public enum SettingsTab: String, Sendable, CaseIterable {
     case general
     case appearance
+    case accounts
     case homebrew
     case node
     case ruby

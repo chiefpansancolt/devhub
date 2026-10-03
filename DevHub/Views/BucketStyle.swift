@@ -62,7 +62,7 @@ extension SettingsTab {
         case .ruby: .ruby
         case .rust: .rust
         case .python: .python
-        case .general, .appearance, .history: nil
+        case .general, .appearance, .accounts, .history: nil
         }
     }
 }
