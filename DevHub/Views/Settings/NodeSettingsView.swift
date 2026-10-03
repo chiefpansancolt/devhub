@@ -143,8 +143,7 @@ struct NodeSettingsView: View {
     }
 
     private func manageStandardPackages() {
-        windowUI.standardPackagesTool = .node
-        windowUI.isShowingStandardPackages = true
+        windowUI.sheet = .standardPackages(.node)
         openWindow(id: MainWindow.id)
         AppActivation.bringToFront()
     }

@@ -2067,6 +2067,58 @@
         }
       }
     },
+    "The file is not valid JSON.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei ist kein gültiges JSON."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo no es un JSON válido."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier n’est pas un JSON valide."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ファイルは有効なJSONではありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파일이 올바른 JSON이 아닙니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo não é um JSON válido."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не является корректным JSON."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件不是有效的 JSON。"
+          }
+        }
+      }
+    },
     "The scan was cancelled": {
       "localizations": {
         "de": {
@@ -2333,6 +2385,58 @@
         }
       }
     },
+    "This file was written by a newer version of DevHub (file format %lld). Update DevHub to read it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Datei wurde von einer neueren DevHub-Version geschrieben (Dateiformat %lld). Aktualisiere DevHub, um sie zu lesen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este archivo lo escribió una versión más reciente de DevHub (formato de archivo %lld). Actualiza DevHub para leerlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce fichier a été écrit par une version plus récente de DevHub (format de fichier %lld). Mettez DevHub à jour pour le lire."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このファイルは新しいバージョンのDevHubで作成されました（ファイル形式 %lld）。読み込むにはDevHubをアップデートしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 파일은 더 새로운 DevHub 버전에서 만들어졌습니다(파일 형식 %lld). 읽으려면 DevHub를 업데이트하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este arquivo foi criado por uma versão mais recente do DevHub (formato de arquivo %lld). Atualize o DevHub para lê-lo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот файл создан более новой версией DevHub (формат файла %lld). Обновите DevHub, чтобы его прочитать."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此文件由较新版本的 DevHub 创建（文件格式 %lld）。请更新 DevHub 后再读取。"
+          }
+        }
+      }
+    },
     "This folder does not exist.": {
       "localizations": {
         "de": {
@@ -2381,6 +2485,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "此文件夹不存在。"
+          }
+        }
+      }
+    },
+    "This is not a DevHub standard packages file.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ist keine DevHub-Standardpaketdatei."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este no es un archivo de paquetes estándar de DevHub."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce n’est pas un fichier de paquets standard DevHub."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubの標準パッケージファイルではありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 표준 패키지 파일이 아닙니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este não é um arquivo de pacotes padrão do DevHub."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это не файл стандартных пакетов DevHub."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这不是 DevHub 标准软件包文件。"
           }
         }
       }

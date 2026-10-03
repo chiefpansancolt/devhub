@@ -61,6 +61,8 @@ DevHub finds your versions through nvm, fnm, Volta and asdf for Node, and throug
 
 Keep one list of the packages you always want, for Homebrew, Node, Ruby, Rust and Python, in the **Standard Packages…** window under the DevHub menu. **Validate** checks that every package exists and shows the version that would install, and for Node the newest version that the chosen Node version can run. **Install missing** installs what a Node version, a Ruby version, a package manager or this Mac is missing. When a new Node or Ruby version appears, DevHub offers the list in a banner and can tell you with a notification. It never installs until you choose Install.
 
+**File ▸ Export Standard Packages…** writes the lists to one JSON file, and **File ▸ Import Standard Packages…** reads such a file on another Mac. An import asks whether to merge the names into your lists or replace them, shows what changes for each tool, and installs nothing. Install from the window afterwards.
+
 ### 🧾 History
 
 Every check, update and uninstall is written to `~/Library/Logs/DevHub/history.jsonl`, one JSON object per line, with the time, the command, the exit code and the output. The History page groups entries by day, filters them, and exports them. You can keep history for 30 days, 90 days, a year or forever.

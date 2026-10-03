@@ -78,8 +78,7 @@ struct RubySettingsView: View {
     }
 
     private func manageStandardPackages() {
-        windowUI.standardPackagesTool = .ruby
-        windowUI.isShowingStandardPackages = true
+        windowUI.sheet = .standardPackages(.ruby)
         openWindow(id: MainWindow.id)
         AppActivation.bringToFront()
     }

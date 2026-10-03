@@ -12,9 +12,11 @@ struct StandardPackagesView: View {
     @State private var draftKind = PackageKind.npmGlobal
     @State private var notAdded: [String] = []
     @State private var fillRequest: FillRequest?
+    @State private var notice: String?
 
-    init(initialTool: Bucket = .node) {
+    init(initialTool: Bucket = .node, notice: String? = nil) {
         _tool = State(initialValue: initialTool)
+        _notice = State(initialValue: notice)
     }
 
     private struct Check {
@@ -41,6 +43,9 @@ struct StandardPackagesView: View {
             header
             tabs
             Divider()
+            if let notice {
+                noticeBar(notice)
+            }
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     packagesSection
@@ -103,6 +108,22 @@ struct StandardPackagesView: View {
         .padding(.horizontal, 24)
         .padding(.top, 18)
         .padding(.bottom, 10)
+    }
+
+    private func noticeBar(_ text: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "checkmark.circle").foregroundStyle(.green).accessibilityHidden(true)
+            Text(verbatim: text).frame(maxWidth: .infinity, alignment: .leading)
+            Button("Dismiss") { notice = nil }
+                .buttonStyle(.borderless)
+                .clickable()
+        }
+        .font(.system(size: 12))
+        .padding(.horizontal, 12)
+        .padding(.vertical, 9)
+        .background(Color.green.opacity(0.10), in: RoundedRectangle(cornerRadius: 9))
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
     }
 
     private var tabs: some View {

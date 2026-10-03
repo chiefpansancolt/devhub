@@ -44,9 +44,19 @@ struct DevHubCommands: Commands {
     }
 
     private func showStandardPackages() {
-        ui.isShowingStandardPackages = true
+        show(.standardPackages(.node))
+    }
+
+    private func show(_ sheet: WindowSheet) {
+        ui.sheet = sheet
         openWindow(id: MainWindow.id)
         AppActivation.bringToFront()
+    }
+
+    private func importStandardPackages() {
+        guard let pending = StandardListsFileActions.chooseImport() else { return }
+        ui.pendingImport = pending
+        show(.importLists)
     }
 
     // MARK: File
@@ -63,6 +73,10 @@ struct DevHubCommands: Commands {
             Button("Update Selected") { state.startUpdate(checkedPackages) }
                 .keyboardShortcut("u", modifiers: [.command, .option])
                 .disabled(checkedPackages.isEmpty || state.isBusy)
+            Divider()
+            Button("Export Standard Packages…") { show(.exportLists) }
+                .disabled(settings.values.standardPackages.isEmpty)
+            Button("Import Standard Packages…") { importStandardPackages() }
         }
     }
 

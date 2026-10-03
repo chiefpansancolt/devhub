@@ -7,6 +7,25 @@ enum WindowPage {
     case history
 }
 
+enum WindowSheet: Identifiable, Equatable {
+    case standardPackages(Bucket)
+    case exportLists
+    case importLists
+
+    var id: String {
+        switch self {
+        case let .standardPackages(tool): "standard-\(tool.rawValue)"
+        case .exportLists: "export"
+        case .importLists: "import"
+        }
+    }
+}
+
+struct PendingImport: Equatable {
+    let fileName: String
+    let decoded: StandardListsFile.Decoded
+}
+
 @MainActor
 @Observable
 final class WindowUIState {
@@ -19,8 +38,9 @@ final class WindowUIState {
     var checkedIDs: Set<String> = []
     var isConfirmingUninstall = false
     var isConfirmingUpdateAll = false
-    var isShowingStandardPackages = false
-    var standardPackagesTool = Bucket.node
+    var sheet: WindowSheet?
+    var pendingImport: PendingImport?
+    var standardPackagesNotice: String?
 
     var lastInspectedID: String?
     var lastInspectedHistoryID: UUID?
