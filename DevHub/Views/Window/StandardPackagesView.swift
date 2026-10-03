@@ -132,11 +132,11 @@ struct StandardPackagesView: View {
             ForEach(state.enabledBuckets, id: \.self) { bucket in
                 Button { tool = bucket } label: {
                     VStack(spacing: 3) {
-                        Image(bucket.tabIcon).resizable().scaledToFit().frame(width: 20, height: 20)
+                        Image(bucket.tabIcon).resizable().scaledToFit().frame(width: 26, height: 26)
                         Text(verbatim: bucket.displayName).font(.system(size: 11, weight: tool == bucket ? .semibold : .regular))
                     }
                     .frame(minWidth: 70)
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 6)
                     .background(tool == bucket ? Color.accentColor.opacity(0.14) : .clear, in: RoundedRectangle(cornerRadius: 8))
                 }
                 .buttonStyle(.plain)

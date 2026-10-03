@@ -54,6 +54,15 @@ struct PythonSettingsView: View {
                     }
                 }
             }
+
+            Section("Standard packages") {
+                LabeledContent("Standard packages") {
+                    ManageStandardPackagesButton(bucket: .python)
+                }
+                Text("Managed in their own window, where you can check the list and install it with pipx or uv.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
         }
         .formStyle(.grouped)
         .task(id: pipxPath) { pipxCheck = await validate(.pipx, path: pipxPath) }

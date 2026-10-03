@@ -10350,6 +10350,162 @@
         }
       }
     },
+    "Managed in their own window, where you can check the list and install it on this Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werden in einem eigenen Fenster verwaltet, in dem du die Liste prüfen und auf diesem Mac installieren kannst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se gestionan en su propia ventana, donde puedes comprobar la lista e instalarla en este Mac."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérés dans leur propre fenêtre, où vous pouvez vérifier la liste et l’installer sur ce Mac."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "専用のウインドウで管理します。そこでリストを検証し、このMacにインストールできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전용 창에서 관리하며, 목록을 검증하고 이 Mac에 설치할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerenciados em uma janela própria, onde você pode verificar a lista e instalá-la neste Mac."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Управляются в отдельном окне, где можно проверить список и установить его на этот Mac."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在单独的窗口中管理，你可以在其中检查列表并安装到这台 Mac。"
+          }
+        }
+      }
+    },
+    "Managed in their own window, where you can check the list and install it with pipx or uv.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werden in einem eigenen Fenster verwaltet, in dem du die Liste prüfen und mit pipx oder uv installieren kannst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se gestionan en su propia ventana, donde puedes comprobar la lista e instalarla con pipx o uv."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérés dans leur propre fenêtre, où vous pouvez vérifier la liste et l’installer avec pipx ou uv."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "専用のウインドウで管理します。そこでリストを検証し、pipxまたはuvでインストールできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전용 창에서 관리하며, 목록을 검증하고 pipx 또는 uv로 설치할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerenciados em uma janela própria, onde você pode verificar a lista e instalá-la com pipx ou uv."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Управляются в отдельном окне, где можно проверить список и установить его с помощью pipx или uv."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在单独的窗口中管理，你可以在其中检查列表，并使用 pipx 或 uv 安装。"
+          }
+        }
+      }
+    },
+    "Managed in their own window, where you can check the list and install toolchains and Cargo tools on this Mac.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werden in einem eigenen Fenster verwaltet, in dem du die Liste prüfen sowie Toolchains und Cargo-Werkzeuge auf diesem Mac installieren kannst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se gestionan en su propia ventana, donde puedes comprobar la lista e instalar toolchains y herramientas de Cargo en este Mac."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérés dans leur propre fenêtre, où vous pouvez vérifier la liste et installer des toolchains et des outils Cargo sur ce Mac."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "専用のウインドウで管理します。そこでリストを検証し、ツールチェーンとCargoツールをこのMacにインストールできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전용 창에서 관리하며, 목록을 검증하고 툴체인과 Cargo 도구를 이 Mac에 설치할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerenciados em uma janela própria, onde você pode verificar a lista e instalar toolchains e ferramentas do Cargo neste Mac."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Управляются в отдельном окне, где можно проверить список и установить наборы инструментов и инструменты Cargo на этот Mac."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在单独的窗口中管理，你可以在其中检查列表，并在这台 Mac 上安装工具链和 Cargo 工具。"
+          }
+        }
+      }
+    },
     "Manager": {
       "localizations": {
         "de": {

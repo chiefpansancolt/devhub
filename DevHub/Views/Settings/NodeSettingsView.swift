@@ -4,8 +4,6 @@ import SwiftUI
 struct NodeSettingsView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
-    @Environment(WindowUIState.self) private var windowUI
-    @Environment(\.openWindow) private var openWindow
     @State private var managerChecks: [NodePackageManager: PathCheck] = [:]
 
     var body: some View {
@@ -71,8 +69,7 @@ struct NodeSettingsView: View {
 
             Section("Standard packages") {
                 LabeledContent("Standard packages") {
-                    Button("Manage…") { manageStandardPackages() }
-                        .clickable()
+                    ManageStandardPackagesButton(bucket: .node)
                 }
                 Text("Managed in their own window, where you can check the list and install it into a Node version.")
                     .font(.system(size: 12))
@@ -142,11 +139,6 @@ struct NodeSettingsView: View {
         )
     }
 
-    private func manageStandardPackages() {
-        windowUI.sheet = .standardPackages(.node)
-        openWindow(id: MainWindow.id)
-        AppActivation.bringToFront()
-    }
 
     private func isIncluded(_ manager: NodePackageManager) -> Binding<Bool> {
         Binding(

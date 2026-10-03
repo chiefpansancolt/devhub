@@ -36,6 +36,15 @@ struct RustSettingsView: View {
                     .disabled(installation?.cargo == nil)
                 Text("Cargo asks crates.io for the newest version of each tool.").font(.system(size: 12)).foregroundStyle(.secondary)
             }
+
+            Section("Standard packages") {
+                LabeledContent("Standard packages") {
+                    ManageStandardPackagesButton(bucket: .rust)
+                }
+                Text("Managed in their own window, where you can check the list and install toolchains and Cargo tools on this Mac.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
         }
         .formStyle(.grouped)
         .task(id: effectivePath) {

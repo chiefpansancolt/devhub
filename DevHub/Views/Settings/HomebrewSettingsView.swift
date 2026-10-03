@@ -42,6 +42,16 @@ struct HomebrewSettingsView: View {
                     .disabled(!settings.values.brewIncludeCasks)
             }
 
+
+            Section("Standard packages") {
+                LabeledContent("Standard packages") {
+                    ManageStandardPackagesButton(bucket: .homebrew)
+                }
+                Text("Managed in their own window, where you can check the list and install it on this Mac.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Update options") {
                 Toggle("Remove old versions after updating", isOn: $settings.values.brewCleanupAfterUpdate)
                 .clickable()

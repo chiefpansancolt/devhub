@@ -4,8 +4,6 @@ import SwiftUI
 struct RubySettingsView: View {
     @Environment(AppState.self) private var state
     @Environment(SettingsStore.self) private var settings
-    @Environment(WindowUIState.self) private var windowUI
-    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         @Bindable var settings = settings
@@ -46,8 +44,7 @@ struct RubySettingsView: View {
 
             Section("Standard gems") {
                 LabeledContent("Standard gems") {
-                    Button("Manage…") { manageStandardPackages() }
-                        .clickable()
+                    ManageStandardPackagesButton(bucket: .ruby)
                 }
                 Text("Managed in their own window, where you can check the list and install it into a Ruby version.")
                     .font(.system(size: 12))
@@ -77,11 +74,6 @@ struct RubySettingsView: View {
         )
     }
 
-    private func manageStandardPackages() {
-        windowUI.sheet = .standardPackages(.ruby)
-        openWindow(id: MainWindow.id)
-        AppActivation.bringToFront()
-    }
 
     private func isIncluded(_ version: String) -> Binding<Bool> {
         Binding(
