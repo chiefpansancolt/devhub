@@ -1,9 +1,9 @@
 import Foundation
 
-/// Builds the command that installs a Node or Ruby version through its version manager.
+/// Builds the commands that install and uninstall a Node or Ruby version through its version manager.
 ///
-/// The subject is an `InstalledPackage` of kind `runtime` or `runtimeAsDefault`, with the tool as the name,
-/// the manager as the group and the version to install as the available update.
+/// The subject is an `InstalledPackage` of kind `runtime` or `runtimeAsDefault`, with the tool as the name and
+/// the manager as the group. An install reads the version from the available update, and an uninstall reads it from the installed version.
 public struct RuntimeInstaller: Sendable {
     private let home: URL
 
@@ -18,6 +18,19 @@ public struct RuntimeInstaller: Sendable {
               let script = script(manager: manager, bucket: package.bucket, version: version, setsDefault: package.kind == .runtimeAsDefault)
         else { return nil }
 
+        return bashCommand(script)
+    }
+
+    public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
+        guard package.kind.isRuntime,
+              let manager = package.group.flatMap(RuntimeManager.init(rawValue:)),
+              RuntimeReleaseParser.isPlainVersion(package.installedVersion),
+              let script = uninstallScript(manager: manager, bucket: package.bucket, version: package.installedVersion)
+        else { return nil }
+        return bashCommand(script)
+    }
+
+    private func bashCommand(_ script: String) -> ToolCommand {
         let managerFolders = [".volta/bin", ".asdf/bin", ".asdf/shims", ".rbenv/bin", ".rbenv/shims", ".rvm/bin", ".cargo/bin"]
         let environment = ToolEnvironment.make(
             searchPath: managerFolders.map { home.appending(path: $0) },
@@ -25,6 +38,20 @@ public struct RuntimeInstaller: Sendable {
             home: home
         )
         return ToolCommand(executable: URL(filePath: "/bin/bash"), arguments: ["-c", script], environment: environment)
+    }
+
+    // The version is checked by `RuntimeReleaseParser.isPlainVersion`, so it holds only digits and dots and is safe in a script.
+    private func uninstallScript(manager: RuntimeManager, bucket: Bucket, version: String) -> String? {
+        switch (bucket, manager) {
+        // Without --no-use, nvm.sh activates the default version when it loads, and nvm refuses to uninstall the active version.
+        case (.node, .nvm): ". \"$NVM_DIR/nvm.sh\" --no-use && nvm uninstall \(version)"
+        case (.node, .fnm): "fnm uninstall \(version)"
+        case (.node, .asdf): "asdf uninstall nodejs \(version)"
+        case (.ruby, .rbenv): "rbenv uninstall -f \(version)"
+        case (.ruby, .rvm): ". \"$HOME/.rvm/scripts/rvm\" && rvm uninstall \(version)"
+        case (.ruby, .asdf): "asdf uninstall ruby \(version)"
+        default: nil
+        }
     }
 
     // The version is checked by `RuntimeReleaseParser.isPlainVersion`, so it holds only digits and dots and is safe in a script.

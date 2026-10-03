@@ -62,3 +62,53 @@ extension AppState {
         }
     }
 }
+
+public struct RuntimeUninstallFailure: Equatable, Sendable {
+    public let runtime: RuntimeVersion
+    public let reason: String
+}
+
+extension AppState {
+    /// The installed version that a scope shows, when its group is a version that a manager can uninstall.
+    public func uninstallableRuntime(in scope: PackageScope) -> RuntimeVersion? {
+        guard let group = scope.group else { return nil }
+        return runtimeVersions.first { $0.bucket == scope.bucket && $0.version == group && $0.manager.canUninstallVersions }
+    }
+
+    public func installedRuntimeCount(of bucket: Bucket) -> Int {
+        runtimeVersions.filter { $0.bucket == bucket }.count
+    }
+
+    public func uninstallRuntime(_ runtime: RuntimeVersion) async {
+        guard !isBusy else { return }
+        let subject = Self.uninstallSubject(for: runtime)
+        runtimeUninstallFailure = nil
+        uninstallProgress = UninstallProgress(packageID: subject.id, status: .updating)
+        runningSince = Date()
+
+        let outcome = await actions.uninstall(subject) { [weak self] event in
+            await self?.handle(event)
+        }
+        runningSince = nil
+        record([outcome], trigger: .manual)
+        uninstallProgress = nil
+
+        if case let .failed(reason) = outcome.status {
+            runtimeUninstallFailure = RuntimeUninstallFailure(runtime: runtime, reason: reason)
+            return
+        }
+        await refreshAfterAction()
+    }
+
+    public func startUninstallRuntime(_ runtime: RuntimeVersion) {
+        Task { await uninstallRuntime(runtime) }
+    }
+
+    public func dismissRuntimeUninstallFailure() {
+        runtimeUninstallFailure = nil
+    }
+
+    static func uninstallSubject(for runtime: RuntimeVersion) -> InstalledPackage {
+        InstalledPackage(bucket: runtime.bucket, kind: .runtime, name: runtime.bucket.rawValue, group: runtime.manager.rawValue, installedVersion: runtime.version)
+    }
+}

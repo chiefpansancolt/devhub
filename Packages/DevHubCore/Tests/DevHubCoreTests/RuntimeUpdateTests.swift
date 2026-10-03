@@ -297,3 +297,52 @@ private func ruby(_ version: String, _ manager: RuntimeManager = .rbenv) -> Runt
         #expect(rubyScanner.installCommand(for: rubyPackage)?.arguments.last == "rbenv install 3.4.11")
     }
 }
+
+@Suite struct RuntimeUninstallCommandTests {
+    private let home = URL(filePath: "/Users/example")
+
+    private func script(_ bucket: Bucket, _ manager: RuntimeManager, _ version: String = "24.20.0", kind: PackageKind = .runtime) -> String? {
+        let package = InstalledPackage(bucket: bucket, kind: kind, name: bucket.rawValue, group: manager.rawValue, installedVersion: version)
+        return RuntimeInstaller(home: home).uninstallCommand(for: package)?.arguments.last
+    }
+
+    @Test func eachManagerRemovesTheVersionWithItsOwnCommand() {
+        #expect(script(.node, .nvm) == ". \"$NVM_DIR/nvm.sh\" --no-use && nvm uninstall 24.20.0")
+        #expect(script(.node, .fnm) == "fnm uninstall 24.20.0")
+        #expect(script(.node, .asdf) == "asdf uninstall nodejs 24.20.0")
+        #expect(script(.ruby, .rbenv, "3.4.1") == "rbenv uninstall -f 3.4.1")
+        #expect(script(.ruby, .rvm, "3.4.1") == ". \"$HOME/.rvm/scripts/rvm\" && rvm uninstall 3.4.1")
+        #expect(script(.ruby, .asdf, "3.4.1") == "asdf uninstall ruby 3.4.1")
+    }
+
+    @Test func voltaChrubyAndCustomFoldersCannotUninstallAVersion() {
+        #expect(script(.node, .volta) == nil)
+        #expect(script(.ruby, .chruby, "3.4.1") == nil)
+        #expect(script(.node, .custom) == nil)
+        #expect(!RuntimeManager.volta.canUninstallVersions)
+    }
+
+    @Test func aManagerThatDoesNotFitTheToolHasNoCommand() {
+        #expect(script(.node, .rbenv) == nil)
+        #expect(script(.ruby, .nvm, "3.4.1") == nil)
+    }
+
+    @Test func aVersionThatCouldRunShellCodeIsRefused() {
+        #expect(script(.node, .nvm, "1.0.0; rm -rf ~") == nil)
+        #expect(script(.node, .nvm, "") == nil)
+        #expect(script(.node, .nvm, "$(whoami)") == nil)
+    }
+
+    @Test func anotherKindOfPackageIsNotAVersion() {
+        #expect(script(.node, .nvm, kind: .npmGlobal) == nil)
+    }
+
+    @Test func theScannersRouteTheCommandToTheInstaller() {
+        let runner = FakeRunner { _ in CommandResult(exitCode: 0, standardOutput: "", standardError: "") }
+        let nodePackage = InstalledPackage(bucket: .node, kind: .runtime, name: "node", group: "fnm", installedVersion: "24.20.0")
+        let rubyPackage = InstalledPackage(bucket: .ruby, kind: .runtime, name: "ruby", group: "rbenv", installedVersion: "3.4.1")
+
+        #expect(NodeScanner(installations: [], runner: runner).uninstallCommand(for: nodePackage)?.arguments.last == "fnm uninstall 24.20.0")
+        #expect(RubyScanner(installations: [], runner: runner).uninstallCommand(for: rubyPackage)?.arguments.last == "rbenv uninstall -f 3.4.1")
+    }
+}

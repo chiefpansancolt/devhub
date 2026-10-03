@@ -13,6 +13,11 @@ public enum RuntimeManager: String, Sendable, CaseIterable {
     public var canInstallVersions: Bool {
         self != .chruby && self != .custom
     }
+
+    /// Volta has no command that removes one version of Node, so DevHub leaves its versions alone.
+    public var canUninstallVersions: Bool {
+        canInstallVersions && self != .volta
+    }
 }
 
 public struct RuntimeVersion: Sendable, Equatable {

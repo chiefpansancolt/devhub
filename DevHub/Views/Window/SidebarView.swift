@@ -214,6 +214,15 @@ private struct ChildRow: View {
         .clickable()
         .handCursorOnHover()
         .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .contextMenu {
+            if let runtime = state.uninstallableRuntime(in: scope) {
+                Button("Uninstall…", role: .destructive) {
+                    ui.select(scope)
+                    ui.runtimeToUninstall = runtime
+                }
+                .disabled(state.isBusy)
+            }
+        }
     }
 
     private var title: LocalizedStringKey {

@@ -20,6 +20,7 @@ struct PackageBrowserView: View {
         VStack(spacing: 0) {
             header
             Divider()
+            RuntimeUninstallFailureBanner()
             RuntimeUpdateBanners()
             StandardPackagesBanners()
             modeBar
@@ -37,6 +38,17 @@ struct PackageBrowserView: View {
             }
         }
         .confirmationDialog(
+            ui.runtimeToUninstall.map { Text("Uninstall \($0.bucket.displayName) \($0.version)?") } ?? Text(verbatim: ""),
+            isPresented: Binding(get: { ui.runtimeToUninstall != nil }, set: { if !$0 { ui.runtimeToUninstall = nil } }),
+            titleVisibility: .visible,
+            presenting: ui.runtimeToUninstall
+        ) { runtime in
+            Button("Uninstall", role: .destructive) { uninstall(runtime) }
+            Button("Cancel", role: .cancel) {}
+        } message: { runtime in
+            uninstallMessage(for: runtime)
+        }
+        .confirmationDialog(
             "Update \(outdatedInScope.count) packages?",
             isPresented: Binding(get: { ui.isConfirmingUpdateAll }, set: { ui.isConfirmingUpdateAll = $0 }),
             titleVisibility: .visible
@@ -46,6 +58,17 @@ struct PackageBrowserView: View {
         } message: {
             Text("Each package is updated one at a time. This can take a while.")
         }
+    }
+
+    private func uninstall(_ runtime: RuntimeVersion) {
+        ui.select(PackageScope(bucket: runtime.bucket))
+        state.startUninstallRuntime(runtime)
+    }
+
+    private func uninstallMessage(for runtime: RuntimeVersion) -> Text {
+        let removal = Text("This removes the version and its global packages from this Mac, using \(runtime.manager.rawValue). Projects that use it stop working until you install another version.")
+        guard state.installedRuntimeCount(of: runtime.bucket) == 1 else { return removal }
+        return Text("It is your only \(runtime.bucket.displayName) version.") + Text(verbatim: "\n\n") + removal
     }
 
     // MARK: Data
@@ -85,6 +108,18 @@ struct PackageBrowserView: View {
             .clickable()
             .disabled(state.isChecking || state.isBusy)
             .accessibilityLabel("Check again")
+
+            if let runtime = state.uninstallableRuntime(in: ui.scope) {
+                Button {
+                    ui.runtimeToUninstall = runtime
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .help("Uninstall this version")
+                .clickable()
+                .disabled(state.isBusy)
+                .accessibilityLabel("Uninstall \(runtime.bucket.displayName) \(runtime.version)")
+            }
 
             Button("Update selected (\(checkedPackages.count))") { state.startUpdate(checkedPackages) }
                 .clickable()

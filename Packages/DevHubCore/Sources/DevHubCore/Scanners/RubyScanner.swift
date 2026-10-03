@@ -68,7 +68,8 @@ public struct RubyScanner: PackageScanner {
     }
 
     public func uninstallCommand(for package: InstalledPackage) -> ToolCommand? {
-        command(for: package, arguments: ["uninstall", package.name, "--all", "--executables"])
+        if package.kind.isRuntime { return RuntimeInstaller().uninstallCommand(for: package) }
+        return command(for: package, arguments: ["uninstall", package.name, "--all", "--executables"])
     }
 
     private func scan(_ installation: RubyInstallation) async throws -> [InstalledPackage] {

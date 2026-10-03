@@ -47,13 +47,14 @@ public final class AppState {
     public private(set) var lastChecked: Date?
     public private(set) var nextCheck: Date?
     public private(set) var session: UpdateSession?
-    public private(set) var uninstallProgress: UninstallProgress?
-    public private(set) var runningSince: Date?
+    public internal(set) var uninstallProgress: UninstallProgress?
+    public internal(set) var runningSince: Date?
     public private(set) var log: [LogLine] = []
     public private(set) var setupProblems: [Bucket: String]
     public private(set) var disabledBuckets: Set<Bucket> = []
     public internal(set) var standardOffers: [StandardOffer] = []
     public internal(set) var runtimeOffers: [RuntimeOffer] = []
+    public internal(set) var runtimeUninstallFailure: RuntimeUninstallFailure?
     public let history: HistoryStore
 
     private static let logLimit = 2000
@@ -61,7 +62,7 @@ public final class AppState {
     private(set) var scanners: [Bucket: any PackageScanner]
     private(set) var knownVersions: [Bucket: [String]]
     public internal(set) var isPreparingInstall = false
-    private var actions: PackageActionRunner
+    var actions: PackageActionRunner
     private let runner: CommandRunning
     private var nextLogID = 0
     private var checkInterval: Duration?
@@ -517,7 +518,7 @@ public final class AppState {
         uninstallProgress = nil
     }
 
-    private func record(_ outcomes: [ActionOutcome], trigger: HistoryTrigger) {
+    func record(_ outcomes: [ActionOutcome], trigger: HistoryTrigger) {
         for outcome in outcomes {
             if let entry = HistoryEntry(outcome: outcome, trigger: trigger, includesOutput: history.includesOutput) {
                 history.record(entry)
@@ -527,7 +528,7 @@ public final class AppState {
 
     // MARK: Events from running commands
 
-    private func refreshAfterAction() async {
+    func refreshAfterAction() async {
         while isChecking, !Task.isCancelled {
             try? await Task.sleep(for: .milliseconds(200))
         }

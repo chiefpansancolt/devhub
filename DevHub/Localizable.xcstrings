@@ -5545,6 +5545,64 @@
         }
       }
     },
+    "Could not uninstall %@ %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ konnte nicht deinstalliert werden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Could not uninstall %1$@ %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo desinstalar %@ %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de désinstaller %@ %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@をアンインストールできませんでした"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@을(를) 제거하지 못했습니다"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível desinstalar o %@ %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось удалить %@ %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法卸载 %@ %@"
+          }
+        }
+      }
+    },
     "Count": {
       "localizations": {
         "de": {
@@ -9624,6 +9682,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "它将从 Node %@ 的全局软件包中移除。"
+          }
+        }
+      }
+    },
+    "It is your only %@ version.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ist deine einzige %@-Version."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es tu única versión de %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C’est votre seule version de %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "これが唯一の%@バージョンです。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이것이 유일한 %@ 버전입니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta é a sua única versão do %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это ваша единственная версия %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是你唯一的 %@ 版本。"
           }
         }
       }
@@ -18006,6 +18116,58 @@
         }
       }
     },
+    "This removes the version and its global packages from this Mac, using %@. Projects that use it stop working until you install another version.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dadurch werden die Version und ihre globalen Pakete mit %@ von diesem Mac entfernt. Projekte, die sie verwenden, funktionieren nicht mehr, bis du eine andere Version installierst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto elimina la versión y sus paquetes globales de este Mac con %@. Los proyectos que la usan dejarán de funcionar hasta que instales otra versión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cela supprime la version et ses paquets globaux de ce Mac avec %@. Les projets qui l’utilisent cessent de fonctionner tant que vous n’installez pas une autre version."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@を使って、このバージョンとそのグローバルパッケージをこのMacから削除します。このバージョンを使うプロジェクトは、別のバージョンをインストールするまで動作しなくなります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@을(를) 사용하여 이 버전과 전역 패키지를 이 Mac에서 제거합니다. 이 버전을 사용하는 프로젝트는 다른 버전을 설치할 때까지 작동하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Isso remove a versão e seus pacotes globais deste Mac, usando o %@. Projetos que a utilizam param de funcionar até você instalar outra versão."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия и её глобальные пакеты будут удалены с этого Mac с помощью %@. Проекты, которые её используют, перестанут работать, пока вы не установите другую версию."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这将使用 %@ 从这台 Mac 上移除该版本及其全局软件包。使用它的项目在你安装其他版本之前将无法运行。"
+          }
+        }
+      }
+    },
     "Time": {
       "localizations": {
         "de": {
@@ -18734,6 +18896,122 @@
         }
       }
     },
+    "Uninstall %@ %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ deinstallieren"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Uninstall %1$@ %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar %@ %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désinstaller %@ %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@をアンインストール"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ 제거"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar o %@ %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить %@ %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载 %@ %@"
+          }
+        }
+      }
+    },
+    "Uninstall %@ %@?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ deinstallieren?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Uninstall %1$@ %2$@?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Desinstalar %@ %@?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désinstaller %@ %@ ?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@をアンインストールしますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@을(를) 제거할까요?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar o %@ %@?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить %@ %@?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要卸载 %@ %@ 吗？"
+          }
+        }
+      }
+    },
     "Uninstall %@?": {
       "localizations": {
         "de": {
@@ -18834,6 +19112,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "卸载失败"
+          }
+        }
+      }
+    },
+    "Uninstall this version": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Version deinstallieren"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar esta versión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désinstaller cette version"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このバージョンをアンインストール"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 버전 제거"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desinstalar esta versão"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить эту версию"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "卸载此版本"
           }
         }
       }
