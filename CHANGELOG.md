@@ -9,27 +9,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Features
 
-- Sync the standard packages lists through a private GitHub repository. A new Accounts tab in Settings connects a GitHub account with the device flow (no secret passes through DevHub), shows the last sync and has Sync now, a Sync automatically switch and Disconnect. DevHub creates the repository `devhub-standard-packages` with one file of package names, merges the lists of your Macs so removals carry over, and never installs anything or overwrites a file from a newer DevHub. GitHub offers only the `repo` permission for private repositories, and the Accounts tab says what it allows before you connect
-- A banner offers a newer Node or Ruby version that is not installed, and shows only on the pages of that tool, when nvm, fnm, Volta or asdf (Node) or rbenv, rvm or asdf (Ruby) owns your versions. A newer patch of an installed line counts. Each banner has an Install button and an Install and set as default button, which run the manager's own commands
-- A Node or Ruby version can be uninstalled through its manager (nvm, fnm, asdf, rbenv or rvm) with a trash button in the version's header or a right-click menu in the sidebar. DevHub always asks first, warns when it is the only version, removes the nvm default alias when it pointed at the removed version, and shows the reason when the manager refuses
-- DevHub downloads the public release lists from nodejs.org and ruby-lang.org once a day for this. A "Check for new versions" switch in the Node and Ruby tabs of Settings turns it off
-- Rust support: rustup toolchains and rustup itself, plus the tools installed with `cargo install`, each checked against the newest version on crates.io
-- A Rust tab in Settings to choose the rustup program and to leave Cargo tools out
-- Rust icons for the sidebar and Settings, with a white version for dark mode
-- Node global packages from pnpm, Bun and Yarn 1, each as its own row next to the Node versions in the sidebar
-- A section in the Node tab of Settings to choose the pnpm, Bun and Yarn programs and to turn a manager off
-- Python support: tools installed with pipx and uv, grouped by manager, each checked for a newer version
-- A Python tab in Settings to choose the pipx and uv programs and to turn a manager off
-- A uv tool installed with an exact version or an upper bound shows no update, because `uv tool upgrade` cannot install a version outside that requirement
-- Standard packages: a list for every tool (Homebrew, Node, Ruby, Rust and Python) in a window under the DevHub menu, next to Settings. Validate checks that each package exists and which version would install, and Install missing installs what a Node version, a Ruby version, a package manager or this Mac does not have yet
-- A banner offers the standard packages when a new Node or Ruby version appears, with an optional notification. Nothing installs until you choose Install. Node installs the newest version that the Node version can run
-- Export and Import of the standard lists in the File menu. The file holds only the lists, as JSON. An import asks whether to merge the names or replace the lists, shows what changes for each tool and installs nothing
-- A package that Validate could not check shows why under "Could not check" (for example the first line npm printed), with more of the output on hover and in the output log
-- Install is a new action: the progress strip, the output log, the popover and History know about it, and History has an Installs filter
+- Rust support: rustup toolchains and rustup itself, plus the tools installed with `cargo install`, checked against crates.io, with a Rust tab in Settings
+- Python support: tools installed with pipx and uv, grouped by manager, with a Python tab in Settings
+- Node global packages from pnpm, Bun and Yarn 1, shown next to the Node versions
+- Standard packages: one list per tool (Homebrew, Node, Ruby, Rust and Python) in its own window. Validate checks that each package exists, and Install missing installs what a version, a package manager or this Mac does not have yet. A banner offers the list when a new Node or Ruby version appears. Nothing installs until you choose Install
+- Export and Import of the standard lists in the File menu, as JSON, with Merge or Replace
+- Sync of the standard lists through a private GitHub repository. Connect an account in the new Accounts tab in Settings, and DevHub keeps the lists of your Macs the same. A sync never installs anything. GitHub's `repo` permission is needed to create a private repository, and the tab explains it before you connect
+- New Node and Ruby versions: a banner offers a newer version, with Install and Install and set as default, when nvm, fnm, Volta, asdf, rbenv or rvm owns your versions. DevHub looks at nodejs.org and ruby-lang.org once a day, and a switch in Settings turns it off
+- Uninstall a Node or Ruby version through its manager (nvm, fnm, asdf, rbenv or rvm), from the version's header or its sidebar menu, after a confirmation
 
 ### Changed
 
-- History written by this version can hold `install` entries. An older version of DevHub skips those lines
+- History can hold `install` entries, which older versions of DevHub skip
 - History moves to `⌘6`, because Rust takes `⌘4` and Python takes `⌘5`
 
 ## [1.0.0] - 2026-10-01
