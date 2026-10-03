@@ -67,6 +67,14 @@ struct NodeSettingsView: View {
                 }
             }
 
+            Section("New versions") {
+                Toggle("Check for new Node versions", isOn: checksForNewVersions)
+                    .clickable()
+                Text("Looks up the newest release on nodejs.org once a day. When a version is missing, a banner offers to install it with your version manager.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Standard packages") {
                 LabeledContent("Standard packages") {
                     ManageStandardPackagesButton(bucket: .node)
@@ -128,6 +136,15 @@ struct NodeSettingsView: View {
         managerChecks[manager] = nil
         guard let path = effectivePath(of: manager, in: managers) else { return }
         managerChecks[manager] = await PathValidation.nodeManager(manager, path: path, runner: CommandRunner())
+    }
+
+    private var checksForNewVersions: Binding<Bool> {
+        Binding(
+            get: { !settings.values.disabledRuntimeChecks.contains("node") },
+            set: { isOn in
+                if isOn { settings.values.disabledRuntimeChecks.remove("node") } else { settings.values.disabledRuntimeChecks.insert("node") }
+            }
+        )
     }
 
     private var offersStandardPackages: Binding<Bool> {

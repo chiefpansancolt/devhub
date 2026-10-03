@@ -58,7 +58,7 @@ public struct NodeScanner: PackageScanner {
     }
 
     public func installCommand(for package: InstalledPackage) -> ToolCommand? {
-        updateCommand(for: package)
+        package.kind.isRuntime ? RuntimeInstaller().command(for: package) : updateCommand(for: package)
     }
 
     private func scan(_ installation: NodeInstallation) async throws -> [InstalledPackage] {

@@ -53,6 +53,7 @@ public final class AppState {
     public private(set) var setupProblems: [Bucket: String]
     public private(set) var disabledBuckets: Set<Bucket> = []
     public internal(set) var standardOffers: [StandardOffer] = []
+    public internal(set) var runtimeOffers: [RuntimeOffer] = []
     public let history: HistoryStore
 
     private static let logLimit = 2000
@@ -70,8 +71,13 @@ public final class AppState {
     private var notificationLedger: NotificationLedger?
     private(set) var notificationOptions = NotificationOptions()
     private(set) var versionLedger: VersionLedger?
+    private(set) var runtimeVersions: [RuntimeVersion]
+    let runtimeReleaseSource: (any RuntimeReleaseFetching)?
+    var runtimeReleases: [Bucket: [String]] = [:]
+    var runtimeReleasesFetchedAt: [Bucket: Date] = [:]
+    var runtimeReleaseTask: Task<Void, Never>?
     private let toolchainDetector: (@Sendable (SettingsValues) -> Toolchain)?
-    private let now: @Sendable () -> Date
+    let now: @Sendable () -> Date
     var updateTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
     private var scheduleTask: Task<Void, Never>?
@@ -85,6 +91,8 @@ public final class AppState {
         notifier: (any NotificationSending)? = nil,
         notificationLedger: NotificationLedger? = nil,
         versionLedger: VersionLedger? = nil,
+        runtimeVersions: [RuntimeVersion] = [],
+        runtimeReleaseSource: (any RuntimeReleaseFetching)? = nil,
         toolchainDetector: (@Sendable (SettingsValues) -> Toolchain)? = nil,
         notificationOptions: NotificationOptions = NotificationOptions(),
         checkInterval: Duration? = .seconds(4 * 60 * 60),
@@ -97,6 +105,8 @@ public final class AppState {
         self.notifier = notifier
         self.notificationLedger = notificationLedger
         self.versionLedger = versionLedger
+        self.runtimeVersions = runtimeVersions
+        self.runtimeReleaseSource = runtimeReleaseSource
         self.toolchainDetector = toolchainDetector
         self.notificationOptions = notificationOptions
         self.actions = PackageActionRunner(scanners: scanners, runner: runner)
@@ -110,7 +120,8 @@ public final class AppState {
         runner: CommandRunning = CommandRunner(),
         notifier: (any NotificationSending)? = nil,
         notificationLedger: NotificationLedger? = nil,
-        versionLedger: VersionLedger? = nil
+        versionLedger: VersionLedger? = nil,
+        runtimeReleaseSource: (any RuntimeReleaseFetching)? = nil
     ) {
         let toolchain = Toolchain.detect(settings: settings)
         let history = HistoryStore(log: HistoryLog())
@@ -125,6 +136,8 @@ public final class AppState {
             notifier: notifier,
             notificationLedger: notificationLedger,
             versionLedger: versionLedger,
+            runtimeVersions: toolchain.runtimeVersions,
+            runtimeReleaseSource: runtimeReleaseSource,
             toolchainDetector: { Toolchain.detect(settings: $0) },
             notificationOptions: NotificationOptions(settings),
             checkInterval: settings.checkInterval.duration
@@ -152,6 +165,10 @@ public final class AppState {
             }
         }
         updateStandardOffers()
+        updateRuntimeOffers()
+        if let previous, previous.disabledRuntimeChecks != newSettings.disabledRuntimeChecks {
+            startRuntimeReleaseCheck(force: false)
+        }
 
         if scheduleTask != nil, previous?.checkInterval != newSettings.checkInterval {
             startScheduledChecks(checkNow: false)
@@ -169,13 +186,14 @@ public final class AppState {
         scanners = toolchain.scanners(runner: runner, options: ScannerOptions(settings))
         actions = PackageActionRunner(scanners: scanners, runner: runner)
         knownVersions = toolchain.knownGroups
+        runtimeVersions = toolchain.runtimeVersions
         setupProblems = toolchain.setupProblems
         disabledBuckets = settings.disabledBuckets
         results = results.filter { scanners[$0.key] != nil }
     }
 
     /// Node and Ruby versions that were installed after the last scan are not known to the scanners. A check looks for them again.
-    private func rediscoverVersions() {
+    func rediscoverVersions() {
         guard let toolchainDetector, let settings else { return }
         let toolchain = toolchainDetector(settings)
         if toolchain.knownGroups != knownVersions {
@@ -308,6 +326,7 @@ public final class AppState {
         lastChecked = now()
         nextCheck = checkInterval.map { now().addingTimeInterval($0.seconds) }
         updateStandardOffers()
+        if reason == .check { startRuntimeReleaseCheck(force: trigger == .manual) }
         if reason == .check, !scanners.isEmpty {
             history.record(checkEntry(startedAt: started, trigger: trigger, duration: clock.now - begin))
         }
@@ -512,7 +531,9 @@ public final class AppState {
         while isChecking, !Task.isCancelled {
             try? await Task.sleep(for: .milliseconds(200))
         }
+        rediscoverVersions()
         await refresh(.afterUpdate)
+        updateRuntimeOffers()
     }
 
     private func applyUpdateInResults(_ id: String) {

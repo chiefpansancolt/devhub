@@ -63,6 +63,10 @@ Keep one list of the packages you always want, for Homebrew, Node, Ruby, Rust an
 
 **File ▸ Export Standard Packages** writes the lists to one JSON file, and **File ▸ Import Standard Packages** reads such a file on another Mac. An import asks whether to merge the names into your lists or replace them, shows what changes for each tool, and installs nothing. Install from the window afterwards.
 
+### ⬆️ New Node and Ruby versions
+
+When a version manager owns your Node or Ruby, DevHub looks up the newest release once a day and shows a banner when a version is missing: a newer major version, or a newer patch of a line you already have. Each banner has two buttons: **Install** runs the manager's own install command, and **Install and set as default** also makes that version the default. Both show the usual progress, Cancel and history. nvm, fnm, Volta and asdf are supported for Node, and rbenv, rvm and asdf for Ruby. Ruby builds from source and takes several minutes. Turn the check off in the Node or Ruby tab of Settings.
+
 ### 🧾 History
 
 Every check, update and uninstall is written to `~/Library/Logs/DevHub/history.jsonl`, one JSON object per line, with the time, the command, the exit code and the output. The History page groups entries by day, filters them, and exports them. You can keep history for 30 days, 90 days, a year or forever.
@@ -145,7 +149,7 @@ An app built on your own Mac is not quarantined and opens without the steps abov
 
 ## ⚙️ How it works
 
-DevHub runs the tools you already have and reads what they print. It does not use a private index and does not make network requests itself.
+DevHub runs the tools you already have and reads what they print. It does not use a private index. The only requests it makes itself are two plain downloads of the public release lists on nodejs.org and ruby-lang.org, at most once a day, to learn about new Node and Ruby versions. A switch in Settings turns that off for each tool.
 
 | Tool     | What DevHub runs                                                                                          |
 | -------- | --------------------------------------------------------------------------------------------------------- |
@@ -155,6 +159,7 @@ DevHub runs the tools you already have and reads what they print. It does not us
 | pnpm, Bun, Yarn | `pnpm list -g --json`, `pnpm outdated -g`, `pnpm add -g`, `pnpm remove -g`, `bun pm ls -g`, `bun outdated -g`, `bun add -g`, `bun remove -g`, `yarn global list`, `yarn global dir`, `yarn outdated --json`, `yarn global add`, `yarn global remove` |
 | Python   | `pipx list --json`, `pipx runpip <tool> list --outdated --format=json`, `pipx upgrade`, `pipx uninstall`, `uv tool list`, `uv tool list --outdated --show-version-specifiers`, `uv tool upgrade`, `uv tool uninstall` |
 | Installing | `brew install`, `npm install -g name@version`, `gem install`, `rustup toolchain install`, `cargo install --locked`, `pipx install`, `uv tool install`, `pnpm add -g`, `bun add -g`, `yarn global add`. Checks use `brew info`, `npm view`, `gem list --remote`, `cargo search` and `pip index versions` |
+| Version managers | `nvm install`, `nvm alias default`, `fnm install`, `fnm default`, `volta install`, `volta fetch`, `asdf install`, `asdf set --home`, `asdf global`, `rbenv install`, `rbenv global`, `rvm install` |
 | Rust     | `rustup toolchain list -v`, `rustup check`, `rustup update`, `rustup self update`, `rustup toolchain uninstall`, `cargo install --list`, `cargo search`, `cargo install --locked`, `cargo uninstall` |
 
 For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, with that version's `bin` folder first in `PATH`. For pnpm, Bun and Yarn, DevHub installs the exact newest version by name, because their update commands stay inside the version range that a package was installed with, and it does not check the `engines` of a package. Yarn 2 and newer has no global packages and is skipped. For Rust, `cargo search` asks crates.io for the newest version of each Cargo tool, and a tool installed from Git or a folder is listed without an update check. For Python, pipx and uv ask PyPI for the newest version of each tool, and a uv tool pinned to a version or capped below the newest one shows no update. It runs one Homebrew command at a time, because Homebrew locks its files. It never uses `sudo` and never asks for an administrator password, so a package that needs elevated rights fails and says why.

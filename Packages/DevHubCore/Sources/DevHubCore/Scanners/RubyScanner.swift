@@ -50,6 +50,7 @@ public struct RubyScanner: PackageScanner {
     }
 
     public func installCommand(for package: InstalledPackage) -> ToolCommand? {
+        if package.kind.isRuntime { return RuntimeInstaller().command(for: package) }
         let version = package.availableUpdate.map { ["--version", $0] } ?? []
         return command(for: package, arguments: ["install", package.name] + version + (options.installDocumentation ? [] : ["--no-document"]))
     }

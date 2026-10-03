@@ -15,6 +15,64 @@
       },
       "shouldTranslate": false
     },
+    "%@ %@ is available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ ist verfügbar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ %2$@ is available"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ está disponible"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ est disponible"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@が利用できます"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@을(를) 사용할 수 있습니다"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %@ %@ está disponível"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ доступен"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@ 现已可用"
+          }
+        }
+      }
+    },
     "%@ is not set up": {
       "localizations": {
         "de": {
@@ -3923,6 +3981,110 @@
           "stringUnit": {
             "state": "translated",
             "value": "检查对象"
+          }
+        }
+      }
+    },
+    "Check for new Node versions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach neuen Node-Versionen suchen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar versiones nuevas de Node"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher de nouvelles versions de Node"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しいNodeバージョンを確認"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 Node 버전 확인"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar novas versões do Node"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверять новые версии Node"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查 Node 新版本"
+          }
+        }
+      }
+    },
+    "Check for new Ruby versions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach neuen Ruby-Versionen suchen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar versiones nuevas de Ruby"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher de nouvelles versions de Ruby"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しいRubyバージョンを確認"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 Ruby 버전 확인"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar novas versões do Ruby"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверять новые версии Ruby"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查 Ruby 新版本"
           }
         }
       }
@@ -8466,6 +8628,58 @@
         }
       }
     },
+    "Install and set as default": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installieren und als Standard festlegen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalar y establecer como predeterminada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installer et définir par défaut"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インストールしてデフォルトに設定"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설치 후 기본값으로 설정"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalar e definir como padrão"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Установить и сделать основной"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安装并设为默认"
+          }
+        }
+      }
+    },
     "Install gem documentation": {
       "localizations": {
         "de": {
@@ -10246,6 +10460,110 @@
         }
       }
     },
+    "Looks up the newest release on nodejs.org once a day. When a version is missing, a banner offers to install it with your version manager.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fragt einmal am Tag nodejs.org nach der neuesten Version. Fehlt eine Version, bietet ein Banner an, sie mit deinem Versionsmanager zu installieren."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta la versión más reciente en nodejs.org una vez al día. Si falta una versión, un aviso ofrece instalarla con tu gestor de versiones."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulte nodejs.org une fois par jour pour connaître la version la plus récente. Si une version manque, une bannière propose de l’installer avec votre gestionnaire de versions."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1日に1回nodejs.orgで最新リリースを確認します。バージョンが不足している場合は、バナーでバージョン管理ツールを使ったインストールを提案します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "하루에 한 번 nodejs.org에서 최신 릴리스를 확인합니다. 버전이 없으면 배너에서 버전 관리자로 설치하도록 안내합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta o lançamento mais recente em nodejs.org uma vez por dia. Quando falta uma versão, um banner oferece instalá-la com seu gerenciador de versões."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раз в сутки проверяет последнюю версию на nodejs.org. Если версии нет, баннер предложит установить её через ваш менеджер версий."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每天在 nodejs.org 查询一次最新版本。缺少某个版本时，横幅会提示使用你的版本管理器安装。"
+          }
+        }
+      }
+    },
+    "Looks up the newest release on ruby-lang.org once a day. When a version is missing, a banner offers to install it with your version manager.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fragt einmal am Tag ruby-lang.org nach der neuesten Version. Fehlt eine Version, bietet ein Banner an, sie mit deinem Versionsmanager zu installieren."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta la versión más reciente en ruby-lang.org una vez al día. Si falta una versión, un aviso ofrece instalarla con tu gestor de versiones."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulte ruby-lang.org une fois par jour pour connaître la version la plus récente. Si une version manque, une bannière propose de l’installer avec votre gestionnaire de versions."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1日に1回ruby-lang.orgで最新リリースを確認します。バージョンが不足している場合は、バナーでバージョン管理ツールを使ったインストールを提案します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "하루에 한 번 ruby-lang.org에서 최신 릴리스를 확인합니다. 버전이 없으면 배너에서 버전 관리자로 설치하도록 안내합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta o lançamento mais recente em ruby-lang.org uma vez por dia. Quando falta uma versão, um banner oferece instalá-la com seu gerenciador de versões."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раз в сутки проверяет последнюю версию на ruby-lang.org. Если версии нет, баннер предложит установить её через ваш менеджер версий."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每天在 ruby-lang.org 查询一次最新版本。缺少某个版本时，横幅会提示使用你的版本管理器安装。"
+          }
+        }
+      }
+    },
     "Managed in their own window, where you can check the list and install it into a Node version.": {
       "localizations": {
         "de": {
@@ -11126,6 +11444,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "名称，多个用逗号分隔"
+          }
+        }
+      }
+    },
+    "New versions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Versionen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versiones nuevas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelles versions"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しいバージョン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 버전"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novas versões"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новые версии"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新版本"
           }
         }
       }
@@ -15191,6 +15561,58 @@
     },
     "Ruby": {
       "shouldTranslate": false
+    },
+    "Ruby builds from source, so this takes several minutes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby wird aus dem Quellcode gebaut, das dauert mehrere Minuten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby se compila desde el código fuente, así que tarda varios minutos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby est compilé à partir des sources, cela prend donc plusieurs minutes."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubyはソースからビルドするため、数分かかります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby는 소스에서 빌드하므로 몇 분이 걸립니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Ruby é compilado a partir do código-fonte, então leva vários minutos."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby собирается из исходников, поэтому это займёт несколько минут."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruby 从源代码编译，因此需要几分钟。"
+          }
+        }
+      }
     },
     "Ruby version": {
       "localizations": {
@@ -19720,6 +20142,58 @@
         }
       }
     },
+    "Version": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バージョン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "버전"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本"
+          }
+        }
+      }
+    },
     "Version manager folder": {
       "localizations": {
         "de": {
@@ -19820,6 +20294,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "版本或管理器"
+          }
+        }
+      }
+    },
+    "Versions": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versionen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versiones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versions"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バージョン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "버전"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versões"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версии"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "版本"
           }
         }
       }
@@ -20236,6 +20762,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "昨天"
+          }
+        }
+      }
+    },
+    "You have %@ with %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast %@ mit %@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "You have %1$@ with %2$@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tienes %@ con %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous avez %@ avec %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@が%@にインストールされています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@을(를) %@(으)로 사용 중입니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você tem o %@ com o %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У вас %@ через %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你通过 %2$@ 安装了 %1$@。"
           }
         }
       }

@@ -86,6 +86,7 @@ extension PackageKind {
         case .pnpmGlobal: "pnpm global"
         case .bunGlobal: "Bun global"
         case .yarnGlobal: "Yarn global"
+        case .runtime, .runtimeAsDefault: "Version"
         }
     }
 
@@ -95,6 +96,7 @@ extension PackageKind {
         case .cask: "Casks"
         case .rustToolchain: "Toolchains"
         case .cargoTool: "Cargo tools"
+        case .runtime, .runtimeAsDefault: "Versions"
         case .npmGlobal, .gem, .pythonTool, .pnpmGlobal, .bunGlobal, .yarnGlobal: singularTitle
         }
     }
