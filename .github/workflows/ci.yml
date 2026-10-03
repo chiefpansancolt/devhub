@@ -41,8 +41,17 @@ jobs:
           xcodebuild -version
           swift --version
 
-      - name: Run DevHubCore tests
-        run: make test
+      - name: Run DevHubCore tests with coverage
+        run: make coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.lcov
+          disable_search: true
+          flags: core
+          fail_ci_if_error: false
 
       - name: Build the app
         run: make build

@@ -196,6 +196,7 @@ For Node and Ruby, DevHub runs the `npm` or `gem` that belongs to each version, 
 ```bash
 make help            # list every target
 make test            # run the DevHubCore tests
+make coverage        # run the tests with code coverage and write coverage.lcov
 make build           # generate the project and build a universal binary into ./build
 make run             # build and open the app
 make scan            # print the outdated packages found on this Mac

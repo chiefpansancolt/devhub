@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: project build run test scan release check-strings help
+.PHONY: project build run test coverage scan release check-strings help
 
 project:
 	@xcodegen generate
@@ -13,11 +13,15 @@ run: build
 test:
 	@swift test --package-path Packages/DevHubCore --build-system swiftbuild
 
+coverage:
+	@scripts/coverage.sh
+
 help:
 	@echo "make project   Generate DevHub.xcodeproj from project.yml (needs xcodegen)"
 	@echo "make build     Build the app into ./build"
 	@echo "make run       Build and open the app"
 	@echo "make test      Run the DevHubCore tests"
+	@echo "make coverage  Run the DevHubCore tests with code coverage and write coverage.lcov"
 	@echo "make scan      Scan this machine for outdated packages and print the result"
 	@echo "make release   Build a universal Release app and package it as dist/DevHub-<version>.dmg"
 	@echo "make check-strings   Check that every string is translated into every language"
