@@ -7,6 +7,7 @@
   <p><a href="https://devhub.chiefpansancolt.dev">devhub.chiefpansancolt.dev</a></p>
 
 [![CI](https://github.com/chiefpansancolt/devhub/actions/workflows/ci.yml/badge.svg)](https://github.com/chiefpansancolt/devhub/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/chiefpansancolt/devhub/graph/badge.svg?token=MNI5KIZ06Q)](https://codecov.io/gh/chiefpansancolt/devhub)
 ![macOS 15+](https://img.shields.io/badge/macOS-15%2B-000000?style=for-the-badge&logo=apple&logoColor=white)
 ![Swift 6](https://img.shields.io/badge/Swift-6-F05138?style=for-the-badge&logo=swift&logoColor=white)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-0A84FF?style=for-the-badge&logo=swift&logoColor=white)
