@@ -55,6 +55,11 @@ public final class AppState {
     public internal(set) var standardOffers: [StandardOffer] = []
     public internal(set) var runtimeOffers: [RuntimeOffer] = []
     public internal(set) var runtimeUninstallFailure: RuntimeUninstallFailure?
+    public internal(set) var syncAccountLogin: String?
+    public internal(set) var syncResult: SyncResult?
+    public internal(set) var syncLastSuccessAt: Date?
+    public internal(set) var isSyncing = false
+    public internal(set) var signIn = SignInState.idle
     public let history: HistoryStore
 
     private static let logLimit = 2000
@@ -77,6 +82,14 @@ public final class AppState {
     var runtimeReleases: [Bucket: [String]] = [:]
     var runtimeReleasesFetchedAt: [Bucket: Date] = [:]
     var runtimeReleaseTask: Task<Void, Never>?
+    var syncConfiguration: SyncConfiguration?
+    var syncTask: Task<Void, Never>?
+    var syncAgain = false
+    var listEditRevision = 0
+    var syncedListEditRevision = 0
+    var pushTask: Task<Void, Never>?
+    var signInTask: Task<Void, Never>?
+    var isApplyingSyncedLists = false
     private let toolchainDetector: (@Sendable (SettingsValues) -> Toolchain)?
     let now: @Sendable () -> Date
     var updateTask: Task<Void, Never>?
@@ -169,6 +182,13 @@ public final class AppState {
         updateRuntimeOffers()
         if let previous, previous.disabledRuntimeChecks != newSettings.disabledRuntimeChecks {
             startRuntimeReleaseCheck(force: false)
+        }
+        if let previous, previous.standardPackages != newSettings.standardPackages, !isApplyingSyncedLists {
+            listEditRevision += 1
+            scheduleSyncPush()
+        }
+        if previous?.syncStandardPackagesAutomatically == false, newSettings.syncStandardPackagesAutomatically {
+            requestAutomaticSync()
         }
 
         if scheduleTask != nil, previous?.checkInterval != newSettings.checkInterval {
@@ -375,6 +395,7 @@ public final class AppState {
             var isFirstRound = true
             while !Task.isCancelled {
                 guard let self else { return }
+                self.requestAutomaticSync()
                 if checkNow || !isFirstRound {
                     await self.refresh(.check, trigger: .automatic)
                 }
@@ -386,6 +407,7 @@ public final class AppState {
     }
 
     public func checkAfterWake() {
+        requestAutomaticSync()
         startRefresh(.check, trigger: .automatic)
     }
 

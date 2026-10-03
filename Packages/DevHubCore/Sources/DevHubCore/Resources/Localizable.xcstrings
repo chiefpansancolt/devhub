@@ -1293,6 +1293,58 @@
         }
       }
     },
+    "Could not reach GitHub.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub ist nicht erreichbar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo conectar con GitHub."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de joindre GitHub."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubに接続できませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에 연결할 수 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível acessar o GitHub."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось связаться с GitHub."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法连接到 GitHub。"
+          }
+        }
+      }
+    },
     "Could not read the output of %@: %@": {
       "localizations": {
         "de": {
@@ -1461,6 +1513,58 @@
         }
       }
     },
+    "DevHub could not use the keychain: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub konnte den Schlüsselbund nicht verwenden: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub no pudo usar el llavero: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub n’a pas pu utiliser le trousseau : %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHubはキーチェーンを使用できませんでした: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub에서 키체인을 사용할 수 없었습니다: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O DevHub não conseguiu usar o chaveiro: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub не смог использовать связку ключей: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 无法使用钥匙串：%@"
+          }
+        }
+      }
+    },
     "DevHub has no way to install this package.": {
       "localizations": {
         "de": {
@@ -1617,6 +1721,58 @@
         }
       }
     },
+    "Device sign-in is turned off for the DevHub app on GitHub.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Geräteanmeldung ist für die DevHub-App auf GitHub ausgeschaltet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El inicio de sesión de dispositivo está desactivado para la app DevHub en GitHub."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La connexion par appareil est désactivée pour l’app DevHub sur GitHub."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub上のDevHubアプリでは、デバイスでのサインインが無効になっています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub의 DevHub 앱에서 기기 로그인이 꺼져 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O login por dispositivo está desativado para o app DevHub no GitHub."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход с устройства отключён для приложения DevHub на GitHub."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 上的 DevHub 应用已关闭设备登录。"
+          }
+        }
+      }
+    },
     "Every Node version is turned off in Settings.": {
       "localizations": {
         "de": {
@@ -1769,6 +1925,318 @@
           "stringUnit": {
             "state": "translated",
             "value": "设置中已关闭所有 Ruby 版本。"
+          }
+        }
+      }
+    },
+    "GitHub answered with an error (%lld).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub hat mit einem Fehler geantwortet (%lld)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub respondió con un error (%lld)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub a répondu par une erreur (%lld)."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubがエラー(%lld)を返しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에서 오류(%lld)로 응답했습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O GitHub respondeu com um erro (%lld)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub ответил ошибкой (%lld)."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 返回了错误（%lld）。"
+          }
+        }
+      }
+    },
+    "GitHub has not finished creating the repository. DevHub tries again at the next sync.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub hat das Repository noch nicht fertig angelegt. DevHub versucht es bei der nächsten Synchronisierung erneut."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub aún no terminó de crear el repositorio. DevHub lo intentará de nuevo en la próxima sincronización."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub n’a pas fini de créer le dépôt. DevHub réessaiera à la prochaine synchronisation."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubがまだリポジトリの作成を完了していません。次回の同期でDevHubが再試行します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에서 저장소 생성이 아직 끝나지 않았습니다. 다음 동기화 때 DevHub가 다시 시도합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O GitHub ainda não terminou de criar o repositório. O DevHub tenta novamente na próxima sincronização."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub ещё не закончил создание репозитория. DevHub повторит попытку при следующей синхронизации."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 尚未完成仓库的创建。DevHub 将在下次同步时重试。"
+          }
+        }
+      }
+    },
+    "GitHub no longer accepts this sign-in. Connect again to keep syncing.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub akzeptiert diese Anmeldung nicht mehr. Verbinde dich erneut, um weiter zu synchronisieren."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub ya no acepta este inicio de sesión. Conéctate de nuevo para seguir sincronizando."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub n’accepte plus cette connexion. Reconnectez-vous pour continuer la synchronisation."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubはこのサインインを受け付けなくなりました。同期を続けるには、もう一度接続してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에서 더 이상 이 로그인을 허용하지 않습니다. 계속 동기화하려면 다시 연결하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O GitHub não aceita mais este login. Conecte novamente para continuar sincronizando."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub больше не принимает этот вход. Подключитесь снова, чтобы продолжить синхронизацию."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 不再接受此登录。请重新连接以继续同步。"
+          }
+        }
+      }
+    },
+    "GitHub refused the request: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub hat die Anfrage abgelehnt: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub rechazó la solicitud: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub a refusé la requête : %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubがリクエストを拒否しました: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에서 요청을 거부했습니다: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O GitHub recusou a solicitação: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub отклонил запрос: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 拒绝了请求：%@"
+          }
+        }
+      }
+    },
+    "GitHub sent an answer that DevHub could not read.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub hat eine Antwort gesendet, die DevHub nicht lesen konnte."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub envió una respuesta que DevHub no pudo leer."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub a envoyé une réponse que DevHub n’a pas pu lire."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubからの応答をDevHubは読み取れませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub의 응답을 DevHub가 읽을 수 없었습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O GitHub enviou uma resposta que o DevHub não conseguiu ler."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub прислал ответ, который DevHub не смог прочитать."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DevHub 无法读取 GitHub 发来的响应。"
+          }
+        }
+      }
+    },
+    "GitHub sync: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub-Synchronisierung: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronización con GitHub: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisation GitHub : %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub同期: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 동기화: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronização com o GitHub: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронизация с GitHub: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 同步：%@"
           }
         }
       }
@@ -2507,6 +2975,58 @@
         }
       }
     },
+    "The code expired. Start again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Code ist abgelaufen. Starte neu."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El código caducó. Empieza de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le code a expiré. Recommencez."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コードの有効期限が切れました。最初からやり直してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "코드가 만료되었습니다. 처음부터 다시 시작하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O código expirou. Comece novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок действия кода истёк. Начните заново."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代码已过期。请重新开始。"
+          }
+        }
+      }
+    },
     "The command exited with code %d.": {
       "localizations": {
         "de": {
@@ -2559,6 +3079,214 @@
         }
       }
     },
+    "The file changed on GitHub during the sync.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei hat sich während der Synchronisierung auf GitHub geändert."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo cambió en GitHub durante la sincronización."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier a changé sur GitHub pendant la synchronisation."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "同期中にGitHub上のファイルが変更されました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화하는 동안 GitHub의 파일이 변경되었습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo mudou no GitHub durante a sincronização."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл на GitHub изменился во время синхронизации."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "同步期间 GitHub 上的文件发生了变化。"
+          }
+        }
+      }
+    },
+    "The file in the repository could not be read. Nothing was uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei im Repository konnte nicht gelesen werden. Es wurde nichts hochgeladen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer el archivo del repositorio. No se subió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier du dépôt n’a pas pu être lu. Rien n’a été envoyé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リポジトリ内のファイルを読み取れませんでした。何もアップロードされていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장소의 파일을 읽을 수 없습니다. 아무것도 업로드되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o arquivo no repositório. Nada foi enviado."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать файл в репозитории. Ничего не было загружено."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法读取仓库中的文件。没有上传任何内容。"
+          }
+        }
+      }
+    },
+    "The file in the repository is not a DevHub standard packages file. Nothing was uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei im Repository ist keine DevHub-Standardpaketdatei. Es wurde nichts hochgeladen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo del repositorio no es un archivo de paquetes estándar de DevHub. No se subió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier du dépôt n’est pas un fichier de paquets standard DevHub. Rien n’a été envoyé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リポジトリ内のファイルはDevHubの標準パッケージファイルではありません。何もアップロードされていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장소의 파일은 DevHub 표준 패키지 파일이 아닙니다. 아무것도 업로드되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo no repositório não é um arquivo de pacotes padrão do DevHub. Nada foi enviado."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл в репозитории не является файлом стандартных пакетов DevHub. Ничего не было загружено."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仓库中的文件不是 DevHub 标准软件包文件。没有上传任何内容。"
+          }
+        }
+      }
+    },
+    "The file in the repository is too large to read. Nothing was uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei im Repository ist zu groß zum Lesen. Es wurde nichts hochgeladen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo del repositorio es demasiado grande para leerlo. No se subió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier du dépôt est trop volumineux pour être lu. Rien n’a été envoyé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リポジトリ内のファイルは大きすぎて読み取れません。何もアップロードされていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장소의 파일이 너무 커서 읽을 수 없습니다. 아무것도 업로드되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo no repositório é grande demais para ser lido. Nada foi enviado."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл в репозитории слишком велик для чтения. Ничего не было загружено."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仓库中的文件太大，无法读取。没有上传任何内容。"
+          }
+        }
+      }
+    },
     "The file is not valid JSON.": {
       "localizations": {
         "de": {
@@ -2607,6 +3335,110 @@
           "stringUnit": {
             "state": "translated",
             "value": "文件不是有效的 JSON。"
+          }
+        }
+      }
+    },
+    "The file kept changing on GitHub. DevHub tries again at the next sync.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei hat sich auf GitHub immer wieder geändert. DevHub versucht es bei der nächsten Synchronisierung erneut."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo seguía cambiando en GitHub. DevHub lo intentará de nuevo en la próxima sincronización."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier n’a pas cessé de changer sur GitHub. DevHub réessaiera à la prochaine synchronisation."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub上のファイルが変更され続けました。次回の同期でDevHubが再試行します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub의 파일이 계속 변경되었습니다. 다음 동기화 때 DevHub가 다시 시도합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo continuou mudando no GitHub. O DevHub tenta novamente na próxima sincronização."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл на GitHub постоянно менялся. DevHub повторит попытку при следующей синхронизации."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 上的文件一直在变化。DevHub 将在下次同步时重试。"
+          }
+        }
+      }
+    },
+    "The file on GitHub was written by a newer version of DevHub. Update DevHub to sync again. Nothing was uploaded.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei auf GitHub wurde von einer neueren DevHub-Version geschrieben. Aktualisiere DevHub, um wieder zu synchronisieren. Es wurde nichts hochgeladen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo de GitHub lo escribió una versión más reciente de DevHub. Actualiza DevHub para volver a sincronizar. No se subió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier sur GitHub a été écrit par une version plus récente de DevHub. Mettez DevHub à jour pour synchroniser de nouveau. Rien n’a été envoyé."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub上のファイルは新しいバージョンのDevHubで作成されました。再び同期するにはDevHubをアップデートしてください。何もアップロードされていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub의 파일은 더 새로운 DevHub 버전에서 작성되었습니다. 다시 동기화하려면 DevHub를 업데이트하세요. 아무것도 업로드되지 않았습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo no GitHub foi criado por uma versão mais recente do DevHub. Atualize o DevHub para sincronizar novamente. Nada foi enviado."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл на GitHub создан более новой версией DevHub. Обновите DevHub, чтобы снова синхронизировать. Ничего не было загружено."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub 上的文件由较新版本的 DevHub 写入。请更新 DevHub 后再同步。没有上传任何内容。"
           }
         }
       }
@@ -2763,6 +3595,58 @@
           "stringUnit": {
             "state": "translated",
             "value": "检查已取消"
+          }
+        }
+      }
+    },
+    "The sign-in was cancelled on GitHub.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anmeldung wurde auf GitHub abgebrochen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El inicio de sesión se canceló en GitHub."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La connexion a été annulée sur GitHub."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHubでサインインがキャンセルされました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub에서 로그인이 취소되었습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O login foi cancelado no GitHub."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вход был отменён на GitHub."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已在 GitHub 上取消登录。"
           }
         }
       }

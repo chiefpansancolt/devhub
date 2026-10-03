@@ -392,7 +392,7 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         try await Task.sleep(for: .milliseconds(20))
 
         state.apply(settings(brewPath: "/second/bin/brew"))
-        try await Task.sleep(for: .milliseconds(300))
+        await waitUntil { (state.lastChecked ?? before) > before }
 
         #expect(try #require(state.lastChecked) > before)
     }
@@ -426,6 +426,7 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         let (state, machine) = state(interval: nil)
 
         state.startScheduledChecks()
+        await waitUntil { machine.scanReasons == [.check] }
         try await Task.sleep(for: .milliseconds(300))
 
         #expect(machine.scanReasons == [.check])
@@ -447,7 +448,7 @@ private func makeScript(_ home: TemporaryHome, _ path: String, body: String) thr
         let (state, _) = state()
 
         state.checkAfterWake()
-        try await Task.sleep(for: .milliseconds(300))
+        await waitUntil { !state.history.entries.isEmpty }
 
         #expect(state.history.entries.first?.trigger == .automatic)
     }

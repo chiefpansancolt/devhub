@@ -51,6 +51,11 @@ public struct StandardPackageLists: Codable, Equatable, Sendable {
         entriesByTool.values.allSatisfy(\.isEmpty)
     }
 
+    /// A tool with an empty list and a tool without an entry are the same, because the file format leaves empty lists out.
+    public static func == (left: StandardPackageLists, right: StandardPackageLists) -> Bool {
+        left.entriesByTool.filter { !$0.value.isEmpty } == right.entriesByTool.filter { !$0.value.isEmpty }
+    }
+
     public mutating func set(_ entries: [StandardEntry], for bucket: Bucket) {
         entriesByTool[bucket.rawValue] = Self.normalized(entries, for: bucket)
     }
