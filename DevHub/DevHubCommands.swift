@@ -37,7 +37,7 @@ struct DevHubCommands: Commands {
                 Button("About DevHub") { AboutPanel.show() }
             }
             CommandGroup(after: .appSettings) {
-                Button("Standard Packages…") { showStandardPackages() }
+                Button("Standard Packages") { showStandardPackages() }
                     .disabled(state.enabledBuckets.isEmpty)
             }
         }
@@ -74,9 +74,9 @@ struct DevHubCommands: Commands {
                 .keyboardShortcut("u", modifiers: [.command, .option])
                 .disabled(checkedPackages.isEmpty || state.isBusy)
             Divider()
-            Button("Export Standard Packages…") { show(.exportLists) }
+            Button("Export Standard Packages") { show(.exportLists) }
                 .disabled(settings.values.standardPackages.isEmpty)
-            Button("Import Standard Packages…") { importStandardPackages() }
+            Button("Import Standard Packages") { importStandardPackages() }
         }
     }
 

@@ -6530,54 +6530,54 @@
         }
       }
     },
-    "Export Standard Packages…": {
+    "Export Standard Packages": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Standardpakete exportieren …"
+            "value": "Standardpakete exportieren"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Exportar paquetes estándar…"
+            "value": "Exportar paquetes estándar"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Exporter les paquets standard…"
+            "value": "Exporter les paquets standard"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "標準パッケージを書き出す…"
+            "value": "標準パッケージを書き出す"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "표준 패키지 내보내기…"
+            "value": "표준 패키지 내보내기"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Exportar pacotes padrão…"
+            "value": "Exportar pacotes padrão"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспортировать стандартные пакеты…"
+            "value": "Экспортировать стандартные пакеты"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "导出标准软件包…"
+            "value": "导出标准软件包"
           }
         }
       }
@@ -7992,54 +7992,54 @@
         }
       }
     },
-    "Import Standard Packages…": {
+    "Import Standard Packages": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Standardpakete importieren …"
+            "value": "Standardpakete importieren"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importar paquetes estándar…"
+            "value": "Importar paquetes estándar"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importer les paquets standard…"
+            "value": "Importer les paquets standard"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "標準パッケージを読み込む…"
+            "value": "標準パッケージを読み込む"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "표준 패키지 가져오기…"
+            "value": "표준 패키지 가져오기"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importar pacotes padrão…"
+            "value": "Importar pacotes padrão"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Импортировать стандартные пакеты…"
+            "value": "Импортировать стандартные пакеты"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "导入标准软件包…"
+            "value": "导入标准软件包"
           }
         }
       }
@@ -16648,54 +16648,54 @@
         }
       }
     },
-    "Standard Packages…": {
+    "Standard Packages": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Standardpakete …"
+            "value": "Standardpakete"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Paquetes estándar…"
+            "value": "Paquetes estándar"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Paquets standard…"
+            "value": "Paquets standard"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "標準パッケージ…"
+            "value": "標準パッケージ"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "표준 패키지…"
+            "value": "표준 패키지"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pacotes padrão…"
+            "value": "Pacotes padrão"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стандартные пакеты…"
+            "value": "Стандартные пакеты"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "标准软件包…"
+            "value": "标准软件包"
           }
         }
       }
