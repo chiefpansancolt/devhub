@@ -95,6 +95,11 @@ extension AppState {
 
     // MARK: Offers
 
+    /// The offers that belong on a page: those of its tool, and on a version's page only the offer for that version.
+    public func standardOffers(in scope: PackageScope) -> [StandardOffer] {
+        standardOffers.filter { $0.bucket == scope.bucket && (scope.group == nil || scope.group == $0.version) }
+    }
+
     public func dismissStandardOffer(_ offer: StandardOffer) {
         versionLedger?.dismiss(offer.id)
         updateStandardOffers()

@@ -22,7 +22,7 @@ struct PackageBrowserView: View {
             Divider()
             RuntimeUninstallFailureBanner()
             RuntimeUpdateBanners(bucket: ui.scope.bucket)
-            StandardPackagesBanners()
+            StandardPackagesBanners(scope: ui.scope)
             modeBar
             Divider()
             content

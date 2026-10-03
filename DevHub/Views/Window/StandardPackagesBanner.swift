@@ -3,11 +3,13 @@ import SwiftUI
 
 struct StandardPackagesBanners: View {
     @Environment(AppState.self) private var state
+    let scope: PackageScope
 
     var body: some View {
-        if !state.isBusy, !state.standardOffers.isEmpty {
+        let offers = state.standardOffers(in: scope)
+        if !state.isBusy, !offers.isEmpty {
             VStack(spacing: 8) {
-                ForEach(state.standardOffers) { offer in
+                ForEach(offers) { offer in
                     StandardPackagesBanner(offer: offer)
                 }
             }
