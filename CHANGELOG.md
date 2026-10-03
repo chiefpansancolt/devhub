@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-03
+
 ### Features
 
 - Rust support: rustup toolchains and rustup itself, plus the tools installed with `cargo install`, checked against crates.io, with a Rust tab in Settings
