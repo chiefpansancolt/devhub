@@ -307,7 +307,7 @@ private func ruby(_ version: String, _ manager: RuntimeManager = .rbenv) -> Runt
     }
 
     @Test func eachManagerRemovesTheVersionWithItsOwnCommand() {
-        #expect(script(.node, .nvm) == ". \"$NVM_DIR/nvm.sh\" --no-use && nvm uninstall 24.20.0")
+        #expect(script(.node, .nvm) == ". \"$NVM_DIR/nvm.sh\" --no-use && was_default=$(nvm version default 2>/dev/null || true) && nvm uninstall 24.20.0 && { [ \"$was_default\" != \"v24.20.0\" ] || nvm unalias default; }")
         #expect(script(.node, .fnm) == "fnm uninstall 24.20.0")
         #expect(script(.node, .asdf) == "asdf uninstall nodejs 24.20.0")
         #expect(script(.ruby, .rbenv, "3.4.1") == "rbenv uninstall -f 3.4.1")

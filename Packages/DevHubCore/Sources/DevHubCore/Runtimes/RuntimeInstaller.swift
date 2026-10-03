@@ -44,7 +44,9 @@ public struct RuntimeInstaller: Sendable {
     private func uninstallScript(manager: RuntimeManager, bucket: Bucket, version: String) -> String? {
         switch (bucket, manager) {
         // Without --no-use, nvm.sh activates the default version when it loads, and nvm refuses to uninstall the active version.
-        case (.node, .nvm): ". \"$NVM_DIR/nvm.sh\" --no-use && nvm uninstall \(version)"
+        // nvm keeps the default alias after it removes the version, so the script removes the alias when it pointed at that version.
+        case (.node, .nvm):
+            ". \"$NVM_DIR/nvm.sh\" --no-use && was_default=$(nvm version default 2>/dev/null || true) && nvm uninstall \(version) && { [ \"$was_default\" != \"v\(version)\" ] || nvm unalias default; }"
         case (.node, .fnm): "fnm uninstall \(version)"
         case (.node, .asdf): "asdf uninstall nodejs \(version)"
         case (.ruby, .rbenv): "rbenv uninstall -f \(version)"

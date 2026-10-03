@@ -357,7 +357,7 @@ private final class Machine: @unchecked Sendable {
         await state.uninstallRuntime(nvmVersion("22.23.1"))
 
         let command = try #require(runner.commands.first { $0.executable.path == "/bin/bash" })
-        #expect(command.arguments.last == ". \"$NVM_DIR/nvm.sh\" --no-use && nvm uninstall 22.23.1")
+        #expect(command.arguments.last == ". \"$NVM_DIR/nvm.sh\" --no-use && was_default=$(nvm version default 2>/dev/null || true) && nvm uninstall 22.23.1 && { [ \"$was_default\" != \"v22.23.1\" ] || nvm unalias default; }")
         #expect(!state.groupScopes(of: .node).contains { $0.group == "22.23.1" })
         #expect(state.installedRuntimeCount(of: .node) == 1)
         #expect(state.runtimeUninstallFailure == nil)

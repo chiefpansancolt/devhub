@@ -10,7 +10,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Features
 
 - A banner offers a newer Node or Ruby version that is not installed, when nvm, fnm, Volta or asdf (Node) or rbenv, rvm or asdf (Ruby) owns your versions. A newer patch of an installed line counts. Each banner has an Install button and an Install and set as default button, which run the manager's own commands
-- A Node or Ruby version can be uninstalled through its manager (nvm, fnm, asdf, rbenv or rvm) with a trash button in the version's header or a right-click menu in the sidebar. DevHub always asks first, warns when it is the only version, and shows the reason when the manager refuses
+- A Node or Ruby version can be uninstalled through its manager (nvm, fnm, asdf, rbenv or rvm) with a trash button in the version's header or a right-click menu in the sidebar. DevHub always asks first, warns when it is the only version, removes the nvm default alias when it pointed at the removed version, and shows the reason when the manager refuses
 - DevHub downloads the public release lists from nodejs.org and ruby-lang.org once a day for this. A "Check for new versions" switch in the Node and Ruby tabs of Settings turns it off
 - Rust support: rustup toolchains and rustup itself, plus the tools installed with `cargo install`, each checked against the newest version on crates.io
 - A Rust tab in Settings to choose the rustup program and to leave Cargo tools out
