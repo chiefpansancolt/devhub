@@ -43,6 +43,11 @@ private final class TaskBox: @unchecked Sendable {
 }
 
 @MainActor
+private final class ValuesBox {
+    var values = SettingsValues()
+}
+
+@MainActor
 private final class Rig {
     let github: FakeGitHub
     let tokens: FakeTokenStore
@@ -51,8 +56,13 @@ private final class Rig {
     let pollGate = Gate(open: true)
     let pushWaits = WaitCounts()
     let suite: UserDefaults
-    var values: SettingsValues
+    let box = ValuesBox()
     var state: AppState!
+
+    var values: SettingsValues {
+        get { box.values }
+        set { box.values = newValue }
+    }
 
     init(
         github: FakeGitHub = FakeGitHub(),
@@ -70,9 +80,8 @@ private final class Rig {
         defaults.removePersistentDomain(forName: name)
         self.suite = defaults
         ledger = SyncLedger(defaults: defaults)
-        values = SettingsValues()
-        values.standardPackages = local
-        values.syncStandardPackagesAutomatically = automatic
+        box.values.standardPackages = local
+        box.values.syncStandardPackagesAutomatically = automatic
         if connected { ledger.connect(login: "octo") }
         state = AppState(
             scanners: [:], runner: FakeRunner { _ in CommandResult(exitCode: 0, standardOutput: "", standardError: "") }, history: HistoryStore(),
@@ -100,9 +109,10 @@ private final class Rig {
             },
             pushDelay: pushDelay
         )
-        state.configureSync(services, lists: { [unowned self] in self.values.standardPackages }, apply: { [unowned self] merged in
-            self.values.standardPackages = merged
-            self.state.apply(self.values)
+        let box = box
+        state.configureSync(services, lists: { box.values.standardPackages }, apply: { [weak state] merged in
+            box.values.standardPackages = merged
+            state?.apply(box.values)
         })
     }
 
